@@ -1,0 +1,150 @@
+{
+  "profile_owner": "Thomas Simon",
+  "contact": {
+    "email": "simon_thomas@outlook.fr",
+    "website": "https://tsimon.me",
+    "dashboard_url": "https://pi.tsimon.me",
+    "location": "La Paz, Bolivia (UTC-4)",
+    "availability": "Remote · Contract · Fractional (20 hrs/wk, ~80 hrs/mo) · Async AI Evaluation"
+  },
+  "distribution": {
+    "public_url": "https://pi.tsimon.me",
+    "tunnel_provider": "cloudflared",
+    "web_server": "nginx",
+    "nginx_web_root": "/var/www/html",
+    "entrypoint_html": "index.html",
+    "cron_schedule": "0 * * * *"
+  },
+  "compensation_targets": {
+    "min_hourly_usd": 25,
+    "target_hourly_usd": 35,
+    "preferred_hours_per_week": 20,
+    "max_hours_per_month": 80
+  },
+  "languages": {
+    "French": "Native / Bilingual",
+    "English": "Fluent / Bilingual Enterprise Technical",
+    "Spanish": "Intermediate-Advanced (Andean Bolivia context, active lessons)"
+  },
+  "verified_experience_metrics": {
+    "total_it_years": 13,
+    "linux_debian_start_year": 2005,
+    "noc_csm_years": 6.5,
+    "managed_client_environments": "40+ to 100+ MSP client environments",
+    "managed_endpoints": "1,500+ to 3,500+ endpoints",
+    "key_quantified_achievement": "Reduced recurring incidents by 30% through proactive RMM/monitoring automation, alerting standardization, and runbook/SOP engineering."
+  },
+  "technical_skills_matrix": {
+    "strong_core": [
+      "Microsoft 365 Administration",
+      "Microsoft Azure (AZ-104 track)",
+      "Entra ID / Active Directory",
+      "Liongard",
+      "NinjaOne",
+      "Kaseya",
+      "Backup Radar",
+      "Autotask PSA",
+      "IT Glue",
+      "ScalePad",
+      "Gradient",
+      "BCDR (Datto, Veeam, Acronis)",
+      "GNU/Linux Debian",
+      "VMware / Hyper-V",
+      "SOP & Technical Documentation",
+      "NOC & Centralized Services Management (CSM)",
+      "Systems Auditing & Root-Cause Logic"
+    ],
+    "developing_active": [
+      "PowerShell Automation",
+      "Power Automate",
+      "Microsoft Graph API",
+      "Microsoft Intune",
+      "Conditional Access & Zero Trust",
+      "Docker & Containerization",
+      "CI/CD Pipelines"
+    ],
+    "learning_roadmap": [
+      "Python (Core, OOP, APIs, File Processing - Phase 1)",
+      "SQL (CTEs, Window Functions - Phase 2)",
+      "Pandas & NumPy (MSP Ticket & Alert Telemetry - Phase 3)",
+      "Looker Studio & Power BI (Phase 4)",
+      "PostgreSQL, Airflow, dbt (Phase 5)",
+      "RAG, LangChain, ChromaDB, Ollama (Phases 6-7)"
+    ]
+  },
+  "scoring_weights": {
+    "technical_domain_fit": 35,
+    "burnout_autonomy_safety": 25,
+    "bolivia_timezone_language_fit": 20,
+    "contract_rate_structure": 20
+  },
+  "scoring_signals": {
+    "high_value_tech_keywords": {
+      "liongard": 10,
+      "it glue": 10,
+      "itglue": 10,
+      "autotask": 9,
+      "ninjaone": 9,
+      "kaseya": 8,
+      "centralized services": 10,
+      "entra": 9,
+      "microsoft 365": 8,
+      "m365": 8,
+      "azure": 8,
+      "intune": 8,
+      "powershell": 8,
+      "power automate": 8,
+      "graph api": 8,
+      "bcdr": 8,
+      "datto": 8,
+      "veeam": 7,
+      "backup radar": 9,
+      "sop": 7,
+      "documentation": 7,
+      "ai trainer": 9,
+      "rlhf": 9,
+      "evaluator": 9,
+      "annotator": 8,
+      "spanish": 8,
+      "french": 8,
+      "python": 6,
+      "linux": 7,
+      "debian": 7
+    },
+    "burnout_safety_positive": {
+      "async": 10,
+      "asynchronous": 10,
+      "flexible hours": 8,
+      "part-time": 9,
+      "part time": 9,
+      "fractional": 10,
+      "20 hours": 10,
+      "contract": 8,
+      "freelance": 8,
+      "consultant": 8,
+      "documentation": 7,
+      "automation": 7,
+      "audit": 7,
+      "self-paced": 10
+    },
+    "burnout_red_flags": {
+      "on-call": -25,
+      "24/7": -25,
+      "pager": -25,
+      "tier 1": -30,
+      "helpdesk": -20,
+      "inbound calls": -30,
+      "phone support": -25,
+      "time tracker screenshot": -20,
+      "micromanage": -25,
+      "fast-paced high-pressure": -15,
+      "full-time W2 only": -20
+    },
+    "agency_specific_rules": {
+      "distantjob": {
+        "modifier": -15,
+        "warning": "DistantJob places full-time embedded remote employees (40 hrs/wk), not part-time freelancers. Only pursue if shifting to full-time."
+      }
+    }
+  }
+}

@@ -1,0 +1,308 @@
+{
+  "version": "1.1.0",
+  "last_updated": "2026-10-29",
+  "timezone": "America/La_Paz",
+  "distribution": {
+    "public_url": "https://pi.tsimon.me",
+    "tunnel": "cloudflared",
+    "web_server": "nginx",
+    "nginx_html_dir": "/var/www/html",
+    "single_page_output": "index.html",
+    "schedule": "hourly (0 * * * *)"
+  },
+  "global_parameters": {
+    "target_roles": [
+      "Senior Systems Engineer",
+      "Cloud Systems Engineer",
+      "Microsoft 365 Engineer",
+      "Entra ID / Identity Consultant",
+      "MSP Automation Consultant",
+      "Centralized Services Manager",
+      "NOC Automation Engineer",
+      "Technical Documentation Specialist",
+      "AI Logic Evaluator",
+      "AI Trainer / RLHF Specialist",
+      "Technical Writer (Infrastructure / Cloud)",
+      "Backup / BCDR Engineer"
+    ],
+    "must_match_any_keyword": [
+      "azure",
+      "m365",
+      "microsoft 365",
+      "office 365",
+      "entra",
+      "intune",
+      "active directory",
+      "powershell",
+      "power automate",
+      "graph api",
+      "msp",
+      "autotask",
+      "it glue",
+      "itglue",
+      "liongard",
+      "ninjaone",
+      "kaseya",
+      "datto",
+      "veeam",
+      "acronis",
+      "noc",
+      "centralized services",
+      "sysops",
+      "devops",
+      "linux",
+      "debian",
+      "vmware",
+      "hyper-v",
+      "backup",
+      "disaster recovery",
+      "bcdr",
+      "documentation",
+      "sop",
+      "ai trainer",
+      "ai evaluator",
+      "rlhf",
+      "llm",
+      "prompt",
+      "spanish",
+      "french",
+      "bilingual",
+      "trilingual",
+      "python",
+      "pandas",
+      "automation"
+    ],
+    "hard_exclude_keywords": [
+      "tier 1 helpdesk",
+      "level 1 helpdesk",
+      "inbound call center",
+      "cold calling",
+      "24/7 on-call",
+      "pager duty",
+      "unpaid trial",
+      "us citizens only",
+      "security clearance required",
+      "ts/sci",
+      "onsite only",
+      "hybrid only",
+      "react native",
+      "ios developer",
+      "android developer"
+    ],
+    "location_whitelist": [
+      "remote",
+      "worldwide",
+      "global",
+      "anywhere",
+      "latam",
+      "latin america",
+      "south america",
+      "bolivia",
+      "americas",
+      "utc-4",
+      "est",
+      "edt",
+      "flexible"
+    ],
+    "location_blacklist": [
+      "us only",
+      "united states only",
+      "uk only",
+      "eu only",
+      "australia only",
+      "canada only"
+    ]
+  },
+  "platforms": [
+    {
+      "id": "working_nomads_api",
+      "name": "Working Nomads Public API",
+      "enabled": true,
+      "connector_type": "json_api",
+      "track": "Track C: Curated Remote Boards",
+      "url": "https://www.workingnomads.com/api/exposed_jobs/",
+      "field_mapping": {
+        "title": "title",
+        "company": "company_name",
+        "description": "description",
+        "url": "url",
+        "location": "location",
+        "tags": "tags",
+        "date": "pub_date"
+      },
+      "custom_filters": {
+        "categories": [
+          "System Administration",
+          "DevOps / Sysadmin",
+          "Development",
+          "Consulting"
+        ]
+      }
+    },
+    {
+      "id": "remotive_api",
+      "name": "Remotive Remote Jobs API",
+      "enabled": true,
+      "connector_type": "json_api",
+      "track": "Track C: Curated Remote Boards",
+      "url": "https://remotive.com/api/remote-jobs?category=devops",
+      "json_root_key": "jobs",
+      "field_mapping": {
+        "title": "title",
+        "company": "company_name",
+        "description": "description",
+        "url": "url",
+        "location": "candidate_required_location",
+        "tags": "tags",
+        "date": "publication_date",
+        "job_type": "job_type",
+        "salary": "salary"
+      }
+    },
+    {
+      "id": "jobicy_sysadmin_api",
+      "name": "Jobicy Remote SysAdmin & DevOps API",
+      "enabled": true,
+      "connector_type": "json_api",
+      "track": "Track C: Curated Remote Boards",
+      "url": "https://jobicy.com/api/v2/remote-jobs?count=50&tag=sysadmin",
+      "json_root_key": "jobs",
+      "field_mapping": {
+        "title": "jobTitle",
+        "company": "companyName",
+        "description": "jobDescription",
+        "url": "url",
+        "location": "jobGeo",
+        "tags": "jobIndustry",
+        "date": "pubDate",
+        "job_type": "jobType"
+      }
+    },
+    {
+      "id": "remoteok_api",
+      "name": "RemoteOK JSON Feed",
+      "enabled": true,
+      "connector_type": "json_api",
+      "track": "Track C: Curated Remote Boards",
+      "url": "https://remoteok.com/api?tags=sysadmin,devops,cloud,microsoft,security,python",
+      "skip_first_element": true,
+      "field_mapping": {
+        "title": "position",
+        "company": "company",
+        "description": "description",
+        "url": "url",
+        "location": "location",
+        "tags": "tags",
+        "date": "date"
+      }
+    },
+    {
+      "id": "wwr_devops_sysadmin_rss",
+      "name": "We Work Remotely - DevOps & Sysadmin RSS",
+      "enabled": true,
+      "connector_type": "rss_feed",
+      "track": "Track C: Curated Remote Boards",
+      "url": "https://weworkremotely.com/categories/remote-devops-sysadmin-jobs.rss"
+    },
+    {
+      "id": "nonlinear_project_board",
+      "name": "The Nonlinear Project Remote Board",
+      "enabled": true,
+      "connector_type": "html_board",
+      "track": "Track C: Curated Remote Boards",
+      "url": "https://jobs.nonlinearproject.com/",
+      "notes": "Extracts async and remote-first roles from Nonlinear Project companies"
+    },
+    {
+      "id": "ai_eval_outlier_bolivia",
+      "name": "Outlier AI Portal (Andean Spanish & Tech Writer)",
+      "enabled": true,
+      "connector_type": "portal_dork",
+      "track": "Track B: Async AI Evaluation & RLHF",
+      "url": "https://app.outlier.ai/en/expert/jobs",
+      "search_query": "site:outlier.ai (\"Spanish\" OR \"Andean\" OR \"Technical Writer\" OR \"Systems\" OR \"Linux\" OR \"Cloud\" OR \"Bolivia\")",
+      "target_positioning": "Bilingual Technical Evaluator & Andean Spanish Squad Reviewer"
+    },
+    {
+      "id": "ai_eval_innodata",
+      "name": "Innodata Careers (IT/Systems Auditing & Localization)",
+      "enabled": true,
+      "connector_type": "portal_dork",
+      "track": "Track B: Async AI Evaluation & RLHF",
+      "url": "https://www.innodata.com/careers/",
+      "search_query": "site:innodata.com (\"AI Trainer\" OR \"Annotator\" OR \"Spanish\" OR \"French\" OR \"Technical\" OR \"Remote\")",
+      "target_positioning": "AI Trainer (IT/Business Systems Logic & SOP Rewriting)"
+    },
+    {
+      "id": "ai_eval_multi_portals",
+      "name": "DataAnnotation / Alignerr / Mindrift / OneForma / Turing",
+      "enabled": true,
+      "connector_type": "portal_dork",
+      "track": "Track B: Async AI Evaluation & RLHF",
+      "url": "https://www.dataannotation.tech/",
+      "search_query": "(site:alignerr.com OR site:mindrift.ai OR site:oneforma.com OR site:turing.com) (\"AI Trainer\" OR \"Evaluator\" OR \"SysAdmin\" OR \"Cloud\" OR \"Spanish\" OR \"French\" OR \"Python\")",
+      "target_positioning": "Senior AI Logic Evaluator & Trilingual Technical Auditor"
+    },
+    {
+      "id": "freelance_toptal_intch_flexjobs",
+      "name": "Toptal / Intch / FlexJobs / Upwork High-Signal Filter",
+      "enabled": true,
+      "connector_type": "portal_dork",
+      "track": "Track A & C: Fractional Consulting",
+      "url": "https://www.toptal.com/",
+      "search_query": "(site:toptal.com OR site:flexjobs.com OR site:upwork.com/freelance-jobs) (\"Microsoft 365\" OR \"Entra ID\" OR \"IT Glue\" OR \"Liongard\" OR \"Autotask\" OR \"MSP\" OR \"Azure\")",
+      "target_positioning": "Fractional Centralized Services & Cloud Automation Consultant"
+    },
+    {
+      "id": "warm_network_crm",
+      "name": "Warm Leads & Direct Network Pipeline",
+      "enabled": true,
+      "connector_type": "warm_crm",
+      "track": "Track A: Warm Network & Direct Outreach",
+      "contacts": [
+        {
+          "name": "Mercedes",
+          "status": "Ready for narrative + profile update outreach",
+          "cadence_days": 14,
+          "last_contact": "2026-10-15",
+          "focus": "MSP / Cloud / Centralized Services"
+        },
+        {
+          "name": "Rayan",
+          "status": "Ready for narrative + profile update outreach",
+          "cadence_days": 14,
+          "last_contact": "2026-10-15",
+          "focus": "SysOps / DevOps / Infrastructure Automation"
+        },
+        {
+          "name": "Todd",
+          "status": "Ready for fractional MSP / Liongard / IT Glue pitch",
+          "cadence_days": 14,
+          "last_contact": "2026-10-14",
+          "focus": "MSP Centralized Services & 30% incident reduction"
+        },
+        {
+          "name": "Kevin",
+          "status": "Ready for M365 / Entra ID / NOC consulting check-in",
+          "cadence_days": 14,
+          "last_contact": "2026-10-14",
+          "focus": "Cloud & NOC Automation"
+        },
+        {
+          "name": "Liz",
+          "status": "Ready for Technical Product Owner / CSM / Documentation check-in",
+          "cadence_days": 14,
+          "last_contact": "2026-10-13",
+          "focus": "CSM / Documentation / Standard Operating Procedures"
+        },
+        {
+          "name": "John",
+          "status": "Ready for BCDR / Azure / MSP architecture check-in",
+          "cadence_days": 14,
+          "last_contact": "2026-10-13",
+          "focus": "Infrastructure & BCDR Consulting"
+        }
+      ]
+    }
+  ]
+}
