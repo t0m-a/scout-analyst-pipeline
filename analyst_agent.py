@@ -1,20 +1,24 @@
 #!/usr/bin/env python3
 """
-Agent 2: ANALYST — 100-Point Qualification, Burnout Guardrail & Trilingual Proposal Engine
-Author: Thomas Simon Career Automation Suite
-Location/Timezone: La Paz, Bolivia (UTC-4)
+ANALYST Agent v4.0.0 — 6-Track Qualification, Burnout Guardrail, Trilingual Proposal Engine & Nginx Publisher
+Author: Thomas Simon Career Ops (La Paz, Bolivia — UTC-4)
+Dependencies: Python 3.10+ Standard Library ONLY
 
-Reads queued leads from SQLite (career_ops.db), evaluates them against master_profile.json:
-- 35% Technical & Domain Fit (M365, Azure, Entra ID, Liongard, IT Glue, Autotask, AI Eval/RLHF)
-- 25% Burnout & Autonomy Safety (Rewards async/part-time; auto-SKIPs Tier 1/on-call/surveillance)
-- 20% Bolivia / Time-Zone (UTC-4) & Trilingual (EN/FR/ES) Advantage
-- 20% Contract & Compensation Fit ($25-$35+/hr, ~20 hrs/wk fractional or async eval)
+Evaluates every unscored row in `career_ops.db` using `master_profile.json` across 4 axes (0-100):
+  1. Technical & Domain Fit (Max 35 pts) — Rewards M365, Azure, Entra ID, Liongard, IT Glue, Autotask,
+     NinjaOne, Acronis, Huntress, Blackpoint, Linux/Debian, Python, Pandas, Ollama, RLHF, AI Evaluation.
+  2. Burnout & Autonomy Safety (Max 25 pts + Negation-Aware Hard Override) — Rewards async, fractional,
+     20h/wk, 4-day week, self-paced, and micro-advisory calls; overrides to SKIP on unnegated red flags.
+  3. Bolivia (UTC-4) & Trilingual Advantage (Max 20 pts) — Rewards LATAM/Americas/Worldwide eligibility,
+     W-8BEN contractor structures, and Native French (CNAM/Orange Telecom) + Spanish + English fluency.
+  4. Contract & Rate Structure (Max 20 pts) — Rewards fractional/async/advisory; applies -6 caveat
+     deduction on full-time-only placement agencies (DistantJob, WOW Remote Teams, BairesDev).
 
 Outputs:
-1. Updates SQLite database with scores, verdicts (APPLY / POSSIBLE / SKIP), and proposals.
-2. Generates morning_brief.md and proposals_ready.md locally.
-3. Generates a unified single-page index.html combining both reports and copies it to
-   Nginx's /var/www/html/index.html (served publicly via Cloudflared tunnel at https://pi.tsimon.me).
+  - `morning_brief.md`   : 08:45 AM 3-minute daily briefing grouped by Verdict & Strategic Track.
+  - `proposals_ready.md` : Ready-to-send English, French, and Spanish proposals + Executive Advisory Pitch.
+  - `index.html`         : Unified single-page interactive HTML5/CSS3/JS dashboard published to
+                           Nginx's `/var/www/html/index.html` (`Y:\\var\\www\\html\\index.html`) for https://pi.tsimon.me.
 """
 
 import argparse
@@ -25,15 +29,52 @@ import os
 import re
 import shutil
 import sqlite3
-from typing import Dict, Any, List, Tuple, Optional
+from pathlib import Path
+from typing import Dict, Any, List, Optional, Tuple
 
-PROFILE_FILE = "master_profile.json"
-DB_FILE = "career_ops.db"
-BRIEF_FILE = "morning_brief.md"
-PROPOSALS_FILE = "proposals_ready.md"
-INDEX_HTML_FILE = "index.html"
+BASE_DIR = Path(__file__).resolve().parent
+PROFILE_PATH = BASE_DIR / "master_profile.json"
+CONFIG_PATH = BASE_DIR / "platforms_config.json"
+DB_PATH = BASE_DIR / "career_ops.db"
+BRIEF_PATH = BASE_DIR / "morning_brief.md"
+PROPOSALS_PATH = BASE_DIR / "proposals_ready.md"
+INDEX_HTML_PATH = BASE_DIR / "index.html"
 PUBLIC_TUNNEL_URL = "https://pi.tsimon.me"
 DEFAULT_NGINX_DIR = "/var/www/html"
+
+REQUIRED_COLUMNS = {
+    "id": "INTEGER",
+    "job_hash": "TEXT",
+    "platform_id": "TEXT",
+    "platform_name": "TEXT",
+    "category": "TEXT",
+    "track": "TEXT",
+    "contract_caveat": "TEXT DEFAULT 'fractional_or_fulltime'",
+    "title": "TEXT",
+    "company": "TEXT",
+    "location": "TEXT",
+    "url": "TEXT",
+    "description": "TEXT",
+    "tags": "TEXT",
+    "published_at": "TEXT",
+    "published_date": "TEXT",
+    "discovered_at": "TEXT",
+    "status": "TEXT DEFAULT 'NEW'",
+    "verdict": "TEXT DEFAULT NULL",
+    "total_score": "INTEGER DEFAULT NULL",
+    "tech_score": "INTEGER DEFAULT NULL",
+    "safety_score": "INTEGER DEFAULT NULL",
+    "geo_lang_score": "INTEGER DEFAULT NULL",
+    "contract_score": "INTEGER DEFAULT NULL",
+    "matched_skills": "TEXT DEFAULT NULL",
+    "missing_gaps": "TEXT DEFAULT NULL",
+    "red_flags": "TEXT DEFAULT NULL",
+    "analyst_notes": "TEXT DEFAULT NULL",
+    "proposal_en": "TEXT DEFAULT NULL",
+    "proposal_fr": "TEXT DEFAULT NULL",
+    "proposal_es": "TEXT DEFAULT NULL",
+    "proposal_advisory": "TEXT DEFAULT NULL",
+}
 
 
 def resolve_nginx_web_dir(custom_dir: Optional[str] = None) -> Optional[str]:
@@ -42,230 +83,317 @@ def resolve_nginx_web_dir(custom_dir: Optional[str] = None) -> Optional[str]:
         candidates.append(custom_dir)
     if os.environ.get("NGINX_HTML_DIR"):
         candidates.append(os.environ["NGINX_HTML_DIR"])
-    candidates.extend([DEFAULT_NGINX_DIR, r"Z:\var\www\html", "/var/ww/html", r"Z:\var\ww\html"])
+    if os.name == "nt":
+        candidates.extend([
+            r"Y:\var\www\html",
+            r"\\pi\root\var\www\html",
+            str(BASE_DIR.parent.parent / "var" / "www" / "html"),
+            r"Z:\var\www\html",
+            DEFAULT_NGINX_DIR,
+        ])
+    else:
+        candidates.extend([
+            DEFAULT_NGINX_DIR,
+            str(BASE_DIR.parent.parent / "var" / "www" / "html"),
+            r"Y:\var\www\html",
+            r"Z:\var\www\html",
+        ])
     for path in candidates:
         if path and os.path.isdir(path):
-            return path
+            return os.path.normpath(path)
     return None
 
 
-def load_profile(path: str = PROFILE_FILE) -> Dict[str, Any]:
+def load_json(path: Path) -> dict:
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
-def evaluate_opportunity(row: Dict[str, Any], profile: Dict[str, Any]) -> Dict[str, Any]:
-    blob = f"{row['title']} {row['company']} {row['description']} {row['tags']}".lower()
-    loc_blob = f"{row['location']} {blob}".lower()
-    signals = profile.get("scoring_signals", {})
+def ensure_db_schema(conn: sqlite3.Connection) -> None:
+    existing_cols = {
+        r[1] for r in conn.execute("PRAGMA table_info(opportunities)").fetchall()
+    }
+    for col_name, col_def in REQUIRED_COLUMNS.items():
+        if col_name not in existing_cols and col_name != "id":
+            conn.execute(f"ALTER TABLE opportunities ADD COLUMN {col_name} {col_def}")
+    conn.commit()
 
-    matched_skills: List[str] = []
-    red_flags_hit: List[str] = []
-    notes: List[str] = []
 
+def evaluate_opportunity(row: Dict[str, Any], profile: dict) -> dict:
+    rubric = profile["scoring_rubric"]
+    tech_weights = rubric["high_value_tech_keywords"]
+    gap_penalties = rubric.get("unlearned_gap_penalties", {})
+    pos_safety = rubric["burnout_positive_signals"]
+    red_flags = rubric["burnout_red_flags"]
+    geo_signals = rubric["geo_language_signals"]
+
+    title = str(row.get("title") or "")
+    company = str(row.get("company") or "")
+    desc = str(row.get("description") or "")
+    tags = str(row.get("tags") or "")
+    loc = str(row.get("location") or "")
+    track = str(row.get("track") or "")
+    caveat = str(row.get("contract_caveat") or "fractional_or_fulltime")
+
+    blob = f"{title} {company} {desc} {tags} {loc}".lower()
+
+    # -------------------------------------------------------------------------
     # 1. Technical & Domain Fit (Max 35 pts)
+    # -------------------------------------------------------------------------
+    matched_skills = []
     raw_tech = 0
-    for kw, weight in signals.get("high_value_tech_keywords", {}).items():
-        kw_l = kw.lower()
-        if re.search(r"\b" + re.escape(kw_l) + r"\b", blob):
-            raw_tech += weight
+    for kw, weight in tech_weights.items():
+        pattern = r"\b" + re.escape(kw.lower()) + r"\b"
+        if re.search(pattern, blob):
             matched_skills.append(kw)
-    tech_score = min(35, int(round((raw_tech / 34.0) * 35)))
-    if "warm_lead" in blob:
-        tech_score = max(tech_score, 33)
+            raw_tech += weight
 
-    # 2. Burnout & Autonomy Safety (Max 25 pts)
-    raw_safety = 15
-    for pos_kw, weight in signals.get("burnout_safety_positive", {}).items():
+    tech_scaled = min(35, round((raw_tech / 34.0) * 35))
+
+    # Executive Advisory calls have verified domain alignment floor
+    if caveat == "micro_advisory":
+        tech_scaled = max(tech_scaled, 32)
+
+    gap_notes = []
+    for gap_kw, pen in gap_penalties.items():
+        pattern = r"\b" + re.escape(gap_kw.lower()) + r"\b"
+        if re.search(pattern, blob):
+            tech_scaled = max(0, tech_scaled + pen)
+            gap_notes.append(f"{gap_kw} ({pen})")
+
+    # -------------------------------------------------------------------------
+    # 2. Burnout & Autonomy Safety (Max 25 pts + Negation-Aware Guardrail)
+    # -------------------------------------------------------------------------
+    safety_score = 15
+    if caveat in ("async_flexible", "micro_advisory"):
+        safety_score = 20
+    elif caveat == "fractional_friendly":
+        safety_score = 18
+
+    for pos_kw, bonus in pos_safety.items():
         if pos_kw.lower() in blob:
-            raw_safety += weight // 2
-    for neg_kw, penalty in signals.get("burnout_red_flags", {}).items():
-        kw_l = neg_kw.lower()
-        if kw_l in blob:
-            # Ignore if negated (e.g., "zero tier 1 helpdesk", "no on-call", "without pager")
-            negated_pattern = r"(?:no|zero|without|never|not)\s+(?:[a-z0-9/-]+\s+){0,3}" + re.escape(kw_l)
-            if not re.search(negated_pattern, blob):
-                raw_safety += penalty
-                red_flags_hit.append(neg_kw)
+            safety_score += bonus
+    safety_score = min(25, safety_score)
 
-    for agency, rule in signals.get("agency_specific_rules", {}).items():
-        if agency in blob:
-            raw_safety += rule.get("modifier", 0)
-            notes.append(rule.get("warning", ""))
+    triggered_red_flags = []
+    for rf in red_flags:
+        rf_low = rf.lower()
+        if rf_low in blob:
+            neg_pattern = r"(?:no|zero|without|never|not)\s+(?:[a-z0-9/-]+\s+){0,4}" + re.escape(rf_low)
+            if re.search(neg_pattern, blob):
+                # Negated red flag (e.g. "zero Tier 1 helpdesk") is rewarded!
+                safety_score = min(25, safety_score + 3)
+            else:
+                triggered_red_flags.append(rf)
 
-    safety_score = max(0, min(25, raw_safety))
-
-    # 3. Bolivia / Time-Zone (UTC-4) & Trilingual Advantage (Max 20 pts)
-    geo_lang_score = 12
-    if any(k in loc_blob for k in ["bolivia", "latam", "latin america", "south america", "utc-4", "americas", "worldwide", "global"]):
+    # -------------------------------------------------------------------------
+    # 3. Bolivia (UTC-4) & Trilingual Advantage (Max 20 pts)
+    # -------------------------------------------------------------------------
+    geo_lang_score = 8
+    if any(g in blob for g in geo_signals["geo_keywords"]):
         geo_lang_score += 5
-    if any(k in blob for k in ["spanish", "french", "bilingual", "trilingual", "andean"]):
+    if any(fr in blob for fr in geo_signals["french_keywords"]) or "Track D" in track:
+        geo_lang_score += 6
+        if "français" not in matched_skills and "french" not in matched_skills:
+            matched_skills.append("native french (cnam/orange)")
+    if any(es in blob for es in geo_signals["spanish_keywords"]):
         geo_lang_score += 5
-        notes.append("Strong multilingual advantage (EN/FR/ES).")
+        if "spanish" not in matched_skills:
+            matched_skills.append("spanish/trilingual")
     geo_lang_score = min(20, geo_lang_score)
 
+    # -------------------------------------------------------------------------
     # 4. Contract & Rate Structure (Max 20 pts)
+    # -------------------------------------------------------------------------
     contract_score = 12
-    if any(k in blob for k in ["20 hrs", "20 hours", "part-time", "part time", "fractional", "contract", "async", "self-paced", "warm_lead"]):
-        contract_score += 8
-    elif "full-time" in blob and "contract" not in blob:
-        contract_score -= 6
-        notes.append("Listed as full-time; verify if fractional 20 hrs/wk is negotiable.")
-    contract_score = max(0, min(20, contract_score))
+    notes_list = []
 
-    missing_gaps: List[str] = []
-    for gap_candidate in ["terraform", "kubernetes", "aws", "c#", "react", "golang"]:
-        if gap_candidate in blob:
-            missing_gaps.append(gap_candidate.capitalize())
-            tech_score = max(10, tech_score - 8)
+    if caveat == "micro_advisory":
+        contract_score = 20
+        notes_list.append("Executive 60-min consultation ($150-$400/hr ROI, zero ongoing delivery load).")
+    elif caveat == "async_flexible":
+        contract_score = 19
+        notes_list.append("Self-paced asynchronous AI evaluation / RLHF workflow.")
+    elif caveat == "fractional_friendly":
+        contract_score = 18
+        notes_list.append("Fractional / part-time / scoped deliverable friendly.")
 
-    total_score = tech_score + safety_score + geo_lang_score + contract_score
+    if any(k in blob for k in ("fractional", "part-time", "20 hours", "20h", "4 day week", "async", "freelance", "contract")):
+        contract_score = min(20, contract_score + 4)
 
-    if red_flags_hit or safety_score < 8:
+    if caveat == "full_time_only" or ("full-time" in blob and "fractional" not in blob and "part-time" not in blob):
+        if caveat == "full_time_only":
+            contract_score = max(4, contract_score - 6)
+            notes_list.append("⚠️ FULL-TIME AGENCY CAVEAT (-6 pts): Agency primarily places 40h/wk full-time roles.")
+
+    if gap_notes:
+        notes_list.append("Skill gaps penalized: " + ", ".join(gap_notes))
+
+    total_score = tech_scaled + safety_score + geo_lang_score + contract_score
+
+    # Verdict determination with hard burnout override & full-time agency caveat cap
+    is_strictly_fulltime_agency = (
+        caveat == "full_time_only"
+        and "fractional" not in blob
+        and "part-time" not in blob
+        and "20 hours" not in blob
+    )
+    if triggered_red_flags:
         verdict = "SKIP"
-        notes.insert(0, f"AUTO-SKIP triggered by Burnout Guardrail (Red flags: {', '.join(red_flags_hit)}).")
-    elif total_score >= 80:
+        safety_score = 0
+        total_score = min(total_score, 35)
+        notes_list.insert(0, "🛑 AUTO-SKIP BURNOUT GUARDRAIL TRIGGERED: " + ", ".join(triggered_red_flags))
+    elif is_strictly_fulltime_agency:
+        total_score = min(total_score, 78)
+        verdict = "POSSIBLE" if total_score >= rubric["verdict_thresholds"]["POSSIBLE"] else "SKIP"
+    elif total_score >= rubric["verdict_thresholds"]["APPLY"]:
         verdict = "APPLY"
-        notes.insert(0, "High-signal match aligned with tech stack, autonomy, and Bolivia UTC-4 workflow.")
-    elif total_score >= 62:
+    elif total_score >= rubric["verdict_thresholds"]["POSSIBLE"]:
         verdict = "POSSIBLE"
-        notes.insert(0, "Viable opportunity; requires positioning around existing M365/Azure/MSP/SysOps strengths.")
     else:
         verdict = "SKIP"
-        notes.insert(0, "Low ROI or weak technical alignment.")
 
+    missing_str = ", ".join(gap_notes) if gap_notes else "None"
     return {
-        "total_score": total_score,
-        "tech_score": tech_score,
-        "safety_score": safety_score,
-        "geo_lang_score": geo_lang_score,
-        "contract_score": contract_score,
         "verdict": verdict,
-        "matched_skills": ", ".join(sorted(set(matched_skills))) if matched_skills else "General Systems / IT",
-        "missing_gaps": ", ".join(missing_gaps) if missing_gaps else "None",
-        "analyst_notes": " ".join(notes)
+        "total_score": int(total_score),
+        "tech_score": int(tech_scaled),
+        "safety_score": int(safety_score),
+        "geo_lang_score": int(geo_lang_score),
+        "contract_score": int(contract_score),
+        "matched_skills": ", ".join(matched_skills[:12]) if matched_skills else "general systems/cloud",
+        "missing_gaps": missing_str,
+        "red_flags": ", ".join(triggered_red_flags) if triggered_red_flags else "",
+        "analyst_notes": " | ".join(notes_list) if notes_list else "Standard contract alignment.",
     }
 
 
-def generate_trilingual_proposals(row: Dict[str, Any], eval_res: Dict[str, Any], profile: Dict[str, Any]) -> Tuple[str, str, str]:
-    title = row["title"]
-    company = row["company"]
-    track = row["track"]
-    matched = eval_res["matched_skills"]
-    is_ai_eval = "Track B" in track or any(k in matched.lower() for k in ["ai ", "rlhf", "evaluator", "trainer"])
+def build_proposal_bundle(row: Dict[str, Any], profile: dict) -> Tuple[str, str, str, str, str]:
+    """
+    Returns (proposal_en, proposal_fr, proposal_es, proposal_advisory, markdown_block)
+    grounded 100% in master_profile.json v4.0.0.
+    """
+    title = row.get("title") or ""
+    company = row.get("company") or ""
+    track = row.get("track") or ""
+    caveat = row.get("contract_caveat") or ""
+    skills = row.get("matched_skills") or "Microsoft 365, Azure, Entra ID, MSP Automation, Python"
+    url = row.get("url") or ""
 
-    if is_ai_eval:
-        pitch_en = (
-            f"Subject: Senior Technical AI Evaluator & Trilingual Infrastructure Auditor — {title}\n\n"
-            f"Hello {company} Team,\n\n"
-            f"I am a trilingual (French/English/Spanish) Senior IT Infrastructure & Cloud Engineer based in La Paz, Bolivia (UTC-4) "
-            f"with 13+ years of enterprise systems experience and 6.5 years in NOC/Centralized Services. "
-            f"Rather than generic copywriting, my core expertise is systemic root-cause logic: auditing Microsoft Azure/M365 architectures, "
-            f"GNU/Linux (Debian since 2005), BCDR runbooks, and PowerShell/Python automation scripts across 40+ to 100+ client environments.\n\n"
-            f"Key Alignment for {title}:\n"
-            f"• Technical Response & RLHF Auditing: Rigorous step-by-step verification of LLM outputs covering {matched}.\n"
-            f"• Operational Track Record: Reduced recurring production incidents by 30% through proactive monitoring standardization and SOP engineering.\n"
-            f"• Trilingual Localization: Native French, fluent enterprise English, and Andean Spanish context.\n\n"
-            f"Portfolio & Case Studies: https://tsimon.me | simon_thomas@outlook.fr"
+    pitch_en = (
+        f"Hello {company} team,\n\n"
+        f"Regarding the **{title}** opportunity: I bring 13+ years of senior IT infrastructure, cloud administration, "
+        f"and NOC/Centralized Services engineering experience (managing 100+ client environments and 3,500+ endpoints "
+        f"remotely in US time zones, UTC-4). My core focus is systemic logic and proactive automation—having reduced "
+        f"recurring infrastructure incidents by 30% using {skills}, Liongard, IT Glue, Autotask, NinjaOne, Acronis BCDR, "
+        f"Microsoft 365/Entra ID, and Python/PowerShell.\n\n"
+        f"Operating as an independent international contractor out of La Paz, Bolivia (simple IRS Form W-8BEN for US clients, "
+        f"zero tax withholding or visa overhead) and fluent in English, French (native), and Spanish, I deliver "
+        f"high-accountability, well-documented asynchronous execution. You can review my architecture case studies at "
+        f"https://tsimon.me. Let's schedule a brief technical call this week to align on your immediate milestones.\n\n"
+        f"Best regards,\n"
+        f"Thomas Simon | https://tsimon.me | https://bo.linkedin.com/in/tsimonfreelance"
+    )
+
+    pitch_fr = (
+        f"Bonjour l'équipe {company},\n\n"
+        f"Suite à votre publication pour la mission **{title}**, je vous propose mon expertise d'Ingénieur Systèmes, "
+        f"Cloud & NOC Senior (diplômé du CNAM France en Télécommunications & Réseaux, ancien Administrateur Systèmes chez "
+        f"Orange Telecom en France, et plus de 13 ans d'expérience sur des environnements critiques).\n\n"
+        f"J'accompagne les MSP et entreprises à distance (fuseau UTC-4, parfaitement compatible avec les équipes européennes "
+        f"et nord-américaines en mode asynchrone) sur l'administration et la sécurisation Microsoft 365 / Entra ID / Intune / "
+        f"Azure, l'automatisation Python/PowerShell, la continuité d'activité (Acronis/Veeam) et la standardisation "
+        f"documentaire ({skills})—avec une réduction prouvée de 30 % des incidents récurrents sur plus de 3 500 postes et "
+        f"serveurs. Trilingue français (natif), anglais et espagnol, mon portfolio technique est consultable sur "
+        f"https://tsimon.me. Disponible pour échanger cette semaine sur vos objectifs.\n\n"
+        f"Cordialement,\n"
+        f"Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr"
+    )
+
+    pitch_es = (
+        f"Hola equipo de {company},\n\n"
+        f"En relación con la posición **{title}**: cuento con más de 13 años de experiencia como Consultor Senior de TI, "
+        f"Ingeniero Cloud (Azure / Microsoft 365 / Entra ID) y Especialista NOC/CSM gestionando más de 100 entornos "
+        f"empresariales y 3,500+ endpoints de forma 100% remota desde La Paz, Bolivia (UTC-4).\n\n"
+        f"Me especializo en auditoría lógica de sistemas, automatización con Python/PowerShell, evaluación técnica de modelos "
+        f"de IA (RLHF / Context Engineering) y estandarización operativa ({skills}), logrando reducir incidentes recurrentes "
+        f"en un 30% y manteniendo un 99%+ de confiabilidad en respaldos BCDR. Opero como contratista independiente trilingüe "
+        f"(francés nativo, inglés fluido y español) con facturación internacional directa (W-8BEN). Pueden revisar mi "
+        f"portafolio en https://tsimon.me. Quedo atento para coordinar una breve conversación técnica.\n\n"
+        f"Atentamente,\n"
+        f"Thomas Simon | https://tsimon.me | +591 734 62133"
+    )
+
+    pitch_advisory = ""
+    if caveat == "micro_advisory" or "Track E" in track:
+        pitch_advisory = (
+            "🎙️ 60-Second Executive Advisory Opening Pitch & Screening Note (EN):\n"
+            "Hello, I am Thomas Simon, a Senior IT Consultant and NOC/Centralized Services Engineer with over 13 years of "
+            "enterprise infrastructure experience—including 6.5 years managing centralized operations, RMM/PSA integrations, "
+            "and cybersecurity stacks across 100+ client environments and 3,500+ endpoints for a North American MSP. I have "
+            "hands-on operational, deployment, and wholesale pricing experience across Huntress (Managed EDR/ITDR/SIEM), "
+            "Blackpoint Cyber (CompassOne/LogIC), SentinelOne + Vigilance, Acronis Cyber Protect Cloud, SaaS Alerts, and "
+            "Augmentt, integrated directly with Liongard, IT Glue, NinjaOne, Kaseya, and Autotask. Are we focusing today's "
+            "consultation primarily on bottom-up operational economics and SOC alert-to-ticket workflows, or top-down vendor "
+            "consolidation and pricing tiers?\n\n"
+            "📊 Instant Vendor Scorecard Reference (For Live Call):\n"
+            "• Huntress (Managed EDR + ITDR + SIEM — 10/10): Best channel ROI ($2.50–$3.50/endpoint wholesale vs $8.99 MSRP), "
+            "human-verified SOC remediation cards sent straight to PSA, near-zero CPU bloat over native Microsoft Defender.\n"
+            "• Acronis Cyber Protect Cloud (9/10 Unified / 7/10 Standalone): Jumps to 9/10 when consolidating immutable BCDR, "
+            "RMM, patching, and EDR into a single agent and portal.\n"
+            "• Blackpoint Cyber (CompassOne Standard w/ LogIC SIEM): Aggressive live host/identity isolation plus 365-day SIEM "
+            "compliance retention for HIPAA/SOC 2.\n"
+            "• SaaS Alerts (5/10) & Augmentt (4/10): Alert-only trap without a 24/7 human SOC; forces Tier 2 engineers to "
+            "manually investigate raw Entra ID logs."
         )
-        pitch_fr = (
-            f"Objet : Évaluateur Logique IA Senior & Consultant Infrastructure Cloud Trilingue — {title}\n\n"
-            f"Bonjour l'équipe {company},\n\n"
-            f"Ingénieur Systèmes, Cloud (Azure/M365/Entra ID) et Spécialiste NOC trilingue (FR/EN/ES) avec plus de 13 ans d'expérience "
-            f"(et utilisateur GNU/Linux Debian depuis 2005), je propose une expertise pointue en audit logique et évaluation RLHF sur les domaines : {matched}.\n\n"
-            f"• Réduction de 30 % des incidents récurrents grâce à la standardisation documentaire (IT Glue, SOP) et l'automatisation proactive.\n"
-            f"• Vérification rigoureuse des procédures techniques, scripts PowerShell/Python et architectures BCDR.\n"
-            f"• Disponibilité asynchrone immédiate (UTC-4).\n\n"
-            f"Portfolio : https://tsimon.me | simon_thomas@outlook.fr"
-        )
-        pitch_es = (
-            f"Asunto: Evaluador Técnico de IA y Auditor de Infraestructura Cloud Trilingüe — {title}\n\n"
-            f"Hola equipo de {company},\n\n"
-            f"Soy Ingeniero Senior de Sistemas y Cloud (Azure/M365/Entra ID) radicado en La Paz, Bolivia (UTC-4), trilingüe (francés, inglés y español) "
-            f"con más de 13 años de experiencia en infraestructura empresarial y 6.5 años en operaciones NOC/Servicios Centralizados.\n\n"
-            f"• Auditoría Lógica y RLHF: Validación técnica de modelos GenAI, scripts y manuales operativos en {matched}.\n"
-            f"• Resultados Verificados: Reducción del 30% en incidentes recurrentes mediante automatización proactiva y estandarización de SOPs.\n"
-            f"• Disponibilidad inmediata en modalidad remota asíncrona.\n\n"
-            f"Portafolio: https://tsimon.me | simon_thomas@outlook.fr"
-        )
-    else:
-        pitch_en = (
-            f"Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — {title}\n\n"
-            f"Hi {company},\n\n"
-            f"With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, "
-            f"I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. "
-            f"Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.\n\n"
-            f"How I can support {company} (~20 hrs/wk fractional/contract in UTC-4):\n"
-            f"• Direct Stack Alignment: {matched} (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).\n"
-            f"• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.\n"
-            f"• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?\n\n"
-            f"Best regards,\nThomas Simon | https://tsimon.me | simon_thomas@outlook.fr"
-        )
-        pitch_fr = (
-            f"Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — {title}\n\n"
-            f"Bonjour {company},\n\n"
-            f"Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, "
-            f"j'accompagne vos équipes sur {matched}. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) "
-            f"et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).\n\n"
-            f"Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).\n"
-            f"Portfolio : https://tsimon.me | simon_thomas@outlook.fr"
-        )
-        pitch_es = (
-            f"Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — {title}\n\n"
-            f"Hola {company},\n\n"
-            f"Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, "
-            f"apoyo en la optimización y automatización de {matched}. He administrado entre 40+ y 100+ entornos de clientes "
-            f"logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.\n\n"
-            f"Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).\n"
-            f"Portafolio: https://tsimon.me | simon_thomas@outlook.fr"
+
+    block = [
+        f"## 🎯 [{row['verdict']} — {row['total_score']}/100] {title}",
+        f"- **Company / Platform:** {company} (`{row['platform_name']}`)",
+        f"- **Strategic Track:** {track}",
+        f"- **Matched Stack:** `{skills}`",
+        f"- **Direct Link:** {url}",
+    ]
+    if row.get("analyst_notes"):
+        block.append(f"- **Analyst Notes:** {row['analyst_notes']}")
+    block.append("")
+
+    if pitch_advisory:
+        block.extend(
+            [
+                "### 🎙️ 60-Second Executive Advisory Opening Pitch & Screening Note (EN)",
+                "Hello, I am Thomas Simon, a Senior IT Consultant and NOC/Centralized Services Engineer with over 13 years of enterprise infrastructure experience—including 6.5 years managing centralized operations, RMM/PSA integrations, and cybersecurity stacks across 100+ client environments and 3,500+ endpoints for a North American MSP. I have hands-on operational, deployment, and wholesale pricing experience across Huntress (Managed EDR/ITDR/SIEM), Blackpoint Cyber (CompassOne/LogIC), SentinelOne + Vigilance, Acronis Cyber Protect Cloud, SaaS Alerts, and Augmentt, integrated directly with Liongard, IT Glue, NinjaOne, Kaseya, and Autotask. Are we focusing today's consultation primarily on bottom-up operational economics and SOC alert-to-ticket workflows, or top-down vendor consolidation and pricing tiers?",
+                "",
+                "### 📊 Instant Vendor Scorecard Reference (For Live Call)",
+                "- **Huntress (Managed EDR + ITDR + SIEM — 10/10):** Best channel ROI ($2.50–$3.50/endpoint wholesale vs $8.99 MSRP), human-verified SOC remediation cards sent straight to PSA, near-zero CPU bloat over native Microsoft Defender.",
+                "- **Acronis Cyber Protect Cloud (9/10 Unified / 7/10 Standalone):** Jumps to 9/10 when consolidating immutable BCDR, RMM, patching, and EDR into a single agent and portal.",
+                "- **Blackpoint Cyber (CompassOne Standard w/ LogIC SIEM):** Aggressive live host/identity isolation plus 365-day SIEM compliance retention for HIPAA/SOC 2.",
+                "- **SaaS Alerts (5/10) & Augmentt (4/10):** Alert-only trap without a 24/7 human SOC; forces Tier 2 engineers to manually investigate raw Entra ID logs.",
+                "",
+            ]
         )
 
-    return pitch_en, pitch_fr, pitch_es
+    block.extend(
+        [
+            "### 🇬🇧 English Proposal / Outreach (Ready to Copy)",
+            pitch_en,
+            "",
+            "### 🇫🇷 Proposition Commerciale / Message (Français — CNAM & Orange Telecom Pedigree)",
+            pitch_fr,
+            "",
+            "### 🇪🇸 Propuesta Técnica / Mensaje (Español — LATAM / Global)",
+            pitch_es,
+            "",
+            "---",
+            "",
+        ]
+    )
+    return pitch_en, pitch_fr, pitch_es, pitch_advisory, "\n".join(block)
 
 
-def run_analyst(web_dir: Optional[str] = None) -> None:
-    profile = load_profile()
-    conn = sqlite3.connect(DB_FILE)
-    conn.row_factory = sqlite3.Row
-    cur = conn.cursor()
-
-    cur.execute("SELECT * FROM opportunities WHERE verdict IS NULL")
-    rows = cur.fetchall()
-    print(f"[ANALYST] Evaluating {len(rows)} queued opportunities against {PROFILE_FILE}...")
-
-    for r in rows:
-        row_dict = dict(r)
-        res = evaluate_opportunity(row_dict, profile)
-        p_en, p_fr, p_es = ("", "", "")
-        if res["verdict"] in ("APPLY", "POSSIBLE"):
-            p_en, p_fr, p_es = generate_trilingual_proposals(row_dict, res, profile)
-
-        cur.execute("""
-            UPDATE opportunities
-            SET status = 'EVALUATED',
-                total_score = ?,
-                tech_score = ?,
-                safety_score = ?,
-                geo_lang_score = ?,
-                contract_score = ?,
-                verdict = ?,
-                analyst_notes = ?,
-                matched_skills = ?,
-                missing_gaps = ?,
-                proposal_en = ?,
-                proposal_fr = ?,
-                proposal_es = ?
-            WHERE job_hash = ?
-        """, (
-            res["total_score"], res["tech_score"], res["safety_score"],
-            res["geo_lang_score"], res["contract_score"], res["verdict"],
-            res["analyst_notes"], res["matched_skills"], res["missing_gaps"],
-            p_en, p_fr, p_es, row_dict["job_hash"]
-        ))
-
-    conn.commit()
-    generate_reports(conn, web_dir=web_dir)
-    conn.close()
+def generate_trilingual_proposals(row: Dict[str, Any], profile: dict) -> str:
+    _, _, _, _, md_block = build_proposal_bundle(row, profile)
+    return md_block
 
 
 SHARED_WEB_STYLES = """
@@ -306,13 +434,74 @@ SHARED_WEB_STYLES = """
     z-index: 900;
     display: flex;
     flex-direction: column;
+    transition: transform 0.25s ease, width 0.25s ease;
+  }
+  .navbar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 12px 10px 16px;
+    border-bottom: 1px solid rgba(77, 78, 83, 0.15);
   }
   .header-title {
     color: #2c2e33;
-    margin: 14px 12px 10px 12px;
-    font-size: 1.35em;
+    margin: 0;
+    font-size: 1.18em;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sidebar-fold-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(77, 78, 83, 0.25);
+    border-radius: 6px;
+    background: #ffffff;
+    color: #2c2e33;
+    font-size: 1.05em;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .sidebar-fold-btn:hover {
+    background: var(--accent-blue);
+    color: #ffffff;
+    border-color: var(--accent-blue);
+  }
+  #sidebar-unfold-btn {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 950;
+    display: none;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border: 1px solid rgba(19, 27, 27, 0.25);
+    border-radius: 6px;
+    background: #ffffff;
+    color: #2c2e33;
+    font-size: 0.88em;
     font-weight: 600;
-    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  }
+  #sidebar-unfold-btn:hover {
+    background: var(--accent-blue);
+    color: #ffffff;
+    border-color: var(--accent-blue);
+  }
+  body.sidebar-collapsed #navbar {
+    transform: translateX(-300px);
+  }
+  body.sidebar-collapsed #sidebar-unfold-btn {
+    display: inline-flex;
   }
   .hamburger-btn { display: none; }
   #navbar ul {
@@ -325,12 +514,41 @@ SHARED_WEB_STYLES = """
   #navbar li {
     border-top: 1px solid rgba(77, 78, 83, 0.2);
   }
+  #navbar li.nav-group-header {
+    background: #f1f5f9;
+    padding: 7px 14px;
+    font-size: 0.76em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #475569;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  #navbar li.nav-group-header:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+  }
+  .nav-group-chevron {
+    display: inline-block;
+    transition: transform 0.2s ease;
+    font-size: 0.95em;
+  }
+  #navbar li.nav-group-header.folded .nav-group-chevron {
+    transform: rotate(-90deg);
+  }
+  #navbar li.nav-group-item.folded-item {
+    display: none;
+  }
   #navbar a {
     display: block;
-    padding: 10px 20px;
+    padding: 9px 18px;
     color: #3d3e43;
     text-decoration: none;
-    font-size: 0.92em;
+    font-size: 0.9em;
     transition: background 0.15s ease, color 0.15s ease;
   }
   #navbar a:hover, #navbar a.active-nav {
@@ -341,7 +559,13 @@ SHARED_WEB_STYLES = """
   #main-doc {
     margin-left: 300px;
     padding: 28px 36px 60px 36px;
-    max-width: 1200px;
+    max-width: 1240px;
+    transition: margin-left 0.25s ease, max-width 0.25s ease;
+  }
+  body.sidebar-collapsed #main-doc {
+    margin-left: 0;
+    max-width: 1440px;
+    padding-left: 64px;
   }
   .top-banner {
     background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
@@ -353,18 +577,33 @@ SHARED_WEB_STYLES = """
   }
   .top-banner h1 {
     margin: 0 0 8px 0;
-    font-size: 1.65em;
+    font-size: 1.62em;
     font-weight: 600;
     color: #ffffff;
   }
   .top-banner p {
     margin: 4px 0;
     color: #cbd5e1;
-    font-size: 0.95em;
+    font-size: 0.94em;
+  }
+  .banner-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .banner-pill {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #f8fafc;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.8em;
+    font-weight: 600;
   }
   .kpi-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
     gap: 14px;
     margin-bottom: 22px;
   }
@@ -385,12 +624,12 @@ SHARED_WEB_STYLES = """
   .kpi-card.possible { border-left-color: var(--possible-border); }
   .kpi-card.skip { border-left-color: var(--skip-border); }
   .kpi-value {
-    font-size: 1.75em;
+    font-size: 1.7em;
     font-weight: 700;
     line-height: 1.1;
   }
   .kpi-label {
-    font-size: 0.85em;
+    font-size: 0.84em;
     color: var(--text-muted);
     margin-top: 4px;
   }
@@ -410,14 +649,15 @@ SHARED_WEB_STYLES = """
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    align-items: center;
   }
   .btn-tab {
     border: 1px solid #d1d5db;
     background: #f9fafb;
     color: #374151;
-    padding: 7px 14px;
+    padding: 7px 13px;
     border-radius: 6px;
-    font-size: 0.88em;
+    font-size: 0.86em;
     font-weight: 600;
     cursor: pointer;
     text-decoration: none;
@@ -428,12 +668,22 @@ SHARED_WEB_STYLES = """
     color: #ffffff !important;
     border-color: var(--accent-blue);
   }
+  .track-select {
+    padding: 7px 11px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #1f2937;
+    font-size: 0.86em;
+    font-weight: 600;
+    cursor: pointer;
+  }
   .search-box {
     padding: 8px 12px;
     border: 1px solid #d1d5db;
     border-radius: 6px;
-    min-width: 240px;
-    font-size: 0.9em;
+    min-width: 220px;
+    font-size: 0.88em;
   }
   .opp-card {
     background: var(--bg-card);
@@ -446,7 +696,7 @@ SHARED_WEB_STYLES = """
   }
   .opp-card.verdict-APPLY { border-left-color: var(--apply-border); }
   .opp-card.verdict-POSSIBLE { border-left-color: var(--possible-border); }
-  .opp-card.verdict-SKIP { border-left-color: var(--skip-border); opacity: 0.85; }
+  .opp-card.verdict-SKIP { border-left-color: var(--skip-border); opacity: 0.86; }
   .opp-header {
     display: flex;
     flex-wrap: wrap;
@@ -457,7 +707,7 @@ SHARED_WEB_STYLES = """
   }
   .opp-title {
     margin: 0;
-    font-size: 1.18em;
+    font-size: 1.15em;
     font-weight: 600;
     color: #111827;
   }
@@ -468,6 +718,7 @@ SHARED_WEB_STYLES = """
     font-size: 0.8em;
     font-weight: 700;
     letter-spacing: 0.02em;
+    white-space: nowrap;
   }
   .badge-APPLY { background: var(--apply-bg); color: var(--apply-text); border: 1px solid var(--apply-border); }
   .badge-POSSIBLE { background: var(--possible-bg); color: var(--possible-text); border: 1px solid var(--possible-border); }
@@ -476,6 +727,26 @@ SHARED_WEB_STYLES = """
     font-size: 0.88em;
     color: var(--text-muted);
     margin-bottom: 10px;
+  }
+  .caveat-pill {
+    display: inline-block;
+    background: #eef2ff;
+    color: #3730a3;
+    border: 1px solid #c7d2fe;
+    padding: 1px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: 600;
+  }
+  .caveat-pill.full_time_only {
+    background: #fffbeb;
+    color: #92400e;
+    border-color: #fde68a;
+  }
+  .caveat-pill.micro_advisory {
+    background: #f0fdf4;
+    color: #166534;
+    border-color: #bbf7d0;
   }
   .score-pills {
     display: flex;
@@ -570,6 +841,29 @@ SHARED_WEB_STYLES = """
   .raw-md-drawer.open {
     display: block;
   }
+  .radar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 14px;
+    margin-top: 14px;
+  }
+  .radar-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid var(--accent-blue);
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+  .radar-box h4 {
+    margin: 0 0 6px 0;
+    color: #0f172a;
+    font-size: 0.96em;
+  }
+  .radar-box p {
+    margin: 0;
+    font-size: 0.85em;
+    color: #475569;
+  }
   footer {
     margin-top: 40px;
     padding-top: 14px;
@@ -579,20 +873,28 @@ SHARED_WEB_STYLES = """
     color: var(--text-muted);
   }
   @media only screen and (max-width: 800px) {
-    #navbar {
+    #navbar, body.sidebar-collapsed #navbar {
       width: 100%;
       height: auto;
       position: fixed;
+      transform: none;
       border-right: none;
       border-bottom: 1px solid rgba(77,78,83,0.25);
-      background: rgba(250, 250, 250, 0.92);
+      background: rgba(250, 250, 250, 0.95);
       backdrop-filter: blur(10px);
+    }
+    .navbar-header {
+      padding: 0;
+      border-bottom: none;
     }
     .header-title {
       text-align: left;
       margin: 0;
       padding: 12px 60px 12px 16px;
-      font-size: 1.2em;
+      font-size: 1.15em;
+    }
+    .sidebar-fold-btn, #sidebar-unfold-btn, body.sidebar-collapsed #sidebar-unfold-btn {
+      display: none !important;
     }
     .hamburger-btn {
       display: flex;
@@ -618,9 +920,18 @@ SHARED_WEB_STYLES = """
     }
     #navbar ul { display: none; max-height: 70vh; }
     #navbar.nav-open ul { display: block; }
-    #main-doc { margin-left: 0; margin-top: 58px; padding: 16px; }
+    #main-doc, body.sidebar-collapsed #main-doc {
+      margin-left: 0;
+      margin-top: 58px;
+      padding: 16px;
+    }
   }
 """
+
+
+def extract_track_code(track_str: str) -> str:
+    m = re.match(r"^(Track\s+[A-F])", str(track_str or "").strip(), re.IGNORECASE)
+    return m.group(1).upper() if m else "OTHER"
 
 
 def build_unified_index_html(
@@ -631,7 +942,9 @@ def build_unified_index_html(
     skip_rows: List[Dict[str, Any]],
     brief_md: str,
     proposals_md: str,
-    public_url: str = PUBLIC_TUNNEL_URL
+    profile: dict,
+    cfg: dict,
+    public_url: str = PUBLIC_TUNNEL_URL,
 ) -> str:
     def render_skill_pills(skills_str: str, css_class: str = "skill-tag") -> str:
         if not skills_str or skills_str == "None":
@@ -639,28 +952,56 @@ def build_unified_index_html(
         parts = [s.strip() for s in skills_str.split(",") if s.strip()]
         return "".join(f'<span class="{css_class}">{html.escape(p)}</span>' for p in parts)
 
+    total_platforms = len(cfg.get("platforms", []))
     actionable_rows = apply_rows + possible_rows
     brief_cards_html: List[str] = []
     proposal_cards_html: List[str] = []
     nav_apply_links: List[str] = []
 
     for idx, r in enumerate(apply_rows + possible_rows + skip_rows, 1):
-        verdict = r["verdict"] or "SKIP"
+        verdict = r.get("verdict") or "SKIP"
         jhash = r["job_hash"]
-        title_esc = html.escape(r["title"])
-        comp_esc = html.escape(r["company"])
-        track_esc = html.escape(r["track"])
-        plat_esc = html.escape(r["platform_name"])
-        loc_esc = html.escape(r["location"])
-        notes_esc = html.escape(r["analyst_notes"] or "")
-        url_esc = html.escape(r["url"] or "#")
+        track_raw = r.get("track") or "Track F: Curated Remote-First & WFA Job Boards"
+        track_code = extract_track_code(track_raw)
+        caveat_raw = r.get("contract_caveat") or "fractional_or_fulltime"
+
+        title_esc = html.escape(str(r.get("title") or ""))
+        comp_esc = html.escape(str(r.get("company") or ""))
+        track_esc = html.escape(track_raw)
+        plat_esc = html.escape(str(r.get("platform_name") or ""))
+        loc_esc = html.escape(str(r.get("location") or ""))
+        notes_esc = html.escape(str(r.get("analyst_notes") or ""))
+        url_esc = html.escape(str(r.get("url") or "#"))
+        caveat_esc = html.escape(caveat_raw)
+
+        gaps_or_flags = r.get("red_flags") or r.get("missing_gaps") or "None"
+        if gaps_or_flags == "":
+            gaps_or_flags = "None"
 
         proposal_btn = ""
         inline_proposal_drawer = ""
         if verdict in ("APPLY", "POSSIBLE"):
-            p_en = html.escape(r["proposal_en"] or "")
-            p_fr = html.escape(r["proposal_fr"] or "")
-            p_es = html.escape(r["proposal_es"] or "")
+            p_en = html.escape(r.get("proposal_en") or "")
+            p_fr = html.escape(r.get("proposal_fr") or "")
+            p_es = html.escape(r.get("proposal_es") or "")
+            p_adv = html.escape(r.get("proposal_advisory") or "")
+
+            adv_tab_btn = ""
+            adv_pane_html = ""
+            if p_adv:
+                adv_tab_btn = (
+                    f'<button type="button" class="btn-tab" '
+                    f'onclick="switchLang(\'inline-{jhash}\', \'adv\', this)">🎙️ 60s Advisory &amp; Scorecard</button>'
+                )
+                adv_pane_html = f"""
+              <div class="lang-pane lang-adv-inline-{jhash}" style="display:none;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;">
+                  <strong>🎙️ 60-Second Executive Advisory Pitch &amp; MSSP Vendor Scorecard</strong>
+                  <button type="button" class="btn-action btn-primary" onclick="copyText('inline-adv-{jhash}', this)">📋 Copy Advisory</button>
+                </div>
+                <pre id="inline-adv-{jhash}" class="proposal-box">{p_adv}</pre>
+              </div>"""
+
             proposal_btn = (
                 f'<button type="button" class="btn-action btn-primary" onclick="toggleInlineProposal(\'{jhash}\')">'
                 f'✍️ Toggle EN/FR/ES Proposals</button>'
@@ -670,11 +1011,13 @@ def build_unified_index_html(
             inline_proposal_drawer = f"""
             <div id="inline-prop-{jhash}" class="raw-md-drawer" style="margin-top:14px;border-top:1px dashed #cbd5e1;padding-top:12px;">
               <div class="lang-tabs">
-                <button type="button" class="btn-tab active" onclick="switchLang('inline-{jhash}', 'en', this)">🇬🇧 English</button>
-                <button type="button" class="btn-tab" onclick="switchLang('inline-{jhash}', 'fr', this)">🇫🇷 Français</button>
-                <button type="button" class="btn-tab" onclick="switchLang('inline-{jhash}', 'es', this)">🇪🇸 Español</button>
-                <button type="button" class="btn-tab" onclick="switchLang('inline-{jhash}', 'all', this)">🌐 Show All 3</button>
+                <button type="button" class="btn-tab active" onclick="switchLang('inline-{jhash}', 'en', this)">🇬🇧 English (W-8BEN)</button>
+                <button type="button" class="btn-tab" onclick="switchLang('inline-{jhash}', 'fr', this)">🇫🇷 Français (CNAM/Orange)</button>
+                <button type="button" class="btn-tab" onclick="switchLang('inline-{jhash}', 'es', this)">🇪🇸 Español (LATAM)</button>
+                {adv_tab_btn}
+                <button type="button" class="btn-tab" onclick="switchLang('inline-{jhash}', 'all', this)">🌐 Show All</button>
               </div>
+              {adv_pane_html}
               <div class="lang-pane lang-en-inline-{jhash}">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;">
                   <strong>🇬🇧 English Proposal / Outreach</strong>
@@ -684,14 +1027,14 @@ def build_unified_index_html(
               </div>
               <div class="lang-pane lang-fr-inline-{jhash}" style="display:none;">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;">
-                  <strong>🇫🇷 Proposition en Français</strong>
+                  <strong>🇫🇷 Proposition Commerciale (Français — CNAM &amp; Orange Telecom)</strong>
                   <button type="button" class="btn-action btn-primary" onclick="copyText('inline-fr-{jhash}', this)">📋 Copier FR</button>
                 </div>
                 <pre id="inline-fr-{jhash}" class="proposal-box">{p_fr}</pre>
               </div>
               <div class="lang-pane lang-es-inline-{jhash}" style="display:none;">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;">
-                  <strong>🇪🇸 Propuesta en Español</strong>
+                  <strong>🇪🇸 Propuesta Técnica (Español — LATAM / Global)</strong>
                   <button type="button" class="btn-action btn-primary" onclick="copyText('inline-es-{jhash}', this)">📋 Copiar ES</button>
                 </div>
                 <pre id="inline-es-{jhash}" class="proposal-box">{p_es}</pre>
@@ -700,7 +1043,7 @@ def build_unified_index_html(
             """
 
         brief_cards_html.append(f"""
-        <article class="opp-card brief-card verdict-{verdict}" data-verdict="{verdict}" id="brief-{jhash}">
+        <article class="opp-card brief-card verdict-{verdict}" data-verdict="{verdict}" data-track="{track_code}" id="brief-{jhash}">
           <div class="opp-header">
             <h3 class="opp-title">#{idx}. [{r['total_score']}/100] {title_esc} — <span style="font-weight:400;color:#4b5563;">{comp_esc}</span></h3>
             <span class="badge badge-{verdict}">{verdict} · {r['total_score']}/100</span>
@@ -708,7 +1051,8 @@ def build_unified_index_html(
           <div class="meta-line">
             <strong>Track:</strong> {track_esc} &nbsp;|&nbsp;
             <strong>Platform:</strong> {plat_esc} &nbsp;|&nbsp;
-            <strong>Location:</strong> {loc_esc}
+            <strong>Location:</strong> {loc_esc} &nbsp;|&nbsp;
+            <span class="caveat-pill {caveat_esc}">{caveat_esc}</span>
           </div>
           <div class="score-pills">
             <span class="score-pill">⚙️ Tech: {r['tech_score']}/35</span>
@@ -717,12 +1061,12 @@ def build_unified_index_html(
             <span class="score-pill">⏱️ Contract Fit: {r['contract_score']}/20</span>
           </div>
           <div style="margin-bottom:6px;">
-            <strong style="font-size:0.86em;">Matched Strengths:</strong> {render_skill_pills(r['matched_skills'], 'skill-tag')}
+            <strong style="font-size:0.86em;">Matched Stack:</strong> {render_skill_pills(r.get('matched_skills') or '', 'skill-tag')}
             &nbsp;&nbsp;
-            <strong style="font-size:0.86em;">Gaps:</strong> {render_skill_pills(r['missing_gaps'], 'gap-tag')}
+            <strong style="font-size:0.86em;">Red Flags / Gaps:</strong> {render_skill_pills(gaps_or_flags, 'gap-tag')}
           </div>
           <div style="font-size:0.92em;color:#374151;margin-top:6px;">
-            <strong>Analyst Verdict:</strong> {notes_esc}
+            <strong>Analyst Verdict &amp; Notes:</strong> {notes_esc}
           </div>
           <div class="card-actions">
             {proposal_btn}
@@ -733,43 +1077,69 @@ def build_unified_index_html(
         """)
 
     for idx, r in enumerate(actionable_rows, 1):
-        verdict = r["verdict"] or "POSSIBLE"
+        verdict = r.get("verdict") or "POSSIBLE"
         jhash = r["job_hash"]
-        title_esc = html.escape(r["title"])
-        comp_esc = html.escape(r["company"])
-        url_esc = html.escape(r["url"] or "#")
-        p_en = html.escape(r["proposal_en"] or "")
-        p_fr = html.escape(r["proposal_fr"] or "")
-        p_es = html.escape(r["proposal_es"] or "")
+        track_raw = r.get("track") or "Track F: Curated Remote-First & WFA Job Boards"
+        track_code = extract_track_code(track_raw)
+        title_esc = html.escape(str(r.get("title") or ""))
+        comp_esc = html.escape(str(r.get("company") or ""))
+        plat_esc = html.escape(str(r.get("platform_name") or ""))
+        track_esc = html.escape(track_raw)
+        url_esc = html.escape(str(r.get("url") or "#"))
+        p_en = html.escape(r.get("proposal_en") or "")
+        p_fr = html.escape(r.get("proposal_fr") or "")
+        p_es = html.escape(r.get("proposal_es") or "")
+        p_adv = html.escape(r.get("proposal_advisory") or "")
 
         icon = "🔥" if verdict == "APPLY" else "🟡"
-        if idx <= 15:
+        if idx <= 18:
             nav_apply_links.append(
-                f'<li><a href="#brief-{jhash}" onclick="switchMainView(\'brief\')">{icon} [{r["total_score"]}] {comp_esc[:22]}</a></li>'
+                f'<li class="nav-group-item" data-group="matches"><a href="#brief-{jhash}" onclick="switchMainView(\'brief\')">{icon} [{r["total_score"]}] {comp_esc[:22]}</a></li>'
             )
 
+        adv_tab_btn = ""
+        adv_pane_html = ""
+        if p_adv:
+            adv_tab_btn = (
+                f'<button type="button" class="btn-tab" '
+                f'onclick="switchLang(\'{jhash}\', \'adv\', this)">🎙️ 60s Advisory &amp; Scorecard</button>'
+            )
+            adv_pane_html = f"""
+          <div class="lang-pane lang-adv-{jhash}" style="display:none;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
+              <strong>🎙️ 60-Second Executive Advisory Pitch &amp; MSSP Vendor Scorecard</strong>
+              <button type="button" class="btn-action btn-primary" onclick="copyText('prop-adv-{jhash}', this)">📋 Copy Advisory Pitch</button>
+            </div>
+            <pre id="prop-adv-{jhash}" class="proposal-box">{p_adv}</pre>
+          </div>"""
+
         proposal_cards_html.append(f"""
-        <article class="opp-card prop-card verdict-{verdict}" data-verdict="{verdict}" id="job-{jhash}">
+        <article class="opp-card prop-card verdict-{verdict}" data-verdict="{verdict}" data-track="{track_code}" id="job-{jhash}">
           <div class="opp-header">
             <h3 class="opp-title">#{idx}. [{verdict} — {r['total_score']}/100] {title_esc} ({comp_esc})</h3>
             <span class="badge badge-{verdict}">{verdict} · {r['total_score']}/100</span>
           </div>
           <div class="meta-line">
+            <strong>Track:</strong> {track_esc} &nbsp;|&nbsp;
+            <strong>Platform:</strong> {plat_esc} &nbsp;|&nbsp;
             <strong>Direct URL:</strong> <a href="{url_esc}" target="_blank" rel="noopener">{url_esc}</a>
             &nbsp;|&nbsp;
-            <a href="#brief-{jhash}" onclick="switchMainView('brief')">🔍 View Score Breakdown in Morning Brief</a>
+            <a href="#brief-{jhash}" onclick="switchMainView('brief')">🔍 Score Breakdown in Morning Brief</a>
           </div>
 
           <div class="lang-tabs">
-            <button type="button" class="btn-tab active" onclick="switchLang('{jhash}', 'en', this)">🇬🇧 English</button>
-            <button type="button" class="btn-tab" onclick="switchLang('{jhash}', 'fr', this)">🇫🇷 Français</button>
-            <button type="button" class="btn-tab" onclick="switchLang('{jhash}', 'es', this)">🇪🇸 Español</button>
-            <button type="button" class="btn-tab" onclick="switchLang('{jhash}', 'all', this)">🌐 Show All 3</button>
+            <button type="button" class="btn-tab active" onclick="switchLang('{jhash}', 'en', this)">🇬🇧 English (W-8BEN)</button>
+            <button type="button" class="btn-tab" onclick="switchLang('{jhash}', 'fr', this)">🇫🇷 Français (CNAM/Orange)</button>
+            <button type="button" class="btn-tab" onclick="switchLang('{jhash}', 'es', this)">🇪🇸 Español (LATAM)</button>
+            {adv_tab_btn}
+            <button type="button" class="btn-tab" onclick="switchLang('{jhash}', 'all', this)">🌐 Show All</button>
           </div>
+
+          {adv_pane_html}
 
           <div class="lang-pane lang-en-{jhash}">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
-              <strong>🇬🇧 English Proposal / Outreach</strong>
+              <strong>🇬🇧 English Proposal / Outreach (Ready to Copy)</strong>
               <button type="button" class="btn-action btn-primary" onclick="copyText('prop-en-{jhash}', this)">📋 Copy English Pitch</button>
             </div>
             <pre id="prop-en-{jhash}" class="proposal-box">{p_en}</pre>
@@ -777,7 +1147,7 @@ def build_unified_index_html(
 
           <div class="lang-pane lang-fr-{jhash}" style="display:none;">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
-              <strong>🇫🇷 Proposition en Français</strong>
+              <strong>🇫🇷 Proposition Commerciale (Français — CNAM &amp; Orange Telecom Pedigree)</strong>
               <button type="button" class="btn-action btn-primary" onclick="copyText('prop-fr-{jhash}', this)">📋 Copier la proposition FR</button>
             </div>
             <pre id="prop-fr-{jhash}" class="proposal-box">{p_fr}</pre>
@@ -785,13 +1155,19 @@ def build_unified_index_html(
 
           <div class="lang-pane lang-es-{jhash}" style="display:none;">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
-              <strong>🇪🇸 Propuesta en Español</strong>
+              <strong>🇪🇸 Propuesta Técnica (Español — LATAM / Global)</strong>
               <button type="button" class="btn-action btn-primary" onclick="copyText('prop-es-{jhash}', this)">📋 Copiar propuesta ES</button>
             </div>
             <pre id="prop-es-{jhash}" class="proposal-box">{p_es}</pre>
           </div>
         </article>
         """)
+
+    scorecard_items_html = []
+    for vendor, rating in profile.get("candidate", {}).get("mssp_vendor_scorecard", {}).items():
+        scorecard_items_html.append(
+            f'<div class="radar-box"><h4>🛡️ {html.escape(vendor)}</h4><p>{html.escape(rating)}</p></div>'
+        )
 
     total_count = len(apply_rows) + len(possible_rows) + len(skip_rows)
 
@@ -800,37 +1176,82 @@ def build_unified_index_html(
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scout &amp; Analyst Career Pipeline — {today_str} | Thomas Simon</title>
+  <title>Scout &amp; Analyst v4.0.0 Career Pipeline — {today_str} | Thomas Simon</title>
   <link rel="canonical" href="{public_url}/">
   <style>{SHARED_WEB_STYLES}</style>
 </head>
 <body>
+  <button type="button" id="sidebar-unfold-btn" aria-label="Unfold navigation sidebar" title="Unfold sidebar ([)" onclick="toggleSidebar()">
+    <span>☰</span> <span>Unfold Nav</span>
+  </button>
+
   <nav id="navbar">
-    <header class="header-title">Scout &amp; Analyst</header>
+    <div class="navbar-header">
+      <header class="header-title">Scout &amp; Analyst v4.0</header>
+      <button type="button" class="sidebar-fold-btn" aria-label="Fold navigation sidebar" title="Fold sidebar ([)" onclick="toggleSidebar()">«</button>
+    </div>
     <button type="button" class="hamburger-btn" aria-label="Toggle navigation" onclick="this.parentElement.classList.toggle('nav-open');">
       <span class="hamburger-line"></span>
       <span class="hamburger-line"></span>
       <span class="hamburger-line"></span>
     </button>
     <ul onclick="if(event.target.tagName==='A'){{this.parentElement.classList.remove('nav-open');}}">
-      <li><a href="#morning-brief" id="nav-brief" class="active-nav" onclick="switchMainView('brief')">☕ Morning Brief ({total_count})</a></li>
-      <li><a href="#proposals-ready" id="nav-proposals" onclick="switchMainView('proposals')">✍️ Proposals Ready ({len(actionable_rows)})</a></li>
-      <li><a href="#raw-markdown" id="nav-markdown" onclick="switchMainView('markdown')">📄 Raw Markdown (.md)</a></li>
-      <li><a href="#guardrails" onclick="switchMainView('brief')">🎯 Daily Execution Guardrails</a></li>
-      <li><a href="{public_url}" target="_blank" rel="noopener">🌐 {public_url}</a></li>
-      <li><a href="https://tsimon.me" target="_blank" rel="noopener">💼 Portfolio (tsimon.me)</a></li>
+      <li class="nav-group-header" data-group-toggle="views" onclick="toggleNavGroup('views', this)">
+        <span>Dashboard Views</span>
+        <span class="nav-group-chevron">▾</span>
+      </li>
+      <li class="nav-group-item" data-group="views"><a href="#morning-brief" id="nav-brief" class="active-nav" onclick="switchMainView('brief')">☕ Morning Brief ({total_count})</a></li>
+      <li class="nav-group-item" data-group="views"><a href="#proposals-ready" id="nav-proposals" onclick="switchMainView('proposals')">✍️ Proposals Ready ({len(actionable_rows)})</a></li>
+      <li class="nav-group-item" data-group="views"><a href="#radar-coverage" id="nav-radar" onclick="switchMainView('radar')">🗺️ 6-Track Radar ({total_platforms})</a></li>
+      <li class="nav-group-item" data-group="views"><a href="#raw-markdown" id="nav-markdown" onclick="switchMainView('markdown')">📄 Raw Markdown (.md)</a></li>
+      <li class="nav-group-item" data-group="views"><a href="#guardrails" onclick="switchMainView('brief')">🎯 Daily Execution Guardrails</a></li>
+
+      <li class="nav-group-header" data-group-toggle="tracks" onclick="toggleNavGroup('tracks', this)">
+        <span>6 Strategic Tracks</span>
+        <span class="nav-group-chevron">▾</span>
+      </li>
+      <li class="nav-group-item" data-group="tracks"><a href="#morning-brief" onclick="switchMainView('brief'); filterByTrack('ALL');">🌐 All 6 Tracks ({total_count})</a></li>
+      <li class="nav-group-item" data-group="tracks"><a href="#morning-brief" onclick="switchMainView('brief'); filterByTrack('TRACK A');">🤝 Track A: Direct B2B &amp; MSP</a></li>
+      <li class="nav-group-item" data-group="tracks"><a href="#morning-brief" onclick="switchMainView('brief'); filterByTrack('TRACK B');">🤖 Track B: AI Eval &amp; RLHF</a></li>
+      <li class="nav-group-item" data-group="tracks"><a href="#morning-brief" onclick="switchMainView('brief'); filterByTrack('TRACK C');">🌎 Track C: LATAM &amp; Vetted</a></li>
+      <li class="nav-group-item" data-group="tracks"><a href="#morning-brief" onclick="switchMainView('brief'); filterByTrack('TRACK D');">🇫🇷 Track D: Francophone &amp; EU</a></li>
+      <li class="nav-group-item" data-group="tracks"><a href="#morning-brief" onclick="switchMainView('brief'); filterByTrack('TRACK E');">🎙️ Track E: Expert Advisory</a></li>
+      <li class="nav-group-item" data-group="tracks"><a href="#morning-brief" onclick="switchMainView('brief'); filterByTrack('TRACK F');">📡 Track F: Remote Boards</a></li>
+
+      <li class="nav-group-header" data-group-toggle="links" onclick="toggleNavGroup('links', this)">
+        <span>External Links</span>
+        <span class="nav-group-chevron">▾</span>
+      </li>
+      <li class="nav-group-item" data-group="links"><a href="{public_url}" target="_blank" rel="noopener">🌐 {public_url}</a></li>
+      <li class="nav-group-item" data-group="links"><a href="https://tsimon.me" target="_blank" rel="noopener">💼 Portfolio (tsimon.me)</a></li>
+      <li class="nav-group-item" data-group="links"><a href="https://bo.linkedin.com/in/tsimonfreelance" target="_blank" rel="noopener">🔗 LinkedIn (tsimonfreelance)</a></li>
+
+      <li class="nav-group-header" data-group-toggle="matches" onclick="toggleNavGroup('matches', this)">
+        <span>Top Matches ({len(nav_apply_links)})</span>
+        <span class="nav-group-chevron">▾</span>
+      </li>
       {"".join(nav_apply_links)}
     </ul>
   </nav>
 
   <main id="main-doc">
     <section class="top-banner">
-      <h1>☕ Thomas Simon — Scout &amp; Analyst Career Portal ({today_str})</h1>
+      <h1>☕ Thomas Simon — Scout &amp; Analyst Career Portal v4.0.0 ({today_str})</h1>
+      <p>
+        <strong>Engine Version:</strong> SCOUT + ANALYST v4.0.0 &nbsp;|&nbsp;
+        <strong>Monitored Global Portals:</strong> {total_platforms} Active Platforms (6 Strategic Tracks A–F)
+      </p>
       <p>
         <strong>Live Tunnel:</strong> <a href="{public_url}" style="color:#38bdf8;text-decoration:none;">{public_url}</a> (Cloudflared + Nginx <code>/var/www/html/index.html</code>)
         &nbsp;|&nbsp; <strong>Last Synced:</strong> {updated_ts} (La Paz · UTC-4)
       </p>
-      <p>Unified Single-Page Dashboard: <strong>morning_brief.md</strong> + <strong>proposals_ready.md</strong> (100-Point Qualification &amp; Trilingual Pitches)</p>
+      <div class="banner-pills">
+        <span class="banner-pill">🌎 La Paz, Bolivia (UTC-4)</span>
+        <span class="banner-pill">📄 IRS Form W-8BEN (0% US Tax Withholding)</span>
+        <span class="banner-pill">🎓 CNAM France &amp; ex-Orange Telecom SysAdmin</span>
+        <span class="banner-pill">🏢 100+ Clients / 3,500+ Endpoints</span>
+        <span class="banner-pill">🗣️ Trilingual FR (Native) / EN / ES</span>
+      </div>
     </section>
 
     <section class="kpi-grid">
@@ -843,12 +1264,16 @@ def build_unified_index_html(
         <div class="kpi-label"><strong>POSSIBLE</strong> (Score 62–79/100)</div>
       </div>
       <div class="kpi-card skip" onclick="switchMainView('brief'); filterCards('SKIP');">
-        <div class="kpi-value" style="color:#4b5563;">🛡️ {len(skip_rows)}</div>
+        <div class="kpi-value" style="color:#4b5563;">🛑 {len(skip_rows)}</div>
         <div class="kpi-label"><strong>AUTO-SKIPPED</strong> (Burnout / Low-ROI)</div>
       </div>
       <div class="kpi-card" onclick="switchMainView('proposals'); filterCards('ALL');">
         <div class="kpi-value" style="color:#0084b8;">✍️ {len(actionable_rows)}</div>
         <div class="kpi-label"><strong>Trilingual Proposals</strong> (EN / FR / ES)</div>
+      </div>
+      <div class="kpi-card" onclick="switchMainView('radar');">
+        <div class="kpi-value" style="color:#0f172a;">🛰️ {total_platforms}</div>
+        <div class="kpi-label"><strong>6-Track Radar</strong> (Active Portals)</div>
       </div>
     </section>
 
@@ -856,13 +1281,23 @@ def build_unified_index_html(
       <div class="filter-group">
         <button type="button" class="btn-tab active" id="tab-view-brief" onclick="switchMainView('brief')">☕ Morning Brief ({total_count})</button>
         <button type="button" class="btn-tab" id="tab-view-proposals" onclick="switchMainView('proposals')">✍️ Proposals Ready ({len(actionable_rows)})</button>
+        <button type="button" class="btn-tab" id="tab-view-radar" onclick="switchMainView('radar')">🗺️ 6-Track Radar &amp; Scorecard</button>
         <button type="button" class="btn-tab" id="tab-view-markdown" onclick="switchMainView('markdown')">📄 Raw Markdown Files</button>
       </div>
       <div class="filter-group" id="verdictFilterBar">
         <button type="button" class="btn-tab active" data-filter="ALL" onclick="filterCards('ALL')">All</button>
         <button type="button" class="btn-tab" data-filter="APPLY" onclick="filterCards('APPLY')">🔥 APPLY ({len(apply_rows)})</button>
         <button type="button" class="btn-tab" data-filter="POSSIBLE" onclick="filterCards('POSSIBLE')">🟡 POSSIBLE ({len(possible_rows)})</button>
-        <button type="button" class="btn-tab" data-filter="SKIP" onclick="filterCards('SKIP')">🛡️ SKIP ({len(skip_rows)})</button>
+        <button type="button" class="btn-tab" data-filter="SKIP" onclick="filterCards('SKIP')">🛑 SKIP ({len(skip_rows)})</button>
+        <select id="trackFilterSelect" class="track-select" aria-label="Filter by Strategic Track" onchange="filterByTrack(this.value)">
+          <option value="ALL">All 6 Strategic Tracks</option>
+          <option value="TRACK A">Track A: Direct B2B &amp; Fractional MSP (6)</option>
+          <option value="TRACK B">Track B: AI Training &amp; RLHF (20 Portals)</option>
+          <option value="TRACK C">Track C: LATAM &amp; Vetted Networks (16)</option>
+          <option value="TRACK D">Track D: Francophone &amp; EU Portals (9)</option>
+          <option value="TRACK E">Track E: Executive Expert Networks (6)</option>
+          <option value="TRACK F">Track F: Curated Remote Boards (16)</option>
+        </select>
       </div>
       <input type="search" id="searchInput" class="search-box" placeholder="Filter by skill, company, track..." oninput="applyFilters()">
     </section>
@@ -874,13 +1309,13 @@ def build_unified_index_html(
       </div>
 
       <section id="guardrails" class="opp-card" style="border-left-color:#0084b8;margin-top:28px;">
-        <h2 style="margin-top:0;">🎯 Today's Execution Guardrails</h2>
+        <h2 style="margin-top:0;">🎯 Today's Execution Guardrails (v4.0.0 Cognitive Protocol)</h2>
         <ol class="guardrail-list">
-          <li><strong>08:45 – 09:00:</strong> Copy pre-generated pitch from the <strong>✍️ Proposals Ready</strong> tab for your #1 match above and send.</li>
-          <li><strong>09:00 – 11:00:</strong> Python Phase 1 Module (Core/OOP/APIs/File I/O — zero job-board browsing).</li>
+          <li><strong>08:45 – 09:00:</strong> Review this briefing in &le; 3 minutes, copy 1–2 top pitches from the <strong>✍️ Proposals Ready</strong> tab, send outreach, and close all job boards.</li>
+          <li><strong>09:00 – 11:00:</strong> Python &amp; Data Automation Deep-Work Block (Core/OOP/APIs/Pandas/MCP — zero job-board browsing).</li>
           <li><strong>11:00 – 11:30:</strong> Mandatory 30-min cognitive recovery break.</li>
-          <li><strong>11:30 – 13:30:</strong> Azure AZ-104 / M365 / Entra ID administration block.</li>
-          <li><strong>16:00 – 16:30:</strong> 20-question review quiz + 5-minute preview of tomorrow's module + hard stop at 16:30.</li>
+          <li><strong>11:30 – 13:30:</strong> Microsoft Azure AZ-104 / M365 / Entra ID &amp; MSSP security administration block.</li>
+          <li><strong>16:00 – 16:30:</strong> 20-question review quiz + 5-minute preview of tomorrow's module + hard stop at 16:30 (UTC-4).</li>
         </ol>
       </section>
     </section>
@@ -892,7 +1327,48 @@ def build_unified_index_html(
       </div>
     </section>
 
-    <!-- VIEW 3: RAW MARKDOWN -->
+    <!-- VIEW 3: 6-TRACK RADAR & MSSP VENDOR SCORECARD -->
+    <section id="view-radar" style="display:none;">
+      <div class="opp-card" style="border-left-color:#0084b8;">
+        <h2 style="margin-top:0;">🗺️ Registered 6-Track Radar Coverage ({total_platforms} Active Portals)</h2>
+        <p style="color:#475569;font-size:0.92em;">Polled automatically via Clustered Portal Dorks, JSON APIs, and XML/Atom RSS Feeds with Dead-Platform Circuit Breaker (<em>joinstellar.ai / Stellar AI blacklisted</em>).</p>
+        <div class="radar-grid">
+          <div class="radar-box">
+            <h4>🤝 Track A: Direct B2B &amp; Fractional MSP (6 Portals)</h4>
+            <p>Upwork (Managed Services &amp; Cloud), Intch, Contra, Wellfound (AngelList Talent), Catalant, YunoJuno.</p>
+          </div>
+          <div class="radar-box">
+            <h4>🤖 Track B: Category 1 — AI Evaluation &amp; RLHF (20 Portals)</h4>
+            <p>Outlier AI, Alignerr, DataAnnotation.tech, Mindrift, Innodata, OneForma, Mercor, OpenTrain AI, Surge AI, Pareto AI, Micro1, RWS TrainAI, TELUS Digital, Peroptyx, TransPerfect DataForce, Welocalize, Appen CrowdGen, LXT, RemoExperts, Awesome AI Jobs.</p>
+          </div>
+          <div class="radar-box">
+            <h4>🌎 Track C: Category 2 — Vetted Global &amp; LATAM Networks (16)</h4>
+            <p>Toptal, Turing, Revelo, Lemon.io, Proxify, Braintrust, Arc.dev, Gun.io, Tecla, Strider, NeuronHire (Bolivia), HiresLink, Interfell, BairesDev, Nearsure, CloudDevs.</p>
+          </div>
+          <div class="radar-box">
+            <h4>🇫🇷 Track D: Category 3 — Francophone &amp; European Portals (9)</h4>
+            <p>Freelancermap, Free-Work (ex Freelance-Info), LeHibou, Freelance-Informatique, Malt, Comet, Crème de la Crème, Codeur.com, 9am.works.</p>
+          </div>
+          <div class="radar-box">
+            <h4>🎙️ Track E: Category 5 — Executive Expert Networks ($150–$400/hr)</h4>
+            <p>GLG (Gerson Lehrman Group), AlphaSights, Guidepoint, Dialectica, Wynter (B2B SaaS Panels), Respondent.io.</p>
+          </div>
+          <div class="radar-box">
+            <h4>📡 Track F: Category 6 — Curated Remote Boards &amp; APIs (15)</h4>
+            <p>Working Nomads API, Himalayas API &amp; RSS, Remotive API, Jobicy API, RemoteOK API, We Work Remotely RSS, Real Work From Anywhere RSS, The Nonlinear Project, FlexJobs, Remote.co, 4DayWeek.io, DevOpsProjectsHQ, FindJobIT, DistantJob, WOW Remote Teams.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="opp-card" style="border-left-color:#10b981;">
+        <h2 style="margin-top:0;">📊 Instant MSSP Cybersecurity &amp; RMM Vendor Scorecard (Track E Live Call Reference)</h2>
+        <div class="radar-grid">
+          {"".join(scorecard_items_html)}
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 4: RAW MARKDOWN -->
     <section id="view-markdown" style="display:none;">
       <div class="opp-card">
         <div class="opp-header">
@@ -911,7 +1387,7 @@ def build_unified_index_html(
     </section>
 
     <footer>
-      Thomas Simon Career Automation Suite (La Paz, Bolivia · UTC-4) &mdash;
+      Thomas Simon Career Automation Suite v4.0.0 (La Paz, Bolivia · UTC-4) &mdash;
       Served via Nginx (<code>/var/www/html/index.html</code>) &amp; Cloudflared Tunnel at
       <a href="{public_url}">{public_url}</a>
     </footer>
@@ -919,18 +1395,62 @@ def build_unified_index_html(
 
   <script>
     let currentVerdict = 'ALL';
+    let currentTrack = 'ALL';
+
+    function toggleSidebar() {{
+      const isCollapsed = document.body.classList.toggle('sidebar-collapsed');
+      try {{
+        localStorage.setItem('scout_sidebar_collapsed', isCollapsed ? '1' : '0');
+      }} catch (e) {{}}
+    }}
+
+    function toggleNavGroup(groupName, headerEl, forceFolded) {{
+      const isFolded = (typeof forceFolded === 'boolean')
+        ? forceFolded
+        : !headerEl.classList.contains('folded');
+      headerEl.classList.toggle('folded', isFolded);
+      document.querySelectorAll('#navbar li.nav-group-item[data-group="' + groupName + '"]').forEach(li => {{
+        li.classList.toggle('folded-item', isFolded);
+      }});
+      try {{
+        localStorage.setItem('scout_nav_group_' + groupName, isFolded ? '1' : '0');
+      }} catch (e) {{}}
+    }}
+
+    (function restoreSidebarState() {{
+      try {{
+        if (localStorage.getItem('scout_sidebar_collapsed') === '1') {{
+          document.body.classList.add('sidebar-collapsed');
+        }}
+        ['views', 'tracks', 'links', 'matches'].forEach(g => {{
+          if (localStorage.getItem('scout_nav_group_' + g) === '1') {{
+            const hdr = document.querySelector('#navbar li.nav-group-header[data-group-toggle="' + g + '"]');
+            if (hdr) toggleNavGroup(g, hdr, true);
+          }}
+        }});
+      }} catch (e) {{}}
+    }})();
+
+    document.addEventListener('keydown', function(e) {{
+      if (e.key === '[' && !['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target && e.target.tagName) || '')) {{
+        toggleSidebar();
+      }}
+    }});
 
     function switchMainView(viewName) {{
       document.getElementById('view-brief').style.display = (viewName === 'brief') ? '' : 'none';
       document.getElementById('view-proposals').style.display = (viewName === 'proposals') ? '' : 'none';
+      document.getElementById('view-radar').style.display = (viewName === 'radar') ? '' : 'none';
       document.getElementById('view-markdown').style.display = (viewName === 'markdown') ? '' : 'none';
 
       document.getElementById('tab-view-brief').classList.toggle('active', viewName === 'brief');
       document.getElementById('tab-view-proposals').classList.toggle('active', viewName === 'proposals');
+      document.getElementById('tab-view-radar').classList.toggle('active', viewName === 'radar');
       document.getElementById('tab-view-markdown').classList.toggle('active', viewName === 'markdown');
 
       document.getElementById('nav-brief').classList.toggle('active-nav', viewName === 'brief');
       document.getElementById('nav-proposals').classList.toggle('active-nav', viewName === 'proposals');
+      document.getElementById('nav-radar').classList.toggle('active-nav', viewName === 'radar');
       document.getElementById('nav-markdown').classList.toggle('active-nav', viewName === 'markdown');
     }}
 
@@ -951,7 +1471,7 @@ def build_unified_index_html(
       const container = btn.closest('.opp-card') || btn.parentElement.parentElement;
       btn.parentElement.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      ['en', 'fr', 'es'].forEach(l => {{
+      ['en', 'fr', 'es', 'adv'].forEach(l => {{
         const pane = container.querySelector('.lang-' + l + '-' + prefixHash);
         if (pane) {{
           pane.style.display = (lang === 'all' || lang === l) ? 'block' : 'none';
@@ -967,13 +1487,24 @@ def build_unified_index_html(
       applyFilters();
     }}
 
+    function filterByTrack(trackCode) {{
+      currentTrack = trackCode;
+      const sel = document.getElementById('trackFilterSelect');
+      if (sel && sel.value !== trackCode) {{
+        sel.value = trackCode;
+      }}
+      applyFilters();
+    }}
+
     function applyFilters() {{
       const q = (document.getElementById('searchInput').value || '').toLowerCase();
       document.querySelectorAll('.brief-card, .prop-card').forEach(card => {{
         const v = card.getAttribute('data-verdict');
+        const t = card.getAttribute('data-track') || 'OTHER';
         const matchesVerdict = (currentVerdict === 'ALL') || (v === currentVerdict);
+        const matchesTrack = (currentTrack === 'ALL') || (t === currentTrack);
         const matchesQuery = !q || card.innerText.toLowerCase().includes(q);
-        card.style.display = (matchesVerdict && matchesQuery) ? '' : 'none';
+        card.style.display = (matchesVerdict && matchesTrack && matchesQuery) ? '' : 'none';
       }});
     }}
 
@@ -990,103 +1521,171 @@ def build_unified_index_html(
 </html>"""
 
 
-def generate_reports(conn: sqlite3.Connection, web_dir: Optional[str] = None) -> None:
-    cur = conn.cursor()
-    today_str = datetime.date.today().isoformat()
-    updated_ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+def run_analyst(re_score_all: bool = False, web_dir: Optional[str] = None) -> None:
+    profile = load_json(PROFILE_PATH)
+    cfg = load_json(CONFIG_PATH)
+    conn = sqlite3.connect(str(DB_PATH))
+    conn.row_factory = sqlite3.Row
+    ensure_db_schema(conn)
 
-    cur.execute("SELECT * FROM opportunities ORDER BY total_score DESC")
-    all_rows = [dict(r) for r in cur.fetchall()]
+    query = (
+        "SELECT * FROM opportunities"
+        if re_score_all
+        else "SELECT * FROM opportunities WHERE verdict IS NULL OR (verdict IN ('APPLY', 'POSSIBLE') AND (proposal_en IS NULL OR proposal_en = ''))"
+    )
+    rows = conn.execute(query).fetchall()
+    print(f"[ANALYST] Evaluating {len(rows)} opportunities against {PROFILE_PATH.name} (v4.0.0)...")
+
+    for row in rows:
+        row_dict = dict(row)
+        res = evaluate_opportunity(row_dict, profile)
+        merged_dict = {**row_dict, **res}
+        p_en, p_fr, p_es, p_adv = ("", "", "", "")
+        if res["verdict"] in ("APPLY", "POSSIBLE"):
+            p_en, p_fr, p_es, p_adv, _ = build_proposal_bundle(merged_dict, profile)
+
+        conn.execute(
+            """
+            UPDATE opportunities
+               SET status = 'EVALUATED',
+                   verdict = ?,
+                   total_score = ?,
+                   tech_score = ?,
+                   safety_score = ?,
+                   geo_lang_score = ?,
+                   contract_score = ?,
+                   matched_skills = ?,
+                   missing_gaps = ?,
+                   red_flags = ?,
+                   analyst_notes = ?,
+                   proposal_en = ?,
+                   proposal_fr = ?,
+                   proposal_es = ?,
+                   proposal_advisory = ?
+             WHERE job_hash = ?
+            """,
+            (
+                res["verdict"],
+                res["total_score"],
+                res["tech_score"],
+                res["safety_score"],
+                res["geo_lang_score"],
+                res["contract_score"],
+                res["matched_skills"],
+                res["missing_gaps"],
+                res["red_flags"],
+                res["analyst_notes"],
+                p_en,
+                p_fr,
+                p_es,
+                p_adv,
+                row_dict["job_hash"],
+            ),
+        )
+    conn.commit()
+
+    all_rows = [
+        dict(r)
+        for r in conn.execute(
+            "SELECT * FROM opportunities ORDER BY total_score DESC, discovered_at DESC"
+        ).fetchall()
+    ]
 
     apply_rows = [r for r in all_rows if r["verdict"] == "APPLY"]
     possible_rows = [r for r in all_rows if r["verdict"] == "POSSIBLE"]
     skip_rows = [r for r in all_rows if r["verdict"] == "SKIP"]
 
+    today_str = datetime.date.today().isoformat()
+    updated_ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    total_platforms = len(cfg.get("platforms", []))
+
+    # 1. Write morning_brief.md (v4.0.0 format)
     brief_lines = [
-        f"# ☕ Thomas's Morning Professional Briefing — {today_str}",
-        f"**Schedule Window:** 08:45 – 09:00 AM (La Paz, UTC-4) | **Reading Time:** ~3 Minutes | **Web Portal:** {PUBLIC_TUNNEL_URL}",
-        f"**Pipeline Summary:** 🔥 **{len(apply_rows)} APPLY** (≥80/100) | 🟡 **{len(possible_rows)} POSSIBLE** (62–79/100) | 🛡️ **{len(skip_rows)} AUTO-SKIPPED** (Burnout/Low-ROI Filter)",
+        f"# ☕ Thomas's Morning Professional Briefing — {today_str} (La Paz, UTC-4)",
+        f"**Engine Version:** SCOUT + ANALYST v4.0.0 | **Monitored Global Portals:** {total_platforms} Active Platforms | **Web Portal:** {PUBLIC_TUNNEL_URL}",
+        "**Cognitive Guardrail:** Review in <= 3 minutes (08:45–09:00). Pick 1–2 top actions, send outreach, then close job boards for your 09:00 Python & AZ-104 study block.",
         "",
-        "---",
-        "## 🔥 Top High-Signal Opportunities (Action Required: Pick 1–2 Max Today)"
+        "## 📊 Pipeline Summary",
+        f"- **🔥 APPLY (Score >= 80):** {len(apply_rows)} high-alignment leads",
+        f"- **🟡 POSSIBLE (Score 62–79):** {len(possible_rows)} secondary/caveat leads",
+        f"- **🛑 SKIP (Score < 62 or Burnout Red Flag):** {len(skip_rows)} filtered out automatically",
+        "",
+        "## 🔥 Top Priority Actions (APPLY — Score >= 80)",
     ]
 
-    for idx, r in enumerate(apply_rows, 1):
-        brief_lines.extend([
-            f"### {idx}. [{r['total_score']}/100] {r['title']} — *{r['company']}*",
-            f"- **Track:** {r['track']} | **Platform:** {r['platform_name']} | **Location:** {r['location']}",
-            f"- **Score Breakdown:** Tech `{r['tech_score']}/35` · Burnout Safety `{r['safety_score']}/25` · Bolivia/Trilingual `{r['geo_lang_score']}/20` · Contract `{r['contract_score']}/20`",
-            f"- **Matched Strengths:** `{r['matched_skills']}` | **Gaps to Position Around:** `{r['missing_gaps']}`",
-            f"- **Analyst Verdict:** **{r['verdict']}** — {r['analyst_notes']}",
-            f"- **Direct Link:** {r['url']}",
-            ""
-        ])
-
-    if possible_rows:
-        brief_lines.extend([
-            "---",
-            "## 🟡 Secondary Matches (POSSIBLE — Position Around Existing Strengths)"
-        ])
-        for r in possible_rows:
+    if apply_rows:
+        brief_lines.extend(
+            [
+                "| Score | Track | Platform / Company | Role / Opportunity | Breakdown (Tech/Safe/Geo/Cont) |",
+                "| :--- | :--- | :--- | :--- | :--- |",
+            ]
+        )
+        for r in apply_rows[:20]:
+            bd = f"{r['tech_score']}/{r['safety_score']}/{r['geo_lang_score']}/{r['contract_score']}"
             brief_lines.append(
-                f"- **[{r['total_score']}/100] {r['title']}** ({r['company']}) — Matched: `{r['matched_skills']}` | Gaps: `{r['missing_gaps']}` | *{r['analyst_notes']}* ([Link]({r['url']}))"
+                f"| **{r['total_score']}/100** | {r['track']} | **{r['platform_name']}** ({r['company']}) | [{r['title']}]({r['url']}) | `{bd}` |"
             )
-        brief_lines.append("")
+    else:
+        brief_lines.append("_No new APPLY leads today._")
 
+    brief_lines.extend(["", "## 🟡 Secondary / Caveat Queue (POSSIBLE — Score 62–79)"])
+    if possible_rows:
+        brief_lines.extend(
+            [
+                "| Score | Track | Platform / Company | Role / Opportunity | Analyst Caveat / Notes |",
+                "| :--- | :--- | :--- | :--- | :--- |",
+            ]
+        )
+        for r in possible_rows[:20]:
+            brief_lines.append(
+                f"| **{r['total_score']}/100** | {r['track']} | **{r['platform_name']}** ({r['company']}) | [{r['title']}]({r['url']}) | {r['analyst_notes']} |"
+            )
+    else:
+        brief_lines.append("_No POSSIBLE leads queued._")
+
+    brief_lines.extend(["", "## 🛑 Auto-Skipped by Burnout & Scope Guardrails (SKIP)"])
     if skip_rows:
-        brief_lines.extend([
-            "---",
-            "## 🛡️ Blocked by Burnout & ROI Guardrail (Zero Action Needed)"
-        ])
-        for r in skip_rows:
-            brief_lines.append(f"- ~~{r['title']} ({r['company']})~~ — **Score: {r['total_score']}/100 [SKIP]** → *{r['analyst_notes']}*")
-        brief_lines.append("")
+        guardrail_skips = [r for r in skip_rows if r.get("red_flags")]
+        other_skips = [r for r in skip_rows if not r.get("red_flags")]
+        for r in guardrail_skips + other_skips:
+            brief_lines.append(
+                f"- **[SKIP — {r['total_score']}/100]** `{r['platform_name']}` ({r['company']}) — *{r['title']}* ({r['analyst_notes']})"
+            )
+    else:
+        brief_lines.append("_No skipped leads logged._")
 
-    brief_lines.extend([
-        "---",
-        "## 🎯 Today's Execution Guardrails",
-        f"1. **08:45 – 09:00:** Open `{PUBLIC_TUNNEL_URL}` (or `proposals_ready.md`), copy pre-generated pitch for your #1 match above, and send.",
-        "2. **09:00 – 11:00:** Python Phase 1 Module (Core/OOP/APIs/File I/O — zero job-board browsing).",
-        "3. **11:00 – 11:30:** Mandatory 30-min cognitive recovery break.",
-        "4. **11:30 – 13:30:** Azure AZ-104 / M365 / Entra ID administration block.",
-        "5. **16:00 – 16:30:** 20-question review quiz + 5-minute preview of tomorrow's module + hard stop at 16:30."
-    ])
+    brief_lines.extend(
+        [
+            "",
+            f"## 🗺️ Registered 6-Track Radar Coverage ({total_platforms} Active Portals)",
+            "- **Track A (Direct B2B & Fractional MSP — 6 Portals):** Upwork (Managed Services & Cloud), Intch, Contra, Wellfound, Catalant, YunoJuno.",
+            "- **Track B (Category 1 — 20 AI Evaluation & RLHF Portals):** Outlier AI, Alignerr, DataAnnotation, Mindrift, Innodata, OneForma, Mercor, OpenTrain AI, Surge AI, Pareto AI, Micro1, RWS TrainAI, TELUS Digital, Peroptyx, TransPerfect DataForce, Welocalize, Appen CrowdGen, LXT, RemoExperts, Awesome AI Jobs. *(Stellar AI blacklisted)*.",
+            "- **Track C (Category 2 — 16 Vetted Global & LATAM Networks):** Toptal, Turing, Revelo, Lemon.io, Proxify, Braintrust, Arc.dev, Gun.io, Tecla, Strider, NeuronHire (Bolivia), HiresLink, Interfell, BairesDev, Nearsure, CloudDevs.",
+            "- **Track D (Category 3 — 9 Francophone & European IT Portals):** Freelancermap, Free-Work, LeHibou, Freelance-Informatique, Malt, Comet, Crème de la Crème, Codeur.com, 9am.works.",
+            "- **Track E (Category 5 — 6 Executive Expert Networks):** GLG, AlphaSights, Guidepoint, Dialectica, Wynter, Respondent.io.",
+            "- **Track F (Category 6 — 16 Curated Remote Boards & APIs):** Working Nomads API, Himalayas API/RSS, Remotive API, Jobicy API, RemoteOK API, We Work Remotely RSS, Real Work From Anywhere RSS, The Nonlinear Project, FlexJobs, Remote.co, 4DayWeek.io, DevOpsProjectsHQ, FindJobIT, DistantJob, WOW Remote Teams.",
+        ]
+    )
 
-    brief_md_content = "\n".join(brief_lines)
-    with open(BRIEF_FILE, "w", encoding="utf-8") as f:
+    brief_md_content = "\n".join(brief_lines) + "\n"
+    with open(BRIEF_PATH, "w", encoding="utf-8") as f:
         f.write(brief_md_content)
 
+    # 2. Write proposals_ready.md
     prop_lines = [
-        f"# ✍️ Tailored Trilingual Proposals (EN / FR / ES) — {today_str}",
-        f"*Grounded 100% in `master_profile.json` (Zero invented experience) · Live Portal: {PUBLIC_TUNNEL_URL}*",
-        ""
+        f"# 📝 Trilingual Proposals & Advisory Pitches — {today_str}",
+        f"Generated automatically by `analyst_agent.py` v4.0.0 using verified metrics from `master_profile.json` · Live Portal: {PUBLIC_TUNNEL_URL}",
+        "",
     ]
-    for r in apply_rows + possible_rows:
-        prop_lines.extend([
-            "---",
-            f"## [{r['verdict']} — {r['total_score']}/100] {r['title']} ({r['company']})",
-            f"**URL:** {r['url']}",
-            "",
-            "### 🇬🇧 English Proposal / Outreach",
-            "```text",
-            r["proposal_en"],
-            "```",
-            "### 🇫🇷 Proposition en Français",
-            "```text",
-            r["proposal_fr"],
-            "```",
-            "### 🇪🇸 Propuesta en Español",
-            "```text",
-            r["proposal_es"],
-            "```",
-            ""
-        ])
+    actionable = apply_rows + possible_rows
+    for r in actionable:
+        prop_lines.append(generate_trilingual_proposals(r, profile))
 
-    prop_md_content = "\n".join(prop_lines)
-    with open(PROPOSALS_FILE, "w", encoding="utf-8") as f:
+    prop_md_content = "\n".join(prop_lines) + "\n"
+    with open(PROPOSALS_PATH, "w", encoding="utf-8") as f:
         f.write(prop_md_content)
 
-    # Generate unified single-page index.html locally
+    # 3. Build & write unified index.html
     index_html_content = build_unified_index_html(
         today_str=today_str,
         updated_ts=updated_ts,
@@ -1095,31 +1694,38 @@ def generate_reports(conn: sqlite3.Connection, web_dir: Optional[str] = None) ->
         skip_rows=skip_rows,
         brief_md=brief_md_content,
         proposals_md=prop_md_content,
-        public_url=PUBLIC_TUNNEL_URL
+        profile=profile,
+        cfg=cfg,
+        public_url=PUBLIC_TUNNEL_URL,
     )
-
-    with open(INDEX_HTML_FILE, "w", encoding="utf-8") as f:
+    with open(INDEX_HTML_PATH, "w", encoding="utf-8") as f:
         f.write(index_html_content)
 
     print(
-        f"[ANALYST COMPLETE] Wrote {BRIEF_FILE}, {PROPOSALS_FILE}, and unified {INDEX_HTML_FILE} "
-        f"({len(apply_rows)} APPLY, {len(possible_rows)} POSSIBLE, {len(skip_rows)} SKIP)."
+        f"[ANALYST] Scored {len(rows)} rows. Totals -> APPLY: {len(apply_rows)}, "
+        f"POSSIBLE: {len(possible_rows)}, SKIP: {len(skip_rows)}."
     )
+    print(f"[ANALYST] Wrote {BRIEF_PATH.name}, {PROPOSALS_PATH.name}, and unified {INDEX_HTML_PATH.name}.")
 
-    # Copy unified index.html to Nginx web root (/var/www/html/index.html) for https://pi.tsimon.me
+    # 4. Sync index.html to Nginx web root (/var/www/html or Y:\var\www\html)
     target_web_dir = resolve_nginx_web_dir(web_dir)
     if target_web_dir:
         try:
-            dest_index = os.path.join(target_web_dir, INDEX_HTML_FILE)
-            shutil.copyfile(INDEX_HTML_FILE, dest_index)
-            print(f"[NGINX SYNC] Published unified {INDEX_HTML_FILE} to {dest_index} (live at {PUBLIC_TUNNEL_URL})")
+            dest_index = os.path.join(target_web_dir, INDEX_HTML_PATH.name)
+            shutil.copyfile(str(INDEX_HTML_PATH), dest_index)
+            print(f"[NGINX SYNC] Published unified {INDEX_HTML_PATH.name} to {dest_index} (live at {PUBLIC_TUNNEL_URL})")
         except Exception as exc:
-            print(f"[!] Warning: Could not copy {INDEX_HTML_FILE} to {target_web_dir}: {exc}")
+            print(f"[!] Warning: Could not copy {INDEX_HTML_PATH.name} to {target_web_dir}: {exc}")
+
+    conn.close()
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Agent 2: ANALYST — Scoring & Proposal Generator")
-    parser.add_argument("--run", action="store_true", help="Evaluate all queued opportunities and generate reports")
-    parser.add_argument("--web-dir", default=None, help="Optional Nginx web root directory (defaults to /var/www/html)")
+    parser = argparse.ArgumentParser(
+        description="ANALYST Agent v4.0.0 — 6-Track Scoring, Trilingual Proposal Engine & Nginx Publisher"
+    )
+    parser.add_argument("--run", action="store_true", help="Evaluate new rows and generate reports + index.html")
+    parser.add_argument("--rescore-all", action="store_true", help="Re-score all rows in career_ops.db")
+    parser.add_argument("--web-dir", default=None, help="Optional Nginx web root directory (defaults to /var/www/html or Y:\\var\\www\\html)")
     args = parser.parse_args()
-    run_analyst(web_dir=args.web_dir)
+    run_analyst(re_score_all=args.rescore_all, web_dir=args.web_dir)

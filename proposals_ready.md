@@ -1,1178 +1,480 @@
-# ✍️ Tailored Trilingual Proposals (EN / FR / ES) — 2026-10-29
-*Grounded 100% in `master_profile.json` (Zero invented experience) · Live Portal: https://pi.tsimon.me*
+# 📝 Trilingual Proposals & Advisory Pitches — 2026-10-29
+Generated automatically by `analyst_agent.py` v4.0.0 using verified metrics from `master_profile.json` · Live Portal: https://pi.tsimon.me
 
----
-## [APPLY — 100/100] AI Logic Evaluator & Technical Writer — Cloud/SysAdmin & Andean Spanish Track (Outlier AI)
-**URL:** https://app.outlier.ai/en/expert/jobs/sysadmin-spanish-evaluator
+## 🎯 [APPLY — 100/100] Trilingual Technical AI Trainer & Systems Logic Evaluator (French / Andean Spanish / English)
+- **Company / Platform:** Outlier AI (Infrastructure & Squad Reviewer Track) (`Outlier AI`)
+- **Strategic Track:** Track B: Async AI Evaluation & RLHF
+- **Matched Stack:** `entra, entra id, m365, azure, ai trainer, rlhf, rubric, linux, debian, python, native french (cnam/orange), spanish/trilingual`
+- **Direct Link:** https://outlier.ai/
+- **Analyst Notes:** Self-paced asynchronous AI evaluation / RLHF workflow.
 
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Technical AI Evaluator & Trilingual Infrastructure Auditor — AI Logic Evaluator & Technical Writer — Cloud/SysAdmin & Andean Spanish Track
+### 🇬🇧 English Proposal / Outreach (Ready to Copy)
+Hello Outlier AI (Infrastructure & Squad Reviewer Track) team,
 
-Hello Outlier AI Team,
+Regarding the **Trilingual Technical AI Trainer & Systems Logic Evaluator (French / Andean Spanish / English)** opportunity: I bring 13+ years of senior IT infrastructure, cloud administration, and NOC/Centralized Services engineering experience (managing 100+ client environments and 3,500+ endpoints remotely in US time zones, UTC-4). My core focus is systemic logic and proactive automation—having reduced recurring infrastructure incidents by 30% using entra, entra id, m365, azure, ai trainer, rlhf, rubric, linux, debian, python, native french (cnam/orange), spanish/trilingual, Liongard, IT Glue, Autotask, NinjaOne, Acronis BCDR, Microsoft 365/Entra ID, and Python/PowerShell.
 
-I am a trilingual (French/English/Spanish) Senior IT Infrastructure & Cloud Engineer based in La Paz, Bolivia (UTC-4) with 13+ years of enterprise systems experience and 6.5 years in NOC/Centralized Services. Rather than generic copywriting, my core expertise is systemic root-cause logic: auditing Microsoft Azure/M365 architectures, GNU/Linux (Debian since 2005), BCDR runbooks, and PowerShell/Python automation scripts across 40+ to 100+ client environments.
-
-Key Alignment for AI Logic Evaluator & Technical Writer — Cloud/SysAdmin & Andean Spanish Track:
-• Technical Response & RLHF Auditing: Rigorous step-by-step verification of LLM outputs covering azure, bcdr, debian, documentation, evaluator, french, linux, rlhf, spanish.
-• Operational Track Record: Reduced recurring production incidents by 30% through proactive monitoring standardization and SOP engineering.
-• Trilingual Localization: Native French, fluent enterprise English, and Andean Spanish context.
-
-Portfolio & Case Studies: https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Évaluateur Logique IA Senior & Consultant Infrastructure Cloud Trilingue — AI Logic Evaluator & Technical Writer — Cloud/SysAdmin & Andean Spanish Track
-
-Bonjour l'équipe Outlier AI,
-
-Ingénieur Systèmes, Cloud (Azure/M365/Entra ID) et Spécialiste NOC trilingue (FR/EN/ES) avec plus de 13 ans d'expérience (et utilisateur GNU/Linux Debian depuis 2005), je propose une expertise pointue en audit logique et évaluation RLHF sur les domaines : azure, bcdr, debian, documentation, evaluator, french, linux, rlhf, spanish.
-
-• Réduction de 30 % des incidents récurrents grâce à la standardisation documentaire (IT Glue, SOP) et l'automatisation proactive.
-• Vérification rigoureuse des procédures techniques, scripts PowerShell/Python et architectures BCDR.
-• Disponibilité asynchrone immédiate (UTC-4).
-
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Evaluador Técnico de IA y Auditor de Infraestructura Cloud Trilingüe — AI Logic Evaluator & Technical Writer — Cloud/SysAdmin & Andean Spanish Track
-
-Hola equipo de Outlier AI,
-
-Soy Ingeniero Senior de Sistemas y Cloud (Azure/M365/Entra ID) radicado en La Paz, Bolivia (UTC-4), trilingüe (francés, inglés y español) con más de 13 años de experiencia en infraestructura empresarial y 6.5 años en operaciones NOC/Servicios Centralizados.
-
-• Auditoría Lógica y RLHF: Validación técnica de modelos GenAI, scripts y manuales operativos en azure, bcdr, debian, documentation, evaluator, french, linux, rlhf, spanish.
-• Resultados Verificados: Reducción del 30% en incidentes recurrentes mediante automatización proactiva y estandarización de SOPs.
-• Disponibilidad inmediata en modalidad remota asíncrona.
-
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
-
----
-## [APPLY — 100/100] AI Trainer & Technical Documentation Auditor (Enterprise IT / Cloud) (Innodata)
-**URL:** https://www.innodata.com/careers/ai-trainer-enterprise-it
-
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Technical AI Evaluator & Trilingual Infrastructure Auditor — AI Trainer & Technical Documentation Auditor (Enterprise IT / Cloud)
-
-Hello Innodata Team,
-
-I am a trilingual (French/English/Spanish) Senior IT Infrastructure & Cloud Engineer based in La Paz, Bolivia (UTC-4) with 13+ years of enterprise systems experience and 6.5 years in NOC/Centralized Services. Rather than generic copywriting, my core expertise is systemic root-cause logic: auditing Microsoft Azure/M365 architectures, GNU/Linux (Debian since 2005), BCDR runbooks, and PowerShell/Python automation scripts across 40+ to 100+ client environments.
-
-Key Alignment for AI Trainer & Technical Documentation Auditor (Enterprise IT / Cloud):
-• Technical Response & RLHF Auditing: Rigorous step-by-step verification of LLM outputs covering ai trainer, azure, bcdr, documentation, french, m365, sop, spanish.
-• Operational Track Record: Reduced recurring production incidents by 30% through proactive monitoring standardization and SOP engineering.
-• Trilingual Localization: Native French, fluent enterprise English, and Andean Spanish context.
-
-Portfolio & Case Studies: https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Évaluateur Logique IA Senior & Consultant Infrastructure Cloud Trilingue — AI Trainer & Technical Documentation Auditor (Enterprise IT / Cloud)
-
-Bonjour l'équipe Innodata,
-
-Ingénieur Systèmes, Cloud (Azure/M365/Entra ID) et Spécialiste NOC trilingue (FR/EN/ES) avec plus de 13 ans d'expérience (et utilisateur GNU/Linux Debian depuis 2005), je propose une expertise pointue en audit logique et évaluation RLHF sur les domaines : ai trainer, azure, bcdr, documentation, french, m365, sop, spanish.
-
-• Réduction de 30 % des incidents récurrents grâce à la standardisation documentaire (IT Glue, SOP) et l'automatisation proactive.
-• Vérification rigoureuse des procédures techniques, scripts PowerShell/Python et architectures BCDR.
-• Disponibilité asynchrone immédiate (UTC-4).
-
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Evaluador Técnico de IA y Auditor de Infraestructura Cloud Trilingüe — AI Trainer & Technical Documentation Auditor (Enterprise IT / Cloud)
-
-Hola equipo de Innodata,
-
-Soy Ingeniero Senior de Sistemas y Cloud (Azure/M365/Entra ID) radicado en La Paz, Bolivia (UTC-4), trilingüe (francés, inglés y español) con más de 13 años de experiencia en infraestructura empresarial y 6.5 años en operaciones NOC/Servicios Centralizados.
-
-• Auditoría Lógica y RLHF: Validación técnica de modelos GenAI, scripts y manuales operativos en ai trainer, azure, bcdr, documentation, french, m365, sop, spanish.
-• Resultados Verificados: Reducción del 30% en incidentes recurrentes mediante automatización proactiva y estandarización de SOPs.
-• Disponibilidad inmediata en modalidad remota asíncrona.
-
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
-
----
-## [APPLY — 97/100] Fractional M365, Entra ID & MSP Automation Consultant (20 hrs/wk) (Apex Cloud Managed Services)
-**URL:** https://www.workingnomads.com/jobs/fractional-m365-entra-msp-consultant-apex
-
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Fractional M365, Entra ID & MSP Automation Consultant (20 hrs/wk)
-
-Hi Apex Cloud Managed Services,
-
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
-
-How I can support Apex Cloud Managed Services (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: autotask, azure, entra, it glue, liongard, m365, microsoft 365, ninjaone, power automate, powershell (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
+Operating as an independent international contractor out of La Paz, Bolivia (simple IRS Form W-8BEN for US clients, zero tax withholding or visa overhead) and fluent in English, French (native), and Spanish, I deliver high-accountability, well-documented asynchronous execution. You can review my architecture case studies at https://tsimon.me. Let's schedule a brief technical call this week to align on your immediate milestones.
 
 Best regards,
+Thomas Simon | https://tsimon.me | https://bo.linkedin.com/in/tsimonfreelance
+
+### 🇫🇷 Proposition Commerciale / Message (Français — CNAM & Orange Telecom Pedigree)
+Bonjour l'équipe Outlier AI (Infrastructure & Squad Reviewer Track),
+
+Suite à votre publication pour la mission **Trilingual Technical AI Trainer & Systems Logic Evaluator (French / Andean Spanish / English)**, je vous propose mon expertise d'Ingénieur Systèmes, Cloud & NOC Senior (diplômé du CNAM France en Télécommunications & Réseaux, ancien Administrateur Systèmes chez Orange Telecom en France, et plus de 13 ans d'expérience sur des environnements critiques).
+
+J'accompagne les MSP et entreprises à distance (fuseau UTC-4, parfaitement compatible avec les équipes européennes et nord-américaines en mode asynchrone) sur l'administration et la sécurisation Microsoft 365 / Entra ID / Intune / Azure, l'automatisation Python/PowerShell, la continuité d'activité (Acronis/Veeam) et la standardisation documentaire (entra, entra id, m365, azure, ai trainer, rlhf, rubric, linux, debian, python, native french (cnam/orange), spanish/trilingual)—avec une réduction prouvée de 30 % des incidents récurrents sur plus de 3 500 postes et serveurs. Trilingue français (natif), anglais et espagnol, mon portfolio technique est consultable sur https://tsimon.me. Disponible pour échanger cette semaine sur vos objectifs.
+
+Cordialement,
 Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Fractional M365, Entra ID & MSP Automation Consultant (20 hrs/wk)
 
-Bonjour Apex Cloud Managed Services,
+### 🇪🇸 Propuesta Técnica / Mensaje (Español — LATAM / Global)
+Hola equipo de Outlier AI (Infrastructure & Squad Reviewer Track),
 
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur autotask, azure, entra, it glue, liongard, m365, microsoft 365, ninjaone, power automate, powershell. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
+En relación con la posición **Trilingual Technical AI Trainer & Systems Logic Evaluator (French / Andean Spanish / English)**: cuento con más de 13 años de experiencia como Consultor Senior de TI, Ingeniero Cloud (Azure / Microsoft 365 / Entra ID) y Especialista NOC/CSM gestionando más de 100 entornos empresariales y 3,500+ endpoints de forma 100% remota desde La Paz, Bolivia (UTC-4).
 
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Fractional M365, Entra ID & MSP Automation Consultant (20 hrs/wk)
+Me especializo en auditoría lógica de sistemas, automatización con Python/PowerShell, evaluación técnica de modelos de IA (RLHF / Context Engineering) y estandarización operativa (entra, entra id, m365, azure, ai trainer, rlhf, rubric, linux, debian, python, native french (cnam/orange), spanish/trilingual), logrando reducir incidentes recurrentes en un 30% y manteniendo un 99%+ de confiabilidad en respaldos BCDR. Opero como contratista independiente trilingüe (francés nativo, inglés fluido y español) con facturación internacional directa (W-8BEN). Pueden revisar mi portafolio en https://tsimon.me. Quedo atento para coordinar una breve conversación técnica.
 
-Hola Apex Cloud Managed Services,
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de autotask, azure, entra, it glue, liongard, m365, microsoft 365, ninjaone, power automate, powershell. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
+Atentamente,
+Thomas Simon | https://tsimon.me | +591 734 62133
 
 ---
-## [APPLY — 97/100] Warm Outreach / Follow-Up: Todd & Mercedes (MSP Centralized Services & Cloud Automation) (Direct Network (Todd / Mercedes))
-**URL:** mailto:simon_thomas@outlook.fr?subject=Warm-Outreach-Todd-Mercedes
 
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Warm Outreach / Follow-Up: Todd & Mercedes (MSP Centralized Services & Cloud Automation)
+## 🎯 [APPLY — 99/100] Ingénieur Cloud Microsoft 365 / Entra ID / Intune & Automatisation (100% Télétravail)
+- **Company / Platform:** Cabinet Conseil Cloud & Cybersécurité (via Free-Work / Malt) (`Free-Work (ex Freelance-Info)`)
+- **Strategic Track:** Track D: Francophone & European IT/Cloud Marketplaces
+- **Matched Stack:** `acronis, veeam, entra, entra id, m365, microsoft 365, intune, conditional access, powershell, documentation, python, télétravail`
+- **Direct Link:** https://www.free-work.com/
+- **Analyst Notes:** Fractional / part-time / scoped deliverable friendly.
 
-Hi Direct Network (Todd / Mercedes),
+### 🇬🇧 English Proposal / Outreach (Ready to Copy)
+Hello Cabinet Conseil Cloud & Cybersécurité (via Free-Work / Malt) team,
 
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
+Regarding the **Ingénieur Cloud Microsoft 365 / Entra ID / Intune & Automatisation (100% Télétravail)** opportunity: I bring 13+ years of senior IT infrastructure, cloud administration, and NOC/Centralized Services engineering experience (managing 100+ client environments and 3,500+ endpoints remotely in US time zones, UTC-4). My core focus is systemic logic and proactive automation—having reduced recurring infrastructure incidents by 30% using acronis, veeam, entra, entra id, m365, microsoft 365, intune, conditional access, powershell, documentation, python, télétravail, Liongard, IT Glue, Autotask, NinjaOne, Acronis BCDR, Microsoft 365/Entra ID, and Python/PowerShell.
 
-How I can support Direct Network (Todd / Mercedes) (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: autotask, centralized services, documentation, entra, it glue, liongard, m365, ninjaone (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
+Operating as an independent international contractor out of La Paz, Bolivia (simple IRS Form W-8BEN for US clients, zero tax withholding or visa overhead) and fluent in English, French (native), and Spanish, I deliver high-accountability, well-documented asynchronous execution. You can review my architecture case studies at https://tsimon.me. Let's schedule a brief technical call this week to align on your immediate milestones.
 
 Best regards,
+Thomas Simon | https://tsimon.me | https://bo.linkedin.com/in/tsimonfreelance
+
+### 🇫🇷 Proposition Commerciale / Message (Français — CNAM & Orange Telecom Pedigree)
+Bonjour l'équipe Cabinet Conseil Cloud & Cybersécurité (via Free-Work / Malt),
+
+Suite à votre publication pour la mission **Ingénieur Cloud Microsoft 365 / Entra ID / Intune & Automatisation (100% Télétravail)**, je vous propose mon expertise d'Ingénieur Systèmes, Cloud & NOC Senior (diplômé du CNAM France en Télécommunications & Réseaux, ancien Administrateur Systèmes chez Orange Telecom en France, et plus de 13 ans d'expérience sur des environnements critiques).
+
+J'accompagne les MSP et entreprises à distance (fuseau UTC-4, parfaitement compatible avec les équipes européennes et nord-américaines en mode asynchrone) sur l'administration et la sécurisation Microsoft 365 / Entra ID / Intune / Azure, l'automatisation Python/PowerShell, la continuité d'activité (Acronis/Veeam) et la standardisation documentaire (acronis, veeam, entra, entra id, m365, microsoft 365, intune, conditional access, powershell, documentation, python, télétravail)—avec une réduction prouvée de 30 % des incidents récurrents sur plus de 3 500 postes et serveurs. Trilingue français (natif), anglais et espagnol, mon portfolio technique est consultable sur https://tsimon.me. Disponible pour échanger cette semaine sur vos objectifs.
+
+Cordialement,
 Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Warm Outreach / Follow-Up: Todd & Mercedes (MSP Centralized Services & Cloud Automation)
 
-Bonjour Direct Network (Todd / Mercedes),
+### 🇪🇸 Propuesta Técnica / Mensaje (Español — LATAM / Global)
+Hola equipo de Cabinet Conseil Cloud & Cybersécurité (via Free-Work / Malt),
 
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur autotask, centralized services, documentation, entra, it glue, liongard, m365, ninjaone. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
+En relación con la posición **Ingénieur Cloud Microsoft 365 / Entra ID / Intune & Automatisation (100% Télétravail)**: cuento con más de 13 años de experiencia como Consultor Senior de TI, Ingeniero Cloud (Azure / Microsoft 365 / Entra ID) y Especialista NOC/CSM gestionando más de 100 entornos empresariales y 3,500+ endpoints de forma 100% remota desde La Paz, Bolivia (UTC-4).
 
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Warm Outreach / Follow-Up: Todd & Mercedes (MSP Centralized Services & Cloud Automation)
+Me especializo en auditoría lógica de sistemas, automatización con Python/PowerShell, evaluación técnica de modelos de IA (RLHF / Context Engineering) y estandarización operativa (acronis, veeam, entra, entra id, m365, microsoft 365, intune, conditional access, powershell, documentation, python, télétravail), logrando reducir incidentes recurrentes en un 30% y manteniendo un 99%+ de confiabilidad en respaldos BCDR. Opero como contratista independiente trilingüe (francés nativo, inglés fluido y español) con facturación internacional directa (W-8BEN). Pueden revisar mi portafolio en https://tsimon.me. Quedo atento para coordinar una breve conversación técnica.
 
-Hola Direct Network (Todd / Mercedes),
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de autotask, centralized services, documentation, entra, it glue, liongard, m365, ninjaone. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
+Atentamente,
+Thomas Simon | https://tsimon.me | +591 734 62133
 
 ---
-## [APPLY — 97/100] Warm Outreach / Follow-Up: Mercedes (MSP / Cloud / Centralized Services) (Direct Network (Mercedes))
-**URL:** mailto:simon_thomas@outlook.fr?subject=Follow-up-Mercedes
 
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Warm Outreach / Follow-Up: Mercedes (MSP / Cloud / Centralized Services)
+## 🎯 [APPLY — 94/100] Remote AI Context Engineer & Cloud Automation Specialist (Bolivia / LATAM)
+- **Company / Platform:** NeuronHire Nearshore Enterprise Partner (`NeuronHire`)
+- **Strategic Track:** Track C: Vetted Global & Nearshore LATAM Networks
+- **Matched Stack:** `m365, microsoft 365, azure, context engineer, python, pandas, ollama, langchain, mcp, rag, spanish/trilingual`
+- **Direct Link:** https://www.neuronhire.com/
+- **Analyst Notes:** Standard contract alignment.
 
-Hi Direct Network (Mercedes),
+### 🇬🇧 English Proposal / Outreach (Ready to Copy)
+Hello NeuronHire Nearshore Enterprise Partner team,
 
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
+Regarding the **Remote AI Context Engineer & Cloud Automation Specialist (Bolivia / LATAM)** opportunity: I bring 13+ years of senior IT infrastructure, cloud administration, and NOC/Centralized Services engineering experience (managing 100+ client environments and 3,500+ endpoints remotely in US time zones, UTC-4). My core focus is systemic logic and proactive automation—having reduced recurring infrastructure incidents by 30% using m365, microsoft 365, azure, context engineer, python, pandas, ollama, langchain, mcp, rag, spanish/trilingual, Liongard, IT Glue, Autotask, NinjaOne, Acronis BCDR, Microsoft 365/Entra ID, and Python/PowerShell.
 
-How I can support Direct Network (Mercedes) (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: autotask, azure, centralized services, documentation, entra, it glue, liongard, m365 (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
+Operating as an independent international contractor out of La Paz, Bolivia (simple IRS Form W-8BEN for US clients, zero tax withholding or visa overhead) and fluent in English, French (native), and Spanish, I deliver high-accountability, well-documented asynchronous execution. You can review my architecture case studies at https://tsimon.me. Let's schedule a brief technical call this week to align on your immediate milestones.
 
 Best regards,
+Thomas Simon | https://tsimon.me | https://bo.linkedin.com/in/tsimonfreelance
+
+### 🇫🇷 Proposition Commerciale / Message (Français — CNAM & Orange Telecom Pedigree)
+Bonjour l'équipe NeuronHire Nearshore Enterprise Partner,
+
+Suite à votre publication pour la mission **Remote AI Context Engineer & Cloud Automation Specialist (Bolivia / LATAM)**, je vous propose mon expertise d'Ingénieur Systèmes, Cloud & NOC Senior (diplômé du CNAM France en Télécommunications & Réseaux, ancien Administrateur Systèmes chez Orange Telecom en France, et plus de 13 ans d'expérience sur des environnements critiques).
+
+J'accompagne les MSP et entreprises à distance (fuseau UTC-4, parfaitement compatible avec les équipes européennes et nord-américaines en mode asynchrone) sur l'administration et la sécurisation Microsoft 365 / Entra ID / Intune / Azure, l'automatisation Python/PowerShell, la continuité d'activité (Acronis/Veeam) et la standardisation documentaire (m365, microsoft 365, azure, context engineer, python, pandas, ollama, langchain, mcp, rag, spanish/trilingual)—avec une réduction prouvée de 30 % des incidents récurrents sur plus de 3 500 postes et serveurs. Trilingue français (natif), anglais et espagnol, mon portfolio technique est consultable sur https://tsimon.me. Disponible pour échanger cette semaine sur vos objectifs.
+
+Cordialement,
 Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Warm Outreach / Follow-Up: Mercedes (MSP / Cloud / Centralized Services)
 
-Bonjour Direct Network (Mercedes),
+### 🇪🇸 Propuesta Técnica / Mensaje (Español — LATAM / Global)
+Hola equipo de NeuronHire Nearshore Enterprise Partner,
 
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur autotask, azure, centralized services, documentation, entra, it glue, liongard, m365. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
+En relación con la posición **Remote AI Context Engineer & Cloud Automation Specialist (Bolivia / LATAM)**: cuento con más de 13 años de experiencia como Consultor Senior de TI, Ingeniero Cloud (Azure / Microsoft 365 / Entra ID) y Especialista NOC/CSM gestionando más de 100 entornos empresariales y 3,500+ endpoints de forma 100% remota desde La Paz, Bolivia (UTC-4).
 
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Warm Outreach / Follow-Up: Mercedes (MSP / Cloud / Centralized Services)
+Me especializo en auditoría lógica de sistemas, automatización con Python/PowerShell, evaluación técnica de modelos de IA (RLHF / Context Engineering) y estandarización operativa (m365, microsoft 365, azure, context engineer, python, pandas, ollama, langchain, mcp, rag, spanish/trilingual), logrando reducir incidentes recurrentes en un 30% y manteniendo un 99%+ de confiabilidad en respaldos BCDR. Opero como contratista independiente trilingüe (francés nativo, inglés fluido y español) con facturación internacional directa (W-8BEN). Pueden revisar mi portafolio en https://tsimon.me. Quedo atento para coordinar una breve conversación técnica.
 
-Hola Direct Network (Mercedes),
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de autotask, azure, centralized services, documentation, entra, it glue, liongard, m365. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
+Atentamente,
+Thomas Simon | https://tsimon.me | +591 734 62133
 
 ---
-## [APPLY — 97/100] Warm Outreach / Follow-Up: Rayan (SysOps / DevOps / Infrastructure Automation) (Direct Network (Rayan))
-**URL:** mailto:simon_thomas@outlook.fr?subject=Follow-up-Rayan
 
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Warm Outreach / Follow-Up: Rayan (SysOps / DevOps / Infrastructure Automation)
+## 🎯 [APPLY — 93/100] Fractional NOC / Centralized Services Engineer (Liongard, IT Glue, Autotask, M365)
+- **Company / Platform:** North American Growth MSP (via Upwork) (`Upwork (Managed Services & Cloud)`)
+- **Strategic Track:** Track A: Direct B2B & Fractional MSP
+- **Matched Stack:** `liongard, it glue, autotask, ninjaone, acronis, entra, entra id, m365, conditional access, noc, centralized services, msp`
+- **Direct Link:** https://www.upwork.com/freelance-jobs/managed-services/
+- **Analyst Notes:** Fractional / part-time / scoped deliverable friendly.
 
-Hi Direct Network (Rayan),
+### 🇬🇧 English Proposal / Outreach (Ready to Copy)
+Hello North American Growth MSP (via Upwork) team,
 
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
+Regarding the **Fractional NOC / Centralized Services Engineer (Liongard, IT Glue, Autotask, M365)** opportunity: I bring 13+ years of senior IT infrastructure, cloud administration, and NOC/Centralized Services engineering experience (managing 100+ client environments and 3,500+ endpoints remotely in US time zones, UTC-4). My core focus is systemic logic and proactive automation—having reduced recurring infrastructure incidents by 30% using liongard, it glue, autotask, ninjaone, acronis, entra, entra id, m365, conditional access, noc, centralized services, msp, Liongard, IT Glue, Autotask, NinjaOne, Acronis BCDR, Microsoft 365/Entra ID, and Python/PowerShell.
 
-How I can support Direct Network (Rayan) (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: autotask, azure, documentation, entra, it glue, liongard, m365 (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
+Operating as an independent international contractor out of La Paz, Bolivia (simple IRS Form W-8BEN for US clients, zero tax withholding or visa overhead) and fluent in English, French (native), and Spanish, I deliver high-accountability, well-documented asynchronous execution. You can review my architecture case studies at https://tsimon.me. Let's schedule a brief technical call this week to align on your immediate milestones.
 
 Best regards,
+Thomas Simon | https://tsimon.me | https://bo.linkedin.com/in/tsimonfreelance
+
+### 🇫🇷 Proposition Commerciale / Message (Français — CNAM & Orange Telecom Pedigree)
+Bonjour l'équipe North American Growth MSP (via Upwork),
+
+Suite à votre publication pour la mission **Fractional NOC / Centralized Services Engineer (Liongard, IT Glue, Autotask, M365)**, je vous propose mon expertise d'Ingénieur Systèmes, Cloud & NOC Senior (diplômé du CNAM France en Télécommunications & Réseaux, ancien Administrateur Systèmes chez Orange Telecom en France, et plus de 13 ans d'expérience sur des environnements critiques).
+
+J'accompagne les MSP et entreprises à distance (fuseau UTC-4, parfaitement compatible avec les équipes européennes et nord-américaines en mode asynchrone) sur l'administration et la sécurisation Microsoft 365 / Entra ID / Intune / Azure, l'automatisation Python/PowerShell, la continuité d'activité (Acronis/Veeam) et la standardisation documentaire (liongard, it glue, autotask, ninjaone, acronis, entra, entra id, m365, conditional access, noc, centralized services, msp)—avec une réduction prouvée de 30 % des incidents récurrents sur plus de 3 500 postes et serveurs. Trilingue français (natif), anglais et espagnol, mon portfolio technique est consultable sur https://tsimon.me. Disponible pour échanger cette semaine sur vos objectifs.
+
+Cordialement,
 Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Warm Outreach / Follow-Up: Rayan (SysOps / DevOps / Infrastructure Automation)
 
-Bonjour Direct Network (Rayan),
+### 🇪🇸 Propuesta Técnica / Mensaje (Español — LATAM / Global)
+Hola equipo de North American Growth MSP (via Upwork),
 
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur autotask, azure, documentation, entra, it glue, liongard, m365. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
+En relación con la posición **Fractional NOC / Centralized Services Engineer (Liongard, IT Glue, Autotask, M365)**: cuento con más de 13 años de experiencia como Consultor Senior de TI, Ingeniero Cloud (Azure / Microsoft 365 / Entra ID) y Especialista NOC/CSM gestionando más de 100 entornos empresariales y 3,500+ endpoints de forma 100% remota desde La Paz, Bolivia (UTC-4).
 
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Warm Outreach / Follow-Up: Rayan (SysOps / DevOps / Infrastructure Automation)
+Me especializo en auditoría lógica de sistemas, automatización con Python/PowerShell, evaluación técnica de modelos de IA (RLHF / Context Engineering) y estandarización operativa (liongard, it glue, autotask, ninjaone, acronis, entra, entra id, m365, conditional access, noc, centralized services, msp), logrando reducir incidentes recurrentes en un 30% y manteniendo un 99%+ de confiabilidad en respaldos BCDR. Opero como contratista independiente trilingüe (francés nativo, inglés fluido y español) con facturación internacional directa (W-8BEN). Pueden revisar mi portafolio en https://tsimon.me. Quedo atento para coordinar una breve conversación técnica.
 
-Hola Direct Network (Rayan),
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de autotask, azure, documentation, entra, it glue, liongard, m365. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
+Atentamente,
+Thomas Simon | https://tsimon.me | +591 734 62133
 
 ---
-## [APPLY — 97/100] Warm Outreach / Follow-Up: Todd (MSP Centralized Services & 30% incident reduction) (Direct Network (Todd))
-**URL:** mailto:simon_thomas@outlook.fr?subject=Follow-up-Todd
 
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Warm Outreach / Follow-Up: Todd (MSP Centralized Services & 30% incident reduction)
+## 🎯 [APPLY — 93/100] Senior Cloud Infrastructure & Security Rubric Architect (RLHF / Agentic Evaluation)
+- **Company / Platform:** Mercor AI Lab Partner (`Mercor`)
+- **Strategic Track:** Track B: Async AI Evaluation & RLHF
+- **Matched Stack:** `entra, entra id, m365, azure, powershell, ai evaluator, rlhf, rubric, linux, python, ollama, mcp`
+- **Direct Link:** https://mercor.com/
+- **Analyst Notes:** Self-paced asynchronous AI evaluation / RLHF workflow.
 
-Hi Direct Network (Todd),
+### 🇬🇧 English Proposal / Outreach (Ready to Copy)
+Hello Mercor AI Lab Partner team,
 
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
+Regarding the **Senior Cloud Infrastructure & Security Rubric Architect (RLHF / Agentic Evaluation)** opportunity: I bring 13+ years of senior IT infrastructure, cloud administration, and NOC/Centralized Services engineering experience (managing 100+ client environments and 3,500+ endpoints remotely in US time zones, UTC-4). My core focus is systemic logic and proactive automation—having reduced recurring infrastructure incidents by 30% using entra, entra id, m365, azure, powershell, ai evaluator, rlhf, rubric, linux, python, ollama, mcp, Liongard, IT Glue, Autotask, NinjaOne, Acronis BCDR, Microsoft 365/Entra ID, and Python/PowerShell.
 
-How I can support Direct Network (Todd) (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: autotask, azure, centralized services, documentation, entra, it glue, liongard, m365 (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
+Operating as an independent international contractor out of La Paz, Bolivia (simple IRS Form W-8BEN for US clients, zero tax withholding or visa overhead) and fluent in English, French (native), and Spanish, I deliver high-accountability, well-documented asynchronous execution. You can review my architecture case studies at https://tsimon.me. Let's schedule a brief technical call this week to align on your immediate milestones.
 
 Best regards,
+Thomas Simon | https://tsimon.me | https://bo.linkedin.com/in/tsimonfreelance
+
+### 🇫🇷 Proposition Commerciale / Message (Français — CNAM & Orange Telecom Pedigree)
+Bonjour l'équipe Mercor AI Lab Partner,
+
+Suite à votre publication pour la mission **Senior Cloud Infrastructure & Security Rubric Architect (RLHF / Agentic Evaluation)**, je vous propose mon expertise d'Ingénieur Systèmes, Cloud & NOC Senior (diplômé du CNAM France en Télécommunications & Réseaux, ancien Administrateur Systèmes chez Orange Telecom en France, et plus de 13 ans d'expérience sur des environnements critiques).
+
+J'accompagne les MSP et entreprises à distance (fuseau UTC-4, parfaitement compatible avec les équipes européennes et nord-américaines en mode asynchrone) sur l'administration et la sécurisation Microsoft 365 / Entra ID / Intune / Azure, l'automatisation Python/PowerShell, la continuité d'activité (Acronis/Veeam) et la standardisation documentaire (entra, entra id, m365, azure, powershell, ai evaluator, rlhf, rubric, linux, python, ollama, mcp)—avec une réduction prouvée de 30 % des incidents récurrents sur plus de 3 500 postes et serveurs. Trilingue français (natif), anglais et espagnol, mon portfolio technique est consultable sur https://tsimon.me. Disponible pour échanger cette semaine sur vos objectifs.
+
+Cordialement,
 Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Warm Outreach / Follow-Up: Todd (MSP Centralized Services & 30% incident reduction)
 
-Bonjour Direct Network (Todd),
+### 🇪🇸 Propuesta Técnica / Mensaje (Español — LATAM / Global)
+Hola equipo de Mercor AI Lab Partner,
 
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur autotask, azure, centralized services, documentation, entra, it glue, liongard, m365. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
+En relación con la posición **Senior Cloud Infrastructure & Security Rubric Architect (RLHF / Agentic Evaluation)**: cuento con más de 13 años de experiencia como Consultor Senior de TI, Ingeniero Cloud (Azure / Microsoft 365 / Entra ID) y Especialista NOC/CSM gestionando más de 100 entornos empresariales y 3,500+ endpoints de forma 100% remota desde La Paz, Bolivia (UTC-4).
 
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Warm Outreach / Follow-Up: Todd (MSP Centralized Services & 30% incident reduction)
+Me especializo en auditoría lógica de sistemas, automatización con Python/PowerShell, evaluación técnica de modelos de IA (RLHF / Context Engineering) y estandarización operativa (entra, entra id, m365, azure, powershell, ai evaluator, rlhf, rubric, linux, python, ollama, mcp), logrando reducir incidentes recurrentes en un 30% y manteniendo un 99%+ de confiabilidad en respaldos BCDR. Opero como contratista independiente trilingüe (francés nativo, inglés fluido y español) con facturación internacional directa (W-8BEN). Pueden revisar mi portafolio en https://tsimon.me. Quedo atento para coordinar una breve conversación técnica.
 
-Hola Direct Network (Todd),
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de autotask, azure, centralized services, documentation, entra, it glue, liongard, m365. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
+Atentamente,
+Thomas Simon | https://tsimon.me | +591 734 62133
 
 ---
-## [APPLY — 97/100] Warm Outreach / Follow-Up: Kevin (Cloud & NOC Automation) (Direct Network (Kevin))
-**URL:** mailto:simon_thomas@outlook.fr?subject=Follow-up-Kevin
 
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Warm Outreach / Follow-Up: Kevin (Cloud & NOC Automation)
+## 🎯 [APPLY — 93/100] Senior Cloud Infrastructure & Python Automation Engineer (4-Day Week / Async)
+- **Company / Platform:** Distributed Cloud Ops Co. (`4 Day Week (4DayWeek.io)`)
+- **Strategic Track:** Track F: Curated Remote-First & WFA Job Boards
+- **Matched Stack:** `entra, entra id, azure, graph api, documentation, linux, debian, cloudflare, python, pandas`
+- **Direct Link:** https://4dayweek.io/
+- **Analyst Notes:** Fractional / part-time / scoped deliverable friendly.
 
-Hi Direct Network (Kevin),
+### 🇬🇧 English Proposal / Outreach (Ready to Copy)
+Hello Distributed Cloud Ops Co. team,
 
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
+Regarding the **Senior Cloud Infrastructure & Python Automation Engineer (4-Day Week / Async)** opportunity: I bring 13+ years of senior IT infrastructure, cloud administration, and NOC/Centralized Services engineering experience (managing 100+ client environments and 3,500+ endpoints remotely in US time zones, UTC-4). My core focus is systemic logic and proactive automation—having reduced recurring infrastructure incidents by 30% using entra, entra id, azure, graph api, documentation, linux, debian, cloudflare, python, pandas, Liongard, IT Glue, Autotask, NinjaOne, Acronis BCDR, Microsoft 365/Entra ID, and Python/PowerShell.
 
-How I can support Direct Network (Kevin) (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: autotask, azure, documentation, entra, it glue, liongard, m365 (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
+Operating as an independent international contractor out of La Paz, Bolivia (simple IRS Form W-8BEN for US clients, zero tax withholding or visa overhead) and fluent in English, French (native), and Spanish, I deliver high-accountability, well-documented asynchronous execution. You can review my architecture case studies at https://tsimon.me. Let's schedule a brief technical call this week to align on your immediate milestones.
 
 Best regards,
+Thomas Simon | https://tsimon.me | https://bo.linkedin.com/in/tsimonfreelance
+
+### 🇫🇷 Proposition Commerciale / Message (Français — CNAM & Orange Telecom Pedigree)
+Bonjour l'équipe Distributed Cloud Ops Co.,
+
+Suite à votre publication pour la mission **Senior Cloud Infrastructure & Python Automation Engineer (4-Day Week / Async)**, je vous propose mon expertise d'Ingénieur Systèmes, Cloud & NOC Senior (diplômé du CNAM France en Télécommunications & Réseaux, ancien Administrateur Systèmes chez Orange Telecom en France, et plus de 13 ans d'expérience sur des environnements critiques).
+
+J'accompagne les MSP et entreprises à distance (fuseau UTC-4, parfaitement compatible avec les équipes européennes et nord-américaines en mode asynchrone) sur l'administration et la sécurisation Microsoft 365 / Entra ID / Intune / Azure, l'automatisation Python/PowerShell, la continuité d'activité (Acronis/Veeam) et la standardisation documentaire (entra, entra id, azure, graph api, documentation, linux, debian, cloudflare, python, pandas)—avec une réduction prouvée de 30 % des incidents récurrents sur plus de 3 500 postes et serveurs. Trilingue français (natif), anglais et espagnol, mon portfolio technique est consultable sur https://tsimon.me. Disponible pour échanger cette semaine sur vos objectifs.
+
+Cordialement,
 Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Warm Outreach / Follow-Up: Kevin (Cloud & NOC Automation)
 
-Bonjour Direct Network (Kevin),
+### 🇪🇸 Propuesta Técnica / Mensaje (Español — LATAM / Global)
+Hola equipo de Distributed Cloud Ops Co.,
 
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur autotask, azure, documentation, entra, it glue, liongard, m365. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
+En relación con la posición **Senior Cloud Infrastructure & Python Automation Engineer (4-Day Week / Async)**: cuento con más de 13 años de experiencia como Consultor Senior de TI, Ingeniero Cloud (Azure / Microsoft 365 / Entra ID) y Especialista NOC/CSM gestionando más de 100 entornos empresariales y 3,500+ endpoints de forma 100% remota desde La Paz, Bolivia (UTC-4).
 
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Warm Outreach / Follow-Up: Kevin (Cloud & NOC Automation)
+Me especializo en auditoría lógica de sistemas, automatización con Python/PowerShell, evaluación técnica de modelos de IA (RLHF / Context Engineering) y estandarización operativa (entra, entra id, azure, graph api, documentation, linux, debian, cloudflare, python, pandas), logrando reducir incidentes recurrentes en un 30% y manteniendo un 99%+ de confiabilidad en respaldos BCDR. Opero como contratista independiente trilingüe (francés nativo, inglés fluido y español) con facturación internacional directa (W-8BEN). Pueden revisar mi portafolio en https://tsimon.me. Quedo atento para coordinar una breve conversación técnica.
 
-Hola Direct Network (Kevin),
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de autotask, azure, documentation, entra, it glue, liongard, m365. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
+Atentamente,
+Thomas Simon | https://tsimon.me | +591 734 62133
 
 ---
-## [APPLY — 97/100] Warm Outreach / Follow-Up: Liz (CSM / Documentation / Standard Operating Procedures) (Direct Network (Liz))
-**URL:** mailto:simon_thomas@outlook.fr?subject=Follow-up-Liz
 
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Warm Outreach / Follow-Up: Liz (CSM / Documentation / Standard Operating Procedures)
+## 🎯 [APPLY — 88/100] Paid 60-Min Executive Consultation: MSP MDR/ITDR & RMM Vendor Landscape (Huntress, Blackpoint, Acronis)
+- **Company / Platform:** GLG Institutional Tech Research Practice (`GLG (Gerson Lehrman Group)`)
+- **Strategic Track:** Track E: Executive Expert Networks ($150-$400/hr Calls)
+- **Matched Stack:** `liongard, it glue, autotask, acronis, huntress, blackpoint, sentinelone, itdr, noc, msp, mssp, rmm`
+- **Direct Link:** https://glginsights.com/council-members/
+- **Analyst Notes:** Executive 60-min consultation ($150-$400/hr ROI, zero ongoing delivery load).
 
-Hi Direct Network (Liz),
+### 🎙️ 60-Second Executive Advisory Opening Pitch & Screening Note (EN)
+Hello, I am Thomas Simon, a Senior IT Consultant and NOC/Centralized Services Engineer with over 13 years of enterprise infrastructure experience—including 6.5 years managing centralized operations, RMM/PSA integrations, and cybersecurity stacks across 100+ client environments and 3,500+ endpoints for a North American MSP. I have hands-on operational, deployment, and wholesale pricing experience across Huntress (Managed EDR/ITDR/SIEM), Blackpoint Cyber (CompassOne/LogIC), SentinelOne + Vigilance, Acronis Cyber Protect Cloud, SaaS Alerts, and Augmentt, integrated directly with Liongard, IT Glue, NinjaOne, Kaseya, and Autotask. Are we focusing today's consultation primarily on bottom-up operational economics and SOC alert-to-ticket workflows, or top-down vendor consolidation and pricing tiers?
 
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
+### 📊 Instant Vendor Scorecard Reference (For Live Call)
+- **Huntress (Managed EDR + ITDR + SIEM — 10/10):** Best channel ROI ($2.50–$3.50/endpoint wholesale vs $8.99 MSRP), human-verified SOC remediation cards sent straight to PSA, near-zero CPU bloat over native Microsoft Defender.
+- **Acronis Cyber Protect Cloud (9/10 Unified / 7/10 Standalone):** Jumps to 9/10 when consolidating immutable BCDR, RMM, patching, and EDR into a single agent and portal.
+- **Blackpoint Cyber (CompassOne Standard w/ LogIC SIEM):** Aggressive live host/identity isolation plus 365-day SIEM compliance retention for HIPAA/SOC 2.
+- **SaaS Alerts (5/10) & Augmentt (4/10):** Alert-only trap without a 24/7 human SOC; forces Tier 2 engineers to manually investigate raw Entra ID logs.
 
-How I can support Direct Network (Liz) (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: autotask, azure, documentation, entra, it glue, liongard, m365 (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
+### 🇬🇧 English Proposal / Outreach (Ready to Copy)
+Hello GLG Institutional Tech Research Practice team,
+
+Regarding the **Paid 60-Min Executive Consultation: MSP MDR/ITDR & RMM Vendor Landscape (Huntress, Blackpoint, Acronis)** opportunity: I bring 13+ years of senior IT infrastructure, cloud administration, and NOC/Centralized Services engineering experience (managing 100+ client environments and 3,500+ endpoints remotely in US time zones, UTC-4). My core focus is systemic logic and proactive automation—having reduced recurring infrastructure incidents by 30% using liongard, it glue, autotask, acronis, huntress, blackpoint, sentinelone, itdr, noc, msp, mssp, rmm, Liongard, IT Glue, Autotask, NinjaOne, Acronis BCDR, Microsoft 365/Entra ID, and Python/PowerShell.
+
+Operating as an independent international contractor out of La Paz, Bolivia (simple IRS Form W-8BEN for US clients, zero tax withholding or visa overhead) and fluent in English, French (native), and Spanish, I deliver high-accountability, well-documented asynchronous execution. You can review my architecture case studies at https://tsimon.me. Let's schedule a brief technical call this week to align on your immediate milestones.
 
 Best regards,
+Thomas Simon | https://tsimon.me | https://bo.linkedin.com/in/tsimonfreelance
+
+### 🇫🇷 Proposition Commerciale / Message (Français — CNAM & Orange Telecom Pedigree)
+Bonjour l'équipe GLG Institutional Tech Research Practice,
+
+Suite à votre publication pour la mission **Paid 60-Min Executive Consultation: MSP MDR/ITDR & RMM Vendor Landscape (Huntress, Blackpoint, Acronis)**, je vous propose mon expertise d'Ingénieur Systèmes, Cloud & NOC Senior (diplômé du CNAM France en Télécommunications & Réseaux, ancien Administrateur Systèmes chez Orange Telecom en France, et plus de 13 ans d'expérience sur des environnements critiques).
+
+J'accompagne les MSP et entreprises à distance (fuseau UTC-4, parfaitement compatible avec les équipes européennes et nord-américaines en mode asynchrone) sur l'administration et la sécurisation Microsoft 365 / Entra ID / Intune / Azure, l'automatisation Python/PowerShell, la continuité d'activité (Acronis/Veeam) et la standardisation documentaire (liongard, it glue, autotask, acronis, huntress, blackpoint, sentinelone, itdr, noc, msp, mssp, rmm)—avec une réduction prouvée de 30 % des incidents récurrents sur plus de 3 500 postes et serveurs. Trilingue français (natif), anglais et espagnol, mon portfolio technique est consultable sur https://tsimon.me. Disponible pour échanger cette semaine sur vos objectifs.
+
+Cordialement,
 Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Warm Outreach / Follow-Up: Liz (CSM / Documentation / Standard Operating Procedures)
 
-Bonjour Direct Network (Liz),
+### 🇪🇸 Propuesta Técnica / Mensaje (Español — LATAM / Global)
+Hola equipo de GLG Institutional Tech Research Practice,
 
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur autotask, azure, documentation, entra, it glue, liongard, m365. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
+En relación con la posición **Paid 60-Min Executive Consultation: MSP MDR/ITDR & RMM Vendor Landscape (Huntress, Blackpoint, Acronis)**: cuento con más de 13 años de experiencia como Consultor Senior de TI, Ingeniero Cloud (Azure / Microsoft 365 / Entra ID) y Especialista NOC/CSM gestionando más de 100 entornos empresariales y 3,500+ endpoints de forma 100% remota desde La Paz, Bolivia (UTC-4).
 
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Warm Outreach / Follow-Up: Liz (CSM / Documentation / Standard Operating Procedures)
+Me especializo en auditoría lógica de sistemas, automatización con Python/PowerShell, evaluación técnica de modelos de IA (RLHF / Context Engineering) y estandarización operativa (liongard, it glue, autotask, acronis, huntress, blackpoint, sentinelone, itdr, noc, msp, mssp, rmm), logrando reducir incidentes recurrentes en un 30% y manteniendo un 99%+ de confiabilidad en respaldos BCDR. Opero como contratista independiente trilingüe (francés nativo, inglés fluido y español) con facturación internacional directa (W-8BEN). Pueden revisar mi portafolio en https://tsimon.me. Quedo atento para coordinar una breve conversación técnica.
 
-Hola Direct Network (Liz),
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de autotask, azure, documentation, entra, it glue, liongard, m365. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
+Atentamente,
+Thomas Simon | https://tsimon.me | +591 734 62133
 
 ---
-## [APPLY — 97/100] Warm Outreach / Follow-Up: John (Infrastructure & BCDR Consulting) (Direct Network (John))
-**URL:** mailto:simon_thomas@outlook.fr?subject=Follow-up-John
 
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Warm Outreach / Follow-Up: John (Infrastructure & BCDR Consulting)
+## 🎯 [APPLY — 81/100] Senior Detection & Response Engineer
+- **Company / Platform:** Expel (`We Work Remotely - DevOps & Sysadmin RSS`)
+- **Strategic Track:** Track F: Curated Remote-First & WFA Job Boards
+- **Matched Stack:** `entra, entra id, microsoft 365, office 365, azure, documentation`
+- **Direct Link:** https://weworkremotely.com/remote-jobs/expel-senior-detection-response-engineer
+- **Analyst Notes:** Standard contract alignment.
 
-Hi Direct Network (John),
+### 🇬🇧 English Proposal / Outreach (Ready to Copy)
+Hello Expel team,
 
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
+Regarding the **Senior Detection & Response Engineer** opportunity: I bring 13+ years of senior IT infrastructure, cloud administration, and NOC/Centralized Services engineering experience (managing 100+ client environments and 3,500+ endpoints remotely in US time zones, UTC-4). My core focus is systemic logic and proactive automation—having reduced recurring infrastructure incidents by 30% using entra, entra id, microsoft 365, office 365, azure, documentation, Liongard, IT Glue, Autotask, NinjaOne, Acronis BCDR, Microsoft 365/Entra ID, and Python/PowerShell.
 
-How I can support Direct Network (John) (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: autotask, azure, bcdr, documentation, entra, it glue, liongard, m365 (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
+Operating as an independent international contractor out of La Paz, Bolivia (simple IRS Form W-8BEN for US clients, zero tax withholding or visa overhead) and fluent in English, French (native), and Spanish, I deliver high-accountability, well-documented asynchronous execution. You can review my architecture case studies at https://tsimon.me. Let's schedule a brief technical call this week to align on your immediate milestones.
 
 Best regards,
+Thomas Simon | https://tsimon.me | https://bo.linkedin.com/in/tsimonfreelance
+
+### 🇫🇷 Proposition Commerciale / Message (Français — CNAM & Orange Telecom Pedigree)
+Bonjour l'équipe Expel,
+
+Suite à votre publication pour la mission **Senior Detection & Response Engineer**, je vous propose mon expertise d'Ingénieur Systèmes, Cloud & NOC Senior (diplômé du CNAM France en Télécommunications & Réseaux, ancien Administrateur Systèmes chez Orange Telecom en France, et plus de 13 ans d'expérience sur des environnements critiques).
+
+J'accompagne les MSP et entreprises à distance (fuseau UTC-4, parfaitement compatible avec les équipes européennes et nord-américaines en mode asynchrone) sur l'administration et la sécurisation Microsoft 365 / Entra ID / Intune / Azure, l'automatisation Python/PowerShell, la continuité d'activité (Acronis/Veeam) et la standardisation documentaire (entra, entra id, microsoft 365, office 365, azure, documentation)—avec une réduction prouvée de 30 % des incidents récurrents sur plus de 3 500 postes et serveurs. Trilingue français (natif), anglais et espagnol, mon portfolio technique est consultable sur https://tsimon.me. Disponible pour échanger cette semaine sur vos objectifs.
+
+Cordialement,
 Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Warm Outreach / Follow-Up: John (Infrastructure & BCDR Consulting)
 
-Bonjour Direct Network (John),
+### 🇪🇸 Propuesta Técnica / Mensaje (Español — LATAM / Global)
+Hola equipo de Expel,
 
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur autotask, azure, bcdr, documentation, entra, it glue, liongard, m365. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
+En relación con la posición **Senior Detection & Response Engineer**: cuento con más de 13 años de experiencia como Consultor Senior de TI, Ingeniero Cloud (Azure / Microsoft 365 / Entra ID) y Especialista NOC/CSM gestionando más de 100 entornos empresariales y 3,500+ endpoints de forma 100% remota desde La Paz, Bolivia (UTC-4).
 
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Warm Outreach / Follow-Up: John (Infrastructure & BCDR Consulting)
+Me especializo en auditoría lógica de sistemas, automatización con Python/PowerShell, evaluación técnica de modelos de IA (RLHF / Context Engineering) y estandarización operativa (entra, entra id, microsoft 365, office 365, azure, documentation), logrando reducir incidentes recurrentes en un 30% y manteniendo un 99%+ de confiabilidad en respaldos BCDR. Opero como contratista independiente trilingüe (francés nativo, inglés fluido y español) con facturación internacional directa (W-8BEN). Pueden revisar mi portafolio en https://tsimon.me. Quedo atento para coordinar una breve conversación técnica.
 
-Hola Direct Network (John),
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de autotask, azure, bcdr, documentation, entra, it glue, liongard, m365. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
+Atentamente,
+Thomas Simon | https://tsimon.me | +591 734 62133
 
 ---
-## [APPLY — 80/100] Quality Assurance Rater - French speakers in France (TELUS Digital)
-**URL:** https://www.workingnomads.com/job/go/1957803/
 
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Quality Assurance Rater - French speakers in France
+## 🎯 [POSSIBLE — 78/100] Principal AI Solutions & Cloud Infrastructure Consultant (Full-Time Remote)
+- **Company / Platform:** DistantJob Remote Recruitment (`DistantJob (Full-Time Agency Caveat)`)
+- **Strategic Track:** Track F: Curated Remote-First & WFA Job Boards
+- **Matched Stack:** `liongard, it glue, entra, entra id, m365, azure, msp, python, spanish/trilingual`
+- **Direct Link:** https://distantjob.com/apply/principal-ai-solutions-consultant/
+- **Analyst Notes:** ⚠️ FULL-TIME AGENCY CAVEAT (-6 pts): Agency primarily places 40h/wk full-time roles.
 
-Hi TELUS Digital,
+### 🇬🇧 English Proposal / Outreach (Ready to Copy)
+Hello DistantJob Remote Recruitment team,
 
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
+Regarding the **Principal AI Solutions & Cloud Infrastructure Consultant (Full-Time Remote)** opportunity: I bring 13+ years of senior IT infrastructure, cloud administration, and NOC/Centralized Services engineering experience (managing 100+ client environments and 3,500+ endpoints remotely in US time zones, UTC-4). My core focus is systemic logic and proactive automation—having reduced recurring infrastructure incidents by 30% using liongard, it glue, entra, entra id, m365, azure, msp, python, spanish/trilingual, Liongard, IT Glue, Autotask, NinjaOne, Acronis BCDR, Microsoft 365/Entra ID, and Python/PowerShell.
 
-How I can support TELUS Digital (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: documentation, french (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
+Operating as an independent international contractor out of La Paz, Bolivia (simple IRS Form W-8BEN for US clients, zero tax withholding or visa overhead) and fluent in English, French (native), and Spanish, I deliver high-accountability, well-documented asynchronous execution. You can review my architecture case studies at https://tsimon.me. Let's schedule a brief technical call this week to align on your immediate milestones.
 
 Best regards,
+Thomas Simon | https://tsimon.me | https://bo.linkedin.com/in/tsimonfreelance
+
+### 🇫🇷 Proposition Commerciale / Message (Français — CNAM & Orange Telecom Pedigree)
+Bonjour l'équipe DistantJob Remote Recruitment,
+
+Suite à votre publication pour la mission **Principal AI Solutions & Cloud Infrastructure Consultant (Full-Time Remote)**, je vous propose mon expertise d'Ingénieur Systèmes, Cloud & NOC Senior (diplômé du CNAM France en Télécommunications & Réseaux, ancien Administrateur Systèmes chez Orange Telecom en France, et plus de 13 ans d'expérience sur des environnements critiques).
+
+J'accompagne les MSP et entreprises à distance (fuseau UTC-4, parfaitement compatible avec les équipes européennes et nord-américaines en mode asynchrone) sur l'administration et la sécurisation Microsoft 365 / Entra ID / Intune / Azure, l'automatisation Python/PowerShell, la continuité d'activité (Acronis/Veeam) et la standardisation documentaire (liongard, it glue, entra, entra id, m365, azure, msp, python, spanish/trilingual)—avec une réduction prouvée de 30 % des incidents récurrents sur plus de 3 500 postes et serveurs. Trilingue français (natif), anglais et espagnol, mon portfolio technique est consultable sur https://tsimon.me. Disponible pour échanger cette semaine sur vos objectifs.
+
+Cordialement,
 Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Quality Assurance Rater - French speakers in France
 
-Bonjour TELUS Digital,
+### 🇪🇸 Propuesta Técnica / Mensaje (Español — LATAM / Global)
+Hola equipo de DistantJob Remote Recruitment,
 
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur documentation, french. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
+En relación con la posición **Principal AI Solutions & Cloud Infrastructure Consultant (Full-Time Remote)**: cuento con más de 13 años de experiencia como Consultor Senior de TI, Ingeniero Cloud (Azure / Microsoft 365 / Entra ID) y Especialista NOC/CSM gestionando más de 100 entornos empresariales y 3,500+ endpoints de forma 100% remota desde La Paz, Bolivia (UTC-4).
 
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Quality Assurance Rater - French speakers in France
+Me especializo en auditoría lógica de sistemas, automatización con Python/PowerShell, evaluación técnica de modelos de IA (RLHF / Context Engineering) y estandarización operativa (liongard, it glue, entra, entra id, m365, azure, msp, python, spanish/trilingual), logrando reducir incidentes recurrentes en un 30% y manteniendo un 99%+ de confiabilidad en respaldos BCDR. Opero como contratista independiente trilingüe (francés nativo, inglés fluido y español) con facturación internacional directa (W-8BEN). Pueden revisar mi portafolio en https://tsimon.me. Quedo atento para coordinar una breve conversación técnica.
 
-Hola TELUS Digital,
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de documentation, french. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
+Atentamente,
+Thomas Simon | https://tsimon.me | +591 734 62133
 
 ---
-## [POSSIBLE — 78/100] Senior Detection & Response Engineer (Expel)
-**URL:** https://weworkremotely.com/remote-jobs/expel-senior-detection-response-engineer
 
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Senior Detection & Response Engineer
+## 🎯 [POSSIBLE — 77/100] Senior IT Systems Engineer
+- **Company / Platform:** Upsun (`We Work Remotely - DevOps & Sysadmin RSS`)
+- **Strategic Track:** Track F: Curated Remote-First & WFA Job Boards
+- **Matched Stack:** `documentation, linux, python, native french (cnam/orange)`
+- **Direct Link:** https://weworkremotely.com/remote-jobs/upsun-senior-it-systems-engineer
+- **Analyst Notes:** Standard contract alignment.
 
-Hi Expel,
+### 🇬🇧 English Proposal / Outreach (Ready to Copy)
+Hello Upsun team,
 
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
+Regarding the **Senior IT Systems Engineer** opportunity: I bring 13+ years of senior IT infrastructure, cloud administration, and NOC/Centralized Services engineering experience (managing 100+ client environments and 3,500+ endpoints remotely in US time zones, UTC-4). My core focus is systemic logic and proactive automation—having reduced recurring infrastructure incidents by 30% using documentation, linux, python, native french (cnam/orange), Liongard, IT Glue, Autotask, NinjaOne, Acronis BCDR, Microsoft 365/Entra ID, and Python/PowerShell.
 
-How I can support Expel (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: azure, documentation, entra, microsoft 365 (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
+Operating as an independent international contractor out of La Paz, Bolivia (simple IRS Form W-8BEN for US clients, zero tax withholding or visa overhead) and fluent in English, French (native), and Spanish, I deliver high-accountability, well-documented asynchronous execution. You can review my architecture case studies at https://tsimon.me. Let's schedule a brief technical call this week to align on your immediate milestones.
 
 Best regards,
+Thomas Simon | https://tsimon.me | https://bo.linkedin.com/in/tsimonfreelance
+
+### 🇫🇷 Proposition Commerciale / Message (Français — CNAM & Orange Telecom Pedigree)
+Bonjour l'équipe Upsun,
+
+Suite à votre publication pour la mission **Senior IT Systems Engineer**, je vous propose mon expertise d'Ingénieur Systèmes, Cloud & NOC Senior (diplômé du CNAM France en Télécommunications & Réseaux, ancien Administrateur Systèmes chez Orange Telecom en France, et plus de 13 ans d'expérience sur des environnements critiques).
+
+J'accompagne les MSP et entreprises à distance (fuseau UTC-4, parfaitement compatible avec les équipes européennes et nord-américaines en mode asynchrone) sur l'administration et la sécurisation Microsoft 365 / Entra ID / Intune / Azure, l'automatisation Python/PowerShell, la continuité d'activité (Acronis/Veeam) et la standardisation documentaire (documentation, linux, python, native french (cnam/orange))—avec une réduction prouvée de 30 % des incidents récurrents sur plus de 3 500 postes et serveurs. Trilingue français (natif), anglais et espagnol, mon portfolio technique est consultable sur https://tsimon.me. Disponible pour échanger cette semaine sur vos objectifs.
+
+Cordialement,
 Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Senior Detection & Response Engineer
 
-Bonjour Expel,
+### 🇪🇸 Propuesta Técnica / Mensaje (Español — LATAM / Global)
+Hola equipo de Upsun,
 
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur azure, documentation, entra, microsoft 365. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
+En relación con la posición **Senior IT Systems Engineer**: cuento con más de 13 años de experiencia como Consultor Senior de TI, Ingeniero Cloud (Azure / Microsoft 365 / Entra ID) y Especialista NOC/CSM gestionando más de 100 entornos empresariales y 3,500+ endpoints de forma 100% remota desde La Paz, Bolivia (UTC-4).
 
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Senior Detection & Response Engineer
+Me especializo en auditoría lógica de sistemas, automatización con Python/PowerShell, evaluación técnica de modelos de IA (RLHF / Context Engineering) y estandarización operativa (documentation, linux, python, native french (cnam/orange)), logrando reducir incidentes recurrentes en un 30% y manteniendo un 99%+ de confiabilidad en respaldos BCDR. Opero como contratista independiente trilingüe (francés nativo, inglés fluido y español) con facturación internacional directa (W-8BEN). Pueden revisar mi portafolio en https://tsimon.me. Quedo atento para coordinar una breve conversación técnica.
 
-Hola Expel,
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de azure, documentation, entra, microsoft 365. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
+Atentamente,
+Thomas Simon | https://tsimon.me | +591 734 62133
 
 ---
-## [POSSIBLE — 75/100] Cloud Infrastructure & DevOps Engineer (Azure / Python / Docker) (Credible Data Infrastructure)
-**URL:** https://remotive.com/remote-jobs/devops/cloud-infrastructure-engineer-credible
 
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Cloud Infrastructure & DevOps Engineer (Azure / Python / Docker)
+## 🎯 [POSSIBLE — 71/100] QA/DevOps Engineer
+- **Company / Platform:** Discord (`We Work Remotely - DevOps & Sysadmin RSS`)
+- **Strategic Track:** Track F: Curated Remote-First & WFA Job Boards
+- **Matched Stack:** `powershell, documentation, python`
+- **Direct Link:** https://weworkremotely.com/remote-jobs/discord-qa-devops-engineer
+- **Analyst Notes:** Standard contract alignment.
 
-Hi Credible Data Infrastructure,
+### 🇬🇧 English Proposal / Outreach (Ready to Copy)
+Hello Discord team,
 
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
+Regarding the **QA/DevOps Engineer** opportunity: I bring 13+ years of senior IT infrastructure, cloud administration, and NOC/Centralized Services engineering experience (managing 100+ client environments and 3,500+ endpoints remotely in US time zones, UTC-4). My core focus is systemic logic and proactive automation—having reduced recurring infrastructure incidents by 30% using powershell, documentation, python, Liongard, IT Glue, Autotask, NinjaOne, Acronis BCDR, Microsoft 365/Entra ID, and Python/PowerShell.
 
-How I can support Credible Data Infrastructure (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: azure, debian, linux, powershell, python (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
+Operating as an independent international contractor out of La Paz, Bolivia (simple IRS Form W-8BEN for US clients, zero tax withholding or visa overhead) and fluent in English, French (native), and Spanish, I deliver high-accountability, well-documented asynchronous execution. You can review my architecture case studies at https://tsimon.me. Let's schedule a brief technical call this week to align on your immediate milestones.
 
 Best regards,
+Thomas Simon | https://tsimon.me | https://bo.linkedin.com/in/tsimonfreelance
+
+### 🇫🇷 Proposition Commerciale / Message (Français — CNAM & Orange Telecom Pedigree)
+Bonjour l'équipe Discord,
+
+Suite à votre publication pour la mission **QA/DevOps Engineer**, je vous propose mon expertise d'Ingénieur Systèmes, Cloud & NOC Senior (diplômé du CNAM France en Télécommunications & Réseaux, ancien Administrateur Systèmes chez Orange Telecom en France, et plus de 13 ans d'expérience sur des environnements critiques).
+
+J'accompagne les MSP et entreprises à distance (fuseau UTC-4, parfaitement compatible avec les équipes européennes et nord-américaines en mode asynchrone) sur l'administration et la sécurisation Microsoft 365 / Entra ID / Intune / Azure, l'automatisation Python/PowerShell, la continuité d'activité (Acronis/Veeam) et la standardisation documentaire (powershell, documentation, python)—avec une réduction prouvée de 30 % des incidents récurrents sur plus de 3 500 postes et serveurs. Trilingue français (natif), anglais et espagnol, mon portfolio technique est consultable sur https://tsimon.me. Disponible pour échanger cette semaine sur vos objectifs.
+
+Cordialement,
 Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Cloud Infrastructure & DevOps Engineer (Azure / Python / Docker)
 
-Bonjour Credible Data Infrastructure,
+### 🇪🇸 Propuesta Técnica / Mensaje (Español — LATAM / Global)
+Hola equipo de Discord,
 
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur azure, debian, linux, powershell, python. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
+En relación con la posición **QA/DevOps Engineer**: cuento con más de 13 años de experiencia como Consultor Senior de TI, Ingeniero Cloud (Azure / Microsoft 365 / Entra ID) y Especialista NOC/CSM gestionando más de 100 entornos empresariales y 3,500+ endpoints de forma 100% remota desde La Paz, Bolivia (UTC-4).
 
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Cloud Infrastructure & DevOps Engineer (Azure / Python / Docker)
+Me especializo en auditoría lógica de sistemas, automatización con Python/PowerShell, evaluación técnica de modelos de IA (RLHF / Context Engineering) y estandarización operativa (powershell, documentation, python), logrando reducir incidentes recurrentes en un 30% y manteniendo un 99%+ de confiabilidad en respaldos BCDR. Opero como contratista independiente trilingüe (francés nativo, inglés fluido y español) con facturación internacional directa (W-8BEN). Pueden revisar mi portafolio en https://tsimon.me. Quedo atento para coordinar una breve conversación técnica.
 
-Hola Credible Data Infrastructure,
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de azure, debian, linux, powershell, python. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
+Atentamente,
+Thomas Simon | https://tsimon.me | +591 734 62133
 
 ---
-## [POSSIBLE — 72/100] Senior Python Developer (Fullstack, BE-Heavy) (Proxify)
-**URL:** https://www.workingnomads.com/job/go/1925623/
 
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Senior Python Developer (Fullstack, BE-Heavy)
+## 🎯 [POSSIBLE — 62/100] Senior Cloud Engineer (Azure)
+- **Company / Platform:** Proxify (`Working Nomads Public API`)
+- **Strategic Track:** Track F: Curated Remote-First & WFA Job Boards
+- **Matched Stack:** `entra, entra id, azure, az-104, powershell, python`
+- **Direct Link:** https://www.workingnomads.com/job/go/1925640/
+- **Analyst Notes:** Skill gaps penalized: terraform (-8), kubernetes (-8)
 
-Hi Proxify,
+### 🇬🇧 English Proposal / Outreach (Ready to Copy)
+Hello Proxify team,
 
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
+Regarding the **Senior Cloud Engineer (Azure)** opportunity: I bring 13+ years of senior IT infrastructure, cloud administration, and NOC/Centralized Services engineering experience (managing 100+ client environments and 3,500+ endpoints remotely in US time zones, UTC-4). My core focus is systemic logic and proactive automation—having reduced recurring infrastructure incidents by 30% using entra, entra id, azure, az-104, powershell, python, Liongard, IT Glue, Autotask, NinjaOne, Acronis BCDR, Microsoft 365/Entra ID, and Python/PowerShell.
 
-How I can support Proxify (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: azure, python (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
+Operating as an independent international contractor out of La Paz, Bolivia (simple IRS Form W-8BEN for US clients, zero tax withholding or visa overhead) and fluent in English, French (native), and Spanish, I deliver high-accountability, well-documented asynchronous execution. You can review my architecture case studies at https://tsimon.me. Let's schedule a brief technical call this week to align on your immediate milestones.
 
 Best regards,
+Thomas Simon | https://tsimon.me | https://bo.linkedin.com/in/tsimonfreelance
+
+### 🇫🇷 Proposition Commerciale / Message (Français — CNAM & Orange Telecom Pedigree)
+Bonjour l'équipe Proxify,
+
+Suite à votre publication pour la mission **Senior Cloud Engineer (Azure)**, je vous propose mon expertise d'Ingénieur Systèmes, Cloud & NOC Senior (diplômé du CNAM France en Télécommunications & Réseaux, ancien Administrateur Systèmes chez Orange Telecom en France, et plus de 13 ans d'expérience sur des environnements critiques).
+
+J'accompagne les MSP et entreprises à distance (fuseau UTC-4, parfaitement compatible avec les équipes européennes et nord-américaines en mode asynchrone) sur l'administration et la sécurisation Microsoft 365 / Entra ID / Intune / Azure, l'automatisation Python/PowerShell, la continuité d'activité (Acronis/Veeam) et la standardisation documentaire (entra, entra id, azure, az-104, powershell, python)—avec une réduction prouvée de 30 % des incidents récurrents sur plus de 3 500 postes et serveurs. Trilingue français (natif), anglais et espagnol, mon portfolio technique est consultable sur https://tsimon.me. Disponible pour échanger cette semaine sur vos objectifs.
+
+Cordialement,
 Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Senior Python Developer (Fullstack, BE-Heavy)
 
-Bonjour Proxify,
+### 🇪🇸 Propuesta Técnica / Mensaje (Español — LATAM / Global)
+Hola equipo de Proxify,
 
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur azure, python. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
+En relación con la posición **Senior Cloud Engineer (Azure)**: cuento con más de 13 años de experiencia como Consultor Senior de TI, Ingeniero Cloud (Azure / Microsoft 365 / Entra ID) y Especialista NOC/CSM gestionando más de 100 entornos empresariales y 3,500+ endpoints de forma 100% remota desde La Paz, Bolivia (UTC-4).
 
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Senior Python Developer (Fullstack, BE-Heavy)
+Me especializo en auditoría lógica de sistemas, automatización con Python/PowerShell, evaluación técnica de modelos de IA (RLHF / Context Engineering) y estandarización operativa (entra, entra id, azure, az-104, powershell, python), logrando reducir incidentes recurrentes en un 30% y manteniendo un 99%+ de confiabilidad en respaldos BCDR. Opero como contratista independiente trilingüe (francés nativo, inglés fluido y español) con facturación internacional directa (W-8BEN). Pueden revisar mi portafolio en https://tsimon.me. Quedo atento para coordinar una breve conversación técnica.
 
-Hola Proxify,
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de azure, python. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
+Atentamente,
+Thomas Simon | https://tsimon.me | +591 734 62133
 
 ---
-## [POSSIBLE — 71/100] Quality Assurance Rater - Spanish speakers in Spain (TELUS Digital)
-**URL:** https://www.workingnomads.com/job/go/1957823/
 
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Quality Assurance Rater - Spanish speakers in Spain
-
-Hi TELUS Digital,
-
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
-
-How I can support TELUS Digital (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: spanish (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
-
-Best regards,
-Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Quality Assurance Rater - Spanish speakers in Spain
-
-Bonjour TELUS Digital,
-
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur spanish. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
-
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Quality Assurance Rater - Spanish speakers in Spain
-
-Hola TELUS Digital,
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de spanish. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
-
----
-## [POSSIBLE — 71/100] Quality Assurance Rater - Spanish (ES) (TELUS Digital)
-**URL:** https://www.workingnomads.com/job/go/1906010/
-
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Quality Assurance Rater - Spanish (ES)
-
-Hi TELUS Digital,
-
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
-
-How I can support TELUS Digital (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: spanish (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
-
-Best regards,
-Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Quality Assurance Rater - Spanish (ES)
-
-Bonjour TELUS Digital,
-
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur spanish. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
-
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Quality Assurance Rater - Spanish (ES)
-
-Hola TELUS Digital,
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de spanish. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
-
----
-## [POSSIBLE — 71/100] Senior IT Systems Engineer (Upsun)
-**URL:** https://weworkremotely.com/remote-jobs/upsun-senior-it-systems-engineer
-
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Senior IT Systems Engineer
-
-Hi Upsun,
-
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
-
-How I can support Upsun (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: documentation, linux, python (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
-
-Best regards,
-Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Senior IT Systems Engineer
-
-Bonjour Upsun,
-
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur documentation, linux, python. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
-
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Senior IT Systems Engineer
-
-Hola Upsun,
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de documentation, linux, python. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
-
----
-## [POSSIBLE — 70/100] Senior Data Engineer (Azure) (Proxify)
-**URL:** https://www.workingnomads.com/job/go/1925636/
-
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Senior Data Engineer (Azure)
-
-Hi Proxify,
-
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
-
-How I can support Proxify (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: azure, python (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
-
-Best regards,
-Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Senior Data Engineer (Azure)
-
-Bonjour Proxify,
-
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur azure, python. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
-
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Senior Data Engineer (Azure)
-
-Hola Proxify,
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de azure, python. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
-
----
-## [POSSIBLE — 69/100] Senior QA Automation Engineer (Proxify)
-**URL:** https://www.workingnomads.com/job/go/1925594/
-
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Senior QA Automation Engineer
-
-Hi Proxify,
-
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
-
-How I can support Proxify (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: azure, python (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
-
-Best regards,
-Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Senior QA Automation Engineer
-
-Bonjour Proxify,
-
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur azure, python. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
-
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Senior QA Automation Engineer
-
-Hola Proxify,
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de azure, python. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
-
----
-## [POSSIBLE — 69/100] Software Engineer, AI Coding Tasks (Askable)
-**URL:** https://remotive.com/remote-jobs/software-development/software-engineer-ai-coding-tasks-2091158
-
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Software Engineer, AI Coding Tasks
-
-Hi Askable,
-
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
-
-How I can support Askable (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: linux, python (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
-
-Best regards,
-Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Software Engineer, AI Coding Tasks
-
-Bonjour Askable,
-
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur linux, python. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
-
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Software Engineer, AI Coding Tasks
-
-Hola Askable,
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de linux, python. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
-
----
-## [POSSIBLE — 67/100] Tech Lead Full-Stack Rails Engineer (Mitre Media)
-**URL:** https://remotive.com/remote-jobs/software-development/tech-lead-full-stack-rails-engineer-2069746
-
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Tech Lead Full-Stack Rails Engineer
-
-Hi Mitre Media,
-
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
-
-How I can support Mitre Media (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: General Systems / IT (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
-
-Best regards,
-Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Tech Lead Full-Stack Rails Engineer
-
-Bonjour Mitre Media,
-
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur General Systems / IT. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
-
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Tech Lead Full-Stack Rails Engineer
-
-Hola Mitre Media,
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de General Systems / IT. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
-
----
-## [POSSIBLE — 67/100] QA/DevOps Engineer (Discord)
-**URL:** https://weworkremotely.com/remote-jobs/discord-qa-devops-engineer
-
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — QA/DevOps Engineer
-
-Hi Discord,
-
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
-
-How I can support Discord (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: documentation, powershell, python (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
-
-Best regards,
-Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — QA/DevOps Engineer
-
-Bonjour Discord,
-
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur documentation, powershell, python. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
-
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — QA/DevOps Engineer
-
-Hola Discord,
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de documentation, powershell, python. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
-
----
-## [POSSIBLE — 66/100] Senior Backend Developer (Node.js / Nest.js) (Proxify)
-**URL:** https://www.workingnomads.com/job/go/1925654/
-
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Senior Backend Developer (Node.js / Nest.js)
-
-Hi Proxify,
-
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
-
-How I can support Proxify (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: azure (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
-
-Best regards,
-Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Senior Backend Developer (Node.js / Nest.js)
-
-Bonjour Proxify,
-
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur azure. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
-
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Senior Backend Developer (Node.js / Nest.js)
-
-Hola Proxify,
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de azure. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
-
----
-## [POSSIBLE — 66/100] Senior Backend Developer (Python) (Proxify)
-**URL:** https://www.workingnomads.com/job/go/1925652/
-
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Senior Backend Developer (Python)
-
-Hi Proxify,
-
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
-
-How I can support Proxify (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: python (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
-
-Best regards,
-Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Senior Backend Developer (Python)
-
-Bonjour Proxify,
-
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur python. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
-
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Senior Backend Developer (Python)
-
-Hola Proxify,
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de python. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
-
----
-## [POSSIBLE — 66/100] Senior Backend Developer (.NET) (Proxify)
-**URL:** https://www.workingnomads.com/job/go/1925598/
-
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Senior Backend Developer (.NET)
-
-Hi Proxify,
-
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
-
-How I can support Proxify (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: azure (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
-
-Best regards,
-Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Senior Backend Developer (.NET)
-
-Bonjour Proxify,
-
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur azure. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
-
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Senior Backend Developer (.NET)
-
-Hola Proxify,
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de azure. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
-
----
-## [POSSIBLE — 65/100] AI Trainer - Video Annotation (iMerit Technology)
-**URL:** https://remotive.com/remote-jobs/artificial-intelligence/ai-trainer-video-annotation-2091161
-
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Technical AI Evaluator & Trilingual Infrastructure Auditor — AI Trainer - Video Annotation
-
-Hello iMerit Technology Team,
-
-I am a trilingual (French/English/Spanish) Senior IT Infrastructure & Cloud Engineer based in La Paz, Bolivia (UTC-4) with 13+ years of enterprise systems experience and 6.5 years in NOC/Centralized Services. Rather than generic copywriting, my core expertise is systemic root-cause logic: auditing Microsoft Azure/M365 architectures, GNU/Linux (Debian since 2005), BCDR runbooks, and PowerShell/Python automation scripts across 40+ to 100+ client environments.
-
-Key Alignment for AI Trainer - Video Annotation:
-• Technical Response & RLHF Auditing: Rigorous step-by-step verification of LLM outputs covering ai trainer.
-• Operational Track Record: Reduced recurring production incidents by 30% through proactive monitoring standardization and SOP engineering.
-• Trilingual Localization: Native French, fluent enterprise English, and Andean Spanish context.
-
-Portfolio & Case Studies: https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Évaluateur Logique IA Senior & Consultant Infrastructure Cloud Trilingue — AI Trainer - Video Annotation
-
-Bonjour l'équipe iMerit Technology,
-
-Ingénieur Systèmes, Cloud (Azure/M365/Entra ID) et Spécialiste NOC trilingue (FR/EN/ES) avec plus de 13 ans d'expérience (et utilisateur GNU/Linux Debian depuis 2005), je propose une expertise pointue en audit logique et évaluation RLHF sur les domaines : ai trainer.
-
-• Réduction de 30 % des incidents récurrents grâce à la standardisation documentaire (IT Glue, SOP) et l'automatisation proactive.
-• Vérification rigoureuse des procédures techniques, scripts PowerShell/Python et architectures BCDR.
-• Disponibilité asynchrone immédiate (UTC-4).
-
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Evaluador Técnico de IA y Auditor de Infraestructura Cloud Trilingüe — AI Trainer - Video Annotation
-
-Hola equipo de iMerit Technology,
-
-Soy Ingeniero Senior de Sistemas y Cloud (Azure/M365/Entra ID) radicado en La Paz, Bolivia (UTC-4), trilingüe (francés, inglés y español) con más de 13 años de experiencia en infraestructura empresarial y 6.5 años en operaciones NOC/Servicios Centralizados.
-
-• Auditoría Lógica y RLHF: Validación técnica de modelos GenAI, scripts y manuales operativos en ai trainer.
-• Resultados Verificados: Reducción del 30% en incidentes recurrentes mediante automatización proactiva y estandarización de SOPs.
-• Disponibilidad inmediata en modalidad remota asíncrona.
-
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```
-
----
-## [POSSIBLE — 62/100] Senior Django Developer (Proxify)
-**URL:** https://www.workingnomads.com/job/go/1925616/
-
-### 🇬🇧 English Proposal / Outreach
-```text
-Subject: Senior Cloud & MSP Automation Consultant (M365 / Entra ID / NOC) — Senior Django Developer
-
-Hi Proxify,
-
-With 13+ years in enterprise IT and 6.5 years specializing in MSP Centralized Services and NOC operations, I help teams stabilize cloud infrastructure, eliminate alert noise, and standardize documentation. Across 40+ to 100+ client environments (1,500–3,500+ endpoints), I reduced recurring incidents by 30% using proactive automation.
-
-How I can support Proxify (~20 hrs/wk fractional/contract in UTC-4):
-• Direct Stack Alignment: python (Microsoft 365, Azure, Entra ID, Liongard, NinjaOne, Kaseya, IT Glue, Autotask, BCDR).
-• Proactive Automation & Hygiene: PowerShell, Power Automate, and Python scripting plus audit-ready IT Glue SOPs.
-• Discovery Question: Are your current bottlenecks primarily around Entra ID/M365 tenant standardization, RMM alert tuning, or documentation gaps?
-
-Best regards,
-Thomas Simon | https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇫🇷 Proposition en Français
-```text
-Objet : Consultant Senior Cloud & Automatisation MSP (M365 / Azure / Entra ID) — Senior Django Developer
-
-Bonjour Proxify,
-
-Fort de 13+ ans d'expérience IT dont 6,5 ans en gestion des services centralisés (CSM/NOC) pour les MSP, j'accompagne vos équipes sur python. J'ai géré plus de 40 à 100 environnements clients (1 500 à 3 500+ endpoints) et réduit les incidents récurrents de 30 % par l'automatisation (PowerShell, Power Automate, Liongard, NinjaOne, IT Glue, Autotask).
-
-Disponible à temps partiel / contrat (~20h/semaine, fuseau UTC-4, trilingue FR/EN/ES).
-Portfolio : https://tsimon.me | simon_thomas@outlook.fr
-```
-### 🇪🇸 Propuesta en Español
-```text
-Asunto: Consultor Senior Cloud y Automatización MSP (M365 / Azure / Entra ID) — Senior Django Developer
-
-Hola Proxify,
-
-Con más de 13 años de experiencia en TI y 6.5 años liderando Servicios Centralizados y NOC para MSPs, apoyo en la optimización y automatización de python. He administrado entre 40+ y 100+ entornos de clientes logrando una reducción del 30% en incidentes recurrentes mediante Liongard, NinjaOne, Kaseya, IT Glue, Autotask y PowerShell.
-
-Disponible por contrato / tiempo parcial (~20 hrs/semana desde La Paz, UTC-4, trilingüe EN/FR/ES).
-Portafolio: https://tsimon.me | simon_thomas@outlook.fr
-```

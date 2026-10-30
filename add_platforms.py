@@ -3,7 +3,7 @@ python scout_agent.py add-platform \
   --name "MSPJobs Board" \
   --type rss_feed \
   --url "https://example-msp-board.com/jobs.rss" \
-  --track "Track C: Curated Remote Boards"
+  --track "Track F: Curated Remote-First & WFA Job Boards"
 
 # 2. Declare a walled career portal (Outlier-style) using automated search dorking:
 python scout_agent.py add-platform \
@@ -17,9 +17,6 @@ python scout_agent.py add-platform \
 python scout_agent.py add-keyword "scalePad"
 python scout_agent.py add-keyword "on-call weekend" --exclude
 
-# 4. Add a new warm contact to your automated follow-up CRM:
-python scout_agent.py add-contact --name "Alex" --focus "Fractional M365 & IT Glue Audits" --cadence 14
-
-# 5. List all active platforms or run SCOUT live:
+# 4. List all active platforms or run SCOUT live:
 python scout_agent.py list
 python scout_agent.py run

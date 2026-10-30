@@ -1,14 +1,23 @@
 #!/usr/bin/env python3
 """
-Agent 1: SCOUT — Declarative Multi-Platform Opportunity Ingestion Engine
-Author: Thomas Simon Career Automation Suite
-Location/Timezone: La Paz, Bolivia (UTC-4)
+SCOUT Agent v4.0.0 — Automated Multi-Track Lead Aggregation Engine
+Author: Thomas Simon Career Ops (La Paz, Bolivia — UTC-4)
+Dependencies: Python 3.10+ Standard Library ONLY (Zero external pip packages)
 
-Zero-dependency Python 3 script (uses standard library only) that:
-1. Reads platforms and search parameters declaratively from platforms_config.json.
-2. Lets you declare new platforms, feeds, search dorks, keywords, or warm contacts via CLI
-   WITHOUT manually browsing or filtering job boards.
-3. Fetches, normalizes, pre-filters, and deduplicates opportunities into SQLite (career_ops.db).
+Supports 73+ Global Platforms across 6 Strategic Tracks:
+  - Track A: Direct B2B & Fractional MSP (6 Portals)
+  - Track B: Category 1 — AI Training, RLHF & Technical Logic Evaluation (20 Portals)
+  - Track C: Category 2 — Vetted Global & Nearshore LATAM Tech Networks (16 Networks)
+  - Track D: Category 3 — Francophone & European IT/Cloud Marketplaces (9 Portals)
+  - Track E: Category 5 — Executive Expert Networks ($150-$400/hr Micro-Advisory Calls)
+  - Track F: Category 6 — Curated Remote-First & Work-From-Anywhere Job Boards (JSON APIs, RSS, Dorks)
+
+New in v4.0.0:
+  - Dead-platform circuit breaker (automatically blocks joinstellar.ai / Stellar AI).
+  - Clustered Portal Dorking (`--mode clustered` default vs `--mode individual`) to prevent
+    HTTP 429/202 search-engine rate-limiting across 58+ walled portals.
+  - Declarative CLI commands: `run`, `list-platforms` (alias `list`), `add-platform`, `add-keyword`,
+    `seed-verified`.
 """
 
 import argparse
@@ -19,535 +28,811 @@ import json
 import os
 import re
 import sqlite3
+import sys
+import time
+import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
-from typing import Dict, List, Any
+from pathlib import Path
 
-CONFIG_FILE = "platforms_config.json"
-DB_FILE = "career_ops.db"
-USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThomasSimonCareerScout/1.0"
+BASE_DIR = Path(__file__).resolve().parent
+CONFIG_PATH = BASE_DIR / "platforms_config.json"
+DB_PATH = BASE_DIR / "career_ops.db"
+
+USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/128.0.0.0 Safari/537.36"
+)
+
+REQUIRED_COLUMNS = {
+    "id": "INTEGER",
+    "job_hash": "TEXT",
+    "platform_id": "TEXT",
+    "platform_name": "TEXT",
+    "category": "TEXT",
+    "track": "TEXT",
+    "contract_caveat": "TEXT DEFAULT 'fractional_or_fulltime'",
+    "title": "TEXT",
+    "company": "TEXT",
+    "location": "TEXT",
+    "url": "TEXT",
+    "description": "TEXT",
+    "tags": "TEXT",
+    "published_at": "TEXT",
+    "published_date": "TEXT",
+    "discovered_at": "TEXT",
+    "status": "TEXT DEFAULT 'NEW'",
+    "verdict": "TEXT DEFAULT NULL",
+    "total_score": "INTEGER DEFAULT NULL",
+    "tech_score": "INTEGER DEFAULT NULL",
+    "safety_score": "INTEGER DEFAULT NULL",
+    "geo_lang_score": "INTEGER DEFAULT NULL",
+    "contract_score": "INTEGER DEFAULT NULL",
+    "matched_skills": "TEXT DEFAULT NULL",
+    "missing_gaps": "TEXT DEFAULT NULL",
+    "red_flags": "TEXT DEFAULT NULL",
+    "analyst_notes": "TEXT DEFAULT NULL",
+    "proposal_en": "TEXT DEFAULT NULL",
+    "proposal_fr": "TEXT DEFAULT NULL",
+    "proposal_es": "TEXT DEFAULT NULL",
+    "proposal_advisory": "TEXT DEFAULT NULL",
+}
 
 
-def load_config(path: str = CONFIG_FILE) -> Dict[str, Any]:
-    with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-
-def save_config(cfg: Dict[str, Any], path: str = CONFIG_FILE) -> None:
-    cfg["last_updated"] = datetime.date.today().isoformat()
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(cfg, f, indent=2, ensure_ascii=False)
-
-
-def init_db(db_path: str = DB_FILE) -> sqlite3.Connection:
-    conn = sqlite3.connect(db_path)
-    cur = conn.cursor()
-    cur.execute("""
+def init_db(db_path: Path = DB_PATH) -> sqlite3.Connection:
+    conn = sqlite3.connect(str(db_path))
+    conn.row_factory = sqlite3.Row
+    conn.execute(
+        """
         CREATE TABLE IF NOT EXISTS opportunities (
-            job_hash TEXT PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            job_hash TEXT UNIQUE NOT NULL,
             platform_id TEXT,
             platform_name TEXT,
+            category TEXT,
             track TEXT,
-            title TEXT,
+            contract_caveat TEXT DEFAULT 'fractional_or_fulltime',
+            title TEXT NOT NULL,
             company TEXT,
             location TEXT,
             url TEXT,
             description TEXT,
             tags TEXT,
+            published_at TEXT,
             published_date TEXT,
-            discovered_at TEXT,
+            discovered_at TEXT NOT NULL,
             status TEXT DEFAULT 'NEW',
+            verdict TEXT DEFAULT NULL,
             total_score INTEGER DEFAULT NULL,
             tech_score INTEGER DEFAULT NULL,
             safety_score INTEGER DEFAULT NULL,
             geo_lang_score INTEGER DEFAULT NULL,
             contract_score INTEGER DEFAULT NULL,
-            verdict TEXT DEFAULT NULL,
-            analyst_notes TEXT DEFAULT NULL,
             matched_skills TEXT DEFAULT NULL,
             missing_gaps TEXT DEFAULT NULL,
+            red_flags TEXT DEFAULT NULL,
+            analyst_notes TEXT DEFAULT NULL,
             proposal_en TEXT DEFAULT NULL,
             proposal_fr TEXT DEFAULT NULL,
-            proposal_es TEXT DEFAULT NULL
+            proposal_es TEXT DEFAULT NULL,
+            proposal_advisory TEXT DEFAULT NULL
         )
-    """)
+        """
+    )
+    existing_cols = {
+        r[1] for r in conn.execute("PRAGMA table_info(opportunities)").fetchall()
+    }
+    for col_name, col_def in REQUIRED_COLUMNS.items():
+        if col_name not in existing_cols and col_name != "id":
+            conn.execute(f"ALTER TABLE opportunities ADD COLUMN {col_name} {col_def}")
     conn.commit()
     return conn
 
 
-def clean_html(raw_html: str) -> str:
-    if not raw_html:
+def load_config(config_path: Path = CONFIG_PATH) -> dict:
+    with open(config_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def save_config(cfg: dict, config_path: Path = CONFIG_PATH) -> None:
+    cfg["last_updated"] = datetime.date.today().isoformat()
+    with open(config_path, "w", encoding="utf-8") as f:
+        json.dump(cfg, f, indent=2, ensure_ascii=False)
+
+
+def strip_html(raw_text: str) -> str:
+    if not raw_text:
         return ""
-    text = html.unescape(str(raw_html))
-    text = re.sub(r"<[^>]+>", " ", text)
-    text = re.sub(r"\s+", " ", text).strip()
-    return text
+    unescaped = html.unescape(str(raw_text))
+    cleaned = re.sub(r"<[^>]+>", " ", unescaped)
+    return re.sub(r"\s+", " ", cleaned).strip()
 
 
 def compute_hash(title: str, company: str, url: str) -> str:
-    norm = f"{title.strip().lower()}|{company.strip().lower()}|{url.strip().lower()}"
-    return hashlib.sha256(norm.encode("utf-8")).hexdigest()[:24]
+    norm_title = re.sub(r"\s+", " ", title.strip().lower()).strip()
+    payload = f"{norm_title}|{company.strip().lower()}|{url.strip().lower()}"
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:24]
 
 
-def passes_global_pre_filter(item: Dict[str, str], global_params: Dict[str, Any]) -> bool:
-    """
-    Fast declarative pre-filter so irrelevant jobs never clutter your database.
-    Warm CRM items always pass.
-    """
-    if item.get("connector_type") == "warm_crm":
+def is_dead_platform(url: str, title: str, cfg: dict) -> bool:
+    combined = f"{url} {title}".lower()
+    for dead in cfg.get("dead_platforms_blacklist", []):
+        domain = dead.get("domain", "").lower()
+        name = dead.get("name", "").lower()
+        if (domain and domain in combined) or (name and name in combined):
+            return True
+    return False
+
+
+def passes_global_pre_filter(item: dict, cfg: dict, bypass_keyword_check: bool = False) -> bool:
+    if is_dead_platform(item.get("url", ""), item.get("title", ""), cfg):
+        return False
+    if bypass_keyword_check:
         return True
 
-    blob = f"{item.get('title', '')} {item.get('description', '')} {item.get('tags', '')}".lower()
-    loc_blob = f"{item.get('location', '')} {blob}".lower()
+    params = cfg.get("global_parameters", {})
+    hard_excludes = [k.lower() for k in params.get("hard_exclude_keywords", [])]
+    loc_blacklist = [k.lower() for k in params.get("location_blacklist", [])]
+    must_match = [k.lower() for k in params.get("must_match_any_keyword", [])]
 
-    # 1. Check hard exclusions
-    for bad_kw in global_params.get("hard_exclude_keywords", []):
-        if bad_kw.lower() in blob:
+    blob = " ".join(
+        [
+            str(item.get("title", "")),
+            str(item.get("company", "")),
+            str(item.get("description", "")),
+            str(item.get("tags", "")),
+            str(item.get("location", "")),
+        ]
+    ).lower()
+
+    loc_str = str(item.get("location", "")).lower()
+    for loc_bad in loc_blacklist:
+        if loc_bad in loc_str or loc_bad in blob:
             return False
 
-    # 2. Check location blacklist
-    for bad_loc in global_params.get("location_blacklist", []):
-        if bad_loc.lower() in loc_blob:
-            return False
+    for bad in hard_excludes:
+        if bad in blob:
+            # Allow negated red flags like "no tier 1 helpdesk"
+            neg_pattern = r"(?:no|zero|without|never|not)\s+(?:[a-z0-9/-]+\s+){0,3}" + re.escape(bad)
+            if not re.search(neg_pattern, blob):
+                return False
 
-    # 3. Must match at least one target keyword
-    must_kws = global_params.get("must_match_any_keyword", [])
-    if must_kws and not any(kw.lower() in blob for kw in must_kws):
-        return False
+    if bypass_keyword_check:
+        return True
 
-    return True
+    return any(kw in blob for kw in must_match)
 
 
-def fetch_url(url: str, timeout: int = 15) -> str:
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "*/*"})
+def http_get(url: str, timeout: int = 12) -> bytes:
+    req = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept": "application/json, application/xml, text/xml, text/html, */*",
+            "Accept-Language": "en-US,en;q=0.9,fr;q=0.8,es;q=0.7",
+        },
+    )
     with urllib.request.urlopen(req, timeout=timeout) as resp:
-        return resp.read().decode("utf-8", errors="replace")
+        return resp.read()
 
 
-def fetch_json_api(platform: Dict[str, Any]) -> List[Dict[str, str]]:
-    results = []
-    raw = fetch_url(platform["url"])
-    data = json.loads(raw)
+def fetch_json_api(platform: dict) -> list:
+    url = platform["url"]
+    raw = http_get(url)
+    data = json.loads(raw.decode("utf-8", errors="replace"))
 
     root_key = platform.get("json_root_key")
-    if root_key and isinstance(data, dict):
-        items = data.get(root_key, [])
-    elif isinstance(data, list):
-        items = data[1:] if platform.get("skip_first_element") else data
-    else:
-        items = []
+    records = data.get(root_key, []) if root_key and isinstance(data, dict) else data
+    if not isinstance(records, list):
+        return []
 
     fmap = platform.get("field_mapping", {})
-    for entry in items:
-        if not isinstance(entry, dict):
+    results = []
+    for row in records:
+        if not isinstance(row, dict):
             continue
-        title = str(entry.get(fmap.get("title", "title"), ""))
-        company = str(entry.get(fmap.get("company", "company"), "Unknown"))
-        desc = clean_html(entry.get(fmap.get("description", "description"), ""))
-        url = str(entry.get(fmap.get("url", "url"), platform["url"]))
-        loc = str(entry.get(fmap.get("location", "location"), "Remote"))
-        tags_raw = entry.get(fmap.get("tags", "tags"), "")
-        tags = ", ".join(tags_raw) if isinstance(tags_raw, list) else str(tags_raw)
-        pub_date = str(entry.get(fmap.get("date", "date"), datetime.date.today().isoformat()))
+        # RemoteOK first element is often legal metadata
+        if "title" not in row and "position" not in row and "jobTitle" not in row:
+            continue
 
-        results.append({
-            "platform_id": platform["id"],
-            "platform_name": platform["name"],
-            "connector_type": "json_api",
-            "track": platform.get("track", "General"),
-            "title": title,
-            "company": company,
-            "location": loc,
-            "url": url,
-            "description": desc[:4000],
-            "tags": tags,
-            "published_date": pub_date
-        })
-    return results
+        title = strip_html(row.get(fmap.get("title", "title"), ""))
+        if not title:
+            continue
+        company = strip_html(row.get(fmap.get("company", "company"), platform["name"]))
+        desc = strip_html(row.get(fmap.get("description", "description"), ""))[:1500]
+        job_url = str(row.get(fmap.get("url", "url"), platform["url"]))
+        if job_url.startswith("/"):
+            job_url = f"https://{platform.get('domain', '')}{job_url}"
 
+        loc_val = row.get(fmap.get("location", "location"), "Remote Worldwide")
+        if isinstance(loc_val, list):
+            loc_val = ", ".join(str(x) for x in loc_val) if loc_val else "Remote Worldwide"
+        tags_val = row.get(fmap.get("tags", "tags"), "")
+        if isinstance(tags_val, list):
+            tags_val = ", ".join(str(x) for x in tags_val)
 
-def fetch_rss_feed(platform: Dict[str, Any]) -> List[Dict[str, str]]:
-    results = []
-    raw = fetch_url(platform["url"])
-    root = ET.fromstring(raw)
-    for item in root.findall(".//item"):
-        raw_title = item.findtext("title", "")
-        if ":" in raw_title:
-            company, title = [p.strip() for p in raw_title.split(":", 1)]
-        else:
-            company, title = platform["name"], raw_title.strip()
-        desc = clean_html(item.findtext("description", ""))
-        link = item.findtext("link", platform["url"])
-        pub_date = item.findtext("pubDate", datetime.date.today().isoformat())
-        region = item.findtext("region", "Remote")
+        pub = str(row.get(fmap.get("published_at", fmap.get("date", "published_at")), datetime.date.today().isoformat()))
 
-        results.append({
-            "platform_id": platform["id"],
-            "platform_name": platform["name"],
-            "connector_type": "rss_feed",
-            "track": platform.get("track", "Track C: Curated Remote Boards"),
-            "title": title,
-            "company": company,
-            "location": region,
-            "url": link,
-            "description": desc[:4000],
-            "tags": "rss, remote",
-            "published_date": pub_date
-        })
-    return results
-
-
-def fetch_portal_dork(platform: Dict[str, Any]) -> List[Dict[str, str]]:
-    """
-    Uses DuckDuckGo Lite HTML query to discover new role pages on walled portals
-    (Outlier, Innodata, Alignerr, Mindrift, OneForma, Toptal, etc.) without manual browsing.
-    """
-    results = []
-    query = platform.get("search_query", "")
-    if not query:
-        return results
-    encoded_q = urllib.parse.quote_plus(query)
-    ddg_url = f"https://html.duckduckgo.com/html/?q={encoded_q}"
-    raw = fetch_url(ddg_url)
-
-    # Parse result links and snippets from DuckDuckGo HTML
-    pattern = re.compile(
-        r'<a rel="nofollow" class="result__a" href="([^"]+)">(.*?)</a>.*?<a class="result__snippet"[^>]*>(.*?)</a>',
-        re.DOTALL
-    )
-    for match in pattern.finditer(raw):
-        href, title_html, snippet_html = match.groups()
-        title = clean_html(title_html)
-        snippet = clean_html(snippet_html)
-        results.append({
-            "platform_id": platform["id"],
-            "platform_name": platform["name"],
-            "connector_type": "portal_dork",
-            "track": platform.get("track", "Track B: Async AI Evaluation & RLHF"),
-            "title": title,
-            "company": platform["name"].split("(")[0].strip(),
-            "location": "Remote / Bolivia Eligible",
-            "url": href,
-            "description": f"{snippet} | Target Positioning: {platform.get('target_positioning', '')}",
-            "tags": "portal_dork, ai_evaluation, remote",
-            "published_date": datetime.date.today().isoformat()
-        })
-    return results
-
-
-def fetch_warm_crm(platform: Dict[str, Any]) -> List[Dict[str, str]]:
-    """
-    Generates scheduled action items for warm contacts (Mercedes, Rayan, Todd, Kevin, Liz, John)
-    when their follow-up cadence is due.
-    """
-    results = []
-    today = datetime.date.today()
-    for contact in platform.get("contacts", []):
-        last_str = contact.get("last_contact", "2026-10-01")
-        try:
-            last_dt = datetime.date.fromisoformat(last_str)
-        except ValueError:
-            last_dt = today - datetime.timedelta(days=30)
-        days_since = (today - last_dt).days
-        cadence = int(contact.get("cadence_days", 14))
-
-        if days_since >= cadence:
-            results.append({
+        results.append(
+            {
                 "platform_id": platform["id"],
                 "platform_name": platform["name"],
-                "connector_type": "warm_crm",
-                "track": platform.get("track", "Track A: Warm Network & Direct Outreach"),
-                "title": f"Warm Outreach / Follow-Up: {contact['name']} ({contact.get('focus', 'Consulting')})",
-                "company": f"Direct Network ({contact['name']})",
-                "location": "Remote / Async (UTC-4)",
-                "url": f"mailto:simon_thomas@outlook.fr?subject=Follow-up-{contact['name']}",
-                "description": (
-                    f"Scheduled {cadence}-day touchpoint for {contact['name']} (last contact: {last_str}, "
-                    f"{days_since} days ago). Status: {contact.get('status', '')}. "
-                    f"Focus area: {contact.get('focus', '')}. Highlight 13+ yrs IT, M365/Azure/Entra ID, "
-                    f"Liongard/IT Glue/Autotask, and 30% incident reduction."
-                ),
-                "tags": "warm_lead, fractional, msp, azure, m365, documentation, async",
-                "published_date": today.isoformat()
-            })
+                "category": platform.get("category", "Category 6: Curated Remote-First Job Boards"),
+                "track": platform.get("track", "Track F: Curated Remote-First & WFA Job Boards"),
+                "contract_caveat": platform.get("contract_caveat", "fractional_or_fulltime"),
+                "title": title,
+                "company": company or platform["name"],
+                "location": str(loc_val or "Remote Worldwide"),
+                "url": job_url,
+                "description": desc,
+                "tags": str(tags_val),
+                "published_at": pub,
+            }
+        )
     return results
 
 
-def get_demo_seed_items() -> List[Dict[str, str]]:
+def fetch_rss_feed(platform: dict) -> list:
+    raw = http_get(platform["url"])
+    root = ET.fromstring(raw)
+    results = []
+
+    items = root.findall(".//item")
+    if not items:
+        items = root.findall(".//{http://www.w3.org/2005/Atom}entry")
+
+    for item in items[:50]:
+        title_el = item.find("title")
+        if title_el is None:
+            title_el = item.find("{http://www.w3.org/2005/Atom}title")
+        link_el = item.find("link")
+        if link_el is None:
+            link_el = item.find("{http://www.w3.org/2005/Atom}link")
+        desc_el = item.find("description")
+        if desc_el is None:
+            desc_el = item.find("{http://www.w3.org/2005/Atom}summary")
+        pub_el = item.find("pubDate")
+        region_el = item.find("region")
+
+        title_raw = title_el.text if title_el is not None and title_el.text else ""
+        title = strip_html(title_raw)
+        if not title:
+            continue
+
+        company = platform["name"]
+        if ":" in title:
+            parts = title.split(":", 1)
+            company = parts[0].strip()
+            title = parts[1].strip()
+
+        link = ""
+        if link_el is not None:
+            link = link_el.text.strip() if link_el.text else link_el.attrib.get("href", "")
+
+        desc = strip_html(desc_el.text if desc_el is not None and desc_el.text else "")[:1500]
+        pub = pub_el.text.strip() if pub_el is not None and pub_el.text else datetime.date.today().isoformat()
+        loc = region_el.text.strip() if region_el is not None and region_el.text else "Remote Worldwide"
+
+        results.append(
+            {
+                "platform_id": platform["id"],
+                "platform_name": platform["name"],
+                "category": platform.get("category", "Category 6: Curated Remote-First Job Boards"),
+                "track": platform.get("track", "Track F: Curated Remote-First & WFA Job Boards"),
+                "contract_caveat": platform.get("contract_caveat", "fractional_or_fulltime"),
+                "title": title,
+                "company": company,
+                "location": loc,
+                "url": link or platform["url"],
+                "description": desc,
+                "tags": "rss, remote",
+                "published_at": pub,
+            }
+        )
+    return results
+
+
+def fetch_portal_dork(platform: dict) -> list:
+    query = platform.get("search_query", f"site:{platform.get('domain', '')} remote")
+    encoded_q = urllib.parse.quote_plus(query)
+    ddg_url = f"https://html.duckduckgo.com/html/?q={encoded_q}"
+    raw = http_get(ddg_url)
+    page = raw.decode("utf-8", errors="replace")
+
+    results = []
+    block_pattern = re.compile(
+        r'<a[^>]+class="result__a"[^>]+href="([^"]+)"[^>]*>(.*?)</a>.*?'
+        r'<a[^>]+class="result__snippet"[^>]*>(.*?)</a>',
+        re.DOTALL | re.IGNORECASE,
+    )
+    for match in block_pattern.finditer(page):
+        raw_href, raw_title, raw_snippet = match.groups()
+        if "uddg=" in raw_href:
+            parsed_qs = urllib.parse.parse_qs(urllib.parse.urlparse(raw_href).query)
+            clean_url = parsed_qs.get("uddg", [raw_href])[0]
+        else:
+            clean_url = html.unescape(raw_href)
+
+        title = strip_html(raw_title)
+        snippet = strip_html(raw_snippet)
+        if not title:
+            continue
+
+        results.append(
+            {
+                "platform_id": platform["id"],
+                "platform_name": platform["name"],
+                "category": platform.get("category", "Portal Dork"),
+                "track": platform.get("track", "Track B: Async AI Evaluation & RLHF"),
+                "contract_caveat": platform.get("contract_caveat", "async_flexible"),
+                "title": title,
+                "company": platform["name"],
+                "location": "Remote / Global / LATAM (UTC-4)",
+                "url": clean_url,
+                "description": f"{snippet} | Portal Strategy: {platform.get('notes', '')}",
+                "tags": platform.get("category", ""),
+                "published_at": datetime.date.today().isoformat(),
+            }
+        )
+    return results
+
+
+def fetch_clustered_portal_dorks(platforms: list, delay_sec: float = 1.2) -> list:
     """
-    Realistic seed opportunities across Track A, Track B, and Track C for offline testing & validation.
+    Groups portal_dork platforms into chunks of 5 domains per query to prevent
+    DuckDuckGo HTTP 429 rate-limiting while scanning all 58+ walled portals.
+    """
+    dork_platforms = [
+        p for p in platforms
+        if p.get("enabled", True) and (p.get("type") or p.get("connector_type")) == "portal_dork"
+    ]
+    domain_map = {p.get("domain", "").lower(): p for p in dork_platforms if p.get("domain")}
+
+    results = []
+    chunk_size = 5
+    for idx in range(0, len(dork_platforms), chunk_size):
+        chunk = dork_platforms[idx : idx + chunk_size]
+        sites_expr = " OR ".join(f"site:{p['domain']}" for p in chunk if p.get("domain"))
+        if not sites_expr:
+            continue
+        cluster_query = (
+            f"({sites_expr}) "
+            f"(\"Azure\" OR \"M365\" OR \"Entra\" OR \"SysAdmin\" OR \"Cloud\" OR \"MSP\" "
+            f"OR \"Python\" OR \"AI Trainer\" OR \"RLHF\" OR \"French\" OR \"Spanish\" OR \"Télétravail\")"
+        )
+        synthetic_platform = {
+            "id": "cluster_dork",
+            "name": chunk[0]["name"],
+            "category": chunk[0].get("category", ""),
+            "track": chunk[0].get("track", ""),
+            "contract_caveat": chunk[0].get("contract_caveat", "async_flexible"),
+            "search_query": cluster_query,
+            "notes": chunk[0].get("notes", ""),
+        }
+        try:
+            hits = fetch_portal_dork(synthetic_platform)
+            for h in hits:
+                matched_p = chunk[0]
+                url_lower = h["url"].lower()
+                for dom, p_obj in domain_map.items():
+                    if dom in url_lower:
+                        matched_p = p_obj
+                        break
+                h["platform_id"] = matched_p["id"]
+                h["platform_name"] = matched_p["name"]
+                h["category"] = matched_p.get("category", "")
+                h["track"] = matched_p.get("track", "")
+                h["contract_caveat"] = matched_p.get("contract_caveat", "async_flexible")
+                h["company"] = matched_p["name"]
+                h["description"] = f"{h['description']} | Strategy: {matched_p.get('notes', '')}"
+                results.append(h)
+        except Exception as exc:
+            print(f"[SCOUT WARN] Cluster dork batch {idx // chunk_size + 1} error: {exc}")
+        time.sleep(delay_sec)
+    return results
+
+
+def insert_opportunities(conn: sqlite3.Connection, items: list, cfg: dict, bypass_filter: bool = False) -> int:
+    inserted = 0
+    now_iso = datetime.datetime.now().isoformat(timespec="seconds")
+    for item in items:
+        if not passes_global_pre_filter(item, cfg, bypass_keyword_check=bypass_filter):
+            continue
+
+        pid = item.get("platform_id", "")
+        jhash = compute_hash(item["title"], item["company"], item["url"])
+        cur = conn.execute("SELECT 1 FROM opportunities WHERE job_hash = ?", (jhash,))
+        if cur.fetchone():
+            continue
+
+        pub_date = item.get("published_at") or item.get("published_date") or now_iso[:10]
+        conn.execute(
+            """
+            INSERT INTO opportunities (
+                job_hash, platform_id, platform_name, category, track, contract_caveat,
+                title, company, location, url, description, tags, published_at, published_date,
+                discovered_at, status
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'NEW')
+            """,
+            (
+                jhash,
+                pid,
+                item.get("platform_name", ""),
+                item.get("category", ""),
+                item.get("track", ""),
+                item.get("contract_caveat", "fractional_or_fulltime"),
+                item["title"],
+                item.get("company", ""),
+                item.get("location", "Remote Worldwide"),
+                item.get("url", ""),
+                item.get("description", ""),
+                item.get("tags", ""),
+                pub_date,
+                pub_date,
+                now_iso,
+            ),
+        )
+        inserted += 1
+    conn.commit()
+    return inserted
+
+
+def seed_verified_baseline(conn: sqlite3.Connection, cfg: dict) -> int:
+    """
+    Seeds high-signal baseline opportunities across all 6 tracks (plus a red-flag test row
+    and a full-time caveat row) so offline environments and initial installations can verify
+    the full 6-track scoring & trilingual proposal pipeline immediately.
     """
     today = datetime.date.today().isoformat()
-    return [
+    samples = [
+        # Track A: Direct B2B & Fractional MSP / Upwork
         {
-            "platform_id": "working_nomads_api",
-            "platform_name": "Working Nomads Public API",
-            "connector_type": "json_api",
-            "track": "Track C: Curated Remote Boards",
-            "title": "Fractional M365, Entra ID & MSP Automation Consultant (20 hrs/wk)",
-            "company": "Apex Cloud Managed Services",
-            "location": "Remote (Americas / UTC-4 / LATAM Friendly)",
-            "url": "https://www.workingnomads.com/jobs/fractional-m365-entra-msp-consultant-apex",
+            "platform_id": "upwork_msp",
+            "platform_name": "Upwork (Managed Services & Cloud)",
+            "category": "Category 4: Direct-to-Client & Fractional MSP",
+            "track": "Track A: Direct B2B & Fractional MSP",
+            "contract_caveat": "fractional_friendly",
+            "title": "Fractional NOC / Centralized Services Engineer (Liongard, IT Glue, Autotask, M365)",
+            "company": "North American Growth MSP (via Upwork)",
+            "location": "Remote Americas / LATAM (UTC-4 / EST)",
+            "url": "https://www.upwork.com/freelance-jobs/managed-services/",
             "description": (
-                "Seeking a Senior Systems & Cloud Consultant for 20 hours/week ($32-$40/hr) on an ongoing contract. "
-                "You will audit Microsoft 365 tenants, enforce Conditional Access in Entra ID, standardize runbooks "
-                "in IT Glue, and build proactive monitoring/alerting automations using Liongard, NinjaOne, Autotask, "
-                "PowerShell, and Power Automate. Asynchronous workflow with zero Tier 1 helpdesk phone queue."
+                "Seeking a senior fractional Centralized Services / NOC Engineer for 20 hours/week ($35-$55/hr) "
+                "to standardize Liongard inspectors, IT Glue documentation, Autotask PSA alerting workflows, "
+                "NinjaOne RMM scripting, Acronis BCDR verification, and Microsoft Entra ID Conditional Access. "
+                "100% asynchronous project execution; zero Tier 1 helpdesk ticket queues and no 24/7 on-call."
             ),
-            "tags": "microsoft 365, azure, entra id, liongard, it glue, autotask, powershell, part-time, async",
-            "published_date": today
+            "tags": "liongard, it glue, autotask, ninjaone, entra id, m365, acronis, fractional, async",
+            "published_at": today,
         },
+        # Track B: Category 1 — AI Training & RLHF (Outlier, Mercor, Alignerr, Mindrift)
         {
-            "platform_id": "ai_eval_outlier_bolivia",
-            "platform_name": "Outlier AI Portal (Andean Spanish & Tech Writer)",
-            "connector_type": "portal_dork",
+            "platform_id": "outlier_ai",
+            "platform_name": "Outlier AI",
+            "category": "Category 1: AI Training & RLHF",
             "track": "Track B: Async AI Evaluation & RLHF",
-            "title": "AI Logic Evaluator & Technical Writer — Cloud/SysAdmin & Andean Spanish Track",
-            "company": "Outlier AI",
-            "location": "Remote Worldwide / Bolivia Actively Hiring",
-            "url": "https://app.outlier.ai/en/expert/jobs/sysadmin-spanish-evaluator",
+            "contract_caveat": "async_flexible",
+            "title": "Trilingual Technical AI Trainer & Systems Logic Evaluator (French / Andean Spanish / English)",
+            "company": "Outlier AI (Infrastructure & Squad Reviewer Track)",
+            "location": "Bolivia / Global Remote (Self-Paced Async)",
+            "url": "https://outlier.ai/",
             "description": (
-                "Evaluate and audit complex LLM responses covering Linux (Debian), Microsoft Azure, system administration, "
-                "network troubleshooting, and BCDR procedures across English, French, and Andean Spanish. "
-                "100% asynchronous self-paced contract ($28-$35/hr equivalent) ideal for experienced IT infrastructure auditors."
+                "Evaluate frontier LLM responses on Cloud Infrastructure (Azure, M365, Entra ID), Linux/Debian "
+                "system administration, network security, and Python automation scripts across French, Andean Spanish, "
+                "and English. Self-paced asynchronous RLHF rubric grading and technical writing verification."
             ),
-            "tags": "ai evaluator, rlhf, spanish, french, linux, azure, documentation, async, part-time",
-            "published_date": today
+            "tags": "ai trainer, rlhf, french, spanish, andean, azure, linux, python, async, self-paced",
+            "published_at": today,
         },
         {
-            "platform_id": "ai_eval_innodata",
-            "platform_name": "Innodata Careers (IT/Systems Auditing & Localization)",
-            "connector_type": "portal_dork",
+            "platform_id": "mercor",
+            "platform_name": "Mercor",
+            "category": "Category 1: AI Training & RLHF",
             "track": "Track B: Async AI Evaluation & RLHF",
-            "title": "AI Trainer & Technical Documentation Auditor (Enterprise IT / Cloud)",
-            "company": "Innodata",
-            "location": "Remote (Global / Latin America)",
-            "url": "https://www.innodata.com/careers/ai-trainer-enterprise-it",
+            "contract_caveat": "async_flexible",
+            "title": "Senior Cloud Infrastructure & Security Rubric Architect (RLHF / Agentic Evaluation)",
+            "company": "Mercor AI Lab Partner",
+            "location": "Worldwide Remote (W-8BEN Contractor, Flexible Hours)",
+            "url": "https://mercor.com/",
             "description": (
-                "Rewrite and validate machine-generated Standard Operating Procedures (SOPs), disaster recovery (BCDR) "
-                "manuals, and M365/Azure administration guides. Requires 10+ years of non-coding systems engineering "
-                "or IT auditing logic plus bilingual English/Spanish or English/French proficiency. Flexible part-time."
+                "Design multi-step evaluation rubrics and red-team agentic MCP workflows for enterprise cloud "
+                "administration (Azure, M365, Entra ID, PowerShell, Linux, Python, Ollama). $65-$110/hr, "
+                "asynchronous self-paced blocks (15-25 hours/week)."
             ),
-            "tags": "ai trainer, sop, documentation, m365, azure, bcdr, spanish, french, async, contract",
-            "published_date": today
+            "tags": "ai evaluator, rlhf, rubric, mcp, azure, entra id, powershell, python, async, part-time",
+            "published_at": today,
+        },
+        # Track C: Category 2 — Vetted Global & LATAM Networks (NeuronHire Bolivia, Tecla, Braintrust)
+        {
+            "platform_id": "neuronhire",
+            "platform_name": "NeuronHire",
+            "category": "Category 2: Vetted Global & LATAM Tech Networks",
+            "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+            "contract_caveat": "fractional_or_fulltime",
+            "title": "Remote AI Context Engineer & Cloud Automation Specialist (Bolivia / LATAM)",
+            "company": "NeuronHire Nearshore Enterprise Partner",
+            "location": "Bolivia / Latin America (UTC-4)",
+            "url": "https://www.neuronhire.com/",
+            "description": (
+                "Contract opportunity for a Bolivia-based bilingual/trilingual Systems & AI Context Engineer. "
+                "Build RAG/MCP context pipelines with Python, Pandas, Ollama, and LangChain while auditing "
+                "Azure and Microsoft 365 cloud security telemetry. Flexible fractional contract (20 hours/week)."
+            ),
+            "tags": "bolivia, latam, context engineer, python, pandas, ollama, langchain, mcp, azure, m365, fractional",
+            "published_at": today,
+        },
+        # Track D: Category 3 — Francophone & European IT Marketplaces (Free-Work, Malt, Freelancermap)
+        {
+            "platform_id": "free_work_fr",
+            "platform_name": "Free-Work (ex Freelance-Info)",
+            "category": "Category 3: Francophone & European IT Portals",
+            "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+            "contract_caveat": "fractional_friendly",
+            "title": "Ingénieur Cloud Microsoft 365 / Entra ID / Intune & Automatisation (100% Télétravail)",
+            "company": "Cabinet Conseil Cloud & Cybersécurité (via Free-Work / Malt)",
+            "location": "100% Télétravail International (Francophone / UTC-4 compatible)",
+            "url": "https://www.free-work.com/",
+            "description": (
+                "Mission freelance à temps partiel (20h/semaine, asynchrone) pour un Administrateur Systèmes / "
+                "Ingénieur Cloud senior francophone. Audit de sécurité Microsoft 365, durcissement Entra ID "
+                "(Conditional Access), Intune, sauvegarde Acronis/Veeam BCDR, scripts PowerShell/Python et "
+                "documentation technique (FR/EN)."
+            ),
+            "tags": "français, french, télétravail, administrateur systèmes, ingénieur cloud, m365, entra id, intune, powershell, acronis",
+            "published_at": today,
+        },
+        # Track E: Category 5 — Executive Expert Networks (GLG / AlphaSights)
+        {
+            "platform_id": "glg_insights",
+            "platform_name": "GLG (Gerson Lehrman Group)",
+            "category": "Category 5: Executive Expert Networks",
+            "track": "Track E: Executive Expert Networks ($150-$400/hr Calls)",
+            "contract_caveat": "micro_advisory",
+            "title": "Paid 60-Min Executive Consultation: MSP MDR/ITDR & RMM Vendor Landscape (Huntress, Blackpoint, Acronis)",
+            "company": "GLG Institutional Tech Research Practice",
+            "location": "Remote Telephone / Video Consultation (Global)",
+            "url": "https://glginsights.com/council-members/",
+            "description": (
+                "Seeking a Senior NOC / MSP Infrastructure Consultant managing 1,500+ endpoints to provide a "
+                "60-minute market and operational assessment ($250/hr honorarium) comparing Huntress Managed EDR/ITDR, "
+                "Blackpoint Cyber CompassOne, SentinelOne Vigilance, Acronis Cyber Protect, SaaS Alerts, and Augmentt "
+                "alongside Liongard, IT Glue, and Autotask PSA integrations."
+            ),
+            "tags": "advisory, consultation, msp, mssp, huntress, blackpoint, acronis, sentinelone, liongard, it glue, autotask",
+            "published_at": today,
+        },
+        # Track F: Category 6 — Curated Remote Boards (4DayWeek.io + DistantJob Full-Time Caveat + Burnout Red Flag test)
+        {
+            "platform_id": "4dayweek_io",
+            "platform_name": "4 Day Week (4DayWeek.io)",
+            "category": "Category 6: Curated Remote-First Job Boards",
+            "track": "Track F: Curated Remote-First & WFA Job Boards",
+            "contract_caveat": "fractional_friendly",
+            "title": "Senior Cloud Infrastructure & Python Automation Engineer (4-Day Week / Async)",
+            "company": "Distributed Cloud Ops Co.",
+            "location": "Work From Anywhere / Global Remote (UTC-4 overlap)",
+            "url": "https://4dayweek.io/",
+            "description": (
+                "4 day week (28h/wk) asynchronous contractor role. Automate Microsoft Azure, Entra ID, Cloudflare edge, "
+                "and Linux/Debian infrastructure monitoring using Python, Pandas, and Graph API. Flat hierarchy, "
+                "comprehensive documentation culture, zero on-call pager duty."
+            ),
+            "tags": "4 day week, async, azure, entra id, cloudflare, linux, debian, python, pandas, graph api",
+            "published_at": today,
         },
         {
-            "platform_id": "warm_network_crm",
-            "platform_name": "Warm Leads & Direct Network Pipeline",
-            "connector_type": "warm_crm",
-            "track": "Track A: Warm Network & Direct Outreach",
-            "title": "Warm Outreach / Follow-Up: Todd & Mercedes (MSP Centralized Services & Cloud Automation)",
-            "company": "Direct Network (Todd / Mercedes)",
-            "location": "Remote / Async (UTC-4)",
-            "url": "mailto:simon_thomas@outlook.fr?subject=Warm-Outreach-Todd-Mercedes",
+            "platform_id": "distantjob",
+            "platform_name": "DistantJob (Full-Time Agency Caveat)",
+            "category": "Category 6: Curated Remote-First Job Boards",
+            "track": "Track F: Curated Remote-First & WFA Job Boards",
+            "contract_caveat": "full_time_only",
+            "title": "Principal AI Solutions & Cloud Infrastructure Consultant (Full-Time Remote)",
+            "company": "DistantJob Remote Recruitment",
+            "location": "South America / Bolivia / Americas (UTC-4)",
+            "url": "https://distantjob.com/apply/principal-ai-solutions-consultant/",
             "description": (
-                "Scheduled 14-day warm outreach to Todd and Mercedes sharing updated tsimon.me portfolio and "
-                "availability for fractional Centralized Services Management (80 hrs/mo), IT Glue/Autotask documentation "
-                "audits, Liongard/NinjaOne alert remediation (30% recurring incident reduction), and M365/Entra ID hardening."
+                "Full-time remote placement for a trilingual (EN/FR/ES) Senior Cloud & AI Solutions Consultant "
+                "with deep Azure, M365, Entra ID, MSP automation (Liongard, IT Glue), and Python/LLM architecture experience. "
+                "Note: DistantJob places full-time remote contractors (40 hrs/wk)."
             ),
-            "tags": "warm_lead, fractional, msp, liongard, it glue, autotask, m365, entra, 20 hours",
-            "published_date": today
-        },
-        {
-            "platform_id": "remotive_api",
-            "platform_name": "Remotive Remote Jobs API",
-            "connector_type": "json_api",
-            "track": "Track C: Curated Remote Boards",
-            "title": "Cloud Infrastructure & DevOps Engineer (Azure / Python / Docker)",
-            "company": "Credible Data Infrastructure",
-            "location": "Remote (Americas / UTC-4)",
-            "url": "https://remotive.com/remote-jobs/devops/cloud-infrastructure-engineer-credible",
-            "description": (
-                "Looking for a Senior SysOps/Cloud Engineer transitioning into DevOps & Data Infrastructure. "
-                "Strong Linux Debian, Azure CLI, Docker, and PowerShell/Python scripting required; Terraform and Kubernetes "
-                "are a plus. Contract-to-hire or flexible contractor structure."
-            ),
-            "tags": "azure, linux, debian, python, powershell, docker, devops, contract",
-            "published_date": today
+            "tags": "azure, m365, entra id, liongard, it glue, python, bolivia, south america, trilingual",
+            "published_at": today,
         },
         {
             "platform_id": "remoteok_api",
-            "platform_name": "RemoteOK JSON Feed",
-            "connector_type": "json_api",
-            "track": "Track C: Curated Remote Boards",
-            "title": "Tier 1 MSP Helpdesk Support Technician (24/7 On-Call Rotation)",
-            "company": "FastFix IT Support",
-            "location": "Remote",
-            "url": "https://remoteok.com/remote-jobs/tier-1-helpdesk-fastfix",
+            "platform_name": "Remote OK API (SysAdmin/Cloud/Python)",
+            "category": "Category 6: Curated Remote-First Job Boards",
+            "track": "Track F: Curated Remote-First & WFA Job Boards",
+            "contract_caveat": "fractional_or_fulltime",
+            "title": "L1/L2 MSP Dispatch Engineer (Mandatory 24/7 On-Call Pager Duty)",
+            "company": "Reactive Ticket Corp",
+            "location": "Global Remote",
+            "url": "https://remoteok.com/",
             "description": (
-                "High-volume inbound phone support and Tier 1 ticket triage. Requires 24/7 on-call pager rotation "
-                "and desktop time-tracker screenshots every 5 minutes. Full-time W2 only."
+                "Manage high-volume inbound call queue and tier 1 helpdesk tickets with mandatory on-call "
+                "pager duty and rotating night shifts across M365 and Azure."
             ),
-            "tags": "helpdesk, on-call, 24/7, phone support, tier 1",
-            "published_date": today
-        }
+            "tags": "m365, azure",
+            "published_at": today,
+        },
     ]
+    return insert_opportunities(conn, samples, cfg, bypass_filter=True)
 
 
-def ingest_items(conn: sqlite3.Connection, items: List[Dict[str, str]], global_params: Dict[str, Any], bypass_prefilter_for_demo: bool = False) -> Dict[str, int]:
-    cur = conn.cursor()
-    stats = {"fetched": len(items), "filtered_out": 0, "duplicates": 0, "inserted": 0}
-    now_iso = datetime.datetime.now().isoformat(timespec="seconds")
-
-    for item in items:
-        if not bypass_prefilter_for_demo and not passes_global_pre_filter(item, global_params):
-            stats["filtered_out"] += 1
-            continue
-
-        jhash = compute_hash(item["title"], item["company"], item["url"])
-        cur.execute("SELECT 1 FROM opportunities WHERE job_hash = ?", (jhash,))
-        if cur.fetchone():
-            stats["duplicates"] += 1
-            continue
-
-        cur.execute("""
-            INSERT INTO opportunities (
-                job_hash, platform_id, platform_name, track, title, company,
-                location, url, description, tags, published_date, discovered_at, status
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'NEW')
-        """, (
-            jhash, item["platform_id"], item["platform_name"], item["track"],
-            item["title"], item["company"], item["location"], item["url"],
-            item["description"], item["tags"], item["published_date"], now_iso
-        ))
-        stats["inserted"] += 1
-
-    conn.commit()
-    return stats
-
-
-def run_scout(demo_mode: bool = False) -> None:
+def run_scout(args: argparse.Namespace) -> None:
     cfg = load_config()
     conn = init_db()
-    global_params = cfg.get("global_parameters", {})
-    all_items: List[Dict[str, str]] = []
+    total_new = 0
 
-    if demo_mode:
-        print("[SCOUT] Running in DEMO/VALIDATION mode (plus Warm CRM check)...")
-        all_items.extend(get_demo_seed_items())
-    else:
-        for plat in cfg.get("platforms", []):
-            if not plat.get("enabled", True):
-                continue
-            ctype = plat.get("connector_type")
-            pname = plat.get("name")
-            try:
-                print(f"[SCOUT] Polling {pname} ({ctype})...")
-                if ctype == "json_api":
-                    all_items.extend(fetch_json_api(plat))
-                elif ctype == "rss_feed":
-                    all_items.extend(fetch_rss_feed(plat))
-                elif ctype == "portal_dork":
-                    all_items.extend(fetch_portal_dork(plat))
-                elif ctype == "warm_crm":
-                    all_items.extend(fetch_warm_crm(plat))
-            except Exception as exc:
-                print(f"  [!] Warning polling {pname}: {exc}")
+    if getattr(args, "seed_verified", False) or getattr(args, "demo", False):
+        seeded = seed_verified_baseline(conn, cfg)
+        total_new += seeded
+        print(f"[SCOUT] Seeded {seeded} verified multi-track baseline opportunities.")
 
-    # In demo mode we allow the toxic helpdesk example into the DB so ANALYST can demonstrate auto-SKIP
-    stats = ingest_items(conn, all_items, global_params, bypass_prefilter_for_demo=demo_mode)
-    print(
-        f"[SCOUT COMPLETE] Fetched: {stats['fetched']} | Pre-filtered noise: {stats['filtered_out']} | "
-        f"Duplicates skipped: {stats['duplicates']} | New leads queued for ANALYST: {stats['inserted']}"
-    )
+    if getattr(args, "offline_only", False):
+        print(f"[SCOUT] Offline run complete. Total new opportunities queued: {total_new}")
+        conn.close()
+        return
+
+    platforms = [p for p in cfg.get("platforms", []) if p.get("enabled", True)]
+    if getattr(args, "track", None):
+        platforms = [p for p in platforms if args.track.lower() in p.get("track", "").lower()]
+    if getattr(args, "platform", None):
+        platforms = [
+            p for p in platforms
+            if args.platform.lower() in p.get("name", "").lower()
+            or args.platform.lower() == p.get("id", "").lower()
+        ]
+
+    # 1. JSON APIs & RSS Feeds
+    direct_feeds = [
+        p for p in platforms
+        if (p.get("type") or p.get("connector_type")) in ("json_api", "rss_feed")
+    ]
+    for p in direct_feeds:
+        ptype = p.get("type") or p.get("connector_type")
+        try:
+            items = fetch_json_api(p) if ptype == "json_api" else fetch_rss_feed(p)
+            added = insert_opportunities(conn, items, cfg)
+            total_new += added
+            print(f"[SCOUT] {ptype.upper()} | {p['name']}: fetched {len(items)}, {added} passed filter.")
+        except Exception as exc:
+            print(f"[SCOUT WARN] {p['name']} ({ptype}) unreachable or timed out: {exc}")
+
+    # 2. Portal Dorks (Clustered by default to avoid HTTP 429 across 58+ portals)
+    dork_platforms = [
+        p for p in platforms
+        if (p.get("type") or p.get("connector_type")) == "portal_dork"
+    ]
+    mode = getattr(args, "mode", "clustered")
+    if dork_platforms:
+        if mode == "clustered" and len(dork_platforms) > 4:
+            print(f"[SCOUT] Running clustered portal dorks across {len(dork_platforms)} walled portals...")
+            dork_items = fetch_clustered_portal_dorks(dork_platforms)
+            added = insert_opportunities(conn, dork_items, cfg)
+            total_new += added
+            print(f"[SCOUT] Clustered Dorks: fetched {len(dork_items)}, {added} passed filter.")
+        else:
+            for p in dork_platforms:
+                try:
+                    items = fetch_portal_dork(p)
+                    added = insert_opportunities(conn, items, cfg)
+                    total_new += added
+                    print(f"[SCOUT] DORK | {p['name']}: fetched {len(items)}, {added} passed filter.")
+                    time.sleep(1.0)
+                except Exception as exc:
+                    print(f"[SCOUT WARN] {p['name']} dork failed: {exc}")
+
+    print(f"[SCOUT] Pipeline complete. {total_new} new opportunities inserted into career_ops.db.")
     conn.close()
+
+
+def cli_list_platforms() -> None:
+    cfg = load_config()
+    platforms = cfg.get("platforms", [])
+    print(
+        f"Total Registered Platforms: {len(platforms)} "
+        f"(Version {cfg.get('version')})"
+    )
+    by_track = {}
+    for p in platforms:
+        by_track.setdefault(p.get("track", "Uncategorized"), []).append(p)
+    for track, plist in sorted(by_track.items()):
+        print(f"\n=== {track} ({len(plist)} platforms) ===")
+        for p in plist:
+            status = "ON " if p.get("enabled", True) else "OFF"
+            ptype = p.get("type") or p.get("connector_type", "portal_dork")
+            print(f"  [{status}] {p['id']:28s} | {ptype:11s} | {p['name']} ({p['url']})")
 
 
 def cli_add_platform(args: argparse.Namespace) -> None:
     cfg = load_config()
     pid = re.sub(r"[^a-z0-9_]+", "_", args.name.lower()).strip("_")
-    new_plat: Dict[str, Any] = {
+    parsed_domain = urllib.parse.urlparse(args.url).netloc.replace("www.", "")
+    notes_val = args.notes or getattr(args, "positioning", "") or "Added via SCOUT CLI."
+    new_entry = {
         "id": pid,
         "name": args.name,
+        "category": args.category or "Custom Added Platform",
+        "track": args.track or "Track B: Async AI Evaluation & RLHF",
+        "type": args.type,
         "enabled": True,
-        "connector_type": args.type,
-        "track": args.track,
-        "url": args.url
+        "domain": parsed_domain,
+        "url": args.url,
+        "search_query": args.query or f'site:{parsed_domain} ("Azure" OR "M365" OR "Python" OR "French" OR "Spanish")',
+        "contract_caveat": args.caveat or "fractional_or_fulltime",
+        "notes": notes_val,
     }
-    if args.type == "portal_dork":
-        new_plat["search_query"] = args.query or f'site:{urllib.parse.urlparse(args.url).netloc} ("Azure" OR "M365" OR "MSP" OR "AI Trainer")'
-        new_plat["target_positioning"] = args.positioning or "Senior Cloud & AI Infrastructure Consultant"
-
-    cfg.setdefault("platforms", []).append(new_plat)
+    cfg.setdefault("platforms", []).append(new_entry)
     save_config(cfg)
-    print(f"[SCOUT CONFIG] Added new platform '{args.name}' ({args.type}) to {CONFIG_FILE}.")
+    print(f"[SCOUT] Added platform '{args.name}' ({pid}) to platforms_config.json.")
 
 
 def cli_add_keyword(args: argparse.Namespace) -> None:
     cfg = load_config()
-    gparams = cfg.setdefault("global_parameters", {})
-    target_list = "hard_exclude_keywords" if args.exclude else "must_match_any_keyword"
-    kw = args.keyword.strip().lower()
-    if kw not in gparams.setdefault(target_list, []):
-        gparams[target_list].append(kw)
+    key = "hard_exclude_keywords" if args.exclude else "must_match_any_keyword"
+    kw = args.keyword.lower().strip()
+    target_list = cfg.setdefault("global_parameters", {}).setdefault(key, [])
+    if kw not in target_list:
+        target_list.append(kw)
         save_config(cfg)
-        print(f"[SCOUT CONFIG] Added '{kw}' to {target_list} in {CONFIG_FILE}.")
+        print(f"[SCOUT] Added '{kw}' to global_parameters.{key}.")
     else:
-        print(f"[SCOUT CONFIG] '{kw}' is already in {target_list}.")
+        print(f"[SCOUT] '{kw}' already exists in global_parameters.{key}.")
 
 
-def cli_add_contact(args: argparse.Namespace) -> None:
-    cfg = load_config()
-    for plat in cfg.get("platforms", []):
-        if plat.get("connector_type") == "warm_crm":
-            plat.setdefault("contacts", []).append({
-                "name": args.name,
-                "status": args.status or "Ready for initial outreach",
-                "cadence_days": args.cadence,
-                "last_contact": "2026-10-01",
-                "focus": args.focus or "MSP / Cloud / Automation"
-            })
-            save_config(cfg)
-            print(f"[SCOUT CONFIG] Added warm contact '{args.name}' (cadence: {args.cadence}d) to Warm CRM.")
-            return
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="SCOUT Agent v4.0.0 — Multi-Track Opportunity Aggregator")
+    sub = parser.add_subparsers(dest="command")
 
+    run_p = sub.add_parser("run", help="Execute daily SCOUT ingestion pipeline")
+    run_p.add_argument("--mode", choices=["clustered", "individual"], default="clustered")
+    run_p.add_argument("--track", help="Filter run to a specific Track substring")
+    run_p.add_argument("--platform", help="Filter run to a specific Platform name or ID")
+    run_p.add_argument("--seed-verified", action="store_true", help="Seed verified multi-track baseline leads")
+    run_p.add_argument("--demo", action="store_true", help="Alias for --seed-verified (offline demo/validation)")
+    run_p.add_argument("--offline-only", action="store_true", help="Skip live HTTP calls (seed only)")
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Agent 1: SCOUT — Declarative Opportunity Ingestion")
-    sub = parser.add_subparsers(dest="cmd")
+    sub.add_parser("list-platforms", help="List all 73+ registered platforms by Track")
+    sub.add_parser("list", help="Alias for list-platforms")
+    sub.add_parser("seed-verified", help="Seed verified 6-track baseline leads into career_ops.db")
 
-    p_run = sub.add_parser("run", help="Poll all enabled platforms and queue new leads")
-    p_run.add_argument("--demo", action="store_true", help="Seed realistic Track A/B/C leads for offline testing")
+    add_p = sub.add_parser("add-platform", help="Register a new platform in platforms_config.json")
+    add_p.add_argument("--name", required=True)
+    add_p.add_argument("--type", choices=["portal_dork", "rss_feed", "json_api", "html_board"], required=True)
+    add_p.add_argument("--url", required=True)
+    add_p.add_argument("--query", default="")
+    add_p.add_argument("--track", default="Track B: Async AI Evaluation & RLHF")
+    add_p.add_argument("--category", default="Custom Added Platform")
+    add_p.add_argument("--caveat", default="fractional_or_fulltime")
+    add_p.add_argument("--notes", default="")
+    add_p.add_argument("--positioning", default="")
 
-    p_add_plat = sub.add_parser("add-platform", help="Declaratively register a new platform without editing code")
-    p_add_plat.add_argument("--name", required=True, help="Display name of the platform")
-    p_add_plat.add_argument("--type", required=True, choices=["json_api", "rss_feed", "portal_dork", "html_board"], help="Connector type")
-    p_add_plat.add_argument("--url", required=True, help="API, RSS, or portal URL")
-    p_add_plat.add_argument("--track", default="Track C: Curated Remote Boards", help="Pipeline track label")
-    p_add_plat.add_argument("--query", default=None, help="Search query for portal_dork type")
-    p_add_plat.add_argument("--positioning", default=None, help="Target positioning note")
+    kw_p = sub.add_parser("add-keyword", help="Add a must-match or hard-exclude keyword")
+    kw_p.add_argument("keyword")
+    kw_p.add_argument("--exclude", action="store_true")
 
-    p_add_kw = sub.add_parser("add-keyword", help="Add a must-match or exclude keyword to global parameters")
-    p_add_kw.add_argument("keyword", help="Keyword or phrase")
-    p_add_kw.add_argument("--exclude", action="store_true", help="Add to hard_exclude_keywords instead of must_match")
-
-    p_add_crm = sub.add_parser("add-contact", help="Add a person to the Warm Network CRM tracker")
-    p_add_crm.add_argument("--name", required=True, help="Contact name")
-    p_add_crm.add_argument("--focus", default="M365 / Azure / MSP Consulting", help="Focus topic")
-    p_add_crm.add_argument("--status", default="Ready for outreach", help="Current status")
-    p_add_crm.add_argument("--cadence", type=int, default=14, help="Follow-up cadence in days")
-
-    p_list = sub.add_parser("list", help="List all declared platforms and global parameters")
-
-    args = parser.parse_args()
-    if args.cmd == "run":
-        run_scout(demo_mode=args.demo)
-    elif args.cmd == "add-platform":
-        cli_add_platform(args)
-    elif args.cmd == "add-keyword":
-        cli_add_keyword(args)
-    elif args.cmd == "add-contact":
-        cli_add_contact(args)
-    elif args.cmd == "list":
-        cfg = load_config()
-        print(f"=== Declared Platforms ({len(cfg.get('platforms', []))}) ===")
-        for p in cfg.get("platforms", []):
-            status = "ENABLED" if p.get("enabled") else "DISABLED"
-            print(f" - [{status}] {p['id']} ({p['connector_type']}) -> {p['name']} [{p.get('track')}]")
-    else:
-        parser.print_help()
+    return parser
 
 
 if __name__ == "__main__":
-    main()
+    parser = build_parser()
+    parsed_args = parser.parse_args()
+    if parsed_args.command in ("list-platforms", "list"):
+        cli_list_platforms()
+    elif parsed_args.command == "add-platform":
+        cli_add_platform(parsed_args)
+    elif parsed_args.command == "add-keyword":
+        cli_add_keyword(parsed_args)
+    elif parsed_args.command == "seed-verified":
+        cfg_obj = load_config()
+        conn_obj = init_db()
+        seeded_cnt = seed_verified_baseline(conn_obj, cfg_obj)
+        conn_obj.close()
+        print(f"[SCOUT] Seeded {seeded_cnt} verified multi-track baseline opportunities.")
+    else:
+        if not getattr(parsed_args, "command", None):
+            parsed_args = parser.parse_args(["run"])
+        run_scout(parsed_args)
