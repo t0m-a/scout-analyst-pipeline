@@ -274,12 +274,13 @@ export function renderAppHtml(initialState) {
       border-color: var(--accent-primary);
     }
     .top-banner {
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
-      color: #ffffff;
-      padding: 22px 26px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid #e2e8f0;
+      padding: 18px 22px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
     }
     .banner-header-block {
       width: 100%;
@@ -289,28 +290,28 @@ export function renderAppHtml(initialState) {
       margin: 0 0 6px 0;
       font-size: 1.55em;
       font-weight: 700;
-      color: #ffffff;
+      color: #0f172a;
       line-height: 1.3;
     }
     .top-banner p {
       margin: 4px 0;
-      color: #cbd5e1;
+      color: #334155;
       font-size: 0.92em;
       line-height: 1.5;
     }
     .banner-disclaimer {
       margin-top: 8px !important;
       font-size: 0.82em !important;
-      color: #94a3b8 !important;
+      color: var(--text-muted) !important;
       line-height: 1.5;
     }
     .banner-disclaimer a {
-      color: #38bdf8;
+      color: var(--accent-primary);
       text-decoration: underline;
       font-weight: 600;
     }
     .banner-disclaimer a:hover {
-      color: #7dd3fc;
+      color: var(--accent-hover);
     }
     .banner-actions-row {
       display: flex;
@@ -331,9 +332,9 @@ export function renderAppHtml(initialState) {
     .btn-lang {
       padding: 4px 11px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.3);
-      background: rgba(255,255,255,0.1);
-      color: #ffffff;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #334155;
       font-size: 0.79em;
       font-weight: 600;
       cursor: pointer;
@@ -342,14 +343,14 @@ export function renderAppHtml(initialState) {
       transition: all 0.15s ease;
     }
     .btn-lang.active, .btn-lang:hover {
-      background: #38bdf8;
-      color: #0f172a;
-      border-color: #38bdf8;
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
     }
     .btn-scan-now {
       padding: 4px 11px;
       border-radius: 999px;
-      border: 1px solid #34d399;
+      border: 1px solid #059669;
       background: #059669;
       color: #ffffff;
       font-size: 0.79em;
@@ -363,7 +364,8 @@ export function renderAppHtml(initialState) {
       transition: all 0.15s ease;
     }
     .btn-scan-now:hover {
-      background: #10b981;
+      background: #047857;
+      border-color: #047857;
     }
     .btn-scan-now:disabled {
       opacity: 0.65;
@@ -377,9 +379,9 @@ export function renderAppHtml(initialState) {
       align-items: center;
     }
     .banner-pill {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      color: #f8fafc;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      color: #334155;
       padding: 4px 11px;
       border-radius: 999px;
       font-size: 0.79em;
@@ -854,6 +856,13 @@ export function renderAppHtml(initialState) {
       font-size: 0.82em;
       color: var(--text-muted);
     }
+    footer a {
+      color: var(--accent-primary);
+      text-decoration: underline;
+    }
+    footer a:hover {
+      color: var(--accent-hover);
+    }
     /* THEME TOGGLE BUTTON */
     .btn-theme-toggle {
       display: inline-flex;
@@ -865,17 +874,17 @@ export function renderAppHtml(initialState) {
       min-height: 27px;
       padding: 0;
       border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #0f172a;
       cursor: pointer;
       transition: all 0.15s ease;
       line-height: 1;
       flex-shrink: 0;
     }
     .btn-theme-toggle:hover {
-      background: rgba(255, 255, 255, 0.22);
-      border-color: rgba(255, 255, 255, 0.5);
+      background: #e2e8f0;
+      border-color: #94a3b8;
     }
     .theme-symbol {
       display: inline-flex;
@@ -953,18 +962,49 @@ export function renderAppHtml(initialState) {
       border-left-color: #38bdf8;
     }
     body.dark-mode .top-banner {
-      background: linear-gradient(135deg, #090d16 0%, #172554 100%);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-      border: 1px solid #1e293b;
+      background: var(--bg-card);
+      border-color: #1e293b;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      color: #e2e8f0;
+    }
+    body.dark-mode .top-banner h1 {
+      color: #f8fafc;
+    }
+    body.dark-mode .top-banner p {
+      color: #cbd5e1;
+    }
+    body.dark-mode .banner-disclaimer {
+      color: #94a3b8 !important;
+    }
+    body.dark-mode .banner-disclaimer a {
+      color: #38bdf8;
+    }
+    body.dark-mode .banner-disclaimer a:hover {
+      color: #7dd3fc;
+    }
+    body.dark-mode .banner-pill {
+      background: #0f172a;
+      border-color: #334155;
+      color: #cbd5e1;
+    }
+    body.dark-mode .btn-lang {
+      background: #1e293b;
+      color: #cbd5e1;
+      border-color: #334155;
+    }
+    body.dark-mode .btn-lang.active, body.dark-mode .btn-lang:hover {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
     }
     body.dark-mode .btn-theme-toggle {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.25);
+      background: #1e293b;
+      border-color: #334155;
       color: #fde047;
     }
     body.dark-mode .btn-theme-toggle:hover {
-      background: rgba(255, 255, 255, 0.2);
-      border-color: #fde047;
+      background: #334155;
+      border-color: #475569;
     }
     body.dark-mode .manual-card .btn-theme-toggle {
       background: #1e293b;
@@ -1123,6 +1163,12 @@ export function renderAppHtml(initialState) {
     }
     body.dark-mode footer {
       border-top-color: #1e293b;
+    }
+    body.dark-mode footer a {
+      color: #38bdf8;
+    }
+    body.dark-mode footer a:hover {
+      color: #7dd3fc;
     }
 
     @media only screen and (max-width: 820px) {
@@ -1566,7 +1612,7 @@ export function renderAppHtml(initialState) {
     </section>
 
     <footer id="footer-text">
-      Buscador y Evaluador Público de Empleos 100% Remotos desde Bolivia (BO · UTC-4) · Ejecución en Cloudflare Workers (Bajo Demanda + Cada 15 Minutos)
+      Buscador y Evaluador Público de Empleos Remotos desde Bolivia (UTC-4) · Ejecución en Cloudflare Workers (Bajo Demanda + Cada 15 Minutos) · Designed, engineered and hosted by <a href="mailto:contact@tsimon.me">Thomas M. Simon</a> · <a href="https://tsimon.me" title="Thomas Mathieu Simon  · Cloud Systems Architect · NOC &amp; AI Engineer" target="_blank" rel="noopener noreferrer">tsimon.me</a>
     </footer>
   </main>
 
@@ -1737,7 +1783,7 @@ export function renderAppHtml(initialState) {
         openPlatformBtn: 'Abrir Portal',
         noResults: 'No se encontraron ofertas con los filtros actuales. Prueba ampliando los tipos de posición, contrato o palabras clave.',
         manBtnBack: 'Ver Resultados en Vivo',
-        footerText: 'Buscador y Evaluador Público de Empleos Remotos desde Bolivia (UTC-4) · Ejecución en Cloudflare Workers (Bajo Demanda + Cada 15 Minutos)'
+        footerText: 'Buscador y Evaluador Público de Empleos Remotos desde Bolivia (UTC-4) · Ejecución en Cloudflare Workers (Bajo Demanda + Cada 15 Minutos) · Designed, engineered and hosted by <a href="mailto:contact@tsimon.me">Thomas M. Simon</a> · <a href="https://tsimon.me" title="Thomas Mathieu Simon  · Cloud Systems Architect · NOC &amp; AI Engineer" target="_blank" rel="noopener noreferrer">tsimon.me</a>'
       },
       en: {
         pageTitle: 'Remote Jobs from Bolivia — Live Job Scout & Evaluator',
@@ -1831,7 +1877,7 @@ export function renderAppHtml(initialState) {
         openPlatformBtn: 'Open Portal',
         noResults: 'No offers matched your current filters. Try broadening your position types, contract modalities, or keywords.',
         manBtnBack: 'View Live Results',
-        footerText: 'Public Remote Job Scout & Evaluator from Bolivia (UTC-4) · Powered by Cloudflare Workers (On-Demand + Every 15 Minutes)'
+        footerText: 'Public Remote Job Scout & Evaluator from Bolivia (UTC-4) · Powered by Cloudflare Workers (On-Demand + Every 15 Minutes) · Designed, engineered and hosted by <a href="mailto:contact@tsimon.me">Thomas M. Simon</a> · <a href="https://tsimon.me" title="Thomas Mathieu Simon  · Cloud Systems Architect · NOC &amp; AI Engineer" target="_blank" rel="noopener noreferrer">tsimon.me</a>'
       }
     };
 
@@ -1952,7 +1998,7 @@ export function renderAppHtml(initialState) {
       for (const [id, text] of Object.entries(map)) {
         const el = document.getElementById(id);
         if (el) {
-          if (id === 'banner-disclaimer') {
+          if (id === 'banner-disclaimer' || id === 'footer-text') {
             el.innerHTML = text;
           } else {
             el.textContent = text;

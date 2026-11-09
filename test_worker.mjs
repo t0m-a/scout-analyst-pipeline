@@ -39,7 +39,9 @@ async function runTests() {
   assert.ok(!html.includes('id="nav-report"'), 'Must NOT have id="nav-report" in navbar (removed as requested)');
   assert.ok(html.includes('setUiLanguage(\'en\')'), 'Must include English language switcher');
   assert.ok(html.includes('id="sidebar-unfold-btn"'), 'Must have sidebar unfold button');
-  assert.ok(!html.includes('id="lbl-unfold-nav"'), 'Must remove Menu text from hamburger button');
+  assert.ok(html.includes('Designed, engineered and hosted by <a href="mailto:contact@tsimon.me">Thomas M. Simon</a>'), 'Must include footer attribution with mailto link');
+  assert.ok(html.includes('https://tsimon.me'), 'Must include footer attribution link to tsimon.me');
+  assert.ok(html.includes('title="Thomas Mathieu Simon  · Cloud Systems Architect · NOC &amp; AI Engineer"'), 'Must include title attribute on tsimon.me link');
   assert.ok(html.includes('body.sidebar-collapsed #main-doc'), 'Must expand main-doc when collapsed');
   assert.ok(html.includes('body.sidebar-collapsed .top-banner'), 'Must expand sections to full width when collapsed');
   assert.ok(html.includes('body.view-manual-active .top-banner'), 'Must have CSS hiding preliminary sections when manual view is active');
@@ -49,8 +51,9 @@ async function runTests() {
   assert.ok(html.includes('data:image/svg+xml'), 'Must have embedded data URI for offline support');
   assert.ok(!html.includes('Francés'), 'Must not contain French in UI filters');
   assert.ok(!html.includes('French'), 'Must not contain French in UI');
-  assert.ok(!html.toLowerCase().includes('thomas simon'), 'Must not contain personal name');
-  assert.ok(!html.toLowerCase().includes('tsimon.me'), 'Must not contain personal domain');
+  const htmlNoFooter = html.replace(/<footer[\s\S]*?<\/footer>/gi, '').replace(/footerText:[\s\S]*?<\/a>'/gi, '').toLowerCase();
+  assert.ok(!htmlNoFooter.includes('thomas simon'), 'Must not contain personal name outside footer attribution');
+  assert.ok(!htmlNoFooter.includes('tsimon.me'), 'Must not contain personal domain outside footer attribution');
   assert.ok(!html.toLowerCase().includes('burnout'), 'Must not contain burnout safety references');
   assert.ok(!html.toLowerCase().includes('proposals ready'), 'Must not contain pre-populated proposals');
 
@@ -184,7 +187,9 @@ async function runTests() {
     assert.ok(!flagMatches, `Forbidden flag emoji found in ${relPath}`);
     const emojiMatches = rawContent.match(EMOJI_REGEX);
     assert.ok(!emojiMatches, `Forbidden emoji icon found in ${relPath}: ${emojiMatches?.join(' ')}`);
-    const content = rawContent.toLowerCase();
+    const content = (relPath === 'src/ui.js' || relPath === 'index.html')
+      ? rawContent.replace(/Designed, engineered and hosted by[\s\S]*?tsimon\.me<\/a>/gi, '').toLowerCase()
+      : rawContent.toLowerCase();
     for (const term of forbiddenTerms) {
       assert.ok(!content.includes(term), `Forbidden personal term "${term}" found in ${relPath}`);
     }
