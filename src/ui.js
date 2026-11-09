@@ -136,21 +136,29 @@ export function renderAppHtml(initialState) {
     }
     #sidebar-unfold-btn {
       position: fixed;
-      top: 16px;
+      top: 14px;
       left: 14px;
       z-index: 950;
       display: none;
       align-items: center;
-      gap: 6px;
-      padding: 8px 12px;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      padding: 0;
       border: 1px solid #cbd5e1;
-      border-radius: 6px;
+      border-radius: 8px;
       background: #ffffff;
       color: #0f172a;
-      font-size: 0.86em;
-      font-weight: 700;
+      font-size: 1.25em;
+      line-height: 1;
       cursor: pointer;
       box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+    #sidebar-unfold-btn:hover {
+      background: #f1f5f9;
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
     }
     body.sidebar-collapsed #navbar {
       transform: translateX(-280px);
@@ -196,13 +204,32 @@ export function renderAppHtml(initialState) {
     #main-doc {
       margin-left: 280px;
       padding: 28px 32px 60px 32px;
-      max-width: 1320px;
-      transition: margin-left 0.25s ease;
+      max-width: 100%;
+      box-sizing: border-box;
+      transition: margin-left 0.25s ease, padding 0.25s ease;
     }
     body.sidebar-collapsed #main-doc {
       margin-left: 0;
-      max-width: 1480px;
-      padding-left: 60px;
+      max-width: 100% !important;
+      width: 100% !important;
+      box-sizing: border-box;
+      padding: 28px 32px 60px 62px;
+    }
+    body.sidebar-collapsed .top-banner,
+    body.sidebar-collapsed .panel-card,
+    body.sidebar-collapsed .kpi-grid,
+    body.sidebar-collapsed .toolbar,
+    body.sidebar-collapsed #view-results,
+    body.sidebar-collapsed #view-manual,
+    body.sidebar-collapsed #view-report,
+    body.sidebar-collapsed #view-platforms,
+    body.sidebar-collapsed .manual-container,
+    body.sidebar-collapsed .manual-card,
+    body.sidebar-collapsed .report-box,
+    body.sidebar-collapsed #footer-text {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box;
     }
     .top-banner {
       background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
@@ -679,30 +706,58 @@ export function renderAppHtml(initialState) {
       border-bottom: 1px solid #f1f5f9;
       padding-bottom: 8px;
     }
-    .step-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 14px;
-      margin-top: 14px;
-    }
-    .step-box {
+    .guide-step {
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 8px;
-      padding: 14px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
     }
-    .step-num {
+    .guide-step-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .guide-step-num {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: var(--accent-primary);
       color: #ffffff;
-      font-size: 0.82em;
       font-weight: 800;
-      margin-bottom: 8px;
+      font-size: 0.88em;
+      flex-shrink: 0;
+    }
+    .guide-step-title {
+      font-size: 1.02em;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0;
+    }
+    .guide-step-body {
+      font-size: 0.88em;
+      color: #334155;
+      line-height: 1.6;
+    }
+    .guide-step-body ul {
+      margin: 6px 0 6px 20px;
+      padding: 0;
+    }
+    .guide-step-body li {
+      margin-bottom: 4px;
+    }
+    .guide-tip {
+      background: #eff6ff;
+      border-left: 4px solid var(--accent-primary);
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 0.85em;
+      color: #1e40af;
+      margin-top: 8px;
     }
     .info-callout {
       background: #ecfdf5;
@@ -717,24 +772,6 @@ export function renderAppHtml(initialState) {
       background: #fffbeb;
       border-left-color: #f59e0b;
       color: #92400e;
-    }
-    .faq-item {
-      border-bottom: 1px solid #f1f5f9;
-      padding: 10px 0;
-    }
-    .faq-item:last-child {
-      border-bottom: none;
-    }
-    .faq-q {
-      font-weight: 700;
-      color: #1e293b;
-      font-size: 0.93em;
-      margin-bottom: 4px;
-    }
-    .faq-a {
-      color: #475569;
-      font-size: 0.86em;
-      line-height: 1.5;
     }
 
     footer {
@@ -765,20 +802,18 @@ export function renderAppHtml(initialState) {
 <body>
   <div class="bolivia-stripe"></div>
 
-  <button type="button" id="sidebar-unfold-btn" onclick="toggleSidebar()">
-    <span>☰</span> <span id="lbl-unfold-nav">Menú</span>
+  <button type="button" id="sidebar-unfold-btn" onclick="toggleSidebar()" title="Mostrar menú" aria-label="Mostrar menú">
+    <span>☰</span>
   </button>
 
   <nav id="navbar">
     <div class="navbar-header">
-      <header class="header-title">🇧🇴 <span id="nav-brand-title">Bolivia Remoto (BO)</span></header>
+      <header class="header-title"><span id="nav-brand-title">Bolivia Remoto (BO)</span></header>
       <button type="button" class="sidebar-fold-btn" onclick="toggleSidebar()" title="Ocultar menú">«</button>
     </div>
     <ul>
-      <li class="nav-group-header" id="nav-hdr-views">Vistas Principales</li>
       <li><a id="nav-results" class="active-nav" onclick="switchMainView('results')">🎯 <span id="nav-lbl-results">Resultados en Vivo</span> (<span id="nav-cnt-results">0</span>)</a></li>
       <li><a id="nav-manual" onclick="switchMainView('manual')">📖 <span id="nav-lbl-manual">Manual de Uso</span></a></li>
-      <li><a id="nav-platforms" onclick="switchMainView('platforms')">🛰️ <span id="nav-lbl-platforms">Plataformas y Escáner URL</span> (<span id="nav-cnt-platforms">0</span>)</a></li>
 
       <li class="nav-group-header" id="nav-hdr-tracks">Categorías de Plataformas</li>
       <li><a onclick="switchMainView('results'); filterByTrack('ALL');">🌐 <span id="nav-track-all">Todas las Categorías</span></a></li>
@@ -796,7 +831,7 @@ export function renderAppHtml(initialState) {
     <section class="top-banner">
       <div class="banner-top-row">
         <div>
-          <h1 id="banner-title">🇧🇴 Buscador y Evaluador de Empleos 100% Remotos desde Bolivia (BO)</h1>
+          <h1 id="banner-title">Buscador y Evaluador de Empleos 100% Remotos desde Bolivia (BO)</h1>
           <p id="banner-subtitle">
             Filtra y evalúa ofertas globales y regionales que permiten trabajar 100% remoto desde Bolivia (UTC-4). Personaliza tus idiomas, área profesional, experiencia y modalidad de contrato.
           </p>
@@ -970,135 +1005,168 @@ export function renderAppHtml(initialState) {
     <!-- VIEW 2: INTERACTIVE USER MANUAL -->
     <section id="view-manual" style="display:none;">
       <div class="manual-container">
-        <!-- CARD 1: OVERVIEW -->
+        <!-- GUÍA DEL USUARIO: BOLIVIA REMOTO (BO) -->
         <article class="manual-card">
           <h3 id="man-h-intro">📖 Guía del Usuario: Bolivia Remoto (BO)</h3>
-          <p id="man-p-intro">
-            <strong>Bolivia Remoto (BO)</strong> es una plataforma pública e independiente diseñada para conectar a profesionales, técnicos, asistentes y creativos que viven en Bolivia con oportunidades de trabajo 100% remotas alrededor del mundo.
+          <p id="man-p-intro" style="font-size:0.92em;color:#334155;line-height:1.6;">
+            <strong>Bolivia Remoto (BO)</strong> es una plataforma pública, gratuita e interactiva diseñada para encontrar, filtrar y evaluar en vivo oportunidades laborales internacionales que admiten trabajo 100% remoto desde Bolivia (UTC-4), eliminando el ruido de ofertas con restricciones territoriales o visados extranjeros.
           </p>
           <div class="info-callout" id="man-box-privacy">
-            🔒 <strong>100% Pública y Sin Rastreo Personal:</strong> No requieres iniciar sesión, tus filtros se guardan de forma privada en tu propio navegador (localStorage) y nunca recopilamos tu información personal.
+            🔒 <strong>Privacidad Total y Sin Registros:</strong> No necesitas crear una cuenta ni ingresar datos personales. Tus filtros y preferencias se guardan de forma privada en tu propio navegador (localStorage).
           </div>
-          <div class="step-grid">
-            <div class="step-box">
-              <div class="step-num">1</div>
-              <h4 style="margin:0 0 6px 0;" id="man-s1-title">Configura tus Filtros</h4>
-              <p style="margin:0;font-size:0.84em;color:#475569;" id="man-s1-desc">
-                Elige tus idiomas (Español, Inglés, etc.), tu área profesional, años de experiencia y tipo de contrato deseado (medio tiempo, tiempo completo, horas o proyectos).
-              </p>
-            </div>
-            <div class="step-box">
-              <div class="step-num">2</div>
-              <h4 style="margin:0 0 6px 0;" id="man-s2-title">Filtro Geográfico Bolivia</h4>
-              <p style="margin:0;font-size:0.84em;color:#475569;" id="man-s2-desc">
-                Cada vacante es analizada automáticamente para confirmar que admite residentes en Bolivia (UTC-4 / LATAM / Worldwide) y descartar ofertas con restricciones de visado.
-              </p>
-            </div>
-            <div class="step-box">
-              <div class="step-num">3</div>
-              <h4 style="margin:0 0 6px 0;" id="man-s3-title">Evalúa con el Semáforo</h4>
-              <p style="margin:0;font-size:0.84em;color:#475569;" id="man-s3-desc">
-                Las ofertas reciben una calificación objetiva de 0 a 100 puntos y se clasifican en Postular (≥78), Explorar (58–77) o Baja Coincidencia (&lt;58).
-              </p>
-            </div>
-            <div class="step-box">
-              <div class="step-num">4</div>
-              <h4 style="margin:0 0 6px 0;" id="man-s4-title">Postula Directamente</h4>
-              <p style="margin:0;font-size:0.84em;color:#475569;" id="man-s4-desc">
-                Haz clic en "Ver Oferta y Postular" para abrir la página oficial de la empresa o plataforma contratante sin intermediarios.
-              </p>
-            </div>
-          </div>
-        </article>
 
-        <!-- CARD 2: FILTERS & WEIGHTS -->
-        <article class="manual-card">
-          <h3 id="man-h-filters">🎛️ Cómo Funcionan los Filtros y la Ponderación (100 Puntos)</h3>
-          <p id="man-p-filters">
-            El evaluador asigna un puntaje de compatibilidad transparente desglosado en 4 pilares:
-          </p>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:12px;margin:12px 0;">
-            <div style="background:#f8fafc;padding:12px;border-radius:6px;border-left:4px solid #0284c7;">
-              <strong style="color:#0f172a;">🎯 Posición &amp; Habilidades</strong>
-              <div style="font-size:1.3em;font-weight:800;color:#0284c7;">35 pts</div>
-              <p style="margin:4px 0 0 0;font-size:0.82em;color:#475569;">
-                Coincidencia con una de las 12 categorías laborales y tus palabras clave personalizadas.
-              </p>
-            </div>
-            <div style="background:#f8fafc;padding:12px;border-radius:6px;border-left:4px solid #059669;">
-              <strong style="color:#0f172a;">🇧🇴 Elegibilidad Bolivia</strong>
-              <div style="font-size:1.3em;font-weight:800;color:#059669;">25 pts</div>
-              <p style="margin:4px 0 0 0;font-size:0.82em;color:#475569;">
-                Garantiza que la vacante admita talento en Bolivia (UTC-4 / LATAM / Worldwide).
-              </p>
-            </div>
-            <div style="background:#f8fafc;padding:12px;border-radius:6px;border-left:4px solid #7c3aed;">
-              <strong style="color:#0f172a;">⏱️ Contrato &amp; Experiencia</strong>
-              <div style="font-size:1.3em;font-weight:800;color:#7c3aed;">20 pts</div>
-              <p style="margin:4px 0 0 0;font-size:0.82em;color:#475569;">
-                Alineación con tu nivel (Junior, Mid, Senior) y modalidad (Full-time, Medio tiempo, Proyectos, Horas).
-              </p>
-            </div>
-            <div style="background:#f8fafc;padding:12px;border-radius:6px;border-left:4px solid #d97706;">
-              <strong style="color:#0f172a;">🗣️ Idiomas</strong>
-              <div style="font-size:1.3em;font-weight:800;color:#d97706;">20 pts</div>
-              <p style="margin:4px 0 0 0;font-size:0.82em;color:#475569;">
-                Si seleccionas solo <strong>Español</strong>, las ofertas en inglés se excluyen automáticamente.
-              </p>
-            </div>
-          </div>
-          <div class="info-callout warning" id="man-box-langnote">
-            💡 <strong>Regla Estricta de Idioma:</strong> Al activar únicamente la casilla <em>"Español (BO)"</em>, el sistema garantiza que los resultados destacados correspondan a ofertas con redacción, requerimientos y comunicación en idioma español.
-          </div>
-        </article>
+          <h4 style="margin:20px 0 14px 0;color:#0f172a;font-size:1.08em;display:flex;align-items:center;gap:8px;border-bottom:1px solid #f1f5f9;padding-bottom:8px;">
+            🛠️ Cómo Utilizar la Herramienta Paso a Paso
+          </h4>
 
-        <!-- CARD 3: 12 CATEGORIES -->
-        <article class="manual-card">
-          <h3 id="man-h-cats">💼 12 Categorías Profesionales Incluidas</h3>
-          <p id="man-p-cats">
-            La herramienta abarca tanto perfiles técnicos como no técnicos altamente demandados en bolsas de trabajo remotas internacionales:
-          </p>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:10px;margin-top:10px;font-size:0.86em;">
-            <div style="background:#f8fafc;padding:10px;border-radius:6px;"><strong>💼 Asistente Virtual:</strong> Soporte administrativo, secretariado remoto, gestión de agenda, data entry.</div>
-            <div style="background:#f8fafc;padding:10px;border-radius:6px;"><strong>📋 Coordinador de Operaciones:</strong> Gestión de proyectos, logística, coordinación de equipos LATAM.</div>
-            <div style="background:#f8fafc;padding:10px;border-radius:6px;"><strong>🎧 Atención al Cliente:</strong> Help desk, chat en vivo, soporte por ticket, moderación de comunidades.</div>
-            <div style="background:#f8fafc;padding:10px;border-radius:6px;"><strong>📈 Ventas &amp; BDR / SDR:</strong> Prospección de clientes, llamadas en frío, lead generation, ventas B2B.</div>
-            <div style="background:#f8fafc;padding:10px;border-radius:6px;"><strong>📱 Marketing &amp; Contenidos:</strong> Copywriting en español, redes sociales, SEO, diseño de campañas.</div>
-            <div style="background:#f8fafc;padding:10px;border-radius:6px;"><strong>👥 Recursos Humanos &amp; Recruiting:</strong> Selección de talento remoto, onboarding, gestión de nómina.</div>
-            <div style="background:#f8fafc;padding:10px;border-radius:6px;"><strong>📊 Finanzas &amp; Contabilidad:</strong> Bookkeeper, conciliación bancaria, Quickbooks, finanzas operativas.</div>
-            <div style="background:#f8fafc;padding:10px;border-radius:6px;"><strong>🎨 Diseño &amp; Video:</strong> UI/UX, diseño gráfico, edición de video para TikTok/Reels, branding.</div>
-            <div style="background:#f8fafc;padding:10px;border-radius:6px;"><strong>🤖 Entrenamiento IA &amp; RLHF:</strong> Evaluación de modelos de lenguaje, anotación de datos en español.</div>
-            <div style="background:#f8fafc;padding:10px;border-radius:6px;"><strong>💻 Desarrollo de Software:</strong> Frontend, Backend, Fullstack, Mobile (React, Node, Python, etc.).</div>
-            <div style="background:#f8fafc;padding:10px;border-radius:6px;"><strong>☁️ Cloud &amp; Sistemas:</strong> DevOps, soporte de infraestructura, administración cloud (AWS, Azure).</div>
-            <div style="background:#f8fafc;padding:10px;border-radius:6px;"><strong>📈 Datos &amp; Analytics:</strong> Business Intelligence, SQL, Power BI, pipelines de datos y machine learning.</div>
+          <!-- PASO 1 -->
+          <div class="guide-step">
+            <div class="guide-step-header">
+              <span class="guide-step-num">1</span>
+              <h5 class="guide-step-title">Configura tus Idiomas de Trabajo</h5>
+            </div>
+            <div class="guide-step-body">
+              En la sección <strong>1. Tus Idiomas</strong>, haz clic sobre las etiquetas interactivas de los idiomas que dominas (<code>🇧🇴 Español</code>, <code>🇬🇧 Inglés</code>, <code>🇧🇷 Portugués</code>):
+              <ul>
+                <li><strong>Solo Español:</strong> Si seleccionas únicamente <em>Español (BO)</em>, el evaluador activa una regla estricta que prioriza vacantes en español y excluye ofertas redactadas en inglés.</li>
+                <li><strong>Bilingüe / Multilingüe:</strong> Si activas también <em>Inglés</em> o <em>Portugués</em>, el sistema evaluará y sumará oportunidades internacionales que requieren fluidez en esos idiomas.</li>
+              </ul>
+              <div class="guide-tip">
+                💡 En la esquina superior derecha del banner puedes cambiar el idioma general de la plataforma (<em>Español (Bolivia)</em> o <em>English</em>) en cualquier momento.
+              </div>
+            </div>
           </div>
-        </article>
 
-        <!-- CARD 4: PRACTICAL TIPS FOR BOLIVIA -->
-        <article class="manual-card">
-          <h3 id="man-h-tips">🇧🇴 Guía Práctica para Trabajar Remoto desde Bolivia</h3>
-          <div class="faq-item">
-            <div class="faq-q" id="faq-q1">1. ¿Cómo se formaliza la contratación internacional?</div>
-            <div class="faq-a" id="faq-a1">
-              La modalidad estándar es como <em>Independent Contractor</em> (Prestador de Servicios Independiente). Si el cliente está en Estados Unidos, generalmente te solicitará firmar el formulario <strong>W-8BEN</strong> (formulario del IRS para personas no estadounidenses que certifica que el trabajo se realiza fuera de EE.UU. y exime de retenciones impositivas allá).
+          <!-- PASO 2 -->
+          <div class="guide-step">
+            <div class="guide-step-header">
+              <span class="guide-step-num">2</span>
+              <h5 class="guide-step-title">Define tu Nivel de Experiencia</h5>
+            </div>
+            <div class="guide-step-body">
+              En <strong>2. Tu Nivel de Experiencia</strong>, selecciona el rango correspondiente a tu trayectoria profesional:
+              <ul>
+                <li><strong>Todos los niveles:</strong> Muestra todas las vacantes sin restringir por años de experiencia.</li>
+                <li><strong>Inicial / Sin Experiencia (0-1 años):</strong> Puestos de entrada, pasantías y roles de entrenamiento.</li>
+                <li><strong>Junior (1-2 años):</strong> Roles iniciales con supervisión mínima.</li>
+                <li><strong>Semi-Senior / Mid (3-5 años):</strong> Profesionales autónomos con experiencia demostrada.</li>
+                <li><strong>Senior (5+ años) &amp; Lead (8+ años):</strong> Especialistas, líderes técnicos y directores de área.</li>
+              </ul>
             </div>
           </div>
-          <div class="faq-item">
-            <div class="faq-q" id="faq-q2">2. ¿Cómo recibir pagos en dólares en Bolivia?</div>
-            <div class="faq-a" id="faq-a2">
-              Las empresas suelen liquidar mediante plataformas de nómina global como <strong>Deel, Ontop, Wise, Payoneer o Gusto</strong>. Desde estas cuentas puedes transferir vía SWIFT hacia tu cuenta bancaria boliviana en USD, usar tarjetas de débito internacionales, o liquidar honorarios a través de pasarelas reguladas.
+
+          <!-- PASO 3 -->
+          <div class="guide-step">
+            <div class="guide-step-header">
+              <span class="guide-step-num">3</span>
+              <h5 class="guide-step-title">Elige tus Modalidades de Contrato</h5>
+            </div>
+            <div class="guide-step-body">
+              En <strong>3. Tipo de Contrato Buscado</strong>, marca una o varias modalidades según tu disponibilidad:
+              <ul>
+                <li>🏢 <strong>Tiempo Completo (Full-Time):</strong> Jornadas estándar de 40 horas semanales.</li>
+                <li>🌗 <strong>Medio Tiempo (Part-Time):</strong> Esquemas de 20 horas por semana o semanas de 4 días.</li>
+                <li>📦 <strong>Por Proyectos / Freelance:</strong> Contratos cerrados por entregables u objetivos.</li>
+                <li>⏱️ <strong>Por Horas / Asíncrono:</strong> Horarios flexibles con pago por hora trabajada.</li>
+                <li>🎙️ <strong>Consultoría / Asesoría:</strong> Llamadas de asesoramiento y redes de expertos internacionales.</li>
+              </ul>
+              <div class="guide-tip">
+                💡 Haz clic en el enlace <strong>"Todos"</strong> para seleccionar simultáneamente todas las modalidades disponibles.
+              </div>
             </div>
           </div>
-          <div class="faq-item">
-            <div class="faq-q" id="faq-q3">3. ¿Qué zona horaria tiene Bolivia?</div>
-            <div class="faq-a" id="faq-a3">
-              Bolivia opera en <strong>UTC-4 (Hora de Bolivia / BOT)</strong> durante todo el año, sin cambio de horario de verano. Esto coincide exactamente con la hora del este de Norteamérica (EDT) en verano y solo tiene 1 hora de diferencia (EST) en invierno, lo que facilita enormemente trabajar en vivo con clientes de EE. UU., Canadá y toda Latinoamérica.
+
+          <!-- PASO 4 -->
+          <div class="guide-step">
+            <div class="guide-step-header">
+              <span class="guide-step-num">4</span>
+              <h5 class="guide-step-title">Selecciona tus Áreas Profesionales y Palabras Clave</h5>
+            </div>
+            <div class="guide-step-body">
+              En <strong>4. Tipo de Posición / Área Profesional</strong>:
+              <ul>
+                <li>Haz clic en uno o varios chips para enfocar tu búsqueda en tus disciplinas (ej: <em>Asistente Virtual, Atención al Cliente, Ventas, Marketing, Finanzas, Diseño, Software, Cloud, Datos</em>).</li>
+                <li><strong>Ver todas las áreas:</strong> Pulsa este botón si deseas explorar oportunidades de cualquier disciplina sin restricción.</li>
+                <li><strong>Casilla "Ocultar ofertas de otras áreas":</strong> Actívala para esconder estrictamente cualquier vacante que no pertenezca a tus categorías seleccionadas.</li>
+                <li><strong>Palabras clave personalizadas:</strong> En el campo de texto inferior, escribe herramientas, tecnologías o habilidades específicas (ej: <code>Excel, Canva, Shopify, HubSpot, Python, React, Quickbooks, SQL</code>). Las ofertas que las mencionen recibirán puntos adicionales.</li>
+              </ul>
             </div>
           </div>
-          <div class="faq-item">
-            <div class="faq-q" id="faq-q4">4. ¿Cómo escanear mis propias URLs de bolsas de trabajo?</div>
-            <div class="faq-a" id="faq-a4">
-              Usa el panel <strong>"Agregar y Escanear tu Propia URL"</strong> en la parte superior. Pega el enlace de una empresa (ej. Greenhouse, Lever, Workable) o un feed RSS/API de empleos remotos. El escáner evaluará al instante las vacantes contra tus filtros y las agregará a tu vista en vivo.
+
+          <!-- PASO 5 -->
+          <div class="guide-step">
+            <div class="guide-step-header">
+              <span class="guide-step-num">5</span>
+              <h5 class="guide-step-title">El Filtro Base 100% Remoto desde Bolivia</h5>
+            </div>
+            <div class="guide-step-body">
+              La casilla <strong>"Mostrar solo ofertas 100% remotas desde Bolivia"</strong> viene activada por defecto:
+              <ul>
+                <li>Descarta automáticamente vacantes que exijan residencia física o visados en Estados Unidos (<em>US Only</em>, <em>W-2</em>), Europa (<em>EU Only</em>) u otros países específicos.</li>
+                <li>Conserva únicamente vacantes abiertas a Sudamérica, Latinoamérica, esquemas globales de contratación independiente (<em>W-8BEN</em>) y modalidad <em>Work From Anywhere</em>.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- PASO 6 -->
+          <div class="guide-step">
+            <div class="guide-step-header">
+              <span class="guide-step-num">6</span>
+              <h5 class="guide-step-title">Interpreta el Semáforo de Compatibilidad y Filtra Resultados</h5>
+            </div>
+            <div class="guide-step-body">
+              Cada vacante se evalúa en tiempo real con una calificación de 0 a 100 puntos y se clasifica mediante colores:
+              <ul>
+                <li>🔥 <strong style="color:#059669;">POSTULAR (Puntaje ≥ 78):</strong> Máxima afinidad con tus filtros e idiomas, verificada 100% para Bolivia. ¡Recomendada para postular de inmediato!</li>
+                <li>🟡 <strong style="color:#d97706;">EXPLORAR (Puntaje 58–77):</strong> Ofertas compatibles con pequeñas variaciones de modalidad o experiencia.</li>
+                <li>⚪ <strong style="color:#475569;">BAJA COINCIDENCIA (&lt; 58):</strong> Ofertas remotas válidas pero fuera de tus áreas o preferencias actuales.</li>
+                <li>🚫 <strong style="color:#dc2626;">BLOQUEADAS PAÍS (GEO):</strong> Excluidas por restricciones de residencia geográfica local.</li>
+              </ul>
+              <div class="guide-tip">
+                💡 Usa los botones del semáforo en la barra de herramientas para ver solo vacantes de <strong>Postular</strong> o <strong>Explorar</strong>, o escribe en la barra de búsqueda para filtrar por empresa o cargo al instante.
+              </div>
+            </div>
+          </div>
+
+          <!-- PASO 7 -->
+          <div class="guide-step">
+            <div class="guide-step-header">
+              <span class="guide-step-num">7</span>
+              <h5 class="guide-step-title">Postula Directamente a la Fuente Original</h5>
+            </div>
+            <div class="guide-step-body">
+              En cada tarjeta de oferta, haz clic en el botón azul <strong>"🔗 Ver Oferta y Postular"</strong> para abrir directamente la página oficial de la empresa o bolsa de trabajo contratante, sin registros intermedios ni cobro de comisiones.
+            </div>
+          </div>
+
+          <!-- PASO 8 -->
+          <div class="guide-step">
+            <div class="guide-step-header">
+              <span class="guide-step-num">8</span>
+              <h5 class="guide-step-title">Escanea tus Propias URLs de Plataformas o Empresas</h5>
+            </div>
+            <div class="guide-step-body">
+              ¿Encontraste una nueva bolsa de empleo o una página de carreras de una empresa internacional?
+              <ul>
+                <li>Ve al panel <strong>"➕ Agregar y Escanear tu Propia URL de Plataforma o Bolsa de Empleo"</strong>.</li>
+                <li>Pega el enlace web, feed RSS o endpoint JSON.</li>
+                <li>Haz clic en <strong>"🔍 Escanear y Evaluar URL"</strong>.</li>
+                <li>El motor analizará las vacantes encontradas, verificará su elegibilidad remota para Bolivia y las añadirá al instante a tus resultados en vivo.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- PASO 9 -->
+          <div class="guide-step" style="margin-bottom:0;">
+            <div class="guide-step-header">
+              <span class="guide-step-num">9</span>
+              <h5 class="guide-step-title">Exporta tus Resultados y Sincroniza en Segundo Plano</h5>
+            </div>
+            <div class="guide-step-body">
+              <ul>
+                <li>Haz clic en la pestaña <strong>"📄 Reporte Markdown / Exportar"</strong> para copiar el informe formateado, descargar el archivo <code>.md</code> o exportar una planilla <code>.csv</code> para gestionarla en Excel o Notion.</li>
+                <li>La herramienta se sincroniza automáticamente cada 15 minutos en segundo plano, o puedes forzar un escaneo inmediato haciendo clic en <strong>"🔄 Escanear Ofertas Ahora"</strong> en el banner superior.</li>
+              </ul>
             </div>
           </div>
         </article>
@@ -1173,7 +1241,7 @@ export function renderAppHtml(initialState) {
         navPlatforms: 'Plataformas y Escáner URL',
         navTracks: 'Categorías de Plataformas',
         navTrackAll: 'Todas las Categorías',
-        bannerTitle: '🇧🇴 Buscador y Evaluador de Empleos 100% Remotos desde Bolivia (BO)',
+        bannerTitle: 'Buscador y Evaluador de Empleos 100% Remotos desde Bolivia (BO)',
         bannerSubtitle: 'Filtra y evalúa ofertas globales y regionales que permiten trabajar 100% remoto desde Bolivia (UTC-4). Personaliza tus idiomas, área profesional, experiencia y modalidad de contrato.',
         scanNow: 'Escanear Ofertas Ahora',
         scanningNow: 'Escaneando plataformas...',
@@ -1254,7 +1322,7 @@ export function renderAppHtml(initialState) {
         navPlatforms: 'Platforms & URL Scanner',
         navTracks: 'Platform Categories',
         navTrackAll: 'All Categories',
-        bannerTitle: '🇧🇴 100% Remote Job Scout & Evaluator from Bolivia (BO)',
+        bannerTitle: '100% Remote Job Scout & Evaluator from Bolivia (BO)',
         bannerSubtitle: 'Filter and evaluate global & regional job offers eligible for 100% remote work from Bolivia (UTC-4). Customize your languages, position type, experience level, and contract modality.',
         scanNow: 'Scan Offers Now',
         scanningNow: 'Scanning platforms...',
@@ -1367,7 +1435,6 @@ export function renderAppHtml(initialState) {
       document.title = t.pageTitle;
       const map = {
         'nav-brand-title': t.navBrand,
-        'lbl-unfold-nav': t.unfoldNav,
         'nav-hdr-views': t.navViews,
         'nav-lbl-results': t.navResults,
         'nav-lbl-manual': t.navManual,
@@ -1431,6 +1498,12 @@ export function renderAppHtml(initialState) {
       for (const [id, text] of Object.entries(map)) {
         const el = document.getElementById(id);
         if (el) el.textContent = text;
+      }
+      const unfoldBtn = document.getElementById('sidebar-unfold-btn');
+      if (unfoldBtn) {
+        const titleText = userFilters.ui_lang === 'en' ? 'Show menu' : 'Mostrar menú';
+        unfoldBtn.title = titleText;
+        unfoldBtn.setAttribute('aria-label', titleText);
       }
       const kwInput = document.getElementById('input-custom-keywords');
       if (kwInput) kwInput.placeholder = t.customKwPlaceholder;
@@ -1590,7 +1663,8 @@ export function renderAppHtml(initialState) {
       document.getElementById('kpi-total-cnt').textContent = lastEvaluationResult.surfaced.length;
 
       document.getElementById('nav-cnt-results').textContent = lastEvaluationResult.surfaced.length;
-      document.getElementById('nav-cnt-platforms').textContent = platformsState.length;
+      const navPlatCntEl = document.getElementById('nav-cnt-platforms');
+      if (navPlatCntEl) navPlatCntEl.textContent = platformsState.length;
       document.getElementById('val-platforms-count').textContent = platformsState.length;
       document.getElementById('val-last-sync').textContent = String(lastScanAtState || '').replace('T', ' ').slice(0, 16);
 

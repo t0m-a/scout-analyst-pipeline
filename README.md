@@ -1,10 +1,10 @@
 <div align="center">
 
-# 🇧🇴 Buscador y Evaluador de Empleos 100% Remotos desde Bolivia (BO)
+# Buscador y Evaluador de Empleos 100% Remotos desde Bolivia (BO)
 
 **Plataforma pública, autónoma y auto-contenida para Cloudflare Workers diseñada para encontrar, filtrar y evaluar ofertas laborales internacionales elegibles para trabajar desde Bolivia (BO · UTC-4).**
 
-[![Versión](https://img.shields.io/badge/Versi%C3%B3n-v5.1.0%20Producci%C3%B3n-0284c7?style=for-the-badge&logo=cloudflare&logoColor=white)](src/worker.js)
+[![Versión](https://img.shields.io/badge/Versi%C3%B3n-v5.2.0%20Producci%C3%B3n-0284c7?style=for-the-badge&logo=cloudflare&logoColor=white)](src/worker.js)
 [![Plataforma](https://img.shields.io/badge/Runtime-Cloudflare%20Workers-f38020?style=for-the-badge&logo=cloudflareworkers&logoColor=white)](wrangler.toml)
 [![Automatización](https://img.shields.io/badge/Frecuencia-Cada%2015%20min%20%2B%20Bajo%20Demanda-10b981?style=for-the-badge&logo=clockify&logoColor=white)](wrangler.toml)
 [![Idioma UI](https://img.shields.io/badge/Interfaz-Espa%C3%B1ol%20Bolivia%20%7C%20English-f59e0b?style=for-the-badge&logo=googletranslate&logoColor=white)](src/ui.js)
@@ -53,6 +53,14 @@ Buscar trabajo remoto internacional desde Bolivia suele ser frustrante: la mayor
 
 Esta herramienta es una **solución pública y gratuita** que centraliza **85 plataformas globales y regionales** (incluyendo Torre.ai, GetOnBoard, Virtual Latinos, Workana, SoyFreelancer, NoDesk, DailyRemote, Jobspresso, Dynamite Jobs, LatinHire, HireLatam, SheWorks, Himalayas, We Work Remotely, Remotive, etc.), filtrando automáticamente el ruido geográfico y evaluando cada oportunidad frente a tus preferencias individuales de **idiomas, área profesional (12 categorías técnicas y no técnicas), nivel de experiencia y modalidad de contrato**.
 
+### ✨ Principales Características y Novedades (v5.2)
+
+- **🌍 Identidad y Favicon Patrio:** Favicon vectorial del planeta Tierra con los colores de la bandera de Bolivia (`#EF4444`, `#FDE047`, `#10B981`) incrustado como Data URI SVG en el encabezado y disponible en `/favicon.svg`, `/favicon.ico` y `/favicon.png`.
+- **🧭 Interfaz Despejada y Limpia:** Menú lateral optimizado con acceso directo a `🎯 Resultados en Vivo`, `📖 Manual de Uso` y los 6 Tracks de plataformas monitoreadas, sin categorías vacías ni enlaces innecesarios.
+- **🚫 Cero Menciones de Francés:** Filtros, mecanismos de búsqueda y pesos adaptados estrictamente a oportunidades relevantes para postulantes desde Bolivia (Español, Inglés, Portugués, Alemán).
+- **⚖️ Regla Estricta de Idiomas:** Si seleccionas exclusivamente Español, las ofertas en inglés reciben cero puntos de idioma y quedan descartadas de las vacantes recomendadas.
+- **📖 Manual de Uso Práctico Integrado:** Sección dedicada exclusivamente a la guía operativa paso a paso para dominar el uso de la herramienta.
+
 > [!NOTE]
 > Todo el procesamiento ocurre en tiempo real en los servidores perimetrales de **Cloudflare Workers** o localmente en tu navegador. Cero datos privados, cero cookies de rastreo y cero cuentas obligatorias.
 
@@ -74,7 +82,7 @@ Si estás utilizando la versión alojada públicamente en línea, esta guía te 
 
 ### Paso 1: Acceso e idioma
 
-Al abrir el portal, la aplicación carga por defecto en **Español (Bolivia)** (`es-BO`). 
+Al abrir el portal, la aplicación carga por defecto en **Español (Bolivia)** (`es-BO`) con el nombre **Bolivia Remoto (BO)** en la barra de navegación y el título **Buscador y Evaluador de Empleos 100% Remotos desde Bolivia (BO)** en el banner principal. 
 
 Si prefieres navegar en inglés, haz clic en el botón superior derecho:
 - **`🇧🇴 Español (Bolivia)`**: Textos, etiquetas, badges de contratación y reportes orientados a la región.
@@ -163,11 +171,17 @@ graph TD
 
 ### Paso 6: Pestaña interactiva "Manual de Uso" integrada
 
-En la barra de navegación lateral y en la barra de herramientas superior encontrarás el enlace directo a **📖 Manual de Uso**:
-- Guía interactiva paso a paso sin salir de la aplicación.
-- Consejos prácticos sobre cómo formalizar contratos tipo *Independent Contractor* (formulario **W-8BEN** para EE. UU.).
-- Canales de cobro en USD disponibles en Bolivia (Wise, Payoneer, Deel, Ontop, transferencias bancarias SWIFT y plataformas reguladas).
-- Sincronización de la zona horaria de Bolivia (`UTC-4`) con Estados Unidos y Europa.
+En la barra de navegación lateral y en la barra de herramientas superior encontrarás el enlace directo a **📖 Manual de Uso**, que contiene exclusivamente la **Guía del Usuario: Bolivia Remoto (BO)** estructurada en 9 pasos prácticos para dominar la plataforma:
+
+1. **Configura tus Idiomas de Trabajo:** Selecciona entre `Español (BO)`, `Inglés` y `Portugués`. *(Regla Estricta: si seleccionas únicamente Español, el motor descarta vacantes en inglés y prioriza empleos en habla hispana).*
+2. **Define tu Nivel de Experiencia:** Desde *Inicial / Sin Experiencia (0-1 a)* hasta *Senior (5+ a)* y *Lead (8+ a)*.
+3. **Elige tus Modalidades de Contrato:** *Tiempo Completo*, *Medio Tiempo*, *Por Proyectos*, *Por Horas* o *Consultoría/Asesoría* (con atajo *"Todos"*).
+4. **Selecciona tus Áreas Profesionales y Palabras Clave:** Filtra entre 12 categorías laborales (incluyendo Asistente Virtual, Coordinación, Soporte, etc.), botón *"Ver todas las áreas"*, casilla *"Ocultar ofertas de otras áreas"* y campo para habilidades específicas (*Excel, Canva, Python, Shopify, etc.*).
+5. **El Filtro Base 100% Remoto desde Bolivia:** Explicación del descarte de restricciones territoriales extranjeras (*US Only, W-2, EU Only*) y validación de esquemas globales y LATAM (*UTC-4*, *W-8BEN*).
+6. **Interpreta el Semáforo de Compatibilidad:** Códigos de acción: 🔥 **POSTULAR** (≥78 pts), 🟡 **EXPLORAR** (58–77 pts), ⚪ **BAJA COINCIDENCIA** (<58 pts) y 🚫 **BLOQUEADAS PAÍS (GEO)**.
+7. **Postula Directamente a la Fuente Original:** Apertura instantánea con el botón *"🔗 Ver Oferta y Postular"* hacia el portal oficial sin intermediarios ni cobros.
+8. **Escanea tus Propias URLs de Plataformas:** Evaluación instantánea de enlaces web de empresas, feeds RSS/Atom o APIs JSON en el panel integrado.
+9. **Exporta tus Resultados y Sincroniza en Segundo Plano:** Generación de reportes en Markdown (`.md`), descargas en CSV para Excel/Notion, escaneo manual *"🔄 Escanear Ofertas Ahora"* y cron perimetral cada 15 minutos.
 
 ---
 
@@ -302,7 +316,15 @@ Puedes alojar tu propia instancia en Cloudflare en menos de 5 minutos utilizando
    ```bash
    npm test
    ```
-   *Esta prueba valida la carga de la interfaz, los endpoints del worker, la precisión del filtro geográfico de Bolivia, la ponderación estricta de idiomas y la ausencia de datos privados.*
+   *Ejecuta 8 grupos de prueba automáticos que validan:*
+   - Carga de la interfaz web en español Bolivia (`es-BO`) con branding limpio (`BO`) y manual integrado.
+   - Estado general del servicio con 85 plataformas monitoreadas y catálogo base.
+   - Ponderación estricta de idiomas (exclusión garantizada de ofertas en inglés si solo se marca Español).
+   - Cobertura de 12 categorías y roles ampliados (Asistente Virtual, Coordinación, Operaciones, Soporte).
+   - Generación instantánea del reporte de resultados en Markdown (`/api/results.md`).
+   - Escaneo y extracción dinámica de ofertas desde URLs externas (`/api/platforms/scan-url`).
+   - Disponibilidad del favicon vectorial del planeta Tierra con los colores de la bandera de Bolivia (`/favicon.svg`, `/favicon.ico`).
+   - Auditoría estricta de privacidad: cero datos personales ni credenciales privadas en todo el repositorio.
 
 3. **Iniciar el servidor local de desarrollo con Wrangler:**
    ```bash
@@ -362,6 +384,9 @@ El worker expone endpoints HTTP estándar para integraciones externas:
 | `POST` | `/api/scan` | JSON opcional `{ track, platform }` | Ejecuta un escaneo de actualización bajo demanda sobre las plataformas monitoreadas. |
 | `POST` | `/api/platforms/scan-url` | JSON `{ url, name, type, track, filters }` | Escanea cualquier URL ingresada por el usuario, extrae ofertas y las añade a la base. |
 | `GET` | `/api/results.md` | Query: `?lang=es` o `?lang=en` | Genera y descarga el reporte de Resultados al instante en formato Markdown puro. |
+| `GET` | `/favicon.svg` | Ninguno | Retorna el favicon vectorial en SVG del planeta Tierra con los colores de la bandera de Bolivia (`#EF4444`, `#FDE047`, `#10B981`). |
+| `GET` | `/favicon.ico` | Ninguno | Favicon en formato ICO para compatibilidad universal con navegadores antiguos. |
+| `GET` | `/favicon.png` | Ninguno | Favicon rasterizado en PNG para dispositivos móviles y Apple Touch Icon. |
 
 #### Ejemplo con `curl`: Escaneo de una URL personalizada
 ```bash
