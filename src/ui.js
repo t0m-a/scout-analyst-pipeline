@@ -41,12 +41,22 @@ export function renderAppHtml(initialState) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Empleos 100% Remotos desde Bolivia (BO) — Buscador y Evaluador en Vivo</title>
+  <title>Empleos Remotos desde Bolivia — Buscador y Evaluador en Vivo</title>
   <link rel="icon" type="image/svg+xml" href="${FAVICON_DATA_URI}">
   <link rel="alternate icon" type="image/x-icon" href="/favicon.ico">
   <link rel="alternate icon" type="image/png" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
-  <meta name="description" content="Herramienta pública para filtrar, escanear y evaluar ofertas de trabajo 100% remotas elegibles desde Bolivia (BO) según tus idiomas, área profesional, experiencia y tipo de contrato.">
+  <meta name="description" content="Herramienta pública para filtrar, escanear y evaluar ofertas de trabajo remotas elegibles desde Bolivia según tus idiomas, área profesional, experiencia y tipo de contrato.">
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('bolivia_remote_theme');
+        if (t === 'dark' || (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark-mode');
+        }
+      } catch (e) {}
+    })();
+  </script>
   <style>
     :root {
       --bg-page: #f4f6f9;
@@ -159,6 +169,20 @@ export function renderAppHtml(initialState) {
       background: #f1f5f9;
       border-color: var(--accent-primary);
       color: var(--accent-primary);
+    }
+    .hamburger-icon {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 16px;
+      height: 12px;
+    }
+    .hamburger-icon span {
+      display: block;
+      height: 2px;
+      width: 100%;
+      background: currentColor;
+      border-radius: 1px;
     }
     body.sidebar-collapsed #navbar {
       transform: translateX(-280px);
@@ -800,6 +824,275 @@ export function renderAppHtml(initialState) {
       font-size: 0.82em;
       color: var(--text-muted);
     }
+    /* THEME TOGGLE BUTTON */
+    .btn-theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      font-size: 0.84em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      line-height: 1;
+    }
+    .btn-theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.22);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+    .theme-symbol {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .theme-symbol svg {
+      display: block;
+    }
+    .manual-card .btn-theme-toggle {
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #0f172a;
+    }
+    .manual-card .btn-theme-toggle:hover {
+      background: #e2e8f0;
+      border-color: #94a3b8;
+    }
+
+    /* COMPLETE DARK MODE THEME */
+    html.dark-mode, body.dark-mode {
+      --bg-page: #0b0f17;
+      --bg-card: #131d2e;
+      --text-main: #e2e8f0;
+      --text-muted: #94a3b8;
+      background-color: #0b0f17;
+      color: #e2e8f0;
+    }
+    body.dark-mode #navbar {
+      background: #0f172a;
+      border-right-color: #1e293b;
+    }
+    body.dark-mode .navbar-header {
+      background: #131d2e;
+      border-bottom-color: #1e293b;
+    }
+    body.dark-mode .header-title {
+      color: #f8fafc;
+    }
+    body.dark-mode .sidebar-fold-btn {
+      background: #1e293b;
+      color: #cbd5e1;
+      border-color: #334155;
+    }
+    body.dark-mode .sidebar-fold-btn:hover {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+    }
+    body.dark-mode #sidebar-unfold-btn {
+      background: #0f172a;
+      color: #f8fafc;
+      border-color: #334155;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+    body.dark-mode #sidebar-unfold-btn:hover {
+      background: #1e293b;
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+    body.dark-mode #navbar li {
+      border-bottom-color: #1e293b;
+    }
+    body.dark-mode #navbar li.nav-group-header {
+      background: #131d2e;
+      color: #94a3b8;
+    }
+    body.dark-mode #navbar a {
+      color: #cbd5e1;
+    }
+    body.dark-mode #navbar a:hover, body.dark-mode #navbar a.active-nav {
+      background: #1e293b;
+      color: #38bdf8;
+      border-left-color: #38bdf8;
+    }
+    body.dark-mode .top-banner {
+      background: linear-gradient(135deg, #090d16 0%, #172554 100%);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      border: 1px solid #1e293b;
+    }
+    body.dark-mode .btn-theme-toggle {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.25);
+      color: #fde047;
+    }
+    body.dark-mode .btn-theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: #fde047;
+    }
+    body.dark-mode .manual-card .btn-theme-toggle {
+      background: #1e293b;
+      color: #fde047;
+      border-color: #334155;
+    }
+    body.dark-mode .manual-card .btn-theme-toggle:hover {
+      background: #334155;
+      border-color: #475569;
+    }
+    body.dark-mode .panel-card {
+      background: var(--bg-card);
+      border-color: #1e293b;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    body.dark-mode .panel-header {
+      border-bottom-color: #1e293b;
+    }
+    body.dark-mode .panel-title {
+      color: #f8fafc;
+    }
+    body.dark-mode .filter-block {
+      background: #0f172a;
+      border-color: #1e293b;
+    }
+    body.dark-mode .filter-block-label {
+      color: #f1f5f9;
+    }
+    body.dark-mode .chip {
+      background: #1e293b;
+      color: #cbd5e1;
+      border-color: #334155;
+    }
+    body.dark-mode .chip:hover {
+      border-color: #38bdf8;
+      color: #38bdf8;
+    }
+    body.dark-mode .chip.selected {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+    }
+    body.dark-mode .input-text, body.dark-mode .input-select {
+      background: #0f172a;
+      color: #f8fafc;
+      border-color: #334155;
+    }
+    body.dark-mode .input-text:focus, body.dark-mode .input-select:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+    }
+    body.dark-mode .form-field label {
+      color: #94a3b8;
+    }
+    body.dark-mode .kpi-card {
+      background: var(--bg-card);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    body.dark-mode .kpi-value {
+      color: #f8fafc;
+    }
+    body.dark-mode .toolbar {
+      background: var(--bg-card);
+      border-color: #1e293b;
+    }
+    body.dark-mode .btn-tab {
+      background: #0f172a;
+      color: #cbd5e1;
+      border-color: #334155;
+    }
+    body.dark-mode .btn-tab:hover, body.dark-mode .btn-tab.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+    }
+    body.dark-mode .opp-card {
+      background: var(--bg-card);
+      border-color: #1e293b;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    body.dark-mode .opp-title {
+      color: #f8fafc;
+    }
+    body.dark-mode .score-pill {
+      background: #0f172a;
+      border-color: #334155;
+      color: #cbd5e1;
+    }
+    body.dark-mode .skill-tag {
+      background: #082f49;
+      color: #38bdf8;
+    }
+    body.dark-mode .contract-tag {
+      background: #3b0764;
+      color: #d8b4fe;
+    }
+    body.dark-mode .lang-tag {
+      background: #451a03;
+      color: #fde047;
+    }
+    body.dark-mode .btn-secondary {
+      background: #1e293b;
+      color: #f8fafc !important;
+      border-color: #334155;
+    }
+    body.dark-mode .btn-secondary:hover {
+      background: #334155;
+    }
+    body.dark-mode .radar-box {
+      background: #0f172a;
+      border-color: #1e293b;
+    }
+    body.dark-mode .radar-box h4 {
+      color: #f8fafc;
+    }
+    body.dark-mode .radar-box p {
+      color: #94a3b8;
+    }
+    body.dark-mode .manual-card {
+      background: var(--bg-card);
+      border-color: #1e293b;
+    }
+    body.dark-mode .manual-card h3, body.dark-mode .manual-card h4 {
+      color: #f8fafc;
+      border-bottom-color: #1e293b;
+    }
+    body.dark-mode .manual-card .btn-lang {
+      background: #1e293b;
+      color: #cbd5e1;
+      border-color: #334155;
+    }
+    body.dark-mode .manual-card .btn-lang.active, body.dark-mode .manual-card .btn-lang:hover {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+    }
+    body.dark-mode .guide-step {
+      background: #0f172a;
+      border-color: #1e293b;
+    }
+    body.dark-mode .guide-step-title {
+      color: #f8fafc;
+    }
+    body.dark-mode .guide-step-body {
+      color: #cbd5e1;
+    }
+    body.dark-mode .guide-tip {
+      background: #0c2340;
+      color: #93c5fd;
+      border-left-color: var(--accent-primary);
+    }
+    body.dark-mode .info-callout {
+      background: #064e3b;
+      color: #a7f3d0;
+      border-left-color: #10b981;
+    }
+    body.dark-mode footer {
+      border-top-color: #1e293b;
+    }
+
     @media only screen and (max-width: 820px) {
       #navbar {
         position: static;
@@ -821,26 +1114,26 @@ export function renderAppHtml(initialState) {
   <div class="bolivia-stripe"></div>
 
   <button type="button" id="sidebar-unfold-btn" onclick="toggleSidebar()" title="Mostrar menú" aria-label="Mostrar menú">
-    <span>☰</span>
+    <span class="hamburger-icon"><span></span><span></span><span></span></span>
   </button>
 
   <nav id="navbar">
     <div class="navbar-header">
-      <header class="header-title"><span id="nav-brand-title">Bolivia Remoto (BO)</span></header>
+      <header class="header-title"><span id="nav-brand-title">Bolivia Remoto</span></header>
       <button type="button" class="sidebar-fold-btn" onclick="toggleSidebar()" title="Ocultar menú">«</button>
     </div>
     <ul>
-      <li><a id="nav-results" class="active-nav" onclick="switchMainView('results')">🎯 <span id="nav-lbl-results">Resultados en Vivo</span> (<span id="nav-cnt-results">0</span>)</a></li>
-      <li><a id="nav-manual" onclick="switchMainView('manual')">📖 <span id="nav-lbl-manual">Manual de Uso</span></a></li>
+      <li><a id="nav-results" class="active-nav" onclick="switchMainView('results')"><span id="nav-lbl-results">Resultados en Vivo</span> (<span id="nav-cnt-results">0</span>)</a></li>
+      <li><a id="nav-manual" onclick="switchMainView('manual')"><span id="nav-lbl-manual">Manual de Uso</span></a></li>
 
       <li class="nav-group-header" id="nav-hdr-tracks">Categorías de Plataformas</li>
-      <li><a onclick="switchMainView('results'); filterByTrack('ALL');">🌐 <span id="nav-track-all">Todas las Categorías</span></a></li>
-      <li><a onclick="switchMainView('results'); filterByTrack('TRACK A');">🤝 Track A: B2B Directo &amp; Freelance</a></li>
-      <li><a onclick="switchMainView('results'); filterByTrack('TRACK B');">🤖 Track B: Entrenamiento IA &amp; RLHF</a></li>
-      <li><a onclick="switchMainView('results'); filterByTrack('TRACK C');">🌎 Track C: Redes LATAM &amp; Globales</a></li>
-      <li><a onclick="switchMainView('results'); filterByTrack('TRACK D');">🌍 Track D: Portales Europeos &amp; Globales</a></li>
-      <li><a onclick="switchMainView('results'); filterByTrack('TRACK E');">🎙️ Track E: Redes de Consultoría Experta</a></li>
-      <li><a onclick="switchMainView('results'); filterByTrack('TRACK F');">📡 Track F: Bolsas de Empleo 100% Remoto</a></li>
+      <li><a onclick="switchMainView('results'); filterByTrack('ALL');"><span id="nav-track-all">Todas las Categorías</span></a></li>
+      <li><a onclick="switchMainView('results'); filterByTrack('TRACK A');"><span id="nav-track-a">B2B Directo &amp; Freelance</span></a></li>
+      <li><a onclick="switchMainView('results'); filterByTrack('TRACK B');"><span id="nav-track-b">Entrenamiento IA &amp; RLHF</span></a></li>
+      <li><a onclick="switchMainView('results'); filterByTrack('TRACK C');"><span id="nav-track-c">Redes LATAM &amp; Globales</span></a></li>
+      <li><a onclick="switchMainView('results'); filterByTrack('TRACK D');"><span id="nav-track-d">Portales Europeos &amp; Globales</span></a></li>
+      <li><a onclick="switchMainView('results'); filterByTrack('TRACK E');"><span id="nav-track-e">Redes de Consultoría Experta</span></a></li>
+      <li><a onclick="switchMainView('results'); filterByTrack('TRACK F');"><span id="nav-track-f">Bolsas de Empleo Remoto</span></a></li>
     </ul>
   </nav>
 
@@ -849,22 +1142,31 @@ export function renderAppHtml(initialState) {
     <section class="top-banner">
       <div class="banner-top-row">
         <div>
-          <h1 id="banner-title">Buscador y Evaluador de Empleos 100% Remotos desde Bolivia (BO)</h1>
+          <h1 id="banner-title">Buscador y Evaluador de Empleos Remotos desde Bolivia</h1>
           <p id="banner-subtitle">
-            Filtra y evalúa ofertas globales y regionales que permiten trabajar 100% remoto desde Bolivia (UTC-4). Personaliza tus idiomas, área profesional, experiencia y modalidad de contrato.
+            Filtra y evalúa ofertas globales y regionales que permiten trabajar remoto desde Bolivia (UTC-4). Personaliza tus idiomas, área profesional, experiencia y modalidad de contrato.
           </p>
         </div>
         <div class="lang-switch-group">
           <button type="button" class="btn-lang active" id="btn-lang-es" onclick="setUiLanguage('es')">Español (Bolivia)</button>
           <button type="button" class="btn-lang" id="btn-lang-en" onclick="setUiLanguage('en')">English</button>
+          <button type="button" class="btn-theme-toggle" id="btn-theme-toggle" onclick="toggleTheme()" title="Cambiar a modo oscuro" aria-label="Cambiar tema">
+            <span class="theme-symbol theme-symbol-moon" id="theme-sym-moon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </span>
+            <span class="theme-symbol theme-symbol-sun" id="theme-sym-sun" style="display:none;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </span>
+            <span class="theme-text" id="theme-toggle-text">Oscuro</span>
+          </button>
           <button type="button" class="btn-scan-now" id="btn-scan-now" onclick="triggerOnDemandScan()">
-            <span>🔄</span> <span id="lbl-scan-now">Escanear Ofertas Ahora</span>
+            <span id="lbl-scan-now">Escanear Ofertas Ahora</span>
           </button>
         </div>
       </div>
       <div class="banner-pills">
         <span class="banner-pill" id="pill-bolivia">Filtro Base: 100% Remoto desde Bolivia (UTC-4)</span>
-        <span class="banner-pill" id="pill-schedule">⏱️ Ejecución: Bajo Demanda + Automático cada 15 min</span>
+        <span class="banner-pill" id="pill-schedule">Ejecución: Bajo Demanda + Automático cada 15 min</span>
         <span class="banner-pill"><span id="lbl-last-sync">Última sincronización:</span> <span id="val-last-sync">-</span></span>
         <span class="banner-pill"><span id="lbl-monitored-count">Plataformas activas:</span> <span id="val-platforms-count">0</span></span>
       </div>
@@ -873,7 +1175,7 @@ export function renderAppHtml(initialState) {
     <!-- CUSTOMIZABLE USER FILTERS PANEL -->
     <section class="panel-card" id="custom-filters-panel">
       <div class="panel-header">
-        <h2 class="panel-title">🎛️ <span id="lbl-filters-title">Personaliza tu Búsqueda y Criterios de Evaluación</span></h2>
+        <h2 class="panel-title"><span id="lbl-filters-title">Personaliza tu Búsqueda y Criterios de Evaluación</span></h2>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
           <label style="font-size:0.84em;font-weight:700;color:#065f46;display:inline-flex;align-items:center;gap:6px;cursor:pointer;background:#ecfdf5;padding:5px 10px;border-radius:6px;border:1px solid #10b981;">
             <input type="checkbox" id="chk-bolivia-only" checked onchange="onBoliviaToggle(this.checked)">
@@ -942,7 +1244,7 @@ export function renderAppHtml(initialState) {
     <!-- ADD & SCAN CUSTOM PLATFORM URL PANEL -->
     <section class="panel-card" id="custom-url-panel">
       <div class="panel-header" style="margin-bottom:10px;padding-bottom:8px;">
-        <h2 class="panel-title">➕ <span id="lbl-add-url-title">Agregar y Escanear tu Propia URL de Plataforma o Bolsa de Empleo</span></h2>
+        <h2 class="panel-title"><span id="lbl-add-url-title">Agregar y Escanear tu Propia URL de Plataforma o Bolsa de Empleo</span></h2>
         <span style="font-size:0.82em;color:#64748b;" id="lbl-add-url-sub">Auto-detecta APIs JSON, Feeds RSS/Atom y Páginas Web de Empleo</span>
       </div>
       <form class="url-scanner-form" onsubmit="event.preventDefault(); submitCustomPlatformScan();">
@@ -966,7 +1268,7 @@ export function renderAppHtml(initialState) {
         </div>
         <div>
           <button type="submit" class="btn-action btn-primary" id="btn-submit-url" style="height:36px;">
-            🔍 <span id="lbl-btn-submit-url">Escanear y Evaluar URL</span>
+            <span id="lbl-btn-submit-url">Escanear y Evaluar URL</span>
           </button>
         </div>
       </form>
@@ -976,23 +1278,23 @@ export function renderAppHtml(initialState) {
     <!-- KPI SUMMARY CARDS -->
     <section class="kpi-grid">
       <div class="kpi-card apply" onclick="switchMainView('results'); setVerdictFilter('APPLY');">
-        <div class="kpi-value" style="color:#059669;">🔥 <span id="kpi-apply-cnt">0</span></div>
+        <div class="kpi-value" style="color:#059669;"><span id="kpi-apply-cnt">0</span></div>
         <div class="kpi-label"><strong id="kpi-apply-title">POSTULAR</strong> (<span id="kpi-apply-sub">Puntaje ≥ 78/100</span>)</div>
       </div>
       <div class="kpi-card possible" onclick="switchMainView('results'); setVerdictFilter('POSSIBLE');">
-        <div class="kpi-value" style="color:#d97706;">🟡 <span id="kpi-possible-cnt">0</span></div>
+        <div class="kpi-value" style="color:#d97706;"><span id="kpi-possible-cnt">0</span></div>
         <div class="kpi-label"><strong id="kpi-possible-title">EXPLORAR</strong> (<span id="kpi-possible-sub">Puntaje 58–77/100</span>)</div>
       </div>
       <div class="kpi-card skip" onclick="switchMainView('results'); setVerdictFilter('SKIP');">
-        <div class="kpi-value" style="color:#475569;">⚪ <span id="kpi-skip-cnt">0</span></div>
+        <div class="kpi-value" style="color:#475569;"><span id="kpi-skip-cnt">0</span></div>
         <div class="kpi-label"><strong id="kpi-skip-title">BAJA COINCIDENCIA</strong> (<span id="kpi-skip-sub">Fuera de tus filtros</span>)</div>
       </div>
       <div class="kpi-card geo" onclick="switchMainView('results'); setVerdictFilter('GEO');">
-        <div class="kpi-value" style="color:#dc2626;">🚫 <span id="kpi-geo-cnt">0</span></div>
+        <div class="kpi-value" style="color:#dc2626;"><span id="kpi-geo-cnt">0</span></div>
         <div class="kpi-label"><strong id="kpi-geo-title">NO ELEGIBLES BOLIVIA</strong> (<span id="kpi-geo-sub">Restringidas por país</span>)</div>
       </div>
       <div class="kpi-card" onclick="switchMainView('report');">
-        <div class="kpi-value" style="color:#0284c7;">📄 <span id="kpi-total-cnt">0</span></div>
+        <div class="kpi-value" style="color:#0284c7;"><span id="kpi-total-cnt">0</span></div>
         <div class="kpi-label"><strong id="kpi-report-title">Reporte de Resultados</strong> (<span id="kpi-report-sub">Generado al instante</span>)</div>
       </div>
     </section>
@@ -1000,16 +1302,16 @@ export function renderAppHtml(initialState) {
     <!-- TOOLBAR -->
     <section class="toolbar">
       <div class="filter-group">
-        <button type="button" class="btn-tab active" id="tab-view-results" onclick="switchMainView('results')">🎯 <span id="tab-lbl-results">Resultados</span></button>
-        <button type="button" class="btn-tab" id="tab-view-manual" onclick="switchMainView('manual')">📖 <span id="tab-lbl-manual">Manual de Uso</span></button>
-        <button type="button" class="btn-tab" id="tab-view-platforms" onclick="switchMainView('platforms')">🛰️ <span id="tab-lbl-platforms">Plataformas Monitoreadas</span></button>
+        <button type="button" class="btn-tab active" id="tab-view-results" onclick="switchMainView('results')"><span id="tab-lbl-results">Resultados</span></button>
+        <button type="button" class="btn-tab" id="tab-view-manual" onclick="switchMainView('manual')"><span id="tab-lbl-manual">Manual de Uso</span></button>
+        <button type="button" class="btn-tab" id="tab-view-platforms" onclick="switchMainView('platforms')"><span id="tab-lbl-platforms">Plataformas Monitoreadas</span></button>
       </div>
       <div class="filter-group" id="verdictFilterBar">
         <button type="button" class="btn-tab active" data-verdict="ALL" onclick="setVerdictFilter('ALL')" id="btn-v-all">Todas las Elegibles</button>
-        <button type="button" class="btn-tab" data-verdict="APPLY" onclick="setVerdictFilter('APPLY')">🔥 <span id="btn-v-apply">Postular</span></button>
-        <button type="button" class="btn-tab" data-verdict="POSSIBLE" onclick="setVerdictFilter('POSSIBLE')">🟡 <span id="btn-v-possible">Explorar</span></button>
-        <button type="button" class="btn-tab" data-verdict="SKIP" onclick="setVerdictFilter('SKIP')">⚪ <span id="btn-v-skip">Baja Coincidencia</span></button>
-        <button type="button" class="btn-tab" data-verdict="GEO" onclick="setVerdictFilter('GEO')">🚫 <span id="btn-v-geo">Bloqueadas País</span></button>
+        <button type="button" class="btn-tab" data-verdict="APPLY" onclick="setVerdictFilter('APPLY')"><span id="btn-v-apply">Postular</span></button>
+        <button type="button" class="btn-tab" data-verdict="POSSIBLE" onclick="setVerdictFilter('POSSIBLE')"><span id="btn-v-possible">Explorar</span></button>
+        <button type="button" class="btn-tab" data-verdict="SKIP" onclick="setVerdictFilter('SKIP')"><span id="btn-v-skip">Baja Coincidencia</span></button>
+        <button type="button" class="btn-tab" data-verdict="GEO" onclick="setVerdictFilter('GEO')"><span id="btn-v-geo">Bloqueadas País</span></button>
       </div>
       <input type="search" id="searchInput" class="input-text" style="max-width:240px;" placeholder="Buscar por cargo, empresa, país..." oninput="renderResultsCards()">
     </section>
@@ -1025,22 +1327,31 @@ export function renderAppHtml(initialState) {
         <!-- GUÍA DEL USUARIO: BOLIVIA REMOTO (BO) -->
         <article class="manual-card">
           <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:14px;border-bottom:1px solid #f1f5f9;padding-bottom:12px;">
-            <h3 id="man-h-intro" style="margin:0;">📖 Guía del Usuario: Bolivia Remoto (BO)</h3>
+            <h3 id="man-h-intro" style="margin:0;">Guía del Usuario: Bolivia Remoto (BO)</h3>
             <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
               <button type="button" class="btn-lang active" id="man-btn-lang-es" onclick="setUiLanguage('es')">Español (Bolivia)</button>
               <button type="button" class="btn-lang" id="man-btn-lang-en" onclick="setUiLanguage('en')">English</button>
-              <button type="button" class="btn-action btn-primary" onclick="switchMainView('results')">🎯 <span id="man-btn-back">Ver Resultados en Vivo</span></button>
+              <button type="button" class="btn-theme-toggle" id="man-btn-theme-toggle" onclick="toggleTheme()" title="Cambiar a modo oscuro" aria-label="Cambiar tema">
+                <span class="theme-symbol theme-symbol-moon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </span>
+                <span class="theme-symbol theme-symbol-sun" style="display:none;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                </span>
+                <span class="theme-text">Oscuro</span>
+              </button>
+              <button type="button" class="btn-action btn-primary" onclick="switchMainView('results')"><span id="man-btn-back">Ver Resultados en Vivo</span></button>
             </div>
           </div>
           <p id="man-p-intro" style="font-size:0.92em;color:#334155;line-height:1.6;">
             <strong>Bolivia Remoto (BO)</strong> es una plataforma pública, gratuita e interactiva diseñada para encontrar, filtrar y evaluar en vivo oportunidades laborales internacionales que admiten trabajo 100% remoto desde Bolivia (UTC-4), eliminando el ruido de ofertas con restricciones territoriales o visados extranjeros.
           </p>
           <div class="info-callout" id="man-box-privacy">
-            🔒 <strong>Privacidad Total y Sin Registros:</strong> No necesitas crear una cuenta ni ingresar datos personales. Tus filtros y preferencias se guardan de forma privada en tu propio navegador (localStorage).
+            <strong>Privacidad Total y Sin Registros:</strong> No necesitas crear una cuenta ni ingresar datos personales. Tus filtros y preferencias se guardan de forma privada en tu propio navegador (localStorage).
           </div>
 
           <h4 style="margin:20px 0 14px 0;color:#0f172a;font-size:1.08em;display:flex;align-items:center;gap:8px;border-bottom:1px solid #f1f5f9;padding-bottom:8px;">
-            🛠️ Cómo Utilizar la Herramienta Paso a Paso
+            Cómo Utilizar la Herramienta Paso a Paso
           </h4>
 
           <!-- PASO 1 -->
@@ -1056,7 +1367,7 @@ export function renderAppHtml(initialState) {
                 <li><strong>Bilingüe / Multilingüe:</strong> Si activas también <em>Inglés</em> o <em>Portugués</em>, el sistema evaluará y sumará oportunidades internacionales que requieren fluidez en esos idiomas.</li>
               </ul>
               <div class="guide-tip">
-                💡 En la esquina superior derecha del banner puedes cambiar el idioma general de la plataforma (<em>Español (Bolivia)</em> o <em>English</em>) en cualquier momento.
+                En la esquina superior derecha del banner puedes cambiar el idioma general de la plataforma (<em>Español (Bolivia)</em> o <em>English</em>) en cualquier momento.
               </div>
             </div>
           </div>
@@ -1088,14 +1399,14 @@ export function renderAppHtml(initialState) {
             <div class="guide-step-body">
               En <strong>3. Tipo de Contrato Buscado</strong>, marca una o varias modalidades según tu disponibilidad:
               <ul>
-                <li>🏢 <strong>Tiempo Completo (Full-Time):</strong> Jornadas estándar de 40 horas semanales.</li>
-                <li>🌗 <strong>Medio Tiempo (Part-Time):</strong> Esquemas de 20 horas por semana o semanas de 4 días.</li>
-                <li>📦 <strong>Por Proyectos / Freelance:</strong> Contratos cerrados por entregables u objetivos.</li>
-                <li>⏱️ <strong>Por Horas / Asíncrono:</strong> Horarios flexibles con pago por hora trabajada.</li>
-                <li>🎙️ <strong>Consultoría / Asesoría:</strong> Llamadas de asesoramiento y redes de expertos internacionales.</li>
+                <li><strong>Tiempo Completo (Full-Time):</strong> Jornadas estándar de 40 horas semanales.</li>
+                <li><strong>Medio Tiempo (Part-Time):</strong> Esquemas de 20 horas por semana o semanas de 4 días.</li>
+                <li><strong>Por Proyectos / Freelance:</strong> Contratos cerrados por entregables u objetivos.</li>
+                <li><strong>Por Horas / Asíncrono:</strong> Horarios flexibles con pago por hora trabajada.</li>
+                <li><strong>Consultoría / Asesoría:</strong> Llamadas de asesoramiento y redes de expertos internacionales.</li>
               </ul>
               <div class="guide-tip">
-                💡 Haz clic en el enlace <strong>"Todos"</strong> para seleccionar simultáneamente todas las modalidades disponibles.
+                Haz clic en el enlace <strong>"Todos"</strong> para seleccionar simultáneamente todas las modalidades disponibles.
               </div>
             </div>
           </div>
@@ -1141,13 +1452,13 @@ export function renderAppHtml(initialState) {
             <div class="guide-step-body">
               Cada vacante se evalúa en tiempo real con una calificación de 0 a 100 puntos y se clasifica mediante colores:
               <ul>
-                <li>🔥 <strong style="color:#059669;">POSTULAR (Puntaje ≥ 78):</strong> Máxima afinidad con tus filtros e idiomas, verificada 100% para Bolivia. ¡Recomendada para postular de inmediato!</li>
-                <li>🟡 <strong style="color:#d97706;">EXPLORAR (Puntaje 58–77):</strong> Ofertas compatibles con pequeñas variaciones de modalidad o experiencia.</li>
-                <li>⚪ <strong style="color:#475569;">BAJA COINCIDENCIA (&lt; 58):</strong> Ofertas remotas válidas pero fuera de tus áreas o preferencias actuales.</li>
-                <li>🚫 <strong style="color:#dc2626;">BLOQUEADAS PAÍS (GEO):</strong> Excluidas por restricciones de residencia geográfica local.</li>
+                <li><strong style="color:#059669;">POSTULAR (Puntaje ≥ 78):</strong> Máxima afinidad con tus filtros e idiomas, verificada 100% para Bolivia. ¡Recomendada para postular de inmediato!</li>
+                <li><strong style="color:#d97706;">EXPLORAR (Puntaje 58–77):</strong> Ofertas compatibles con pequeñas variaciones de modalidad o experiencia.</li>
+                <li><strong style="color:#475569;">BAJA COINCIDENCIA (&lt; 58):</strong> Ofertas remotas válidas pero fuera de tus áreas o preferencias actuales.</li>
+                <li><strong style="color:#dc2626;">BLOQUEADAS PAÍS (GEO):</strong> Excluidas por restricciones de residencia geográfica local.</li>
               </ul>
               <div class="guide-tip">
-                💡 Usa los botones del semáforo en la barra de herramientas para ver solo vacantes de <strong>Postular</strong> o <strong>Explorar</strong>, o escribe en la barra de búsqueda para filtrar por empresa o cargo al instante.
+                Usa los botones del semáforo en la barra de herramientas para ver solo vacantes de <strong>Postular</strong> o <strong>Explorar</strong>, o escribe en la barra de búsqueda para filtrar por empresa o cargo al instante.
               </div>
             </div>
           </div>
@@ -1159,7 +1470,7 @@ export function renderAppHtml(initialState) {
               <h5 class="guide-step-title">Postula Directamente a la Fuente Original</h5>
             </div>
             <div class="guide-step-body">
-              En cada tarjeta de oferta, haz clic en el botón azul <strong>"🔗 Ver Oferta y Postular"</strong> para abrir directamente la página oficial de la empresa o bolsa de trabajo contratante, sin registros intermedios ni cobro de comisiones.
+              En cada tarjeta de oferta, haz clic en el botón azul <strong>"Ver Oferta y Postular"</strong> para abrir directamente la página oficial de la empresa o bolsa de trabajo contratante, sin registros intermedios ni cobro de comisiones.
             </div>
           </div>
 
@@ -1172,9 +1483,9 @@ export function renderAppHtml(initialState) {
             <div class="guide-step-body">
               ¿Encontraste una nueva bolsa de empleo o una página de carreras de una empresa internacional?
               <ul>
-                <li>Ve al panel <strong>"➕ Agregar y Escanear tu Propia URL de Plataforma o Bolsa de Empleo"</strong>.</li>
+                <li>Ve al panel <strong>"Agregar y Escanear tu Propia URL de Plataforma o Bolsa de Empleo"</strong>.</li>
                 <li>Pega el enlace web, feed RSS o endpoint JSON.</li>
-                <li>Haz clic en <strong>"🔍 Escanear y Evaluar URL"</strong>.</li>
+                <li>Haz clic en <strong>"Escanear y Evaluar URL"</strong>.</li>
                 <li>El motor analizará las vacantes encontradas, verificará su elegibilidad remota para Bolivia y las añadirá al instante a tus resultados en vivo.</li>
               </ul>
             </div>
@@ -1188,8 +1499,8 @@ export function renderAppHtml(initialState) {
             </div>
             <div class="guide-step-body">
               <ul>
-                <li>Haz clic en la pestaña <strong>"📄 Reporte Markdown / Exportar"</strong> para copiar el informe formateado, descargar el archivo <code>.md</code> o exportar una planilla <code>.csv</code> para gestionarla en Excel o Notion.</li>
-                <li>La herramienta se sincroniza automáticamente cada 15 minutos en segundo plano, o puedes forzar un escaneo inmediato haciendo clic en <strong>"🔄 Escanear Ofertas Ahora"</strong> en el banner superior.</li>
+                <li>Haz clic en la tarjeta o pestaña <strong>"Reporte de Resultados"</strong> para copiar el informe formateado, descargar el archivo <code>.md</code> o exportar una planilla <code>.csv</code> para gestionarla en Excel o Notion.</li>
+                <li>La herramienta se sincroniza automáticamente cada 15 minutos en segundo plano, o puedes forzar un escaneo inmediato haciendo clic en <strong>"Escanear Ofertas Ahora"</strong> en el banner superior.</li>
               </ul>
             </div>
           </div>
@@ -1201,11 +1512,11 @@ export function renderAppHtml(initialState) {
     <section id="view-report" style="display:none;">
       <div class="panel-card">
         <div class="panel-header">
-          <h3 class="panel-title">📄 <span id="lbl-live-report-heading">Reporte de Resultados Generado al Instante (Markdown)</span></h3>
+          <h3 class="panel-title"><span id="lbl-live-report-heading">Reporte de Resultados Generado al Instante (Markdown)</span></h3>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <button type="button" class="btn-action btn-primary" onclick="copyReportMarkdown(this)">📋 <span id="lbl-copy-md">Copiar Resultados (.md)</span></button>
-            <button type="button" class="btn-action btn-secondary" onclick="downloadReportMarkdown()">⬇️ <span id="lbl-dl-md">Descargar .md</span></button>
-            <button type="button" class="btn-action btn-secondary" onclick="downloadResultsCsv()">📊 <span id="lbl-dl-csv">Exportar CSV</span></button>
+            <button type="button" class="btn-action btn-primary" onclick="copyReportMarkdown(this)"><span id="lbl-copy-md">Copiar Resultados (.md)</span></button>
+            <button type="button" class="btn-action btn-secondary" onclick="downloadReportMarkdown()"><span id="lbl-dl-md">Descargar .md</span></button>
+            <button type="button" class="btn-action btn-secondary" onclick="downloadResultsCsv()"><span id="lbl-dl-csv">Exportar CSV</span></button>
           </div>
         </div>
         <pre id="liveReportMarkdownBox" class="report-box"></pre>
@@ -1216,7 +1527,7 @@ export function renderAppHtml(initialState) {
     <section id="view-platforms" style="display:none;">
       <div class="panel-card">
         <div class="panel-header">
-          <h3 class="panel-title">🛰️ <span id="lbl-platforms-heading">Directorio de Plataformas Remotas Monitoreadas</span></h3>
+          <h3 class="panel-title"><span id="lbl-platforms-heading">Directorio de Plataformas Remotas Monitoreadas</span></h3>
           <span style="font-size:0.84em;color:#64748b;" id="lbl-platforms-sub">Haz clic en "Escanear" en cualquier plataforma para buscar nuevas ofertas al instante</span>
         </div>
         <div id="platformsGridContainer" class="radar-grid"></div>
@@ -1254,10 +1565,61 @@ export function renderAppHtml(initialState) {
     let currentTrackFilter = 'ALL';
     let lastEvaluationResult = { surfaced: [], all: [], apply: [], possible: [], skip: [], geo_excluded: [] };
 
+    let currentTheme = 'light';
+    try {
+      const savedTheme = localStorage.getItem('bolivia_remote_theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        currentTheme = 'dark';
+      }
+    } catch (e) {}
+
+    function applyTheme(theme) {
+      currentTheme = theme;
+      const isDark = (theme === 'dark');
+      if (isDark) {
+        document.documentElement.classList.add('dark-mode');
+        document.body.classList.add('dark-mode');
+      } else {
+        document.documentElement.classList.remove('dark-mode');
+        document.body.classList.remove('dark-mode');
+      }
+      try {
+        localStorage.setItem('bolivia_remote_theme', theme);
+      } catch (e) {}
+      updateThemeButtons();
+    }
+
+    function toggleTheme() {
+      applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    }
+    window.toggleTheme = toggleTheme;
+
+    function updateThemeButtons() {
+      const isDark = (currentTheme === 'dark');
+      const t = I18N[userFilters.ui_lang] || I18N.es;
+      const btnTitle = isDark ? (t.themeLightTitle || 'Cambiar a modo claro') : (t.themeDarkTitle || 'Cambiar a modo oscuro');
+      const btnText = isDark ? (t.themeLightText || 'Claro') : (t.themeDarkText || 'Oscuro');
+
+      document.querySelectorAll('.btn-theme-toggle').forEach(btn => {
+        btn.setAttribute('title', btnTitle);
+        btn.setAttribute('aria-label', btnTitle);
+        const moon = btn.querySelector('.theme-symbol-moon');
+        const sun = btn.querySelector('.theme-symbol-sun');
+        const txt = btn.querySelector('.theme-text');
+        if (moon) moon.style.display = isDark ? 'none' : 'inline-flex';
+        if (sun) sun.style.display = isDark ? 'inline-flex' : 'none';
+        if (txt) txt.textContent = btnText;
+      });
+    }
+
+    function cleanTrackName(trackStr) {
+      return String(trackStr || '').replace(/^Track\s+[A-F]:?\s*/i, '').trim();
+    }
+
     const I18N = {
       es: {
-        pageTitle: 'Empleos 100% Remotos desde Bolivia (BO) — Buscador y Evaluador en Vivo',
-        navBrand: 'Bolivia Remoto (BO)',
+        pageTitle: 'Empleos Remotos desde Bolivia — Buscador y Evaluador en Vivo',
+        navBrand: 'Bolivia Remoto',
         unfoldNav: 'Menú',
         navViews: 'Vistas Principales',
         navResults: 'Resultados en Vivo',
@@ -1265,17 +1627,28 @@ export function renderAppHtml(initialState) {
         navPlatforms: 'Plataformas y Escáner URL',
         navTracks: 'Categorías de Plataformas',
         navTrackAll: 'Todas las Categorías',
-        bannerTitle: 'Buscador y Evaluador de Empleos 100% Remotos desde Bolivia (BO)',
-        bannerSubtitle: 'Filtra y evalúa ofertas globales y regionales que permiten trabajar 100% remoto desde Bolivia (UTC-4). Personaliza tus idiomas, área profesional, experiencia y modalidad de contrato.',
+        navTrackA: 'B2B Directo & Freelance',
+        navTrackB: 'Entrenamiento IA & RLHF',
+        navTrackC: 'Redes LATAM & Globales',
+        navTrackD: 'Portales Europeos & Globales',
+        navTrackE: 'Redes de Consultoría Experta',
+        navTrackF: 'Bolsas de Empleo Remoto',
+        categoryLabel: 'Categoría',
+        themeDarkTitle: 'Cambiar a modo oscuro',
+        themeLightTitle: 'Cambiar a modo claro',
+        themeDarkText: 'Oscuro',
+        themeLightText: 'Claro',
+        bannerTitle: 'Buscador y Evaluador de Empleos Remotos desde Bolivia',
+        bannerSubtitle: 'Filtra y evalúa ofertas globales y regionales que permiten trabajar remoto desde Bolivia (UTC-4). Personaliza tus idiomas, área profesional, experiencia y modalidad de contrato.',
         scanNow: 'Escanear Ofertas Ahora',
         scanningNow: 'Escaneando plataformas...',
         pillBolivia: 'Filtro Base: 100% Remoto desde Bolivia (UTC-4)',
-        pillSchedule: '⏱️ Ejecución: Bajo Demanda + Automático cada 15 min',
+        pillSchedule: 'Ejecución: Bajo Demanda + Automático cada 15 min',
         lastSync: 'Última sincronización:',
         monitoredCount: 'Plataformas activas:',
         filtersTitle: 'Personaliza tu Búsqueda y Criterios de Evaluación',
         boliviaOnly: 'Mostrar solo ofertas 100% remotas desde Bolivia',
-        resetFilters: '↺ Restablecer Filtros',
+        resetFilters: 'Restablecer Filtros',
         filterLangs: '1. Tus Idiomas',
         weightLangs: '(Peso: 20 pts)',
         filterExp: '2. Tu Nivel de Experiencia',
@@ -1317,7 +1690,7 @@ export function renderAppHtml(initialState) {
         searchPlaceholder: 'Buscar por cargo, habilidad, empresa...',
         liveReportHeading: 'Reporte de Resultados Generado al Instante (Markdown)',
         copyMd: 'Copiar Resultados (.md)',
-        copiedMd: '✅ ¡Copiado!',
+        copiedMd: '¡Copiado!',
         dlMd: 'Descargar resultados.md',
         dlCsv: 'Exportar CSV',
         platformsHeading: 'Directorio de Plataformas Remotas Monitoreadas',
@@ -1330,16 +1703,16 @@ export function renderAppHtml(initialState) {
         matchedSkills: 'Habilidades / Etiquetas:',
         matchedLangs: 'Idiomas:',
         contractsLabel: 'Modalidad:',
-        openOfferBtn: '🔗 Ver Oferta y Postular',
-        scanPlatformBtn: '🔄 Escanear esta plataforma',
-        openPlatformBtn: '🌐 Abrir Portal',
+        openOfferBtn: 'Ver Oferta y Postular',
+        scanPlatformBtn: 'Escanear esta plataforma',
+        openPlatformBtn: 'Abrir Portal',
         noResults: 'No se encontraron ofertas con los filtros actuales. Prueba ampliando los tipos de posición, contrato o palabras clave.',
         manBtnBack: 'Ver Resultados en Vivo',
-        footerText: 'Buscador y Evaluador Público de Empleos 100% Remotos desde Bolivia (BO · UTC-4) · Ejecución en Cloudflare Workers (Bajo Demanda + Cada 15 Minutos)'
+        footerText: 'Buscador y Evaluador Público de Empleos Remotos desde Bolivia (UTC-4) · Ejecución en Cloudflare Workers (Bajo Demanda + Cada 15 Minutos)'
       },
       en: {
-        pageTitle: '100% Remote Jobs from Bolivia (BO) — Live Job Scout & Evaluator',
-        navBrand: 'Bolivia Remote (BO)',
+        pageTitle: 'Remote Jobs from Bolivia — Live Job Scout & Evaluator',
+        navBrand: 'Bolivia Remote',
         unfoldNav: 'Menu',
         navViews: 'Main Views',
         navResults: 'Live Results',
@@ -1347,17 +1720,28 @@ export function renderAppHtml(initialState) {
         navPlatforms: 'Platforms & URL Scanner',
         navTracks: 'Platform Categories',
         navTrackAll: 'All Categories',
-        bannerTitle: '100% Remote Job Scout & Evaluator from Bolivia (BO)',
-        bannerSubtitle: 'Filter and evaluate global & regional job offers eligible for 100% remote work from Bolivia (UTC-4). Customize your languages, position type, experience level, and contract modality.',
+        navTrackA: 'Direct B2B & Freelance',
+        navTrackB: 'AI Training & RLHF',
+        navTrackC: 'LATAM & Global Networks',
+        navTrackD: 'European & Global Portals',
+        navTrackE: 'Expert Consulting Networks',
+        navTrackF: 'Remote Job Boards',
+        categoryLabel: 'Category',
+        themeDarkTitle: 'Switch to dark mode',
+        themeLightTitle: 'Switch to light mode',
+        themeDarkText: 'Dark',
+        themeLightText: 'Light',
+        bannerTitle: 'Remote Job Scout & Evaluator from Bolivia',
+        bannerSubtitle: 'Filter and evaluate global & regional job offers eligible for remote work from Bolivia (UTC-4). Customize your languages, position type, experience level, and contract modality.',
         scanNow: 'Scan Offers Now',
         scanningNow: 'Scanning platforms...',
         pillBolivia: 'Core Filter: 100% Remote from Bolivia (UTC-4)',
-        pillSchedule: '⏱️ Schedule: On-Demand + Auto Every 15 mins',
+        pillSchedule: 'Schedule: On-Demand + Auto Every 15 mins',
         lastSync: 'Last synced:',
         monitoredCount: 'Active platforms:',
         filtersTitle: 'Customize Your Search & Evaluation Criteria',
         boliviaOnly: 'Show only positions 100% remote from Bolivia',
-        resetFilters: '↺ Reset Filters',
+        resetFilters: 'Reset Filters',
         filterLangs: '1. Your Languages',
         weightLangs: '(Weight: 20 pts)',
         filterExp: '2. Your Experience Level',
@@ -1399,7 +1783,7 @@ export function renderAppHtml(initialState) {
         searchPlaceholder: 'Search by role, skill, company...',
         liveReportHeading: 'On-the-Fly Generated Results Report (Markdown)',
         copyMd: 'Copy Results (.md)',
-        copiedMd: '✅ Copied!',
+        copiedMd: 'Copied!',
         dlMd: 'Download results.md',
         dlCsv: 'Export CSV',
         platformsHeading: 'Monitored Remote Platforms Directory',
@@ -1412,12 +1796,12 @@ export function renderAppHtml(initialState) {
         matchedSkills: 'Matched Skills / Tags:',
         matchedLangs: 'Languages:',
         contractsLabel: 'Contract:',
-        openOfferBtn: '🔗 View Offer & Apply',
-        scanPlatformBtn: '🔄 Scan this platform',
-        openPlatformBtn: '🌐 Open Portal',
+        openOfferBtn: 'View Offer & Apply',
+        scanPlatformBtn: 'Scan this platform',
+        openPlatformBtn: 'Open Portal',
         noResults: 'No offers matched your current filters. Try broadening your position types, contract modalities, or keywords.',
         manBtnBack: 'View Live Results',
-        footerText: 'Public 100% Remote Job Scout & Evaluator from Bolivia (BO · UTC-4) · Powered by Cloudflare Workers (On-Demand + Every 15 Minutes)'
+        footerText: 'Public Remote Job Scout & Evaluator from Bolivia (UTC-4) · Powered by Cloudflare Workers (On-Demand + Every 15 Minutes)'
       }
     };
 
@@ -1473,6 +1857,12 @@ export function renderAppHtml(initialState) {
         'nav-lbl-platforms': t.navPlatforms,
         'nav-hdr-tracks': t.navTracks,
         'nav-track-all': t.navTrackAll,
+        'nav-track-a': t.navTrackA,
+        'nav-track-b': t.navTrackB,
+        'nav-track-c': t.navTrackC,
+        'nav-track-d': t.navTrackD,
+        'nav-track-e': t.navTrackE,
+        'nav-track-f': t.navTrackF,
         'banner-title': t.bannerTitle,
         'banner-subtitle': t.bannerSubtitle,
         'lbl-scan-now': t.scanNow,
@@ -1542,6 +1932,7 @@ export function renderAppHtml(initialState) {
       if (kwInput) kwInput.placeholder = t.customKwPlaceholder;
       const searchEl = document.getElementById('searchInput');
       if (searchEl) searchEl.placeholder = t.searchPlaceholder;
+      updateThemeButtons();
     }
 
     function renderFilterChips() {
@@ -1571,7 +1962,7 @@ export function renderAppHtml(initialState) {
         const selected = (userFilters.contract_types || []).includes(opt.id);
         const label = isEs ? opt.label_es : opt.label_en;
         return '<span class="chip ' + (selected ? 'selected' : '') + '" onclick="toggleContractChip(\\'' + opt.id + '\\')">' +
-          opt.icon + ' ' + escapeHtml(label) + '</span>';
+          escapeHtml(label) + '</span>';
       }).join('');
 
       // 4. Position Categories
@@ -1580,7 +1971,7 @@ export function renderAppHtml(initialState) {
         const selected = (userFilters.position_types || []).includes(opt.id);
         const label = isEs ? opt.label_es : opt.label_en;
         return '<span class="chip ' + (selected ? 'selected' : '') + '" onclick="togglePositionChip(\\'' + opt.id + '\\')">' +
-          opt.icon + ' ' + escapeHtml(label) + '</span>';
+          escapeHtml(label) + '</span>';
       }).join('');
 
       document.getElementById('chk-bolivia-only').checked = userFilters.require_bolivia_remote !== false;
@@ -1789,13 +2180,13 @@ export function renderAppHtml(initialState) {
             '<span class="bolivia-pill ' + (r.bolivia_eligible ? '' : 'restricted') + '">' + escapeHtml(bolBadge) + '</span>' +
             '<span><strong>Plataforma:</strong> ' + escapeHtml(r.platform_name) + '</span>' +
             '<span><strong>Ubicación:</strong> ' + escapeHtml(r.location) + '</span>' +
-            '<span><strong>Track:</strong> ' + escapeHtml(r.track) + '</span>' +
+            '<span><strong>' + escapeHtml(t.categoryLabel || 'Categoría') + ':</strong> ' + escapeHtml(cleanTrackName(r.track)) + '</span>' +
           '</div>' +
           '<div class="score-pills">' +
-            '<span class="score-pill">🎯 ' + escapeHtml(t.scorePos) + ': ' + r.position_score + '/35</span>' +
-            '<span class="score-pill">📍 ' + escapeHtml(t.scoreBol) + ': ' + r.bolivia_score + '/25</span>' +
-            '<span class="score-pill">⏱️ ' + escapeHtml(t.scoreCont) + ': ' + r.contract_exp_score + '/20</span>' +
-            '<span class="score-pill">🗣️ ' + escapeHtml(t.scoreLang) + ': ' + r.language_score + '/20</span>' +
+            '<span class="score-pill">' + escapeHtml(t.scorePos) + ': ' + r.position_score + '/35</span>' +
+            '<span class="score-pill">' + escapeHtml(t.scoreBol) + ': ' + r.bolivia_score + '/25</span>' +
+            '<span class="score-pill">' + escapeHtml(t.scoreCont) + ': ' + r.contract_exp_score + '/20</span>' +
+            '<span class="score-pill">' + escapeHtml(t.scoreLang) + ': ' + r.language_score + '/20</span>' +
           '</div>' +
           '<div style="margin-bottom:6px;">' +
             '<strong style="font-size:0.82em;">' + escapeHtml(t.contractsLabel) + '</strong> ' + contractTagsHtml +
@@ -1820,8 +2211,8 @@ export function renderAppHtml(initialState) {
 
       container.innerHTML = platformsState.map(p => {
         return '<div class="radar-box">' +
-          '<h4>🛰️ ' + escapeHtml(p.name) + ' <span style="font-size:0.76em;color:#0284c7;">(' + escapeHtml(p.type || 'portal') + ')</span></h4>' +
-          '<p style="margin-bottom:6px;"><strong>Track:</strong> ' + escapeHtml(p.track || '') + '</p>' +
+          '<h4>' + escapeHtml(p.name) + ' <span style="font-size:0.76em;color:#0284c7;">(' + escapeHtml(p.type || 'portal') + ')</span></h4>' +
+          '<p style="margin-bottom:6px;"><strong>' + escapeHtml(t.categoryLabel || 'Categoría') + ':</strong> ' + escapeHtml(cleanTrackName(p.track || '')) + '</p>' +
           '<p style="margin-bottom:10px;">' + escapeHtml(p.notes || p.url) + '</p>' +
           '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
             '<button type="button" class="btn-action btn-primary" style="padding:4px 10px;font-size:0.78em;" onclick="scanExistingPlatform(\\'' + escapeHtml(p.url) + '\\', \\'' + escapeHtml(p.name) + '\\', \\'' + escapeHtml(p.type || 'auto') + '\\', \\'' + escapeHtml(p.track || '') + '\\')">' +
@@ -1991,10 +2382,10 @@ export function renderAppHtml(initialState) {
 
         feedbackBox.className = 'scan-alert success';
         feedbackBox.textContent = isEs
-          ? '✅ Plataforma "' + data.platform.name + '" escaneada (' + data.platform.type + '): ' +
+          ? 'Plataforma "' + data.platform.name + '" escaneada (' + data.platform.type + '): ' +
             data.discovered_count + ' ofertas analizadas, ' + data.bolivia_eligible_count +
             ' elegibles 100% remoto desde Bolivia agregadas a Resultados.'
-          : '✅ Platform "' + data.platform.name + '" scanned (' + data.platform.type + '): ' +
+          : 'Platform "' + data.platform.name + '" scanned (' + data.platform.type + '): ' +
             data.discovered_count + ' offers analyzed, ' + data.bolivia_eligible_count +
             ' 100% remote from Bolivia added to Results.';
         if (!customArgs) {
@@ -2043,11 +2434,11 @@ export function renderAppHtml(initialState) {
           renderPlatformsDirectory();
           feedbackBox.className = 'scan-alert success';
           feedbackBox.textContent = isEs
-            ? '✅ Plataforma "' + pName + '" (' + cleanUrl + ') agregada y evaluada en Resultados.'
-            : '✅ Platform "' + pName + '" (' + cleanUrl + ') added and evaluated in Results.';
+            ? 'Plataforma "' + pName + '" (' + cleanUrl + ') agregada y evaluada en Resultados.'
+            : 'Platform "' + pName + '" (' + cleanUrl + ') added and evaluated in Results.';
         } catch (innerErr) {
           feedbackBox.className = 'scan-alert error';
-          feedbackBox.textContent = '❌ ' + (err.message || 'No se pudo escanear la URL');
+          feedbackBox.textContent = err.message || 'No se pudo escanear la URL';
         }
       } finally {
         submitBtn.disabled = false;
@@ -2108,6 +2499,7 @@ export function renderAppHtml(initialState) {
     }
 
     // Initialize UI on load (Spanish Bolivia default)
+    applyTheme(currentTheme);
     setUiLanguage(userFilters.ui_lang || 'es');
 
     // Auto-trigger background sync every 15 minutes while page is open

@@ -3,18 +3,28 @@ import fs from 'node:fs';
 import path from 'node:path';
 import worker from './src/worker.js';
 
+const EMOJI_REGEX = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83d\ud83e][\ud000-\udfff]|[\u200d\u20e3\ufe0f]|[\u2600-\u26ff])/g;
+
 async function runTests() {
-  console.log('1. Testing GET / (Spanish Bolivia default UI, BO in title/nav, Manual de Uso)...');
+  console.log('1. Testing GET / (Spanish Bolivia default UI, clean titles, platform categories, Dark Mode)...');
   const reqRoot = new Request('https://bolivia-remote-scout.workers.dev/');
   const respRoot = await worker.fetch(reqRoot, {}, {});
   assert.equal(respRoot.status, 200);
   const html = await respRoot.text();
   assert.ok(html.includes('lang="es-BO"'), 'Default language must be es-BO');
-  assert.ok(html.includes('(BO)'), 'Must include (BO) in page title and nav bar');
-  assert.ok(html.includes('Bolivia Remoto (BO)'), 'Must include Bolivia Remoto (BO) in nav header');
+  assert.ok(html.includes('id="nav-brand-title">Bolivia Remoto</span>'), 'Must include Bolivia Remoto without (BO) in navbar brand');
+  assert.ok(!html.includes('id="nav-brand-title">Bolivia Remoto (BO)</span>'), 'Must NOT have (BO) in navbar brand');
+  assert.ok(html.includes('Buscador y Evaluador de Empleos Remotos desde Bolivia'), 'Must include banner title without 100% and without (BO)');
+  assert.ok(!html.includes('Buscador y Evaluador de Empleos 100% Remotos desde Bolivia (BO)'), 'Must remove 100% and (BO) from banner title');
+  assert.ok(html.includes('id="nav-track-a">B2B Directo &amp; Freelance'), 'Must keep category name and remove Track A prefix in categories list');
+  assert.ok(!html.includes('>Track A:'), 'Must NOT include Track A: in category links');
+  assert.ok(html.includes('id="btn-theme-toggle"'), 'Must have discrete dark mode theme toggle button');
+  assert.ok(html.includes('theme-symbol-moon'), 'Must have discrete moon symbol');
+  assert.ok(html.includes('theme-symbol-sun'), 'Must have discrete sun symbol');
+  assert.ok(html.includes('body.dark-mode'), 'Must have dark mode stylesheet rules');
   assert.ok(!/[\uD83C][\uDDE6-\uDDFF][\uD83C][\uDDE6-\uDDFF]/.test(html), 'Must NOT contain any flag emoji anywhere in HTML');
+  assert.ok(!EMOJI_REGEX.test(html), 'Must NOT contain any emoji icons anywhere in HTML (excluding favicon)');
   assert.ok(!html.includes('id="tab-view-report"'), 'Must NOT have id="tab-view-report" in toolbar');
-  assert.ok(html.includes('Buscador y Evaluador de Empleos 100% Remotos desde Bolivia (BO)'), 'Must include banner title with (BO)');
   assert.ok(!html.includes('id="nav-platforms"'), 'Must NOT have id="nav-platforms" in navbar');
   assert.ok(!html.includes('id="nav-hdr-views"'), 'Must NOT have Vistas Principales header in navbar');
   assert.ok(html.includes('Manual de Uso'), 'Must include Manual de Uso in sidebar');
@@ -165,6 +175,8 @@ async function runTests() {
     const rawContent = fs.readFileSync(path.resolve(relPath), 'utf8');
     const flagMatches = rawContent.match(/[\uD83C][\uDDE6-\uDDFF][\uD83C][\uDDE6-\uDDFF]/g);
     assert.ok(!flagMatches, `Forbidden flag emoji found in ${relPath}`);
+    const emojiMatches = rawContent.match(EMOJI_REGEX);
+    assert.ok(!emojiMatches, `Forbidden emoji icon found in ${relPath}: ${emojiMatches?.join(' ')}`);
     const content = rawContent.toLowerCase();
     for (const term of forbiddenTerms) {
       assert.ok(!content.includes(term), `Forbidden personal term "${term}" found in ${relPath}`);

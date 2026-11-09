@@ -12,7 +12,7 @@ export const POSITION_CATEGORIES = [
     id: 'virtual_assistant',
     label_es: 'Asistencia Virtual, Administración & Data Entry',
     label_en: 'Virtual Assistant, Admin & Data Entry',
-    icon: '📋',
+    icon: '',
     keywords: [
       'virtual assistant', 'asistente virtual', 'executive assistant', 'asistente ejecutivo',
       'administrative assistant', 'asistente administrativo', 'data entry', 'ingreso de datos',
@@ -25,7 +25,7 @@ export const POSITION_CATEGORIES = [
     id: 'operations_coord',
     label_es: 'Coordinación, Operaciones & Gestión de Proyectos',
     label_en: 'Coordination, Operations & Project Management',
-    icon: '📁',
+    icon: '',
     keywords: [
       'coordinator', 'coordinador', 'project coordinator', 'coordinador de proyectos',
       'operations coordinator', 'coordinador de operaciones', 'operations manager',
@@ -38,7 +38,7 @@ export const POSITION_CATEGORIES = [
     id: 'customer_support',
     label_es: 'Atención al Cliente, Helpdesk & Soporte Remoto',
     label_en: 'Customer Support, Helpdesk & Client Care',
-    icon: '🎧',
+    icon: '',
     keywords: [
       'customer support', 'atención al cliente', 'customer service', 'servicio al cliente',
       'soporte', 'helpdesk', 'help desk', 'service desk', 'chat support', 'soporte por chat',
@@ -51,7 +51,7 @@ export const POSITION_CATEGORIES = [
     id: 'sales_bdr',
     label_es: 'Ventas, BDR, SDR & Prospección Comercial',
     label_en: 'Sales, BDR, SDR & Business Development',
-    icon: '💼',
+    icon: '',
     keywords: [
       'sales', 'ventas', 'sdr', 'bdr', 'sales development representative', 'business development',
       'appointment setter', 'ejecutivo de cuentas', 'account executive', 'asesor comercial',
@@ -63,7 +63,7 @@ export const POSITION_CATEGORIES = [
     id: 'marketing_content',
     label_es: 'Marketing Digital, Redes Sociales & Redacción',
     label_en: 'Digital Marketing, Social Media & Content Writing',
-    icon: '📱',
+    icon: '',
     keywords: [
       'marketing', 'digital marketing', 'social media', 'community manager', 'redes sociales',
       'copywriter', 'redactor', 'content writer', 'creador de contenido', 'seo', 'email marketing',
@@ -75,7 +75,7 @@ export const POSITION_CATEGORIES = [
     id: 'hr_recruiting',
     label_es: 'Recursos Humanos, Reclutamiento & Talento',
     label_en: 'Human Resources, Recruitment & Talent',
-    icon: '👥',
+    icon: '',
     keywords: [
       'recruiter', 'reclutador', 'talent acquisition', 'recursos humanos', 'human resources',
       'hr', 'rrhh', 'sourcer', 'talent scout', 'people operations', 'hr coordinator',
@@ -86,7 +86,7 @@ export const POSITION_CATEGORIES = [
     id: 'finance_accounting',
     label_es: 'Contabilidad, Finanzas & Bookkeeping',
     label_en: 'Accounting, Finance & Bookkeeping',
-    icon: '💰',
+    icon: '',
     keywords: [
       'bookkeeper', 'bookkeeping', 'contabilidad', 'contador', 'accountant', 'accounting',
       'finanzas', 'finance', 'asistente contable', 'billing', 'facturación',
@@ -98,7 +98,7 @@ export const POSITION_CATEGORIES = [
     id: 'design_media',
     label_es: 'Diseño Gráfico, UI/UX & Edición Multimedia',
     label_en: 'Graphic Design, UI/UX & Multimedia Editing',
-    icon: '🎨',
+    icon: '',
     keywords: [
       'designer', 'diseñador', 'diseño gráfico', 'graphic design', 'ui/ux', 'ux/ui',
       'video editor', 'editor de video', 'motion graphics', 'figma', 'canva', 'photoshop',
@@ -109,7 +109,7 @@ export const POSITION_CATEGORIES = [
     id: 'ai_rlhf',
     label_es: 'Entrenamiento de IA, RLHF & Evaluación',
     label_en: 'AI Training, RLHF & Model Evaluation',
-    icon: '🤖',
+    icon: '',
     keywords: [
       'ai trainer', 'entrenador de ia', 'ai evaluator', 'evaluador de ia', 'rlhf', 'prompt',
       'prompt engineer', 'anotador', 'annotator', 'annotation', 'rater', 'quality assurance rater',
@@ -121,7 +121,7 @@ export const POSITION_CATEGORIES = [
     id: 'software',
     label_es: 'Desarrollo de Software, Web & QA',
     label_en: 'Software, Web Development & QA',
-    icon: '💻',
+    icon: '',
     keywords: [
       'software engineer', 'desarrollador', 'developer', 'programador', 'fullstack', 'full-stack',
       'backend', 'frontend', 'front-end', 'react', 'node.js', 'nodejs', 'python', 'django',
@@ -133,7 +133,7 @@ export const POSITION_CATEGORIES = [
     id: 'cloud_sys',
     label_es: 'Cloud, DevOps, Infraestructura & Soporte TI',
     label_en: 'Cloud, DevOps, Infrastructure & IT Support',
-    icon: '☁️',
+    icon: '',
     keywords: [
       'cloud', 'devops', 'sre', 'sysadmin', 'administrador de sistemas', 'systems engineer',
       'azure', 'aws', 'gcp', 'm365', 'microsoft 365', 'entra', 'intune', 'linux', 'ubuntu',
@@ -145,7 +145,7 @@ export const POSITION_CATEGORIES = [
     id: 'data',
     label_es: 'Datos, SQL, BI & Automatización No-Code',
     label_en: 'Data, SQL, BI & No-Code Automation',
-    icon: '📊',
+    icon: '',
     keywords: [
       'data analyst', 'analista de datos', 'data engineer', 'sql', 'power bi', 'tableau',
       'excel', 'google sheets', 'database', 'dba', 'postgres', 'analytics', 'pandas',
@@ -170,11 +170,11 @@ export const EXPERIENCE_OPTIONS = [
 ];
 
 export const CONTRACT_OPTIONS = [
-  { id: 'full_time', label_es: 'Tiempo Completo (Full-Time)', label_en: 'Full-Time (40h/wk)', icon: '🏢' },
-  { id: 'half_time', label_es: 'Medio Tiempo / Part-Time', label_en: 'Half-Time / Part-Time', icon: '🌗' },
-  { id: 'projects', label_es: 'Por Proyectos / Freelance', label_en: 'Projects / Freelance', icon: '📦' },
-  { id: 'hourly', label_es: 'Por Horas / Flexible / Asíncrono', label_en: 'Hourly / Flexible / Async', icon: '⏱️' },
-  { id: 'advisory', label_es: 'Consultoría / Asesoría', label_en: 'Advisory / Consultation', icon: '🎙️' }
+  { id: 'full_time', label_es: 'Tiempo Completo (Full-Time)', label_en: 'Full-Time (40h/wk)', icon: '' },
+  { id: 'half_time', label_es: 'Medio Tiempo / Part-Time', label_en: 'Half-Time / Part-Time', icon: '' },
+  { id: 'projects', label_es: 'Por Proyectos / Freelance', label_en: 'Projects / Freelance', icon: '' },
+  { id: 'hourly', label_es: 'Por Horas / Flexible / Asíncrono', label_en: 'Hourly / Flexible / Async', icon: '' },
+  { id: 'advisory', label_es: 'Consultoría / Asesoría', label_en: 'Advisory / Consultation', icon: '' }
 ];
 
 export const DEFAULT_FILTERS = {
@@ -223,8 +223,8 @@ export function checkBoliviaRemoteEligibility(item) {
         eligible: false,
         score: 0,
         tier: 'restricted',
-        badge_es: '🚫 Restringido Geográficamente',
-        badge_en: '🚫 Geo-Restricted',
+        badge_es: 'Restringido Geográficamente',
+        badge_en: 'Geo-Restricted',
         reason_es: rule.es,
         reason_en: rule.en
       };
@@ -240,8 +240,8 @@ export function checkBoliviaRemoteEligibility(item) {
       eligible: false,
       score: 0,
       tier: 'restricted',
-      badge_es: `🚫 Solo ${loc}`,
-      badge_en: `🚫 ${loc} Only`,
+      badge_es: `Solo ${loc}`,
+      badge_en: `${loc} Only`,
       reason_es: `Ubicación restringida a ${loc} (no disponible desde Bolivia).`,
       reason_en: `Location restricted to ${loc} (not available from Bolivia).`
     };
@@ -261,8 +261,8 @@ export function checkBoliviaRemoteEligibility(item) {
         eligible: true,
         score: 21,
         tier: 'worldwide',
-        badge_es: '🌎 Multi-País / Sudamérica',
-        badge_en: '🌎 Multi-Country / South America',
+        badge_es: 'Multi-País / Sudamérica',
+        badge_en: 'Multi-Country / South America',
         reason_es: 'Abierto a múltiples países incluyendo Sudamérica / contratistas internacionales.',
         reason_en: 'Open across multiple countries including South America / international contractors.'
       };
@@ -271,8 +271,8 @@ export function checkBoliviaRemoteEligibility(item) {
       eligible: false,
       score: 0,
       tier: 'restricted',
-      badge_es: '🚫 Restringido a EE. UU.',
-      badge_en: '🚫 US Restricted',
+      badge_es: 'Restringido a EE. UU.',
+      badge_en: 'US Restricted',
       reason_es: 'Ubicación limitada a EE. UU.',
       reason_en: 'Location restricted to the United States.'
     };
@@ -300,8 +300,8 @@ export function checkBoliviaRemoteEligibility(item) {
       eligible: true,
       score: 23,
       tier: 'worldwide',
-      badge_es: '🌍 100% Remoto Global (Apto Bolivia)',
-      badge_en: '🌍 100% Global Remote (Bolivia Eligible)',
+      badge_es: '100% Remoto Global (Apto Bolivia)',
+      badge_en: '100% Global Remote (Bolivia Eligible)',
       reason_es: 'Posición 100% remota global ("Work From Anywhere"), apta para postular desde Bolivia.',
       reason_en: '100% global remote ("Work From Anywhere") position, open to applicants from Bolivia.'
     };
@@ -311,8 +311,8 @@ export function checkBoliviaRemoteEligibility(item) {
     eligible: true,
     score: 19,
     tier: 'timezone_overlap',
-    badge_es: '🕒 Remoto Internacional (Huso Horario)',
-    badge_en: '🕒 International Remote (Timezone Overlap)',
+    badge_es: 'Remoto Internacional (Huso Horario)',
+    badge_en: 'International Remote (Timezone Overlap)',
     reason_es: `100% remoto internacional con requisito de traslape horario (${loc}).`,
     reason_en: `100% international remote with timezone overlap requirement (${loc}).`
   };
@@ -751,13 +751,13 @@ export function generateResultsMarkdown(evalResult, filters = {}, lang = 'es', p
       `**Filtro Base Activo:** 100% Remoto desde Bolivia (UTC-4 / LATAM / Global)`,
       `**Tus Filtros Activos:** Idiomas: \`${langsSelected}\` | Experiencia: \`${expSelected}\` | Contratos: \`${contractsSelected}\` | Palabras Clave: \`${customKw}\``,
       '',
-      '## 📊 Resumen de Resultados en Vivo',
-      `- **🔥 POSTULAR (Puntaje >= 75):** ${apply.length} ofertas altamente recomendadas`,
-      `- **🟡 EXPLORAR (Puntaje 55–74):** ${possible.length} ofertas compatibles / secundarias`,
-      `- **⚪ BAJA COINCIDENCIA (< 55 pts):** ${skip.length} ofertas fuera de tus filtros actuales`,
-      `- **🚫 BLOQUEADAS POR PAÍS (No aptas desde Bolivia):** ${geo_excluded.length} ofertas filtradas automáticamente`,
+      '## Resumen de Resultados en Vivo',
+      `- **POSTULAR (Puntaje >= 75):** ${apply.length} ofertas altamente recomendadas`,
+      `- **EXPLORAR (Puntaje 55–74):** ${possible.length} ofertas compatibles / secundarias`,
+      `- **BAJA COINCIDENCIA (< 55 pts):** ${skip.length} ofertas fuera de tus filtros actuales`,
+      `- **BLOQUEADAS POR PAÍS (No aptas desde Bolivia):** ${geo_excluded.length} ofertas filtradas automáticamente`,
       '',
-      '## 🔥 Ofertas Principales para Postular (POSTULAR — Puntaje >= 75)'
+      '## Ofertas Principales para Postular (POSTULAR — Puntaje >= 75)'
     ];
 
     if (apply.length > 0) {
@@ -775,7 +775,7 @@ export function generateResultsMarkdown(evalResult, filters = {}, lang = 'es', p
       lines.push('_No hay ofertas con puntaje >= 75 para la combinación actual de filtros. Prueba ampliando tus filtros de posición o contrato._');
     }
 
-    lines.push('', '## 🟡 Ofertas para Explorar (EXPLORAR — Puntaje 55–74)');
+    lines.push('', '## Ofertas para Explorar (EXPLORAR — Puntaje 55–74)');
     if (possible.length > 0) {
       lines.push(
         '| Puntaje | Plataforma / Empresa | Posición / Oferta | Ubicación | Notas de Evaluación |',
@@ -798,13 +798,13 @@ export function generateResultsMarkdown(evalResult, filters = {}, lang = 'es', p
       `**Core Filter Active:** 100% Remote Eligible from Bolivia (UTC-4 / LATAM / Worldwide)`,
       `**Your Active Filters:** Languages: \`${langsSelected}\` | Experience: \`${expSelected}\` | Contracts: \`${contractsSelected}\` | Keywords: \`${customKw}\``,
       '',
-      '## 📊 On-the-Fly Results Summary',
-      `- **🔥 APPLY (Score >= 75):** ${apply.length} high-match remote positions`,
-      `- **🟡 POSSIBLE (Score 55–74):** ${possible.length} secondary / compatible positions`,
-      `- **⚪ LOW MATCH (< 55 pts):** ${skip.length} positions outside current filter preferences`,
-      `- **🚫 GEO-RESTRICTED (Not eligible from Bolivia):** ${geo_excluded.length} positions automatically filtered out`,
+      '## On-the-Fly Results Summary',
+      `- **APPLY (Score >= 75):** ${apply.length} high-match remote positions`,
+      `- **POSSIBLE (Score 55–74):** ${possible.length} secondary / compatible positions`,
+      `- **LOW MATCH (< 55 pts):** ${skip.length} positions outside current filter preferences`,
+      `- **GEO-RESTRICTED (Not eligible from Bolivia):** ${geo_excluded.length} positions automatically filtered out`,
       '',
-      '## 🔥 Top Positions to Apply (APPLY — Score >= 75)'
+      '## Top Positions to Apply (APPLY — Score >= 75)'
     ];
 
     if (apply.length > 0) {
@@ -822,7 +822,7 @@ export function generateResultsMarkdown(evalResult, filters = {}, lang = 'es', p
       lines.push('_No positions scored >= 75 with your current filters. Try broadening your position or contract filters._');
     }
 
-    lines.push('', '## 🟡 Secondary Positions to Explore (POSSIBLE — Score 55–74)');
+    lines.push('', '## Secondary Positions to Explore (POSSIBLE — Score 55–74)');
     if (possible.length > 0) {
       lines.push(
         '| Score | Platform / Company | Role / Opportunity | Location | Evaluation Notes |',
