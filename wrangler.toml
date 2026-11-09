@@ -1,0 +1,11 @@
+name = "bolivia-remote-scout"
+main = "src/worker.js"
+compatibility_date = "2025-01-01"
+workers_dev = true
+
+# Scheduled execution every 15 minutes + on-demand via /api/scan and /api/platforms/scan-url
+[triggers]
+crons = ["*/15 * * * *"]
+
+[observability]
+enabled = true
