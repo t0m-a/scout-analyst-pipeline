@@ -28,7 +28,7 @@ async function runTests() {
   assert.ok(html.includes('flex-wrap: nowrap !important'), 'Button group must not wrap to two lines');
   assert.ok(html.includes('id="banner-disclaimer"'), 'Must include banner disclaimer below subtitle');
   assert.ok(html.includes('https://www.languagetransfer.org'), 'Must include Language Transfer link in disclaimer');
-  assert.ok(html.includes('aprender inglés</a>. Te abre todo un entorno de oportunidades y con Language Transfer, es gratis!'), 'Must include Spanish anchor text and Language Transfer sentence in disclaimer');
+  assert.ok(html.includes('aprender inglés</a>. Te abre todo un entorno de oportunidades y con <a href="https://www.languagetransfer.org" title="Language Transfer: aprende inglés y más, ¡gratis!" target="_blank" rel="noopener noreferrer">Language Transfer</a>, es <strong>gratis</strong>!'), 'Must include Spanish anchor text, linked Language Transfer, and bold gratis in disclaimer');
   assert.ok(!/[\uD83C][\uDDE6-\uDDFF][\uD83C][\uDDE6-\uDDFF]/.test(html), 'Must NOT contain any flag emoji anywhere in HTML');
   assert.ok(!EMOJI_REGEX.test(html), 'Must NOT contain any emoji icons anywhere in HTML (excluding favicon)');
   assert.ok(!html.includes('id="tab-view-report"'), 'Must NOT have id="tab-view-report" in toolbar');
@@ -98,7 +98,7 @@ async function runTests() {
     );
   }
 
-  console.log('4. Testing POST /api/evaluate with Virtual Assistant and Coordinator roles...');
+  console.log('4. Testing POST /api/evaluate with Virtual Assistant, Coordinator, and Languages/Translation roles...');
   const reqEvalVA = new Request('https://bolivia-remote-scout.workers.dev/api/evaluate', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -106,7 +106,7 @@ async function runTests() {
       filters: {
         ui_lang: 'es',
         require_bolivia_remote: true,
-        position_types: ['virtual_assistant', 'operations_coord']
+        position_types: ['virtual_assistant', 'operations_coord', 'languages_translation']
       }
     })
   });
@@ -114,7 +114,8 @@ async function runTests() {
   assert.equal(respEvalVA.status, 200);
   const evalVAData = await respEvalVA.json();
   assert.equal(evalVAData.ok, true);
-  assert.ok(evalVAData.counts.apply > 0, 'Must surface matching VA and Coordinator roles as APPLY');
+  assert.ok(evalVAData.counts.apply > 0, 'Must surface matching VA, Coordinator, and Languages/Translation roles as APPLY');
+  assert.ok(evalVAData.results.some(r => (r.detected_categories || []).includes('languages_translation')), 'Must detect languages_translation category');
 
   console.log('5. Testing GET /api/results.md in ES and EN...');
   const respMdEs = await worker.fetch(new Request('https://bolivia-remote-scout.workers.dev/api/results.md?lang=es'), {}, {});

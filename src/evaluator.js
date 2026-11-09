@@ -151,6 +151,23 @@ export const POSITION_CATEGORIES = [
       'excel', 'google sheets', 'database', 'dba', 'postgres', 'analytics', 'pandas',
       'machine learning', 'bi', 'zapier', 'make', 'scraping', 'web scraping', 'etl', 'datos'
     ]
+  },
+  {
+    id: 'languages_translation',
+    label_es: 'Traducción, Interpretación, Localización & Enseñanza de Idiomas',
+    label_en: 'Translation, Interpretation, Localization & Language Tutoring',
+    icon: '',
+    keywords: [
+      'traductor', 'translator', 'traducción', 'translation', 'intérprete', 'interprete',
+      'interpreter', 'interpretación', 'interpretation', 'medical interpreter', 'intérprete médico',
+      'bilingual interpreter', 'intérprete bilingüe', 'localización', 'localization', 'lqa',
+      'linguist', 'lingüista', 'linguistic', 'lingüístico', 'language assessor', 'language specialist',
+      'especialista en idiomas', 'subtitulado', 'subtitling', 'transcripción', 'transcription',
+      'transcriptionist', 'transcriptor', 'speech analytics', 'conversation analytics',
+      'profesor de inglés', 'profesor de español', 'tutor de idiomas', 'language tutor',
+      'english teacher', 'spanish tutor', 'online tutor', 'esl', 'tefl', 'tesol',
+      'corrección de estilo', 'proofreader', 'proofreading', 'welocalize', 'transperfect', 'latinhire'
+    ]
   }
 ];
 

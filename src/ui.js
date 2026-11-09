@@ -1371,7 +1371,7 @@ export function renderAppHtml(initialState) {
           Filtra y evalúa ofertas globales y regionales que permiten trabajar remoto desde Bolivia (UTC-4). Personaliza tus idiomas, área profesional, experiencia y modalidad de contrato.
         </p>
         <p id="banner-disclaimer" class="banner-disclaimer">
-          Aviso: algunas de estas plataformas requieren registrarse y utilizar una herramienta de traducción en el navegador para aprovechar al máximo su contenido. Para el trabajo remoto a nivel global, se recomienda encarecidamente <a href="https://www.languagetransfer.org" title="Language Transfer: aprende inglés y más, ¡gratis!" target="_blank" rel="noopener noreferrer">aprender inglés</a>. Te abre todo un entorno de oportunidades y con Language Transfer, es gratis!
+          Aviso: algunas de estas plataformas requieren registrarse y utilizar una herramienta de traducción en el navegador para aprovechar al máximo su contenido. Para el trabajo remoto a nivel global, se recomienda encarecidamente <a href="https://www.languagetransfer.org" title="Language Transfer: aprende inglés y más, ¡gratis!" target="_blank" rel="noopener noreferrer">aprender inglés</a>. Te abre todo un entorno de oportunidades y con <a href="https://www.languagetransfer.org" title="Language Transfer: aprende inglés y más, ¡gratis!" target="_blank" rel="noopener noreferrer">Language Transfer</a>, es <strong>gratis</strong>!
         </p>
       </div>
       <div class="banner-pills banner-actions-row">
@@ -1861,7 +1861,7 @@ export function renderAppHtml(initialState) {
         themeLightText: 'Claro',
         bannerTitle: 'Buscador y Evaluador de Empleos Remotos desde Bolivia',
         bannerSubtitle: 'Filtra y evalúa ofertas globales y regionales que permiten trabajar remoto desde Bolivia (UTC-4). Personaliza tus idiomas, área profesional, experiencia y modalidad de contrato.',
-        bannerDisclaimer: 'Aviso: algunas de estas plataformas requieren registrarse y utilizar una herramienta de traducción en el navegador para aprovechar al máximo su contenido. Para el trabajo remoto a nivel global, se recomienda encarecidamente <a href="https://www.languagetransfer.org" title="Language Transfer: aprende inglés y más, ¡gratis!" target="_blank" rel="noopener noreferrer">aprender inglés</a>. Te abre todo un entorno de oportunidades y con Language Transfer, es gratis!',
+        bannerDisclaimer: 'Aviso: algunas de estas plataformas requieren registrarse y utilizar una herramienta de traducción en el navegador para aprovechar al máximo su contenido. Para el trabajo remoto a nivel global, se recomienda encarecidamente <a href="https://www.languagetransfer.org" title="Language Transfer: aprende inglés y más, ¡gratis!" target="_blank" rel="noopener noreferrer">aprender inglés</a>. Te abre todo un entorno de oportunidades y con <a href="https://www.languagetransfer.org" title="Language Transfer: aprende inglés y más, ¡gratis!" target="_blank" rel="noopener noreferrer">Language Transfer</a>, es <strong>gratis</strong>!',
         scanNow: 'Escanear Ofertas Ahora',
         scanningNow: 'Escaneando plataformas...',
         pillBolivia: 'Filtro Base: 100% Remoto desde Bolivia (UTC-4)',
@@ -1955,7 +1955,7 @@ export function renderAppHtml(initialState) {
         themeLightText: 'Light',
         bannerTitle: 'Remote Job Scout & Evaluator from Bolivia',
         bannerSubtitle: 'Filter and evaluate global & regional job offers eligible for remote work from Bolivia (UTC-4). Customize your languages, position type, experience level, and contract modality.',
-        bannerDisclaimer: 'Notice: Some of these platforms require registration and using an in-browser translation tool to make the most of their listings. For global remote work, it is strongly recommended to <a href="https://www.languagetransfer.org" title="Language Transfer: free audio courses" target="_blank" rel="noopener noreferrer">learn English</a>. It opens up a whole world of opportunities and with Language Transfer, it is free!',
+        bannerDisclaimer: 'Notice: Some of these platforms require registration and using an in-browser translation tool to make the most of their listings. For global remote work, it is strongly recommended to <a href="https://www.languagetransfer.org" title="Language Transfer: free audio courses" target="_blank" rel="noopener noreferrer">learn English</a>. It opens up a whole world of opportunities and with <a href="https://www.languagetransfer.org" title="Language Transfer: free audio courses" target="_blank" rel="noopener noreferrer">Language Transfer</a>, it is <strong>free</strong>!',
         scanNow: 'Scan Offers Now',
         scanningNow: 'Scanning platforms...',
         pillBolivia: 'Core Filter: 100% Remote from Bolivia (UTC-4)',
