@@ -4,7 +4,7 @@
 
 **Plataforma pública, autónoma y auto-contenida para Cloudflare Workers diseñada para encontrar, filtrar y evaluar ofertas laborales internacionales elegibles para trabajar desde Bolivia (UTC-4).**
 
-[![Versión](https://img.shields.io/badge/Versi%C3%B3n-v5.3.0%20Producci%C3%B3n-0284c7?style=for-the-badge&logo=cloudflare&logoColor=white)](src/worker.js)
+[![Versión](https://img.shields.io/badge/Versi%C3%B3n-v5.4.0%20Producci%C3%B3n-0284c7?style=for-the-badge&logo=cloudflare&logoColor=white)](src/worker.js)
 [![Plataforma](https://img.shields.io/badge/Runtime-Cloudflare%20Workers-f38020?style=for-the-badge&logo=cloudflareworkers&logoColor=white)](wrangler.toml)
 [![Automatización](https://img.shields.io/badge/Frecuencia-Cada%2015%20min%20%2B%20Bajo%20Demanda-10b981?style=for-the-badge&logo=clockify&logoColor=white)](wrangler.toml)
 [![Idioma UI](https://img.shields.io/badge/Interfaz-Espa%C3%B1ol%20Bolivia%20%7C%20English-f59e0b?style=for-the-badge&logo=googletranslate&logoColor=white)](src/ui.js)
@@ -35,7 +35,8 @@
 3. [Cómo Funciona la Arquitectura Interna](#cómo-funciona-la-arquitectura-interna)
    - [Diagrama de flujo del sistema](#diagrama-de-flujo-del-sistema)
    - [Motor de calificación y rúbrica dinámica de 100 puntos](#motor-de-calificación-y-rúbrica-dinámica-de-100-puntos)
-   - [Motor de ingesta y 85 plataformas públicas monitoreadas](#motor-de-ingesta-y-85-plataformas-públicas-monitoreadas)
+   - [Motor de ingesta y 86 plataformas públicas monitoreadas](#motor-de-ingesta-y-86-plataformas-públicas-monitoreadas)
+   - [Sincronización de plataformas personalizadas al código semilla](#sincronización-de-plataformas-personalizadas-al-código-semilla)
    - [Ciclo de ejecución bajo demanda y cron cada 15 minutos](#ciclo-de-ejecución-bajo-demanda-y-cron-cada-15-minutos)
 4. [Guía de Instalación y Auto-Alojamiento (Self-Hosting)](#guía-de-instalación-y-auto-alojamiento-self-hosting)
    - [Requisitos previos](#requisitos-previos)
@@ -51,15 +52,17 @@
 
 Buscar trabajo remoto internacional desde Bolivia suele ser frustrante: la mayoría de bolsas de empleo anuncian puestos como *"remotos"*, pero al leer las letras pequeñas exigen residencia física en Estados Unidos, permiso de trabajo en la Unión Europea o contratación exclusiva local.
 
-Esta herramienta es una **solución pública y gratuita** que centraliza **85 plataformas globales y regionales** (incluyendo Torre.ai, GetOnBoard, Virtual Latinos, Workana, SoyFreelancer, NoDesk, DailyRemote, Jobspresso, Dynamite Jobs, LatinHire, HireLatam, SheWorks, Himalayas, We Work Remotely, Remotive, etc.), filtrando automáticamente el ruido geográfico y evaluando cada oportunidad frente a tus preferencias individuales de **idiomas, área profesional (12 categorías técnicas y no técnicas), nivel de experiencia y modalidad de contrato**.
+Esta herramienta es una **solución pública y gratuita** que centraliza **86 plataformas globales y regionales** (incluyendo Torre.ai, GetOnBoard, Virtual Latinos, Workana, SoyFreelancer, NoDesk, DailyRemote, Jobspresso, Dynamite Jobs, LatinHire, HireLatam, SheWorks, Himalayas, We Work Remotely, Remotive, RemoteYeah, etc.), filtrando automáticamente el ruido geográfico y evaluando cada oportunidad frente a tus preferencias individuales de **idiomas, área profesional (12 categorías técnicas y no técnicas), nivel de experiencia y modalidad de contrato**.
 
-### Principales Características y Novedades (v5.3)
+### Principales Características y Novedades (v5.4)
 
-- **Modo Oscuro & Modo Claro con Símbolos Discretos:** Selector visual estilizado con símbolos sutiles de luna creciente (part moon) y sol, guardando la preferencia del usuario en localStorage y sincronizando con el tema del sistema operativo sin destellos.
+- **Diseño Responsivo para Tablets y Teléfonos Móviles:** Adaptación fluida a resoluciones de escritorio, tabletas (`<= 1200px`, `<= 820px`) y celulares (`<= 640px`), con ajuste limpio de líneas de texto (`overflow-wrap: break-word`), grillas flexibles y cero desbordamiento horizontal.
+- **Navegación Plegada en Menú Hamburguesa y Categorías en Acordeón:** La barra de navegación inicia plegada mostrando **Bolivia Remoto** a la izquierda y únicamente el símbolo de menú hamburguesa a la derecha al mismo nivel horizontal. Al desplegar el menú, la sección **Categorías de Plataformas** también inicia plegada y se expande o contrae con un clic.
+- **Banner Unificado con Controles Compactos y Recomendación de Idioma:** El banner superior adopta el mismo esquema de colores de las tarjetas en modo claro y oscuro, integra en su fila inferior las píldoras de estado junto a los botones compactos (`Español (Bolivia)`, `English`, selector de tema y `Escanear Ofertas Ahora`), e incluye el aviso formativo con enlace directo a [Language Transfer](https://www.languagetransfer.org): *"Para el trabajo remoto a nivel global, se recomienda encarecidamente aprender inglés. Te abre todo un entorno de oportunidades y con Language Transfer, es gratis!"*
+- **Sincronización Automática de Nuevas Plataformas (`custom_*`):** Nuevo motor [`src/seed_sync.js`](src/seed_sync.js), script CLI [`sync_platforms.mjs`](sync_platforms.mjs) (`npm run sync-platforms`) y endpoint `/api/platforms/sync` que exportan plataformas agregadas por usuarios en vivo directamente hacia [`platforms_config.json`](platforms_config.json) y [`src/seed_data.js`](src/seed_data.js), compatible con el empaquetador de Cloudflare Workers sin advertencias de compilación.
+- **Modo Oscuro & Modo Claro con Símbolos Discretos:** Selector visual estilizado con símbolos vectoriales de luna creciente y sol, guardando la preferencia del usuario en `localStorage` y sincronizando con el tema del sistema operativo.
 - **Identidad y Favicon Patrio:** Favicon vectorial del planeta Tierra con los colores de la bandera de Bolivia (`#EF4444`, `#FDE047`, `#10B981`) incrustado como Data URI SVG en el encabezado y disponible en `/favicon.svg`, `/favicon.ico` y `/favicon.png`.
-- **Categorías de Plataformas Claras:** Menú lateral optimizado con acceso directo a las Categorías de Plataformas sin prefijos de código ("Track A–F"), Resultados en Vivo y Manual de Uso.
-- **Cero Menciones de Francés:** Filtros, mecanismos de búsqueda y pesos adaptados estrictamente a oportunidades relevantes para postulantes desde Bolivia (Español, Inglés, Portugués, Alemán).
-- **Regla Estricta de Idiomas:** Si seleccionas exclusivamente Español, las ofertas en inglés reciben cero puntos de idioma y quedan descartadas de las vacantes recomendadas.
+- **Regla Estricta de Idiomas y de Área Profesional:** Si seleccionas exclusivamente Español, las ofertas en inglés quedan descartadas de las vacantes recomendadas; y al activar *"Ocultar ofertas de otras áreas"*, el listado principal filtra estrictamente cualquier vacante ajena a las categorías o palabras clave elegidas.
 - **Manual de Uso Práctico Integrado:** Sección dedicada exclusivamente a la guía operativa paso a paso para dominar el uso de la herramienta.
 
 > [!NOTE]
@@ -217,14 +220,15 @@ flowchart TD
         WorkerEntry["src/worker.js (Router & Cron Handler)"]
         ScannerEng["src/scanner.js (Parser JSON/RSS/HTML/Dorks)"]
         EvaluatorEng["src/evaluator.js (Algoritmo 4 Ejes & Filtro Bolivia)"]
-        SeedData["src/seed_data.js (85 Plataformas / 137+ Ofertas Base)"]
+        SeedData["src/seed_data.js (86 Plataformas / 142+ Ofertas Base)"]
+        SeedSync["src/seed_sync.js (Exportador de Plataformas custom_*)"]
         EdgeCache["Cloudflare Cache API (caches.default)"]
     end
 
-    subgraph Fuentes ["85 Fuentes Globales de Empleo"]
+    subgraph Fuentes ["86 Fuentes Globales de Empleo"]
         APIs["APIs REST Públicas (Torre, GetOnBoard, Remotive, etc.)"]
         RSS["Feeds RSS / Atom (Himalayas, WWR, NoDesk, DailyRemote, etc.)"]
-        HTMLPages["Bolsas Web LATAM & Globales (Workana, Virtual Latinos, etc.)"]
+        HTMLPages["Bolsas Web LATAM & Globales (Workana, Virtual Latinos, RemoteYeah, etc.)"]
     end
 
     UI <-->|JSON / HTML| WorkerEntry
@@ -234,6 +238,7 @@ flowchart TD
     ScannerEng --> EvaluatorEng
     EvaluatorEng --> WorkerEntry
     WorkerEntry <--> EdgeCache
+    WorkerEntry --> SeedSync
     SeedData -.->|Fallback / Arranque en frío| WorkerEntry
 ```
 
@@ -269,15 +274,33 @@ $$\text{Puntaje Total} = \text{Posición y Habilidades (35)} + \text{Elegibilida
 
 ---
 
-### Motor de ingesta y 85 plataformas públicas monitoreadas
+### Motor de ingesta y 86 plataformas públicas monitoreadas
 
-El escáner ([`src/scanner.js`](src/scanner.js)) monitorea 85 bolsas de empleo públicas agrupadas en 6 Tracks:
+El escáner ([`src/scanner.js`](src/scanner.js)) monitorea 86 bolsas de empleo públicas agrupadas en 6 categorías:
 - **Track A (B2B Directo & Freelance):** Arc.dev, Contra, Freelancer, Workana, SoyFreelancer.
 - **Track B (Entrenamiento IA & RLHF):** Alignerr, DataAnnotation, Outlier, Mindrift, Remotasks.
 - **Track C (Redes LATAM & Globales):** Torre.ai, GetOnBoard, Virtual Latinos, LatinHire, HireLatam, SheWorks, Turing, BairesDev.
 - **Track D (Portales Europeos & Globales):** Welcome to the Jungle, WeLoveDevs, Malt, Emploi-Belgique.
 - **Track E (Consultoría Experta):** GLG, AlphaSights, Dialectica, Guidepoint.
-- **Track F (Bolsas 100% Remotas Abiertas):** Himalayas, We Work Remotely, Remotive, NoDesk, DailyRemote, Jobspresso, Dynamite Jobs, RemoteOK, Working Nomads.
+- **Track F (Bolsas 100% Remotas Abiertas):** Himalayas, We Work Remotely, Remotive, NoDesk, DailyRemote, Jobspresso, Dynamite Jobs, RemoteOK, Working Nomads, RemoteYeah.
+
+---
+
+### Sincronización de plataformas personalizadas al código semilla
+
+Cuando un usuario agrega y escanea una nueva URL mediante el panel interactivo (`POST /api/platforms/scan-url`), el sistema registra la plataforma con identificador `custom_<dominio>` en el estado vivo (`/api/state`) y en la caché perimetral.
+
+Para incorporar de forma permanente las nuevas plataformas `custom_*` dentro de los archivos base del repositorio ([`platforms_config.json`](platforms_config.json), [`src/seed_data.js`](src/seed_data.js) e [`index.html`](index.html)):
+
+```bash
+npm run sync-platforms
+```
+
+Este comando ejecuta [`sync_platforms.mjs`](sync_platforms.mjs) junto con [`src/seed_sync.js`](src/seed_sync.js), consultando `/api/state`, deduplicando por ID y dominio, sanitizando el contenido y actualizando automáticamente el catálogo semilla y el HTML autónomo. También es posible registrar y sincronizar una nueva URL en un solo paso:
+
+```bash
+node sync_platforms.mjs --add-url https://remoteyeah.com --name "RemoteYeah" --type html_board
+```
 
 ---
 
@@ -317,14 +340,14 @@ Puedes alojar tu propia instancia en Cloudflare en menos de 5 minutos utilizando
    npm test
    ```
    *Ejecuta 8 grupos de prueba automáticos que validan:*
-   - Carga de la interfaz web en español Bolivia (`es-BO`) con branding limpio (`BO`) y manual integrado.
-   - Estado general del servicio con 85 plataformas monitoreadas y catálogo base.
+   - Carga de la interfaz web en español Bolivia (`es-BO`), diseño responsivo para tablets y móviles, menú hamburguesa plegado por defecto al nivel de **Bolivia Remoto**, categorías plegadas en acordeón, modo oscuro y manual integrado.
+   - Estado general del servicio con 86 plataformas monitoreadas y catálogo base de 142+ oportunidades.
    - Ponderación estricta de idiomas (exclusión garantizada de ofertas en inglés si solo se marca Español).
-   - Cobertura de 12 categorías y roles ampliados (Asistente Virtual, Coordinación, Operaciones, Soporte).
+   - Cobertura de 12 categorías y roles ampliados (Asistente Virtual, Coordinación, Operaciones, Soporte) y filtro estricto de área profesional (`strict_position_match`).
    - Generación instantánea del reporte de resultados en Markdown (`/api/results.md`).
-   - Escaneo y extracción dinámica de ofertas desde URLs externas (`/api/platforms/scan-url`).
+   - Escaneo y extracción dinámica de ofertas desde URLs externas (`/api/platforms/scan-url`) y exportación de plataformas `custom_*` (`/api/platforms/sync`).
    - Disponibilidad del favicon vectorial del planeta Tierra con los colores de la bandera de Bolivia (`/favicon.svg`, `/favicon.ico`).
-   - Auditoría estricta de privacidad: cero datos personales ni credenciales privadas en todo el repositorio.
+   - Auditoría estricta de integridad: cero datos privados no autorizados ni emojis fuera del estándar en los archivos del repositorio.
 
 3. **Iniciar el servidor local de desarrollo con Wrangler:**
    ```bash
@@ -383,6 +406,7 @@ El worker expone endpoints HTTP estándar para integraciones externas:
 | `POST` | `/api/evaluate` | JSON `{ filters: { ... } }` | Evalúa dinámicamente el catálogo frente a los filtros provistos y retorna las ofertas ordenadas con sus puntajes. |
 | `POST` | `/api/scan` | JSON opcional `{ track, platform }` | Ejecuta un escaneo de actualización bajo demanda sobre las plataformas monitoreadas. |
 | `POST` | `/api/platforms/scan-url` | JSON `{ url, name, type, track, filters }` | Escanea cualquier URL ingresada por el usuario, extrae ofertas y las añade a la base. |
+| `GET` / `POST` | `/api/platforms/sync` | Ninguno | Exporta las plataformas personalizadas (`custom_*`) y sus oportunidades asociadas desde el estado vivo, sincronizándolas con los archivos semilla cuando el sistema de archivos local está disponible. |
 | `GET` | `/api/results.md` | Query: `?lang=es` o `?lang=en` | Genera y descarga el reporte de Resultados al instante en formato Markdown puro. |
 | `GET` | `/favicon.svg` | Ninguno | Retorna el favicon vectorial en SVG del planeta Tierra con los colores de la bandera de Bolivia (`#EF4444`, `#FDE047`, `#10B981`). |
 | `GET` | `/favicon.ico` | Ninguno | Favicon en formato ICO para compatibilidad universal con navegadores antiguos. |

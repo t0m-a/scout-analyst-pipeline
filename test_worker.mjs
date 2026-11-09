@@ -28,7 +28,7 @@ async function runTests() {
   assert.ok(html.includes('flex-wrap: nowrap !important'), 'Button group must not wrap to two lines');
   assert.ok(html.includes('id="banner-disclaimer"'), 'Must include banner disclaimer below subtitle');
   assert.ok(html.includes('https://www.languagetransfer.org'), 'Must include Language Transfer link in disclaimer');
-  assert.ok(html.includes('aprender inglés'), 'Must include Spanish anchor text in disclaimer');
+  assert.ok(html.includes('aprender inglés</a>. Te abre todo un entorno de oportunidades y con Language Transfer, es gratis!'), 'Must include Spanish anchor text and Language Transfer sentence in disclaimer');
   assert.ok(!/[\uD83C][\uDDE6-\uDDFF][\uD83C][\uDDE6-\uDDFF]/.test(html), 'Must NOT contain any flag emoji anywhere in HTML');
   assert.ok(!EMOJI_REGEX.test(html), 'Must NOT contain any emoji icons anywhere in HTML (excluding favicon)');
   assert.ok(!html.includes('id="tab-view-report"'), 'Must NOT have id="tab-view-report" in toolbar');
@@ -39,6 +39,13 @@ async function runTests() {
   assert.ok(!html.includes('id="nav-report"'), 'Must NOT have id="nav-report" in navbar (removed as requested)');
   assert.ok(html.includes('setUiLanguage(\'en\')'), 'Must include English language switcher');
   assert.ok(html.includes('id="sidebar-unfold-btn"'), 'Must have sidebar unfold button');
+  assert.ok(html.includes('<body class="sidebar-collapsed">'), 'Navbar must start folded in hamburger menu by default');
+  assert.ok(/<div class="navbar-header">[\s\S]*?id="nav-brand-title">Bolivia Remoto<\/span>[\s\S]*?id="sidebar-unfold-btn"[\s\S]*?<span class="hamburger-icon">/.test(html), 'Hamburger button must be inside navbar-header on the right at the same level as Bolivia Remoto');
+  assert.ok(html.includes('onclick="toggleCategoriesMenu()"'), 'Categories header inside menu must be collapsible');
+  assert.ok(html.includes('class="nav-track-item nav-track-folded"'), 'Categories inside menu must start folded');
+  assert.ok(html.includes('@media only screen and (max-width: 820px)'), 'Must include tablet responsive media query');
+  assert.ok(html.includes('@media only screen and (max-width: 640px)'), 'Must include mobile responsive media query');
+  assert.ok(html.includes('overflow-wrap: break-word'), 'Must enforce proper text wrapping');
   assert.ok(html.includes('Designed, engineered and hosted by <a href="mailto:contact@tsimon.me">Thomas M. Simon</a>'), 'Must include footer attribution with mailto link');
   assert.ok(html.includes('https://tsimon.me'), 'Must include footer attribution link to tsimon.me');
   assert.ok(html.includes('title="Thomas Mathieu Simon  · Cloud Systems Architect · NOC &amp; AI Engineer"'), 'Must include title attribute on tsimon.me link');

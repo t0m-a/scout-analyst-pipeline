@@ -89,6 +89,12 @@ export function renderAppHtml(initialState) {
       background-color: var(--bg-page);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       line-height: 1.5;
+      overflow-x: hidden;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, p, span, a, li, label, .opp-card, .panel-card, .manual-card, .radar-box, .scan-alert, footer {
+      overflow-wrap: break-word;
+      word-wrap: break-word;
     }
     .bolivia-stripe {
       height: 5px;
@@ -100,25 +106,24 @@ export function renderAppHtml(initialState) {
       z-index: 1000;
     }
     #navbar {
-      position: fixed;
+      position: sticky;
       top: 5px;
       left: 0;
-      width: 280px;
-      height: calc(100% - 5px);
-      border-right: 1px solid #e2e8f0;
+      width: 100%;
+      height: auto;
+      border-bottom: 1px solid #e2e8f0;
       background: #ffffff;
       z-index: 900;
       display: flex;
       flex-direction: column;
-      transition: transform 0.25s ease;
     }
     .navbar-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 16px;
-      border-bottom: 1px solid #e2e8f0;
+      padding: 10px 24px;
       background: #f8fafc;
+      width: 100%;
     }
     .header-title {
       font-size: 1.05em;
@@ -129,42 +134,25 @@ export function renderAppHtml(initialState) {
       align-items: center;
       gap: 6px;
     }
-    .sidebar-fold-btn {
-      width: 30px;
-      height: 30px;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      background: #ffffff;
-      color: #334155;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .sidebar-fold-btn:hover {
-      background: var(--accent-primary);
-      color: #fff;
-      border-color: var(--accent-primary);
-    }
+    .sidebar-fold-btn,
     #sidebar-unfold-btn {
-      position: fixed;
-      top: 14px;
-      left: 14px;
-      z-index: 950;
-      display: none;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 34px;
       padding: 0;
       border: 1px solid #cbd5e1;
-      border-radius: 8px;
+      border-radius: 7px;
       background: #ffffff;
       color: #0f172a;
-      font-size: 1.25em;
+      font-weight: 700;
       line-height: 1;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      flex-shrink: 0;
       transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
     }
+    .sidebar-fold-btn:hover,
     #sidebar-unfold-btn:hover {
       background: #f1f5f9;
       border-color: var(--accent-primary);
@@ -184,30 +172,69 @@ export function renderAppHtml(initialState) {
       background: currentColor;
       border-radius: 1px;
     }
-    body.sidebar-collapsed #navbar {
-      transform: translateX(-280px);
-    }
-    body.sidebar-collapsed #sidebar-unfold-btn {
-      display: inline-flex;
-    }
     #navbar ul {
-      flex: 1;
+      position: absolute;
+      top: 100%;
+      right: 24px;
+      width: 300px;
+      max-height: calc(100vh - 70px);
       margin: 0;
       padding: 0;
       overflow-y: auto;
       list-style: none;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.14);
+      z-index: 950;
+    }
+    body.sidebar-collapsed #navbar ul {
+      display: none !important;
     }
     #navbar li {
       border-bottom: 1px solid #f1f5f9;
     }
     #navbar li.nav-group-header {
       background: #f1f5f9;
-      padding: 8px 14px;
-      font-size: 0.74em;
+      padding: 10px 16px;
+      font-size: 0.76em;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: #475569;
+    }
+    #navbar li.nav-collapsible-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    #navbar li.nav-collapsible-header:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+    .nav-caret {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(-45deg);
+      transition: transform 0.2s ease;
+      margin-left: 8px;
+      flex-shrink: 0;
+    }
+    #navbar li.nav-collapsible-header.expanded .nav-caret {
+      transform: rotate(45deg);
+    }
+    #navbar li.nav-track-item.nav-track-folded {
+      display: none !important;
+    }
+    #navbar li.nav-track-item a {
+      padding-left: 26px;
+      font-size: 0.85em;
     }
     #navbar a {
       display: block;
@@ -225,19 +252,14 @@ export function renderAppHtml(initialState) {
       font-weight: 700;
       border-left: 3px solid var(--accent-primary);
     }
-    #main-doc {
-      margin-left: 280px;
-      padding: 28px 32px 60px 32px;
-      max-width: 100%;
-      box-sizing: border-box;
-      transition: margin-left 0.25s ease, padding 0.25s ease;
-    }
+    #main-doc,
     body.sidebar-collapsed #main-doc {
       margin-left: 0;
       max-width: 100% !important;
       width: 100% !important;
       box-sizing: border-box;
-      padding: 28px 32px 60px 62px;
+      padding: 22px 24px 60px 24px;
+      transition: padding 0.25s ease;
     }
     body.sidebar-collapsed .top-banner,
     body.sidebar-collapsed .panel-card,
@@ -436,6 +458,15 @@ export function renderAppHtml(initialState) {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .keywords-input-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      margin-top: 8px;
     }
     .chip-group {
       display: flex;
@@ -917,7 +948,7 @@ export function renderAppHtml(initialState) {
     }
     body.dark-mode #navbar {
       background: #0f172a;
-      border-right-color: #1e293b;
+      border-bottom-color: #1e293b;
     }
     body.dark-mode .navbar-header {
       background: #131d2e;
@@ -926,26 +957,22 @@ export function renderAppHtml(initialState) {
     body.dark-mode .header-title {
       color: #f8fafc;
     }
-    body.dark-mode .sidebar-fold-btn {
+    body.dark-mode .sidebar-fold-btn,
+    body.dark-mode #sidebar-unfold-btn {
       background: #1e293b;
-      color: #cbd5e1;
+      color: #f8fafc;
       border-color: #334155;
     }
-    body.dark-mode .sidebar-fold-btn:hover {
+    body.dark-mode .sidebar-fold-btn:hover,
+    body.dark-mode #sidebar-unfold-btn:hover {
       background: var(--accent-primary);
       color: #ffffff;
       border-color: var(--accent-primary);
     }
-    body.dark-mode #sidebar-unfold-btn {
+    body.dark-mode #navbar ul {
       background: #0f172a;
-      color: #f8fafc;
       border-color: #334155;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-    }
-    body.dark-mode #sidebar-unfold-btn:hover {
-      background: #1e293b;
-      border-color: var(--accent-primary);
-      color: var(--accent-primary);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     }
     body.dark-mode #navbar li {
       border-bottom-color: #1e293b;
@@ -953,6 +980,10 @@ export function renderAppHtml(initialState) {
     body.dark-mode #navbar li.nav-group-header {
       background: #131d2e;
       color: #94a3b8;
+    }
+    body.dark-mode #navbar li.nav-collapsible-header:hover {
+      background: #1e293b;
+      color: #f8fafc;
     }
     body.dark-mode #navbar a {
       color: #cbd5e1;
@@ -1171,47 +1202,163 @@ export function renderAppHtml(initialState) {
       color: #7dd3fc;
     }
 
+    @media only screen and (max-width: 1200px) {
+      .banner-pills.banner-actions-row,
+      .banner-pills,
+      .lang-switch-group {
+        flex-wrap: wrap !important;
+      }
+    }
+
     @media only screen and (max-width: 820px) {
-      #navbar {
+      .navbar-header {
+        padding: 10px 16px;
+      }
+      #navbar ul {
         position: static;
         width: 100%;
-        height: auto;
-        transform: none !important;
-        border-right: none;
-        border-bottom: 1px solid #cbd5e1;
+        right: auto;
+        border: none;
+        border-top: 1px solid #e2e8f0;
+        border-radius: 0;
+        box-shadow: none;
+        max-height: 75vh;
       }
-      #sidebar-unfold-btn, .sidebar-fold-btn { display: none !important; }
+      body.dark-mode #navbar ul {
+        border-top-color: #1e293b;
+        box-shadow: none;
+      }
       #main-doc, body.sidebar-collapsed #main-doc {
         margin-left: 0;
         padding: 16px;
       }
+      .top-banner,
+      .panel-card,
+      .manual-card {
+        padding: 16px;
+      }
+      .top-banner h1 {
+        font-size: 1.32em;
+      }
+      .keywords-input-row {
+        grid-template-columns: 1fr;
+      }
+      .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      #searchInput {
+        max-width: 100% !important;
+        width: 100%;
+      }
+      .kpi-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+      }
+      .radar-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+    }
+
+    @media only screen and (max-width: 640px) {
+      .navbar-header {
+        padding: 10px 14px;
+      }
+      #main-doc, body.sidebar-collapsed #main-doc {
+        padding: 12px;
+      }
+      .top-banner,
+      .panel-card,
+      .manual-card,
+      .opp-card {
+        padding: 14px;
+      }
+      .top-banner h1 {
+        font-size: 1.18em;
+        line-height: 1.3;
+      }
+      #banner-subtitle,
+      .banner-disclaimer {
+        font-size: 0.88em;
+      }
+      .banner-pill {
+        white-space: normal;
+        word-break: break-word;
+        line-height: 1.4;
+      }
+      .lang-switch-group {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap !important;
+      }
+      .filter-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .chip {
+        white-space: normal;
+        line-height: 1.35;
+      }
+      .url-scanner-form #btn-submit-url {
+        width: 100%;
+        justify-content: center;
+      }
+      .kpi-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .kpi-grid .kpi-card:last-child {
+        grid-column: 1 / -1;
+      }
+      .kpi-value {
+        font-size: 1.35em;
+      }
+      .opp-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+      .badge {
+        white-space: normal;
+      }
+      .radar-grid {
+        grid-template-columns: 1fr;
+      }
+      .radar-box p {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+      .guide-step {
+        padding: 12px 14px;
+      }
     }
   </style>
 </head>
-<body>
+<body class="sidebar-collapsed">
   <div class="bolivia-stripe"></div>
-
-  <button type="button" id="sidebar-unfold-btn" onclick="toggleSidebar()" title="Mostrar menú" aria-label="Mostrar menú">
-    <span class="hamburger-icon"><span></span><span></span><span></span></span>
-  </button>
 
   <nav id="navbar">
     <div class="navbar-header">
       <header class="header-title"><span id="nav-brand-title">Bolivia Remoto</span></header>
-      <button type="button" class="sidebar-fold-btn" onclick="toggleSidebar()" title="Ocultar menú">«</button>
+      <button type="button" id="sidebar-unfold-btn" class="sidebar-fold-btn" onclick="toggleSidebar()" title="Mostrar menú" aria-label="Mostrar menú" aria-expanded="false">
+        <span class="hamburger-icon"><span></span><span></span><span></span></span>
+      </button>
     </div>
-    <ul>
-      <li><a id="nav-results" class="active-nav" onclick="switchMainView('results')"><span id="nav-lbl-results">Resultados en Vivo</span> (<span id="nav-cnt-results">0</span>)</a></li>
-      <li><a id="nav-manual" onclick="switchMainView('manual')"><span id="nav-lbl-manual">Manual de Uso</span></a></li>
+    <ul id="navbar-menu-list">
+      <li><a id="nav-results" class="active-nav" onclick="switchMainView('results'); closeNavbarMenu();"><span id="nav-lbl-results">Resultados en Vivo</span> (<span id="nav-cnt-results">0</span>)</a></li>
+      <li><a id="nav-manual" onclick="switchMainView('manual'); closeNavbarMenu();"><span id="nav-lbl-manual">Manual de Uso</span></a></li>
 
-      <li class="nav-group-header" id="nav-hdr-tracks">Categorías de Plataformas</li>
-      <li><a onclick="switchMainView('results'); filterByTrack('ALL');"><span id="nav-track-all">Todas las Categorías</span></a></li>
-      <li><a onclick="switchMainView('results'); filterByTrack('TRACK A');"><span id="nav-track-a">B2B Directo &amp; Freelance</span></a></li>
-      <li><a onclick="switchMainView('results'); filterByTrack('TRACK B');"><span id="nav-track-b">Entrenamiento IA &amp; RLHF</span></a></li>
-      <li><a onclick="switchMainView('results'); filterByTrack('TRACK C');"><span id="nav-track-c">Redes LATAM &amp; Globales</span></a></li>
-      <li><a onclick="switchMainView('results'); filterByTrack('TRACK D');"><span id="nav-track-d">Portales Europeos &amp; Globales</span></a></li>
-      <li><a onclick="switchMainView('results'); filterByTrack('TRACK E');"><span id="nav-track-e">Redes de Consultoría Experta</span></a></li>
-      <li><a onclick="switchMainView('results'); filterByTrack('TRACK F');"><span id="nav-track-f">Bolsas de Empleo Remoto</span></a></li>
+      <li class="nav-group-header nav-collapsible-header" id="nav-hdr-tracks-item" onclick="toggleCategoriesMenu()" role="button" tabindex="0" aria-expanded="false">
+        <span id="nav-hdr-tracks">Categorías de Plataformas</span>
+        <span class="nav-caret" id="nav-tracks-caret" aria-hidden="true"></span>
+      </li>
+      <li class="nav-track-item nav-track-folded"><a onclick="switchMainView('results'); filterByTrack('ALL'); closeNavbarMenu();"><span id="nav-track-all">Todas las Categorías</span></a></li>
+      <li class="nav-track-item nav-track-folded"><a onclick="switchMainView('results'); filterByTrack('TRACK A'); closeNavbarMenu();"><span id="nav-track-a">B2B Directo &amp; Freelance</span></a></li>
+      <li class="nav-track-item nav-track-folded"><a onclick="switchMainView('results'); filterByTrack('TRACK B'); closeNavbarMenu();"><span id="nav-track-b">Entrenamiento IA &amp; RLHF</span></a></li>
+      <li class="nav-track-item nav-track-folded"><a onclick="switchMainView('results'); filterByTrack('TRACK C'); closeNavbarMenu();"><span id="nav-track-c">Redes LATAM &amp; Globales</span></a></li>
+      <li class="nav-track-item nav-track-folded"><a onclick="switchMainView('results'); filterByTrack('TRACK D'); closeNavbarMenu();"><span id="nav-track-d">Portales Europeos &amp; Globales</span></a></li>
+      <li class="nav-track-item nav-track-folded"><a onclick="switchMainView('results'); filterByTrack('TRACK E'); closeNavbarMenu();"><span id="nav-track-e">Redes de Consultoría Experta</span></a></li>
+      <li class="nav-track-item nav-track-folded"><a onclick="switchMainView('results'); filterByTrack('TRACK F'); closeNavbarMenu();"><span id="nav-track-f">Bolsas de Empleo Remoto</span></a></li>
     </ul>
   </nav>
 
@@ -1224,7 +1371,7 @@ export function renderAppHtml(initialState) {
           Filtra y evalúa ofertas globales y regionales que permiten trabajar remoto desde Bolivia (UTC-4). Personaliza tus idiomas, área profesional, experiencia y modalidad de contrato.
         </p>
         <p id="banner-disclaimer" class="banner-disclaimer">
-          Aviso: algunas de estas plataformas requieren registrarse y utilizar una herramienta de traducción en el navegador para aprovechar al máximo su contenido. Para el trabajo remoto a nivel global, se recomienda encarecidamente <a href="https://www.languagetransfer.org" title="Language Transfer: aprende inglés y más, ¡gratis!" target="_blank" rel="noopener noreferrer">aprender inglés</a>.
+          Aviso: algunas de estas plataformas requieren registrarse y utilizar una herramienta de traducción en el navegador para aprovechar al máximo su contenido. Para el trabajo remoto a nivel global, se recomienda encarecidamente <a href="https://www.languagetransfer.org" title="Language Transfer: aprende inglés y más, ¡gratis!" target="_blank" rel="noopener noreferrer">aprender inglés</a>. Te abre todo un entorno de oportunidades y con Language Transfer, es gratis!
         </p>
       </div>
       <div class="banner-pills banner-actions-row">
@@ -1296,7 +1443,7 @@ export function renderAppHtml(initialState) {
       <div class="filter-block" style="margin-top:12px;">
         <div class="filter-block-label">
           <span id="lbl-filter-positions">4. Tipo de Posición / Área Profesional (Selecciona una o varias, o déjalo vacío para ver todas)</span>
-          <div style="display:flex;gap:10px;align-items:center;">
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
             <label style="font-size:0.8em;font-weight:600;color:#334155;display:inline-flex;align-items:center;gap:4px;cursor:pointer;">
               <input type="checkbox" id="chk-strict-pos" onchange="onStrictPosToggle(this.checked)">
               <span id="lbl-strict-pos">Ocultar ofertas de otras áreas</span>
@@ -1306,7 +1453,7 @@ export function renderAppHtml(initialState) {
         </div>
         <div class="chip-group" id="chips-positions" style="margin-bottom:10px;"></div>
 
-        <div style="display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;margin-top:8px;">
+        <div class="keywords-input-row">
           <input
             type="text"
             id="input-custom-keywords"
@@ -1714,7 +1861,7 @@ export function renderAppHtml(initialState) {
         themeLightText: 'Claro',
         bannerTitle: 'Buscador y Evaluador de Empleos Remotos desde Bolivia',
         bannerSubtitle: 'Filtra y evalúa ofertas globales y regionales que permiten trabajar remoto desde Bolivia (UTC-4). Personaliza tus idiomas, área profesional, experiencia y modalidad de contrato.',
-        bannerDisclaimer: 'Aviso: algunas de estas plataformas requieren registrarse y utilizar una herramienta de traducción en el navegador para aprovechar al máximo su contenido. Para el trabajo remoto a nivel global, se recomienda encarecidamente <a href="https://www.languagetransfer.org" title="Language Transfer: aprende inglés y más, ¡gratis!" target="_blank" rel="noopener noreferrer">aprender inglés</a>.',
+        bannerDisclaimer: 'Aviso: algunas de estas plataformas requieren registrarse y utilizar una herramienta de traducción en el navegador para aprovechar al máximo su contenido. Para el trabajo remoto a nivel global, se recomienda encarecidamente <a href="https://www.languagetransfer.org" title="Language Transfer: aprende inglés y más, ¡gratis!" target="_blank" rel="noopener noreferrer">aprender inglés</a>. Te abre todo un entorno de oportunidades y con Language Transfer, es gratis!',
         scanNow: 'Escanear Ofertas Ahora',
         scanningNow: 'Escaneando plataformas...',
         pillBolivia: 'Filtro Base: 100% Remoto desde Bolivia (UTC-4)',
@@ -1808,7 +1955,7 @@ export function renderAppHtml(initialState) {
         themeLightText: 'Light',
         bannerTitle: 'Remote Job Scout & Evaluator from Bolivia',
         bannerSubtitle: 'Filter and evaluate global & regional job offers eligible for remote work from Bolivia (UTC-4). Customize your languages, position type, experience level, and contract modality.',
-        bannerDisclaimer: 'Notice: Some of these platforms require registration and using an in-browser translation tool to make the most of their listings. For global remote work, it is strongly recommended to <a href="https://www.languagetransfer.org" title="Language Transfer: free audio courses" target="_blank" rel="noopener noreferrer">learn English</a>.',
+        bannerDisclaimer: 'Notice: Some of these platforms require registration and using an in-browser translation tool to make the most of their listings. For global remote work, it is strongly recommended to <a href="https://www.languagetransfer.org" title="Language Transfer: free audio courses" target="_blank" rel="noopener noreferrer">learn English</a>. It opens up a whole world of opportunities and with Language Transfer, it is free!',
         scanNow: 'Scan Offers Now',
         scanningNow: 'Scanning platforms...',
         pillBolivia: 'Core Filter: 100% Remote from Bolivia (UTC-4)',
@@ -2372,8 +2519,37 @@ export function renderAppHtml(initialState) {
     }
 
     function toggleSidebar() {
-      document.body.classList.toggle('sidebar-collapsed');
+      const isCollapsed = document.body.classList.toggle('sidebar-collapsed');
+      const btn = document.getElementById('sidebar-unfold-btn');
+      if (btn) {
+        btn.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+      }
     }
+    window.toggleSidebar = toggleSidebar;
+
+    function closeNavbarMenu() {
+      document.body.classList.add('sidebar-collapsed');
+      const btn = document.getElementById('sidebar-unfold-btn');
+      if (btn) {
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    }
+    window.closeNavbarMenu = closeNavbarMenu;
+
+    function toggleCategoriesMenu() {
+      const hdr = document.getElementById('nav-hdr-tracks-item');
+      const items = document.querySelectorAll('#navbar li.nav-track-item');
+      let nowExpanded = false;
+      items.forEach(item => {
+        const isFolded = item.classList.toggle('nav-track-folded');
+        if (!isFolded) nowExpanded = true;
+      });
+      if (hdr) {
+        hdr.classList.toggle('expanded', nowExpanded);
+        hdr.setAttribute('aria-expanded', nowExpanded ? 'true' : 'false');
+      }
+    }
+    window.toggleCategoriesMenu = toggleCategoriesMenu;
 
     async function triggerOnDemandScan() {
       const t = I18N[userFilters.ui_lang] || I18N.es;
