@@ -1,10 +1,10 @@
 <div align="center">
 
-# 🇧🇴 Buscador y Evaluador de Empleos 100% Remotos desde Bolivia
+# 🇧🇴 Buscador y Evaluador de Empleos 100% Remotos desde Bolivia (BO)
 
-**Plataforma pública, autónoma y auto-contenida para Cloudflare Workers diseñada para encontrar, filtrar y evaluar ofertas laborales internacionales elegibles para trabajar desde Bolivia (UTC-4).**
+**Plataforma pública, autónoma y auto-contenida para Cloudflare Workers diseñada para encontrar, filtrar y evaluar ofertas laborales internacionales elegibles para trabajar desde Bolivia (BO · UTC-4).**
 
-[![Versión](https://img.shields.io/badge/Versi%C3%B3n-v5.0.0%20Producci%C3%B3n-0284c7?style=for-the-badge&logo=cloudflare&logoColor=white)](src/worker.js)
+[![Versión](https://img.shields.io/badge/Versi%C3%B3n-v5.1.0%20Producci%C3%B3n-0284c7?style=for-the-badge&logo=cloudflare&logoColor=white)](src/worker.js)
 [![Plataforma](https://img.shields.io/badge/Runtime-Cloudflare%20Workers-f38020?style=for-the-badge&logo=cloudflareworkers&logoColor=white)](wrangler.toml)
 [![Automatización](https://img.shields.io/badge/Frecuencia-Cada%2015%20min%20%2B%20Bajo%20Demanda-10b981?style=for-the-badge&logo=clockify&logoColor=white)](wrangler.toml)
 [![Idioma UI](https://img.shields.io/badge/Interfaz-Espa%C3%B1ol%20Bolivia%20%7C%20English-f59e0b?style=for-the-badge&logo=googletranslate&logoColor=white)](src/ui.js)
@@ -26,15 +26,16 @@
 1. [💡 ¿Qué es esta plataforma?](#-qu%C3%A9-es-esta-plataforma)
 2. [📖 Manual del Usuario Final](#-manual-del-usuario-final)
    - [Paso 1: Acceso e idioma](#paso-1-acceso-e-idioma)
-   - [Paso 2: Configuración de tus filtros personalizados](#paso-2-configuraci%C3%B3n-de-tus-filtros-personalizados)
+   - [Paso 2: Configuración de tus filtros personalizados (12 Categorías)](#paso-2-configuraci%C3%B3n-de-tus-filtros-personalizados-12-categor%C3%ADas)
    - [Paso 3: El filtro base — ¿Por qué 100% Remoto desde Bolivia?](#paso-3-el-filtro-base--por-qu%C3%A9-100-remoto-desde-bolivia)
    - [Paso 4: Semáforo de calificación y toma de acción](#paso-4-sem%C3%A1foro-de-calificaci%C3%B3n-y-toma-de-acci%C3%B3n)
    - [Paso 5: Escanear y evaluar URLs de plataformas personalizadas](#paso-5-escanear-y-evaluar-urls-de-plataformas-personalizadas)
-   - [Paso 6: Generación y descarga de resultados en vivo](#paso-6-generaci%C3%B3n-y-descarga-de-resultados-en-vivo)
+   - [Paso 6: Pestaña interactiva "Manual de Uso" integrada](#paso-6-pesta%C3%B1a-interactiva-manual-de-uso-integrada)
+   - [Paso 7: Generación y descarga de resultados en vivo](#paso-7-generaci%C3%B3n-y-descarga-de-resultados-en-vivo)
 3. [⚙️ Cómo Funciona la Arquitectura Interna](#-c%C3%B3mo-funciona-la-arquitectura-interna)
    - [Diagrama de flujo del sistema](#diagrama-de-flujo-del-sistema)
    - [Motor de calificación y rúbrica dinámica de 100 puntos](#motor-de-calificaci%C3%B3n-y-r%C3%BAbrica-din%C3%A1mica-de-100-puntos)
-   - [Motor de ingesta y detección automática de feeds](#motor-de-ingesta-y-detecci%C3%B3n-autom%C3%A1tica-de-feeds)
+   - [Motor de ingesta y 85 plataformas públicas monitoreadas](#motor-de-ingesta-y-85-plataformas-p%C3%BAblicas-monitoreadas)
    - [Ciclo de ejecución bajo demanda y cron cada 15 minutos](#ciclo-de-ejecuci%C3%B3n-bajo-demanda-y-cron-cada-15-minutos)
 4. [🛠️ Guía de Instalación y Auto-Alojamiento (Self-Hosting)](#-gu%C3%ADa-de-instalaci%C3%B3n-y-auto-alojamiento-self-hosting)
    - [Requisitos previos](#requisitos-previos)
@@ -50,10 +51,10 @@
 
 Buscar trabajo remoto internacional desde Bolivia suele ser frustrante: la mayoría de bolsas de empleo anuncian puestos como *"remotos"*, pero al leer las letras pequeñas exigen residencia física en Estados Unidos, permiso de trabajo en la Unión Europea o contratación exclusiva local.
 
-Esta herramienta es una **solución pública y gratuita** que centraliza más de **73 plataformas globales y regionales**, filtrando automáticamente el ruido geográfico y evaluando cada oportunidad frente a tus preferencias individuales de **idiomas, tipo de puesto, nivel de experiencia y modalidad de contrato**.
+Esta herramienta es una **solución pública y gratuita** que centraliza **85 plataformas globales y regionales** (incluyendo Torre.ai, GetOnBoard, Virtual Latinos, Workana, SoyFreelancer, NoDesk, DailyRemote, Jobspresso, Dynamite Jobs, LatinHire, HireLatam, SheWorks, Himalayas, We Work Remotely, Remotive, etc.), filtrando automáticamente el ruido geográfico y evaluando cada oportunidad frente a tus preferencias individuales de **idiomas, área profesional (12 categorías técnicas y no técnicas), nivel de experiencia y modalidad de contrato**.
 
 > [!NOTE]
-> Todo el procesamiento ocurre en tiempo real en los servidores perimetrales de **Cloudflare Workers**. No almacena información privada ni perfiles predeterminados: tú tienes el control total de lo que buscas.
+> Todo el procesamiento ocurre en tiempo real en los servidores perimetrales de **Cloudflare Workers** o localmente en tu navegador. Cero datos privados, cero cookies de rastreo y cero cuentas obligatorias.
 
 ---
 
@@ -64,7 +65,7 @@ Si estás utilizando la versión alojada públicamente en línea, esta guía te 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ 1. Elige tu Idioma ──▶ 2. Ajusta tus Filtros ──▶ 3. Revisa tu Semáforo       │
-│    (ES-BO / EN)         (Rol, Exp, Contrato)       (Postular / Explorar)    │
+│    (ES-BO / EN)         (12 Áreas, Exp, Mod)        (Postular / Explorar)   │
 │                                                                             │
 │ 4. ¿Tienes una URL? ─▶ 5. Escanéala en Vivo  ──▶ 6. Exporta tu Reporte      │
 │    (Pega cualquier link)  (Evaluación instantánea)  (Markdown / CSV)        │
@@ -76,26 +77,26 @@ Si estás utilizando la versión alojada públicamente en línea, esta guía te 
 Al abrir el portal, la aplicación carga por defecto en **Español (Bolivia)** (`es-BO`). 
 
 Si prefieres navegar en inglés, haz clic en el botón superior derecho:
-- **`🇧🇴 Español (Bolivia)`**: Textos, etiquetas y reportes orientados a la región.
-- **`🇬🇧 English`**: Traducción completa de la interfaz y del reporte en formato Markdown.
+- **`🇧🇴 Español (Bolivia)`**: Textos, etiquetas, badges de contratación y reportes orientados a la región.
+- **`🇬🇧 English`**: Traducción completa de la interfaz, explicaciones y del reporte en formato Markdown.
 
 ---
 
-### Paso 2: Configuración de tus filtros personalizados
+### Paso 2: Configuración de tus filtros personalizados (12 Categorías)
 
 En la sección **"🎛️ Personaliza tu Búsqueda y Criterios de Evaluación"**, puedes seleccionar tus preferencias haciendo clic sobre las etiquetas interactivas:
 
 | Filtro | Opciones Disponibles | Cómo Influye en el Puntaje |
 | :--- | :--- | :--- |
-| **1. Tus Idiomas** | `Español (BO)`, `Inglés`, `Francés`, `Portugués` | Pondera hasta **15 puntos**. Si dominas español e inglés, la plataforma prioriza ofertas abiertas a talento bilingüe. |
+| **1. Tus Idiomas** | `Español (BO)`, `Inglés`, `Portugués`, `Alemán` | Pondera hasta **20 puntos**. **Regla Estricta:** Si seleccionas únicamente `Español (BO)`, el evaluador descarta las ofertas en inglés y solo muestra vacantes redactadas o ejecutadas en español. |
 | **2. Tu Nivel de Experiencia** | `Todos los niveles`, `Inicial / Sin experiencia (0-1 a)`, `Junior (1-2 a)`, `Semi-Senior / Mid (3-5 a)`, `Senior (5+ a)`, `Lead / Manager (8+ a)` | Pondera dentro del bloque de contrato/experiencia (**20 puntos**). Evita que veas vacantes incompatibles con tu trayectoria. |
 | **3. Tipo de Contrato** | `Tiempo Completo (40h/sem)`, `Medio Tiempo / Part-Time (20h / 4 días)`, `Por Proyectos / Freelance`, `Por Horas / Flexible / Asíncrono`, `Consultoría / Asesoría` | Puedes marcar uno, varios o todos. Pondera dentro del bloque de contrato (**20 puntos**). |
-| **4. Tipo de Posición** | `Desarrollo de Software, Web & QA`<br>`Cloud, DevOps, SRE & Sistemas TI`<br>`Entrenamiento de IA, RLHF & Evaluación`<br>`Datos, SQL, BI & Machine Learning`<br>`Ciberseguridad & Redes`<br>`Soporte Técnico & Atención al Cliente`<br>`Gestión, Producto, Ventas & Consultoría`<br>`Diseño, CAD/CFD, Redacción & Otros` | Pondera hasta **40 puntos**. Puedes marcar una o múltiples categorías. Si deseas ver todas las ofertas sin restricción de rol, haz clic en *"Ver todas las áreas"*. |
-| **Palabras Clave Libres** | Campo de texto abierto para escribir tecnologías o puestos específicos (ej. *Python, React, Soporte, SQL, Azure, QA*). | Las ofertas que contengan estas palabras recibirán una bonificación directa en su calificación. |
+| **4. Áreas Profesionales (12 Categorías)** | 1. 💼 `Asistente Virtual & Soporte Ejecutivo`<br>2. 📋 `Coordinación de Operaciones & Proyectos`<br>3. 🎧 `Atención al Cliente & Chat Support`<br>4. 📈 `Ventas Remotas, BDR & SDR`<br>5. 📱 `Marketing Digital & Contenidos`<br>6. 👥 `Recursos Humanos & Recruiting LATAM`<br>7. 📊 `Finanzas, Contabilidad & Bookkeeping`<br>8. 🎨 `Diseño Gráfico, UI/UX & Video`<br>9. 🤖 `Entrenamiento IA, RLHF & Anotación`<br>10. 💻 `Desarrollo de Software`<br>11. ☁️ `Cloud, DevOps & Sistemas`<br>12. 📈 `Datos, BI & Machine Learning` | Pondera hasta **35 puntos**. Puedes marcar una o múltiples categorías. Si deseas ver todas las ofertas sin restricción de rol, pulsa *"Ver todas las áreas"*. |
+| **Palabras Clave Libres** | Campo de texto abierto para escribir herramientas o cargos específicos (ej. *Excel, Canva, Shopify, HubSpot, Python, React, Soporte, Quickbooks*). | Las ofertas que contengan estas palabras recibirán una bonificación directa en su calificación. |
 
 > [!TIP]
 > **Casilla "Ocultar ofertas de otras áreas":**  
-> Si marcas esta opción, el sistema actuará con filtro estricto y esconderá cualquier oferta que no coincida con tus áreas seleccionadas.
+> Si marcas esta opción, el sistema actuará con filtro estricto y esconderá cualquier oferta que no coincida con tus áreas profesionales seleccionadas.
 
 ---
 
@@ -106,14 +107,14 @@ La casilla **"🇧🇴 Mostrar solo ofertas 100% remotas desde Bolivia"** viene 
 #### ¿Qué hace este filtro?
 El algoritmo analiza el texto completo de la oferta, su título, ubicación requerida y políticas de contratación para descartar automáticamente:
 - Puestos que requieren residir físicamente en Estados Unidos (*"US Only"*, *"Must reside in the US"*, contratos *W-2* exclusivos).
-- Puestos restringidos a Europa (*"EU Only"*), Reino Unido (*"UK Only"*), México, España o Francia.
+- Puestos restringidos a Europa (*"EU Only"*), Reino Unido (*"UK Only"*), Canadá, México o España.
 - Empleos presenciales o híbridos (*"On-site"*, *"Hybrid"*).
-- Posiciones que exigen autorizaciones de seguridad gubernamental extranjera (*"Security Clearance"*, *"TS/SCI"*).
+- Posiciones que exigen visados o autorizaciones gubernamentales extranjeras (*"Security Clearance"*, *"TS/SCI"*).
 
 #### ¿Qué oportunidades mantiene visibles?
 - **🌎 Específicas para Latinoamérica y Bolivia:** Empresas que contratan activamente en Sudamérica, zona horaria `UTC-4` / `EST` o mediante contrato internacional (*W-8BEN* sin visa).
 - **🌍 100% Remoto Global / Work From Anywhere:** Compañías distribuidas en todo el mundo sin barrera geográfica de residencia.
-- **🕒 Traslape Horario Internacional:** Ofertas que aceptan trabajo internacional requiriendo coincidencia horaria razonable.
+- **🕒 Traslape Horario Internacional:** Ofertas que aceptan trabajo internacional requiriendo coincidencia horaria razonable con husos de América.
 
 ---
 
@@ -135,11 +136,11 @@ graph TD
 1. **🔥 POSTULAR (Puntaje ≥ 78/100):**  
    Coincide con tus idiomas, tu área profesional, tu nivel y es 100% accesible desde Bolivia. Incluye el botón **"🔗 Ver Oferta y Postular"** para abrir el enlace directo a la fuente original.
 2. **🟡 EXPLORAR (Puntaje 58–77/100):**  
-   Ofertas interesantes que coinciden con tus habilidades principales, pero presentan variaciones menores (por ejemplo, modalidad de tiempo completo cuando buscas medio tiempo, o nivel semi-senior).
+   Ofertas interesantes que coinciden con tus habilidades principales, pero presentan variaciones menores (por ejemplo, modalidad de tiempo completo cuando buscas medio tiempo).
 3. **⚪ BAJA COINCIDENCIA (< 58/100):**  
    Ofertas legítimas desde Bolivia, pero fuera de las categorías o palabras clave que seleccionaste.
 4. **🚫 NO ELEGIBLES BOLIVIA:**  
-   Vacantes detectadas con restricciones geográficas locales. Puedes visualizarlas seleccionando la pestaña *"Bloqueadas País"* si tienes curiosidad de saber qué fue descartado y por qué motivo.
+   Vacantes detectadas con restricciones geográficas locales. Puedes visualizarlas seleccionando la pestaña *"Bloqueadas País"*.
 
 ---
 
@@ -160,7 +161,17 @@ graph TD
 
 ---
 
-### Paso 6: Generación y descarga de resultados en vivo
+### Paso 6: Pestaña interactiva "Manual de Uso" integrada
+
+En la barra de navegación lateral y en la barra de herramientas superior encontrarás el enlace directo a **📖 Manual de Uso**:
+- Guía interactiva paso a paso sin salir de la aplicación.
+- Consejos prácticos sobre cómo formalizar contratos tipo *Independent Contractor* (formulario **W-8BEN** para EE. UU.).
+- Canales de cobro en USD disponibles en Bolivia (Wise, Payoneer, Deel, Ontop, transferencias bancarias SWIFT y plataformas reguladas).
+- Sincronización de la zona horaria de Bolivia (`UTC-4`) con Estados Unidos y Europa.
+
+---
+
+### Paso 7: Generación y descarga de resultados en vivo
 
 La aplicación no depende de boletines estáticos ni horarios rígidos: los resultados se generan al vuelo (*on-the-fly*):
 
@@ -183,22 +194,23 @@ La solución está construida sobre una arquitectura **Serverless Zero-Dependenc
 flowchart TD
     subgraph Cliente ["🌐 Navegador del Usuario"]
         UI["Interfaz Web Bilingüe (es-BO / en)"]
-        Filters["Filtros en LocalStorage (Idiomas, Rol, Exp, Contrato)"]
+        Filters["Filtros en LocalStorage (Idiomas, 12 Roles, Exp, Contrato)"]
         URLScan["Formulario de Escaneo de URLs"]
+        ManualTab["Manual de Uso Integrado"]
     end
 
     subgraph CFWorker ["⚡ Cloudflare Worker (Edge Serverless)"]
         WorkerEntry["src/worker.js (Router & Cron Handler)"]
         ScannerEng["src/scanner.js (Parser JSON/RSS/HTML/Dorks)"]
         EvaluatorEng["src/evaluator.js (Algoritmo 4 Ejes & Filtro Bolivia)"]
-        SeedData["src/seed_data.js (73 Plataformas / 121+ Ofertas Base)"]
+        SeedData["src/seed_data.js (85 Plataformas / 137+ Ofertas Base)"]
         EdgeCache["Cloudflare Cache API (caches.default)"]
     end
 
-    subgraph Fuentes ["🌍 Fuentes Globales de Empleo"]
-        APIs["APIs REST Públicas (Working Nomads, Remotive, etc.)"]
-        RSS["Feeds RSS / Atom (Himalayas, WWR, etc.)"]
-        HTMLPages["Portales de Carrera & Bolsas Web"]
+    subgraph Fuentes ["🌍 85 Fuentes Globales de Empleo"]
+        APIs["APIs REST Públicas (Torre, GetOnBoard, Remotive, etc.)"]
+        RSS["Feeds RSS / Atom (Himalayas, WWR, NoDesk, DailyRemote, etc.)"]
+        HTMLPages["Bolsas Web LATAM & Globales (Workana, Virtual Latinos, etc.)"]
     end
 
     UI <-->|JSON / HTML| WorkerEntry
@@ -217,12 +229,12 @@ flowchart TD
 
 El evaluador ([`src/evaluator.js`](src/evaluator.js)) analiza cada oportunidad descomponiéndola en 4 dimensiones ponderadas:
 
-$$\text{Puntaje Total} = \text{Posición y Habilidades (40)} + \text{Elegibilidad Bolivia (25)} + \text{Contrato y Nivel (20)} + \text{Idiomas (15)}$$
+$$\text{Puntaje Total} = \text{Posición y Habilidades (35)} + \text{Elegibilidad Bolivia (25)} + \text{Contrato y Nivel (20)} + \text{Idiomas (20)}$$
 
 ```
   ┌───────────────────────────────────────────────────────────────┐
-  │ 🎯 Posición & Habilidades: 40 pts                             │
-  │   - Coincidencia con categoría profesional seleccionada       │
+  │ 🎯 Posición & Habilidades: 35 pts                             │
+  │   - Coincidencia con una de las 12 categorías laborales       │
   │   - Coincidencia con palabras clave libres del usuario        │
   │                                                               │
   │ 🇧🇴 Elegibilidad Remota Bolivia: 25 pts                        │
@@ -235,23 +247,23 @@ $$\text{Puntaje Total} = \text{Posición y Habilidades (40)} + \text{Elegibilida
   │   - Contrato buscado: Full-time, Half-time, Proyectos, Horas  │
   │   - Nivel de experiencia requerido vs declarado               │
   │                                                               │
-  │ 🗣️ Idiomas Requeridos: 15 pts                                 │
-  │   - Coincidencia con el repertorio lingüístico del usuario    │
+  │ 🗣️ Idiomas Requeridos: 20 pts                                 │
+  │   - Regla Estricta: Español exclusivo descarta ofertas en     │
+  │     inglés o que no admitan hispanohablantes                  │
   └───────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-### Motor de ingesta y detección automática de feeds
+### Motor de ingesta y 85 plataformas públicas monitoreadas
 
-El escáner ([`src/scanner.js`](src/scanner.js)) implementa un procesador adaptativo de fuentes sin requerir librerías pesadas:
-
-1. **APIs JSON:** Inspecciona dinámicamente claves comunes (`jobs`, `results`, `data`, `items`) y mapea campos de título, empresa, descripción, ubicación y enlace.
-2. **Feeds XML (RSS 2.0 y Atom 1.0):** Parser mediante expresiones regulares optimizadas y sanitización de entidades HTML (`&amp;`, `&lt;`, `<![CDATA[...]]>`).
-3. **Páginas Web HTML:**
-   - Extrae bloques estructurados de Schema.org (`<script type="application/ld+json">` con `@type: "JobPosting"`).
-   - Analiza patrones de enlaces que contengan rutas de empleo (`/jobs/`, `/careers/`, `/roles/`, `/apply/`) con títulos semánticos.
-4. **Protección contra plataformas inactivas:** Incluye un disyuntor (*circuit breaker*) que descarta dominios extintos o dados de baja.
+El escáner ([`src/scanner.js`](src/scanner.js)) monitorea 85 bolsas de empleo públicas agrupadas en 6 Tracks:
+- **Track A (B2B Directo & Freelance):** Arc.dev, Contra, Freelancer, Workana, SoyFreelancer.
+- **Track B (Entrenamiento IA & RLHF):** Alignerr, DataAnnotation, Outlier, Mindrift, Remotasks.
+- **Track C (Redes LATAM & Globales):** Torre.ai, GetOnBoard, Virtual Latinos, LatinHire, HireLatam, SheWorks, Turing, BairesDev.
+- **Track D (Portales Europeos & Globales):** Welcome to the Jungle, WeLoveDevs, Malt, Emploi-Belgique.
+- **Track E (Consultoría Experta):** GLG, AlphaSights, Dialectica, Guidepoint.
+- **Track F (Bolsas 100% Remotas Abiertas):** Himalayas, We Work Remotely, Remotive, NoDesk, DailyRemote, Jobspresso, Dynamite Jobs, RemoteOK, Working Nomads.
 
 ---
 
@@ -290,7 +302,7 @@ Puedes alojar tu propia instancia en Cloudflare en menos de 5 minutos utilizando
    ```bash
    npm test
    ```
-   *Esta prueba valida la carga de la interfaz, los endpoints del worker, la precisión del filtro geográfico de Bolivia y la ausencia de datos privados.*
+   *Esta prueba valida la carga de la interfaz, los endpoints del worker, la precisión del filtro geográfico de Bolivia, la ponderación estricta de idiomas y la ausencia de datos privados.*
 
 3. **Iniciar el servidor local de desarrollo con Wrangler:**
    ```bash

@@ -1,7 +1,7 @@
 /**
  * Self-contained seed data for Bolivia Remote Job Scout & Evaluator (Cloudflare Worker)
- * Contains 73 global & regional remote platforms across Tracks A-F
- * and 121 sanitized remote job opportunities.
+ * Contains 85 global & regional remote platforms across Tracks A-F
+ * and 137 sanitized remote job opportunities.
  */
 
 export const INITIAL_PLATFORMS = [
@@ -14,7 +14,7 @@ export const INITIAL_PLATFORMS = [
     "enabled": true,
     "domain": "outlier.ai",
     "url": "https://outlier.ai/",
-    "search_query": "site:outlier.ai (\"Spanish\" OR \"Andean\" OR \"French\" OR \"Technical Writer\" OR \"SysAdmin\" OR \"Cloud\" OR \"Linux\" OR \"Python\")",
+    "search_query": "site:outlier.ai (\"Spanish\" OR \"Andean\" OR \"\" OR \"Technical Writer\" OR \"SysAdmin\" OR \"Cloud\" OR \"Linux\" OR \"Python\")",
     "contract_caveat": "async_flexible",
     "notes": "Tag Cloud, SysAdmin, Network Security, IT Auditing to bypass generalist queues."
   },
@@ -27,7 +27,7 @@ export const INITIAL_PLATFORMS = [
     "enabled": true,
     "domain": "alignerr.com",
     "url": "https://www.alignerr.com/",
-    "search_query": "site:alignerr.com (\"French\" OR \"Spanish\" OR \"Python\" OR \"Technical\" OR \"IT\" OR \"Cloud\" OR \"Evaluator\")",
+    "search_query": "site:alignerr.com (\"\" OR \"Spanish\" OR \"Python\" OR \"Technical\" OR \"IT\" OR \"Cloud\" OR \"Evaluator\")",
     "contract_caveat": "async_flexible",
     "notes": "$30-$120/hr domain-specific RLHF and technical prompt evaluation."
   },
@@ -40,7 +40,7 @@ export const INITIAL_PLATFORMS = [
     "enabled": true,
     "domain": "dataannotation.tech",
     "url": "https://www.dataannotation.tech/",
-    "search_query": "site:dataannotation.tech (\"Coding\" OR \"Python\" OR \"French\" OR \"Spanish\" OR \"STEM\" OR \"Technical\")",
+    "search_query": "site:dataannotation.tech (\"Coding\" OR \"Python\" OR \"\" OR \"Spanish\" OR \"STEM\" OR \"Technical\")",
     "contract_caveat": "async_flexible",
     "notes": "$20-$40+/hr self-paced asynchronous logic debugging and bilingual evaluation."
   },
@@ -53,7 +53,7 @@ export const INITIAL_PLATFORMS = [
     "enabled": true,
     "domain": "mindrift.ai",
     "url": "https://mindrift.ai/",
-    "search_query": "site:mindrift.ai (\"AI Tutor\" OR \"Tech\" OR \"Editor\" OR \"IT\" OR \"Spanish\" OR \"French\" OR \"Python\")",
+    "search_query": "site:mindrift.ai (\"AI Tutor\" OR \"Tech\" OR \"Editor\" OR \"IT\" OR \"Spanish\" OR \"\" OR \"Python\")",
     "contract_caveat": "async_flexible",
     "notes": "Tech Domain Editor & AI Tutor track rewriting sysadmin guides."
   },
@@ -66,7 +66,7 @@ export const INITIAL_PLATFORMS = [
     "enabled": true,
     "domain": "innodata.com",
     "url": "https://innodata.com/careers/",
-    "search_query": "site:innodata.com (\"Generative AI\" OR \"Evaluator\" OR \"Annotator\" OR \"French\" OR \"Spanish\" OR \"Bolivia\" OR \"LATAM\" OR \"Technical\")",
+    "search_query": "site:innodata.com (\"Generative AI\" OR \"Evaluator\" OR \"Annotator\" OR \"\" OR \"Spanish\" OR \"Bolivia\" OR \"LATAM\" OR \"Technical\")",
     "contract_caveat": "async_flexible",
     "notes": "Proyectos asíncronos de evaluación y anotación de modelos de IA generativa para Latinoamérica y global."
   },
@@ -79,7 +79,7 @@ export const INITIAL_PLATFORMS = [
     "enabled": true,
     "domain": "oneforma.com",
     "url": "https://www.oneforma.com/",
-    "search_query": "site:oneforma.com (\"GenAI\" OR \"Prompt\" OR \"French\" OR \"Spanish\" OR \"Technical\" OR \"Evaluator\")",
+    "search_query": "site:oneforma.com (\"GenAI\" OR \"Prompt\" OR \"\" OR \"Spanish\" OR \"Technical\" OR \"Evaluator\")",
     "contract_caveat": "async_flexible",
     "notes": "Apply directly to GenAI Mastery Program under Tech / Prompt Evaluator."
   },
@@ -92,7 +92,7 @@ export const INITIAL_PLATFORMS = [
     "enabled": true,
     "domain": "mercor.com",
     "url": "https://mercor.com/",
-    "search_query": "site:mercor.com (\"Cloud\" OR \"SysAdmin\" OR \"DevOps\" OR \"Linux\" OR \"Python\" OR \"French\" OR \"Spanish\" OR \"AI\")",
+    "search_query": "site:mercor.com (\"Cloud\" OR \"SysAdmin\" OR \"DevOps\" OR \"Linux\" OR \"Python\" OR \"\" OR \"Spanish\" OR \"AI\")",
     "contract_caveat": "async_flexible",
     "notes": "$40-$150+/hr senior technical specialist rubric design and agentic benchmarking."
   },
@@ -105,7 +105,7 @@ export const INITIAL_PLATFORMS = [
     "enabled": true,
     "domain": "opentrain.ai",
     "url": "https://www.opentrain.ai/",
-    "search_query": "site:opentrain.ai (\"RLHF\" OR \"Cybersecurity\" OR \"DevOps\" OR \"Cloud\" OR \"Python\" OR \"French\" OR \"Spanish\" OR \"Bolivia\")",
+    "search_query": "site:opentrain.ai (\"RLHF\" OR \"Cybersecurity\" OR \"DevOps\" OR \"Cloud\" OR \"Python\" OR \"\" OR \"Spanish\" OR \"Bolivia\")",
     "contract_caveat": "async_flexible",
     "notes": "Aggregates vetted AI training and red-teaming contracts ($45-$95/hr) across 240+ countries."
   },
@@ -118,7 +118,7 @@ export const INITIAL_PLATFORMS = [
     "enabled": true,
     "domain": "surgehq.ai",
     "url": "https://www.surgehq.ai/careers",
-    "search_query": "site:surgehq.ai (\"RLHF\" OR \"Evaluation\" OR \"Code\" OR \"French\" OR \"Spanish\" OR \"Red Team\" OR \"Linux\")",
+    "search_query": "site:surgehq.ai (\"RLHF\" OR \"Evaluation\" OR \"Code\" OR \"\" OR \"Spanish\" OR \"Red Team\" OR \"Linux\")",
     "contract_caveat": "async_flexible",
     "notes": "Elite technical evaluators for complex reasoning verification and red-teaming."
   },
@@ -131,7 +131,7 @@ export const INITIAL_PLATFORMS = [
     "enabled": true,
     "domain": "pareto.ai",
     "url": "https://pareto.ai/",
-    "search_query": "site:pareto.ai (\"Trainer\" OR \"Evaluator\" OR \"Specialist\" OR \"Technical\" OR \"French\" OR \"Spanish\")",
+    "search_query": "site:pareto.ai (\"Trainer\" OR \"Evaluator\" OR \"Specialist\" OR \"Technical\" OR \"\" OR \"Spanish\")",
     "contract_caveat": "async_flexible",
     "notes": "$30-$100+/hr domain specialists for enterprise LLM workflow training."
   },
@@ -144,7 +144,7 @@ export const INITIAL_PLATFORMS = [
     "enabled": true,
     "domain": "micro1.ai",
     "url": "https://www.micro1.ai/",
-    "search_query": "site:micro1.ai (\"AI Trainer\" OR \"Python\" OR \"DevOps\" OR \"Cloud\" OR \"Azure\" OR \"French\" OR \"Spanish\")",
+    "search_query": "site:micro1.ai (\"AI Trainer\" OR \"Python\" OR \"DevOps\" OR \"Cloud\" OR \"Azure\" OR \"\" OR \"Spanish\")",
     "contract_caveat": "async_flexible",
     "notes": "Certifies technical talent for human-data operations and model alignment."
   },
@@ -157,9 +157,9 @@ export const INITIAL_PLATFORMS = [
     "enabled": true,
     "domain": "rws.com",
     "url": "https://www.rws.com/artificial-intelligence/train-ai-data-services/trainai-community/",
-    "search_query": "site:rws.com (\"TrainAI\" OR \"Evaluator\" OR \"Rater\" OR \"French\" OR \"Spanish\" OR \"Domain Expert\")",
+    "search_query": "site:rws.com (\"TrainAI\" OR \"Evaluator\" OR \"Rater\" OR \"\" OR \"Spanish\" OR \"Domain Expert\")",
     "contract_caveat": "async_flexible",
-    "notes": "Enterprise LLM validation and French/Spanish localization evaluation."
+    "notes": "Enterprise LLM validation and Spanish localization evaluation."
   },
   {
     "id": "telus_digital",
@@ -170,9 +170,9 @@ export const INITIAL_PLATFORMS = [
     "enabled": true,
     "domain": "telusdigital.com",
     "url": "https://www.telusdigital.com/careers",
-    "search_query": "site:telusdigital.com (\"Rater\" OR \"AI\" OR \"Evaluator\" OR \"French\" OR \"Spanish\" OR \"Analyst\")",
+    "search_query": "site:telusdigital.com (\"Rater\" OR \"AI\" OR \"Evaluator\" OR \"\" OR \"Spanish\" OR \"Analyst\")",
     "contract_caveat": "async_flexible",
-    "notes": "Part-time Quality Rater and Language Assessor roles in French, Spanish, and English."
+    "notes": "Part-time Quality Rater and Language Assessor roles in Spanish and English."
   },
   {
     "id": "peroptyx",
@@ -196,7 +196,7 @@ export const INITIAL_PLATFORMS = [
     "enabled": true,
     "domain": "dataforcecommunity.transperfect.com",
     "url": "https://dataforcecommunity.transperfect.com/",
-    "search_query": "site:dataforcecommunity.transperfect.com (\"French\" OR \"Spanish\" OR \"AI\" OR \"Annotation\" OR \"Remote\")",
+    "search_query": "site:dataforcecommunity.transperfect.com (\"\" OR \"Spanish\" OR \"AI\" OR \"Annotation\" OR \"Remote\")",
     "contract_caveat": "async_flexible",
     "notes": "Short- and long-term multilingual AI validation contracts."
   },
@@ -209,7 +209,7 @@ export const INITIAL_PLATFORMS = [
     "enabled": true,
     "domain": "jobs.welocalize.com",
     "url": "https://jobs.welocalize.com/",
-    "search_query": "site:jobs.welocalize.com (\"AI\" OR \"Rater\" OR \"French\" OR \"Spanish\" OR \"Technical\")",
+    "search_query": "site:jobs.welocalize.com (\"AI\" OR \"Rater\" OR \"\" OR \"Spanish\" OR \"Technical\")",
     "contract_caveat": "async_flexible",
     "notes": "Freelance AI trainers, search quality raters, and technical localization reviewers."
   },
@@ -222,7 +222,7 @@ export const INITIAL_PLATFORMS = [
     "enabled": true,
     "domain": "crowdgen.com",
     "url": "https://crowdgen.com/",
-    "search_query": "site:crowdgen.com (\"LLM\" OR \"AI\" OR \"French\" OR \"Spanish\" OR \"Evaluator\")",
+    "search_query": "site:crowdgen.com (\"LLM\" OR \"AI\" OR \"\" OR \"Spanish\" OR \"Evaluator\")",
     "contract_caveat": "async_flexible",
     "notes": "Proyectos flexibles y a propio ritmo de evaluación de modelos LLM y datos multilingües."
   },
@@ -235,7 +235,7 @@ export const INITIAL_PLATFORMS = [
     "enabled": true,
     "domain": "lxt.ai",
     "url": "https://www.lxt.ai/jobs/",
-    "search_query": "site:lxt.ai/jobs (\"Spanish\" OR \"French\" OR \"LATAM\" OR \"Bolivia\" OR \"AI\")",
+    "search_query": "site:lxt.ai/jobs (\"Spanish\" OR \"\" OR \"LATAM\" OR \"Bolivia\" OR \"AI\")",
     "contract_caveat": "async_flexible",
     "notes": "Multilingual AI training and validation across Latin America."
   },
@@ -261,7 +261,7 @@ export const INITIAL_PLATFORMS = [
     "enabled": true,
     "domain": "awesomeaijobs.com",
     "url": "https://www.awesomeaijobs.com/",
-    "search_query": "site:awesomeaijobs.com (\"RLHF\" OR \"Trainer\" OR \"Evaluator\" OR \"Python\" OR \"French\" OR \"Spanish\")",
+    "search_query": "site:awesomeaijobs.com (\"RLHF\" OR \"Trainer\" OR \"Evaluator\" OR \"Python\" OR \"\" OR \"Spanish\")",
     "contract_caveat": "async_flexible",
     "notes": "Curates verified AI training and evaluation roles across 28+ platforms."
   },
@@ -476,8 +476,8 @@ export const INITIAL_PLATFORMS = [
   {
     "id": "freelancermap",
     "name": "Freelancermap",
-    "category": "Category 3: Francophone & European IT Portals",
-    "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+    "category": "Category 3: European & International IT Portals",
+    "track": "Track D: European & International IT/Cloud Marketplaces",
     "type": "portal_dork",
     "enabled": true,
     "domain": "freelancermap.com",
@@ -489,47 +489,47 @@ export const INITIAL_PLATFORMS = [
   {
     "id": "free_work_fr",
     "name": "Free-Work (ex Freelance-Info)",
-    "category": "Category 3: Francophone & European IT Portals",
-    "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+    "category": "Category 3: European & International IT Portals",
+    "track": "Track D: European & International IT/Cloud Marketplaces",
     "type": "portal_dork",
     "enabled": true,
     "domain": "free-work.com",
     "url": "https://www.free-work.com/",
-    "search_query": "site:free-work.com (\"Administrateur\" OR \"Azure\" OR \"M365\" OR \"Entra\" OR \"Cloud\" OR \"SysOps\" OR \"DevOps\" OR \"Python\") \"Télétravail\"",
+    "search_query": "site:free-work.com (\"Administrator\" OR \"Azure\" OR \"M365\" OR \"Cloud\" OR \"SysOps\" OR \"DevOps\" OR \"Python\") \"Remote\"",
     "contract_caveat": "fractional_or_fulltime",
-    "notes": "Principal portal freelance de TI francófono; filtrar por modalidades 100% Télétravail / remoto internacional."
+    "notes": "Portal freelance de TI europeo e internacional; filtrar por modalidades 100% remoto internacional."
   },
   {
     "id": "lehibou_fr",
     "name": "LeHibou",
-    "category": "Category 3: Francophone & European IT Portals",
-    "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+    "category": "Category 3: European & International IT Portals",
+    "track": "Track D: European & International IT/Cloud Marketplaces",
     "type": "portal_dork",
     "enabled": true,
     "domain": "lehibou.com",
     "url": "https://www.lehibou.com/",
     "search_query": "site:lehibou.com (\"Cloud\" OR \"Azure\" OR \"M365\" OR \"Système\" OR \"Sécurité\" OR \"DevOps\" OR \"IA\")",
     "contract_caveat": "fractional_or_fulltime",
-    "notes": "Senior French-speaking IT, Cloud, Cybersecurity, and AI/Data consultants."
+    "notes": "Senior European and international IT, Cloud, Cybersecurity, and AI/Data consultants."
   },
   {
     "id": "freelance_informatique_fr",
     "name": "Freelance-Informatique",
-    "category": "Category 3: Francophone & European IT Portals",
-    "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+    "category": "Category 3: European & International IT Portals",
+    "track": "Track D: European & International IT/Cloud Marketplaces",
     "type": "portal_dork",
     "enabled": true,
     "domain": "freelance-informatique.fr",
     "url": "https://www.freelance-informatique.fr/",
     "search_query": "site:freelance-informatique.fr (\"Azure\" OR \"M365\" OR \"Office 365\" OR \"Système\" OR \"Cloud\" OR \"Linux\" OR \"VMware\")",
     "contract_caveat": "fractional_or_fulltime",
-    "notes": "High-TJM French enterprise missions for independent Cloud, Network, M365, and Systems Administrators."
+    "notes": "High-TJM European enterprise missions for independent Cloud, Network, M365, and Systems Administrators."
   },
   {
     "id": "malt_fr",
     "name": "Malt",
-    "category": "Category 3: Francophone & European IT Portals",
-    "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+    "category": "Category 3: European & International IT Portals",
+    "track": "Track D: European & International IT/Cloud Marketplaces",
     "type": "portal_dork",
     "enabled": true,
     "domain": "malt.fr",
@@ -541,47 +541,47 @@ export const INITIAL_PLATFORMS = [
   {
     "id": "comet_fr",
     "name": "Comet",
-    "category": "Category 3: Francophone & European IT Portals",
-    "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+    "category": "Category 3: European & International IT Portals",
+    "track": "Track D: European & International IT/Cloud Marketplaces",
     "type": "portal_dork",
     "enabled": true,
     "domain": "comet.co",
     "url": "https://www.comet.co/",
     "search_query": "site:comet.co (\"Cloud\" OR \"Azure\" OR \"DevOps\" OR \"Cybersécurité\" OR \"SysOps\" OR \"IA\" OR \"Data\")",
     "contract_caveat": "fractional_or_fulltime",
-    "notes": "Vetted French-speaking IT infrastructure, cybersecurity, cloud, and AI/data freelancers."
+    "notes": "Vetted European IT infrastructure, cybersecurity, cloud, and AI/data freelancers."
   },
   {
     "id": "creme_de_la_creme",
     "name": "Crème de la Crème",
-    "category": "Category 3: Francophone & European IT Portals",
-    "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+    "category": "Category 3: European & International IT Portals",
+    "track": "Track D: European & International IT/Cloud Marketplaces",
     "type": "portal_dork",
     "enabled": true,
     "domain": "cremedelacreme.io",
     "url": "https://cremedelacreme.io/",
     "search_query": "site:cremedelacreme.io (\"Cloud\" OR \"Architecture\" OR \"DevOps\" OR \"Cybersecurity\" OR \"AI\" OR \"Data\")",
     "contract_caveat": "fractional_friendly",
-    "notes": "Selective French community of senior freelance IT architects, DevOps engineers, and AI consultants."
+    "notes": "Selective European community of senior freelance IT architects, DevOps engineers, and AI consultants."
   },
   {
     "id": "codeur_com",
     "name": "Codeur.com (Sysadmin)",
-    "category": "Category 3: Francophone & European IT Portals",
-    "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+    "category": "Category 3: European & International IT Portals",
+    "track": "Track D: European & International IT/Cloud Marketplaces",
     "type": "portal_dork",
     "enabled": true,
     "domain": "codeur.com",
     "url": "https://www.codeur.com/sysadmin",
     "search_query": "site:codeur.com/projects (\"Linux\" OR \"Debian\" OR \"Cloudflare\" OR \"Microsoft 365\" OR \"Azure\" OR \"Serveur\" OR \"Script\" OR \"Python\")",
     "contract_caveat": "fractional_friendly",
-    "notes": "French tender-based marketplace for fixed-price Linux, Cloudflare, M365, and Python automation missions."
+    "notes": "European tender-based marketplace for fixed-price Linux, Cloudflare, M365, and Python automation missions."
   },
   {
     "id": "9am_works",
     "name": "9am.works",
-    "category": "Category 3: Francophone & European IT Portals",
-    "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+    "category": "Category 3: European & International IT Portals",
+    "track": "Track D: European & International IT/Cloud Marketplaces",
     "type": "portal_dork",
     "enabled": true,
     "domain": "9am.works",
@@ -995,12 +995,438 @@ export const INITIAL_PLATFORMS = [
     "search_query": "site:jobs.wowremoteteams.com (\"IT\" OR \"Cloud\" OR \"Systems\" OR \"Azure\" OR \"Data\" OR \"Python\" OR \"AI\")",
     "contract_caveat": "full_time_only",
     "notes": "Places bilingual LATAM tech and systems leads with US clients, primarily on full-time schedules."
+  },
+  {
+    "id": "getonboard",
+    "name": "GetOnBoard (Portal Remoto Latinoamericano)",
+    "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+    "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+    "type": "portal_dork",
+    "enabled": true,
+    "domain": "getonbrd.com",
+    "url": "https://www.getonbrd.com/",
+    "search_query": "site:getonbrd.com (\"remoto\" OR \"remote\" OR \"LATAM\" OR \"asistente\" OR \"coordinador\" OR \"soporte\" OR \"ventas\" OR \"desarrollador\")",
+    "contract_caveat": "fractional_or_fulltime",
+    "notes": "Portal líder de empleo remoto en español para tecnología, operaciones, diseño y marketing en LATAM."
+  },
+  {
+    "id": "virtual_latinos",
+    "name": "Virtual Latinos (Asistentes Virtuales & Profesionales Remotos)",
+    "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+    "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+    "type": "portal_dork",
+    "enabled": true,
+    "domain": "virtuallatinos.com",
+    "url": "https://www.virtuallatinos.com/jobs/",
+    "search_query": "site:virtuallatinos.com (\"asistente virtual\" OR \"virtual assistant\" OR \"coordinador\" OR \"marketing\" OR \"ventas\")",
+    "contract_caveat": "fractional_friendly",
+    "notes": "Comunidad especializada en asistentes virtuales, coordinadores, marketing y ventas remotas desde Latinoamérica."
+  },
+  {
+    "id": "torre_ai",
+    "name": "Torre.ai (Bolsa de Empleo Remoto LATAM & Global)",
+    "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+    "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+    "type": "portal_dork",
+    "enabled": true,
+    "domain": "torre.ai",
+    "url": "https://torre.ai/",
+    "search_query": "site:torre.ai (\"remoto\" OR \"remote\" OR \"bolivia\" OR \"asistente\" OR \"soporte\" OR \"coordinador\" OR \"ventas\")",
+    "contract_caveat": "fractional_or_fulltime",
+    "notes": "Red masiva de talento y vacantes remotas para Latinoamérica y el mundo."
+  },
+  {
+    "id": "workana",
+    "name": "Workana (Proyectos Remotos & Freelance)",
+    "category": "Category 4: Direct-to-Client & Fractional MSP",
+    "track": "Track A: Direct B2B & Fractional MSP",
+    "type": "portal_dork",
+    "enabled": true,
+    "domain": "workana.com",
+    "url": "https://www.workana.com/jobs",
+    "search_query": "site:workana.com/jobs (\"remoto\" OR \"asistente virtual\" OR \"redacción\" OR \"diseño\" OR \"soporte\" OR \"ventas\")",
+    "contract_caveat": "fractional_friendly",
+    "notes": "Marketplace líder de proyectos freelance y trabajo remoto en español en América Latina."
+  },
+  {
+    "id": "soyfreelancer",
+    "name": "SoyFreelancer (Bolsa de Proyectos y Remoto)",
+    "category": "Category 4: Direct-to-Client & Fractional MSP",
+    "track": "Track A: Direct B2B & Fractional MSP",
+    "type": "portal_dork",
+    "enabled": true,
+    "domain": "soyfreelancer.com",
+    "url": "https://www.soyfreelancer.com/",
+    "search_query": "site:soyfreelancer.com (\"remoto\" OR \"freelance\" OR \"asistente\" OR \"diseño\" OR \"programación\")",
+    "contract_caveat": "fractional_friendly",
+    "notes": "Comunidad de trabajo remoto y proyectos independientes en español para Latinoamérica."
+  },
+  {
+    "id": "nodesk_feed",
+    "name": "NoDesk Remote Jobs Feed",
+    "category": "Category 6: Curated Remote-First Job Boards",
+    "track": "Track F: Curated Remote-First & WFA Job Boards",
+    "type": "rss_feed",
+    "enabled": true,
+    "domain": "nodesk.co",
+    "url": "https://nodesk.co/remote-jobs/index.xml",
+    "contract_caveat": "fractional_or_fulltime",
+    "notes": "Directorio curado de empleos 100% remotos a nivel global con feed RSS público."
+  },
+  {
+    "id": "dailyremote_api",
+    "name": "DailyRemote Public Job Board",
+    "category": "Category 6: Curated Remote-First Job Boards",
+    "track": "Track F: Curated Remote-First & WFA Job Boards",
+    "type": "portal_dork",
+    "enabled": true,
+    "domain": "dailyremote.com",
+    "url": "https://dailyremote.com/",
+    "search_query": "site:dailyremote.com (\"Remote\" OR \"Virtual Assistant\" OR \"Customer Support\" OR \"Data Entry\" OR \"Worldwide\")",
+    "contract_caveat": "fractional_or_fulltime",
+    "notes": "Bolsa de empleo remoto pública con vacantes diarias en soporte, asistentes, desarrollo y marketing."
+  },
+  {
+    "id": "jobspresso_feed",
+    "name": "Jobspresso Curated Remote Feed",
+    "category": "Category 6: Curated Remote-First Job Boards",
+    "track": "Track F: Curated Remote-First & WFA Job Boards",
+    "type": "rss_feed",
+    "enabled": true,
+    "domain": "jobspresso.co",
+    "url": "https://jobspresso.co/feed/",
+    "contract_caveat": "fractional_or_fulltime",
+    "notes": "Feed público de ofertas seleccionadas 100% remotas en operaciones, ventas, soporte y tecnología."
+  },
+  {
+    "id": "dynamite_jobs",
+    "name": "Dynamite Jobs Remote Board",
+    "category": "Category 6: Curated Remote-First Job Boards",
+    "track": "Track F: Curated Remote-First & WFA Job Boards",
+    "type": "portal_dork",
+    "enabled": true,
+    "domain": "dynamitejobs.com",
+    "url": "https://dynamitejobs.com/",
+    "search_query": "site:dynamitejobs.com (\"Remote\" OR \"Anywhere\" OR \"Assistant\" OR \"Marketing\" OR \"Operations\")",
+    "contract_caveat": "fractional_friendly",
+    "notes": "Bolsa de trabajo 100% remoto mundial con filtros para puestos asíncronos y globales."
+  },
+  {
+    "id": "latinhire",
+    "name": "LatinHire (Educación & Soporte Remoto)",
+    "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+    "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+    "type": "portal_dork",
+    "enabled": true,
+    "domain": "latinhire.com",
+    "url": "https://latinhire.com/",
+    "search_query": "site:latinhire.com (\"remoto\" OR \"online\" OR \"tutor\" OR \"soporte\" OR \"coordinador\")",
+    "contract_caveat": "fractional_friendly",
+    "notes": "Oportunidades remotas de tutoría, soporte y coordinación para profesionales latinoamericanos."
+  },
+  {
+    "id": "hirelatam",
+    "name": "HireLatam (Talento Remoto Nearshore)",
+    "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+    "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+    "type": "portal_dork",
+    "enabled": true,
+    "domain": "hirelatam.com",
+    "url": "https://hirelatam.com/",
+    "search_query": "site:hirelatam.com (\"virtual assistant\" OR \"operations\" OR \"sales\" OR \"remote\")",
+    "contract_caveat": "fractional_or_fulltime",
+    "notes": "Plataforma de reclutamiento remoto para roles de operaciones, finanzas, ventas y asistencia virtual en LATAM."
+  },
+  {
+    "id": "sheworks",
+    "name": "SheWorks! Remote Global Platform",
+    "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+    "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+    "type": "portal_dork",
+    "enabled": true,
+    "domain": "wheresheworks.com",
+    "url": "https://www.wheresheworks.com/",
+    "search_query": "site:wheresheworks.com (\"remote\" OR \"remoto\" OR \"LATAM\" OR \"marketing\" OR \"assistant\")",
+    "contract_caveat": "fractional_friendly",
+    "notes": "Plataforma de empleo remoto y flexible para talento en Latinoamérica y el mundo."
   }
 ];
 
 export const INITIAL_OPPORTUNITIES = [
   {
-    "id": 1,
+    "job_hash": "hash_va_01_es",
+    "platform_id": "virtual_latinos",
+    "platform_name": "Virtual Latinos",
+    "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+    "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+    "contract_caveat": "fractional_friendly",
+    "title": "Asistente Virtual Bilingüe (Español / Inglés) - Gestión Administrativa y Agenda",
+    "company": "Virtual Latinos Community",
+    "location": "Remoto Latinoamérica / Bolivia (UTC-4)",
+    "url": "https://www.virtuallatinos.com/jobs/asistente-virtual-bilingue",
+    "description": "Buscamos un Asistente Virtual bilingüe para gestionar correo electrónico, agendamiento de reuniones en Google Calendar, elaboración de reportes, facturación básica y atención a clientes de habla hispana e inglesa. Modalidad 100% remota y flexible (20 a 40 hrs/semana). Excelente nivel de español nativo e inglés conversacional.",
+    "tags": "asistente virtual, virtual assistant, administración, data entry, bilingüe, español, remoto",
+    "published_at": "2026-11-09",
+    "discovered_at": "2026-11-09T17:36:49",
+    "id": 1
+  },
+  {
+    "job_hash": "hash_coord_02_es",
+    "platform_id": "getonboard",
+    "platform_name": "GetOnBoard",
+    "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+    "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+    "contract_caveat": "fractional_or_fulltime",
+    "title": "Coordinador/a de Operaciones y Proyectos Digitales (100% Remoto)",
+    "company": "Agencia Digital Andes",
+    "location": "Remoto Latinoamérica (UTC-4)",
+    "url": "https://www.getonbrd.com/jobs/coordinador-operaciones-digitales",
+    "description": "Empresa de servicios digitales busca Coordinador de Operaciones remoto para dar seguimiento a entregables de clientes, coordinar equipos multidisciplinarios y optimizar flujos de trabajo con herramientas como Trello, Asana y Slack. Comunicación 100% en español. Horario flexible.",
+    "tags": "coordinador, operaciones, project manager, gestión de proyectos, remoto, español",
+    "published_at": "2026-11-09",
+    "discovered_at": "2026-11-09T17:36:49",
+    "id": 2
+  },
+  {
+    "job_hash": "hash_support_03_es",
+    "platform_id": "torre_ai",
+    "platform_name": "Torre.ai",
+    "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+    "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+    "contract_caveat": "fractional_or_fulltime",
+    "title": "Representante de Atención al Cliente y Soporte por Chat (Español)",
+    "company": "Soporte Global LATAM",
+    "location": "100% Remoto (Bolivia / LATAM)",
+    "url": "https://torre.ai/jobs/soporte-atencion-cliente-chat",
+    "description": "Atención al cliente vía chat y tickets de soporte para usuarios de América Latina. Resolución de consultas, seguimiento de incidencias y documentación de casos frecuentes en centro de ayuda. Horario flexible, turnos de medio tiempo o tiempo completo. Comunicación 100% en español.",
+    "tags": "atención al cliente, soporte, chat support, customer service, customer support, español, remoto",
+    "published_at": "2026-11-09",
+    "discovered_at": "2026-11-09T17:36:49",
+    "id": 3
+  },
+  {
+    "job_hash": "hash_sdr_04_es",
+    "platform_id": "getonboard",
+    "platform_name": "GetOnBoard",
+    "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+    "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+    "contract_caveat": "fractional_or_fulltime",
+    "title": "SDR / Representante de Desarrollo de Ventas B2B Remoto",
+    "company": "SaaS Latam Growth",
+    "location": "Remoto Sudamérica (UTC-4)",
+    "url": "https://www.getonbrd.com/jobs/sdr-ventas-b2b-remoto",
+    "description": "Prospección de clientes B2B en el mercado hispanohablante. Calificación de prospectos, envío de correos en frío, coordinación de llamadas comerciales para ejecutivos de cuenta. Salario base más comisiones en dólares. Trabajo en español para el mercado latinoamericano.",
+    "tags": "ventas, sdr, bdr, prospección, b2b, comercial, sales, español, remoto",
+    "published_at": "2026-11-09",
+    "discovered_at": "2026-11-09T17:36:49",
+    "id": 4
+  },
+  {
+    "job_hash": "hash_marketing_05_es",
+    "platform_id": "workana",
+    "platform_name": "Workana",
+    "category": "Category 4: Direct-to-Client & Fractional MSP",
+    "track": "Track A: Direct B2B & Fractional MSP",
+    "contract_caveat": "fractional_friendly",
+    "title": "Community Manager & Creador de Contenido Remoto (Redes Sociales)",
+    "company": "Impacto Creativo",
+    "location": "Remoto Global / América Latina",
+    "url": "https://www.workana.com/job/community-manager-creador-contenido",
+    "description": "Gestión de comunidades digitales en LinkedIn, Instagram y TikTok para marcas latinoamericanas. Creación de copys atractivos, diseño de publicaciones en Canva/Figma, programación de calendarios y respuesta a mensajes directos. Modalidad freelance / proyectos recurrentes.",
+    "tags": "community manager, redes sociales, marketing, redactor, copywriter, canva, español, remoto",
+    "published_at": "2026-11-09",
+    "discovered_at": "2026-11-09T17:36:49",
+    "id": 5
+  },
+  {
+    "job_hash": "hash_finance_06_es",
+    "platform_id": "hirelatam",
+    "platform_name": "HireLatam",
+    "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+    "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+    "contract_caveat": "fractional_friendly",
+    "title": "Asistente Contable y Facturación Remota (QuickBooks / Excel)",
+    "company": "Servicios Contables Nearshore",
+    "location": "Remoto LATAM (UTC-4)",
+    "url": "https://hirelatam.com/jobs/asistente-contable-facturacion",
+    "description": "Apoyo en conciliaciones bancarias, emisión y registro de facturas, cuentas por cobrar y pagar utilizando QuickBooks Online y Excel avanzado. Horario de medio tiempo o tiempo completo (20-40h/semana) para empresas en expansión.",
+    "tags": "contabilidad, finanzas, bookkeeper, facturación, excel, quickbooks, español, remoto",
+    "published_at": "2026-11-09",
+    "discovered_at": "2026-11-09T17:36:49",
+    "id": 6
+  },
+  {
+    "job_hash": "hash_hr_07_es",
+    "platform_id": "torre_ai",
+    "platform_name": "Torre.ai",
+    "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+    "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+    "contract_caveat": "fractional_friendly",
+    "title": "Reclutador/a Remoto de Talento Digital (Sourcer LATAM)",
+    "company": "Talento Remoto Red",
+    "location": "Remoto Bolivia / LATAM",
+    "url": "https://torre.ai/jobs/reclutador-talento-digital-sourcer",
+    "description": "Búsqueda activa y filtrado de candidatos en América Latina para vacantes remotas de tecnología y operaciones. Realización de primeros contactos, screening de perfiles y coordinación de entrevistas. 100% en español.",
+    "tags": "reclutador, recursos humanos, talent acquisition, sourcer, rrhh, español, remoto",
+    "published_at": "2026-11-09",
+    "discovered_at": "2026-11-09T17:36:49",
+    "id": 7
+  },
+  {
+    "job_hash": "hash_design_08_es",
+    "platform_id": "soyfreelancer",
+    "platform_name": "SoyFreelancer",
+    "category": "Category 4: Direct-to-Client & Fractional MSP",
+    "track": "Track A: Direct B2B & Fractional MSP",
+    "contract_caveat": "fractional_friendly",
+    "title": "Diseñador/a Gráfico y Editor de Video para Redes Sociales",
+    "company": "Estudio Creativo Digital",
+    "location": "Remoto Latinoamérica (Horario Flexible)",
+    "url": "https://www.soyfreelancer.com/proyecto/disenador-editor-video-redes",
+    "description": "Edición de videos cortos (Reels, TikTok, Shorts) en CapCut o Premiere Pro y diseño de piezas gráficas para publicidad digital en Figma y Photoshop. Pago por proyectos o paquetes mensuales de entregables.",
+    "tags": "diseñador, editor de video, diseño gráfico, multimedia, figma, video, español, freelance",
+    "published_at": "2026-11-09",
+    "discovered_at": "2026-11-09T17:36:49",
+    "id": 8
+  },
+  {
+    "job_hash": "hash_ai_09_es",
+    "platform_id": "outlier_ai",
+    "platform_name": "Outlier AI",
+    "category": "Category 1: AI Training & RLHF",
+    "track": "Track B: Async AI Evaluation & RLHF",
+    "contract_caveat": "async_flexible",
+    "title": "Evaluador de Contenido y Entrenador de Modelos de IA en Español (RLHF)",
+    "company": "Outlier AI (Squad Español)",
+    "location": "Bolivia / Global Remote (Self-Paced Async)",
+    "url": "https://outlier.ai/es/evaluador-ia-espanol",
+    "description": "Evaluación y calificación de respuestas generadas por modelos de inteligencia artificial en español de Bolivia y Latinoamérica. Verificación de precisión factual, coherencia gramatical y calidad de redacción. Horario totalmente libre y asíncrono.",
+    "tags": "ai trainer, evaluador de ia, rlhf, español, redacción, asíncrono, flexible, ia",
+    "published_at": "2026-11-09",
+    "discovered_at": "2026-11-09T17:36:49",
+    "id": 9
+  },
+  {
+    "job_hash": "hash_dataentry_10_es",
+    "platform_id": "dailyremote_api",
+    "platform_name": "DailyRemote",
+    "category": "Category 6: Curated Remote-First Job Boards",
+    "track": "Track F: Curated Remote-First & WFA Job Boards",
+    "contract_caveat": "fractional_friendly",
+    "title": "Especialista en Entrada de Datos y Back Office (Data Entry Remoto)",
+    "company": "Operaciones Globales",
+    "location": "Remote Worldwide / LATAM Friendly",
+    "url": "https://dailyremote.com/remote-job/data-entry-back-office-latam",
+    "description": "Actualización de bases de datos, transcripción y validación de registros digitales en hojas de cálculo de Google Sheets y CRM. Puesto ideal sin experiencia previa con enfoque en atención al detalle y velocidad de digitación.",
+    "tags": "data entry, ingreso de datos, asistente virtual, administrativo, español, remoto",
+    "published_at": "2026-11-09",
+    "discovered_at": "2026-11-09T17:36:49",
+    "id": 10
+  },
+  {
+    "job_hash": "hash_logistics_11_es",
+    "platform_id": "getonboard",
+    "platform_name": "GetOnBoard",
+    "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+    "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+    "contract_caveat": "fractional_or_fulltime",
+    "title": "Asistente de Operaciones y Logística Remota",
+    "company": "LogiTech Sudamérica",
+    "location": "Remoto América Latina (UTC-4)",
+    "url": "https://www.getonbrd.com/jobs/asistente-operaciones-logistica-remota",
+    "description": "Coordinación de envíos, contacto con proveedores, actualización de inventarios digitales y soporte operativo al equipo directivo. Modalidad remota con horario de oficina latinoamericano.",
+    "tags": "coordinador, operaciones, logística, asistente administrativo, español, remoto",
+    "published_at": "2026-11-09",
+    "discovered_at": "2026-11-09T17:36:49",
+    "id": 11
+  },
+  {
+    "job_hash": "hash_copy_12_es",
+    "platform_id": "workana",
+    "platform_name": "Workana",
+    "category": "Category 4: Direct-to-Client & Fractional MSP",
+    "track": "Track A: Direct B2B & Fractional MSP",
+    "contract_caveat": "fractional_friendly",
+    "title": "Redactor de Contenidos Web y Artículos SEO (Español)",
+    "company": "Editorial Digital",
+    "location": "Remoto / Trabajo por Proyectos",
+    "url": "https://www.workana.com/job/redactor-contenidos-seo-espanol",
+    "description": "Redacción de artículos de blog optimizados para posicionamiento orgánico (SEO) en temáticas de finanzas, tecnología y negocios. Trabajo por paquetes de artículos con entrega flexible.",
+    "tags": "redactor, copywriter, seo, marketing de contenidos, redacción, español, freelance",
+    "published_at": "2026-11-09",
+    "discovered_at": "2026-11-09T17:36:49",
+    "id": 12
+  },
+  {
+    "job_hash": "hash_closer_13_es",
+    "platform_id": "virtual_latinos",
+    "platform_name": "Virtual Latinos",
+    "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+    "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+    "contract_caveat": "fractional_or_fulltime",
+    "title": "Ejecutivo/a de Cuentas y Cierre de Ventas Remoto (Inside Sales)",
+    "company": "Comercializadora Digital",
+    "location": "Remoto Latinoamérica / UTC-4",
+    "url": "https://www.virtuallatinos.com/jobs/ejecutivo-ventas-inside-sales",
+    "description": "Conducción de demostraciones de producto en línea y cierre de ventas para prospectos calificados en América Latina. Habilidad de negociación, seguimiento por CRM y manejo fluido de relaciones comerciales.",
+    "tags": "ventas, account executive, comercial, negociador, crm, español, remoto",
+    "published_at": "2026-11-09",
+    "discovered_at": "2026-11-09T17:36:49",
+    "id": 13
+  },
+  {
+    "job_hash": "hash_csm_14_es",
+    "platform_id": "latinhire",
+    "platform_name": "LatinHire",
+    "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+    "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+    "contract_caveat": "fractional_or_fulltime",
+    "title": "Coordinador/a de Soporte y Éxito del Cliente (Customer Success)",
+    "company": "EdTech Internacional",
+    "location": "Remoto Sudamérica (UTC-4)",
+    "url": "https://latinhire.com/jobs/coordinador-customer-success-remoto",
+    "description": "Acompañamiento a nuevos usuarios durante su proceso de adopción de la plataforma, atención de solicitudes proactivas y retención de clientes. Excelente comunicación interpersonal en español.",
+    "tags": "customer success, atención al cliente, soporte, coordinador, español, remoto",
+    "published_at": "2026-11-09",
+    "discovered_at": "2026-11-09T17:36:49",
+    "id": 14
+  },
+  {
+    "job_hash": "hash_dev_15_es",
+    "platform_id": "getonboard",
+    "platform_name": "GetOnBoard",
+    "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+    "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+    "contract_caveat": "fractional_or_fulltime",
+    "title": "Desarrollador/a Frontend React & Next.js Remoto",
+    "company": "E-Commerce Latam",
+    "location": "100% Remoto Latinoamérica (UTC-4)",
+    "url": "https://www.getonbrd.com/jobs/desarrollador-frontend-react-remoto",
+    "description": "Desarrollo de interfaces de usuario modernas con React, TypeScript y Tailwind CSS para plataforma web de comercio electrónico. Trabajo en equipo ágil (Scrum) con comunicación 100% en español.",
+    "tags": "desarrollador, frontend, react, typescript, javascript, web, español, remoto",
+    "published_at": "2026-11-09",
+    "discovered_at": "2026-11-09T17:36:49",
+    "id": 15
+  },
+  {
+    "job_hash": "hash_data_16_es",
+    "platform_id": "torre_ai",
+    "platform_name": "Torre.ai",
+    "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+    "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+    "contract_caveat": "fractional_friendly",
+    "title": "Analista de Datos y Automatizaciones No-Code (Zapier / Make / SQL)",
+    "company": "Soluciones Cloud Latam",
+    "location": "Remoto Global / LATAM",
+    "url": "https://torre.ai/jobs/analista-datos-automatizaciones-zapier",
+    "description": "Construcción de dashboards en Power BI / Google Looker Studio y conexión de flujos de trabajo automatizados entre CRM, pasarelas de pago y hojas de cálculo con Zapier y Make. Proyecto de medio tiempo o tiempo completo.",
+    "tags": "datos, analista de datos, sql, power bi, zapier, make, automatización, español, remoto",
+    "published_at": "2026-11-09",
+    "discovered_at": "2026-11-09T17:36:49",
+    "id": 16
+  },
+  {
+    "id": 17,
     "job_hash": "1f6d8afc93c4ddc06cc5d5eb",
     "platform_id": "upwork_msp",
     "platform_name": "Upwork (Managed Services & Cloud)",
@@ -1017,24 +1443,24 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T02:58:38"
   },
   {
-    "id": 2,
+    "id": 18,
     "job_hash": "c180b9a7e0bce5f6bd185ded",
     "platform_id": "outlier_ai",
     "platform_name": "Outlier AI",
     "category": "Category 1: AI Training & RLHF",
     "track": "Track B: Async AI Evaluation & RLHF",
     "contract_caveat": "async_flexible",
-    "title": "Trilingual Technical AI Trainer & Systems Logic Evaluator (French / Andean Spanish / English)",
+    "title": "Bilingual Technical AI Trainer & Systems Logic Evaluator (Andean Spanish / English)",
     "company": "Outlier AI (Infrastructure & Squad Reviewer Track)",
     "location": "Bolivia / Global Remote (Self-Paced Async)",
     "url": "https://outlier.ai/",
-    "description": "Evaluate frontier LLM responses on Cloud Infrastructure (Azure, M365, Entra ID), Linux/Debian system administration, network security, and Python automation scripts across French, Andean Spanish, and English. Self-paced asynchronous RLHF rubric grading and technical writing verification.",
-    "tags": "ai trainer, rlhf, french, spanish, andean, azure, linux, python, async, self-paced",
+    "description": "Evaluate frontier LLM responses on Cloud Infrastructure (Azure, M365, Entra ID), Linux/Debian system administration, network security, and Python automation scripts across Andean Spanish and English. Self-paced asynchronous RLHF rubric grading and technical writing verification.",
+    "tags": "ai trainer, rlhf, spanish, andean, azure, linux, python, async, self-paced",
     "published_at": "2026-10-30",
     "discovered_at": "2026-10-30T02:58:38"
   },
   {
-    "id": 3,
+    "id": 19,
     "job_hash": "fbf004648b55f33310bb912c",
     "platform_id": "mercor",
     "platform_name": "Mercor",
@@ -1051,7 +1477,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T02:58:38"
   },
   {
-    "id": 4,
+    "id": 20,
     "job_hash": "a0fe6fcd4b6545bc030f5196",
     "platform_id": "neuronhire",
     "platform_name": "NeuronHire",
@@ -1068,24 +1494,24 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T02:58:38"
   },
   {
-    "id": 5,
+    "id": 21,
     "job_hash": "18d4b64e6a8688d5b3c2cc66",
     "platform_id": "free_work_fr",
     "platform_name": "Free-Work (ex Freelance-Info)",
-    "category": "Category 3: Francophone & European IT Portals",
-    "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+    "category": "Category 3: European & International IT Portals",
+    "track": "Track D: European & International IT/Cloud Marketplaces",
     "contract_caveat": "fractional_friendly",
-    "title": "Ingénieur Cloud Microsoft 365 / Entra ID / Intune & Automatisation (100% Télétravail)",
-    "company": "Cabinet Conseil Cloud & Cybersécurité (via Free-Work / Malt)",
-    "location": "100% Télétravail International (Francophone / UTC-4 compatible)",
+    "title": "Ingeniero Cloud Microsoft 365 / Entra ID / Intune & Automatización (100% Remoto)",
+    "company": "Consultora Cloud & Ciberseguridad (via Free-Work / Malt)",
+    "location": "100% Remoto Internacional (UTC-4 compatible)",
     "url": "https://www.free-work.com/",
-    "description": "Mission freelance à temps partiel (20h/semaine, asynchrone) pour un Administrateur Systèmes / Ingénieur Cloud senior francophone. Audit de sécurité Microsoft 365, durcissement Entra ID (Conditional Access), Intune, sauvegarde Acronis/Veeam BCDR, scripts PowerShell/Python et documentation technique (FR/EN).",
-    "tags": "français, french, télétravail, administrateur systèmes, ingénieur cloud, m365, entra id, intune, powershell, acronis",
+    "description": "Misión freelance a tiempo parcial (20h/semana, asíncrona) para Administrador de Sistemas / Ingeniero Cloud senior. Auditoría de seguridad Microsoft 365, endurecimiento Entra ID (Conditional Access), Intune, respaldo Acronis/Veeam BCDR, scripts PowerShell/Python y documentación técnica (ES/EN).",
+    "tags": "remoto, administrador sistemas, ingeniero cloud, m365, entra id, intune, powershell, acronis",
     "published_at": "2026-10-30",
     "discovered_at": "2026-10-30T02:58:38"
   },
   {
-    "id": 6,
+    "id": 22,
     "job_hash": "1d79128e7b91e64784394fd0",
     "platform_id": "glg_insights",
     "platform_name": "GLG (Gerson Lehrman Group)",
@@ -1102,7 +1528,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T02:58:38"
   },
   {
-    "id": 7,
+    "id": 23,
     "job_hash": "5eae25f89dbd3e5d04e926e8",
     "platform_id": "4dayweek_io",
     "platform_name": "4 Day Week (4DayWeek.io)",
@@ -1119,7 +1545,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T02:58:38"
   },
   {
-    "id": 8,
+    "id": 24,
     "job_hash": "fbb0d839ff9d2291d95b3526",
     "platform_id": "distantjob",
     "platform_name": "DistantJob",
@@ -1136,7 +1562,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T02:58:38"
   },
   {
-    "id": 9,
+    "id": 25,
     "job_hash": "6ed45e06935d6a1a959e0a15",
     "platform_id": "remoteok_api",
     "platform_name": "Remote OK API (SysAdmin/Cloud/Python)",
@@ -1153,7 +1579,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T02:58:38"
   },
   {
-    "id": 10,
+    "id": 26,
     "job_hash": "583810ed05dfd0c1d664b42e",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1170,24 +1596,24 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 11,
+    "id": 27,
     "job_hash": "e2f181263b155269c3467c50",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
-    "title": "Quality Assurance Rater - French speakers in France",
+    "title": "Quality Assurance Rater - Local Resident in Europe Only",
     "company": "TELUS Digital",
     "location": "Global",
     "url": "https://www.workingnomads.com/job/go/1957803/",
-    "description": "Join our elite team of Senior Raters as a critical contributor to high-quality validation data that directly influences product development and quality assurance for leading search engines and AI technologies. This flexible, remote opportunity allows you to apply your analytical and research skills to evaluate search results and AI-generated content while contributing to the development of high-quality AI systems. A Day in the Life of a Quality Assurance Rater In this role, you'll conduct analytical assessments of search results and AI responses, providing ratings and feedback that help improve AI model performance and search quality. Your work will maintain high quality standards and deliver the accuracy our clients depend on. You'll evaluate a variety of rating tasks, analyze content with attention to detail, conduct research to support rating decisions, and identify guideline gaps or task inconsistencies. You'll also participate in training and calibration sessions while contributing feedback to improve rating processes and guidelines. Key Responsibilities Evaluate search results and AI-generated content for quality, relevance, accuracy, and usefulness. Conduct online research to verify information and support rating decisions. Apply rating guidelines consistently while maintaining quality standards. Document edge cases, guideline gaps, and task-related issues. Provide clear written feedback and rationale for ratings when required. Participate in training, calibration sessions, and ongoing quality reviews. Meet productivity expectations while maintaining high-quality work. If hired we will ask you to submit a copy of your Independent Contractor Registration and/or Certificate of Vigilance. This documentation may be obtained from the URSSAF (Union de Recouvrement des Cotisations de Sécurité Sociale et d'Allocations Familiales) and also through https://www.guichet-entreprises.fr/. TELUS Digital AI Community Our global AI Community is a vibrant network of 1 million+ contributors from diverse backgrounds who help our customers collect, enhance, train, translate, and localize content to build better AI models. Become part of our growing community and make an impact supporting the machine learning models of some of the world’s largest brands. Qualification path Candidates will complete project-specific training and qualification assessments before joining the program. Ongoing work will be subject to regular quality assurance reviews and performance monitoring. Basic Requirements Working as a freelancer with excellent communication skills in French & English. Resident in France for the last 5 consecutive years. Familiarity with current and historical business, media, sports, news, social media, and cultural affairs. Strong analytical thinking, attention to detail, and research skills. Experience using web browsers, search engines, and online research tools. Daily access to a reliable broadband internet connection, smartphone, and personal computer. Demonstrated research capability through professional background OR strong track record of self-directed research and information verification Ability to work independently and follow detailed guidelines consistently. High level of creativity and logical skills with the ability to achieve consistent targets Preferred Qualifications Experience in quality assurance, content moderation, data annotation, research, journalism, editing, or information verification. Familiarity with AI technologies, search engines, and digital content ecosystems. Subject matter expertise in areas such as Popular Culture, Social Sciences, STEM, Medicine, Law, Finance, or Engineering. Additional language skills may be beneficial depending on project requirements. Equal Opportunity All qualified applicants will receive consideration for a contractual relationship without regard to race, color, religion, sex, sexual orientation, gender identity, national origin, disability, or protected veteran status. At TELUS Di",
-    "tags": "french,annotation,quality,english",
+    "description": "Join our elite team of Senior Raters as a critical contributor to high-quality validation data that directly influences product development and quality assurance for leading search engines and AI technologies. This flexible, remote opportunity allows you to apply your analytical and research skills to evaluate search results and AI-generated content while contributing to the development of high-quality AI systems. A Day in the Life of a Quality Assurance Rater In this role, you'll conduct analytical assessments of search results and AI responses, providing ratings and feedback that help improve AI model performance and search quality. Your work will maintain high quality standards and deliver the accuracy our clients depend on. You'll evaluate a variety of rating tasks, analyze content with attention to detail, conduct research to support rating decisions, and identify guideline gaps or task inconsistencies. You'll also participate in training and calibration sessions while contributing feedback to improve rating processes and guidelines. Key Responsibilities Evaluate search results and AI-generated content for quality, relevance, accuracy, and usefulness. Conduct online research to verify information and support rating decisions. Apply rating guidelines consistently while maintaining quality standards. Document edge cases, guideline gaps, and task-related issues. Provide clear written feedback and rationale for ratings when required. Participate in training, calibration sessions, and ongoing quality reviews. Meet productivity expectations while maintaining high-quality work. If hired we will ask you to submit a copy of your Independent Contractor Registration and/or Certificate of Vigilance. This documentation may be obtained from the URSSAF (Union de Recouvrement des Cotisations de Sécurité Sociale et d'Allocations Familiales) and also through https://www.guichet-entreprises.fr/. TELUS Digital AI Community Our global AI Community is a vibrant network of 1 million+ contributors from diverse backgrounds who help our customers collect, enhance, train, translate, and localize content to build better AI models. Become part of our growing community and make an impact supporting the machine learning models of some of the world’s largest brands. Qualification path Candidates will complete project-specific training and qualification assessments before joining the program. Ongoing work will be subject to regular quality assurance reviews and performance monitoring. Basic Requirements Working as a freelancer with excellent communication skills in  & English. Resident in France for the last 5 consecutive years. Familiarity with current and historical business, media, sports, news, social media, and cultural affairs. Strong analytical thinking, attention to detail, and research skills. Experience using web browsers, search engines, and online research tools. Daily access to a reliable broadband internet connection, smartphone, and personal computer. Demonstrated research capability through professional background OR strong track record of self-directed research and information verification Ability to work independently and follow detailed guidelines consistently. High level of creativity and logical skills with the ability to achieve consistent targets Preferred Qualifications Experience in quality assurance, content moderation, data annotation, research, journalism, editing, or information verification. Familiarity with AI technologies, search engines, and digital content ecosystems. Subject matter expertise in areas such as Popular Culture, Social Sciences, STEM, Medicine, Law, Finance, or Engineering. Additional language skills may be beneficial depending on project requirements. Equal Opportunity All qualified applicants will receive consideration for a contractual relationship without regard to race, color, religion, sex, sexual orientation, gender identity, national origin, disability, or protected veteran status. At TELUS Di",
+    "tags": "rater,annotation,quality,english",
     "published_at": "2026-10-20",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 12,
+    "id": 28,
     "job_hash": "d3bcb452dabe56ee670f594d",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1204,7 +1630,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 13,
+    "id": 29,
     "job_hash": "98af63ae98ff918a272e67c1",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1221,7 +1647,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 14,
+    "id": 30,
     "job_hash": "28aad77a096b019bac460229",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1238,7 +1664,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 15,
+    "id": 31,
     "job_hash": "17d479476d6a2530f387059c",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1255,7 +1681,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 16,
+    "id": 32,
     "job_hash": "b96de6a78c6cb8c7497c571c",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1272,7 +1698,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 17,
+    "id": 33,
     "job_hash": "f4f3d0868c7a162aa3d14591",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1289,7 +1715,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 18,
+    "id": 34,
     "job_hash": "159477112e9791b7972eb664",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1306,7 +1732,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 19,
+    "id": 35,
     "job_hash": "8d3f14ac419085f1989ed226",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1323,7 +1749,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 20,
+    "id": 36,
     "job_hash": "44b9802c07d1dc9d1e9fb786",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1340,7 +1766,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 21,
+    "id": 37,
     "job_hash": "952bdf8bdf48b166c98b6e86",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1357,7 +1783,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 22,
+    "id": 38,
     "job_hash": "2f7af5300346b9af2f4726a7",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1374,7 +1800,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 23,
+    "id": 39,
     "job_hash": "3ad532d3bd02dd5b773c2222",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1391,7 +1817,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 24,
+    "id": 40,
     "job_hash": "76ab2f9da81738ceeb3574fa",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1408,7 +1834,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 25,
+    "id": 41,
     "job_hash": "6133c00bcf763003297168a5",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1425,7 +1851,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 26,
+    "id": 42,
     "job_hash": "a5d1d9cfaa37ca3ee68e1851",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1442,7 +1868,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 27,
+    "id": 43,
     "job_hash": "779b135157eb7da35b55a960",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1459,7 +1885,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 28,
+    "id": 44,
     "job_hash": "b20c64f50672d160dec0ebd8",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
@@ -1476,7 +1902,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 29,
+    "id": 45,
     "job_hash": "7df93145ad2cab00b20b07d0",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
@@ -1493,7 +1919,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 30,
+    "id": 46,
     "job_hash": "1eacd3f5da3ca689960cd206",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
@@ -1510,7 +1936,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 31,
+    "id": 47,
     "job_hash": "552066cc9c949c2cfed34656",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
@@ -1527,7 +1953,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 32,
+    "id": 48,
     "job_hash": "a6fa61fc0e2df278fdc4c659",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1544,7 +1970,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 33,
+    "id": 49,
     "job_hash": "89f21bc975339de0014a1206",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1561,7 +1987,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 34,
+    "id": 50,
     "job_hash": "d69963b8ee94bf2ac075ae54",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1578,7 +2004,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 35,
+    "id": 51,
     "job_hash": "0c0b81a0f4961859a2b8d0cd",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1595,7 +2021,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 36,
+    "id": 52,
     "job_hash": "f3743d553eb565e26f199d9b",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1612,7 +2038,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 37,
+    "id": 53,
     "job_hash": "51f8b6dd0fb70d12cca032e0",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1629,7 +2055,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 38,
+    "id": 54,
     "job_hash": "1f8a297d511f6ebb1d60b6e9",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1646,24 +2072,24 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 39,
+    "id": 55,
     "job_hash": "36c2972c25b6570b874ac2c8",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
-    "title": "Bilingual Channel Sales Engineer, French (EMEA)",
+    "title": "Bilingual Channel Sales Engineer - EMEA (English / German)",
     "company": "Keeper Security",
     "location": "Anywhere in the World",
-    "url": "https://weworkremotely.com/remote-jobs/keeper-security-bilingual-channel-sales-engineer-french-emea",
-    "description": "Headquarters: Remote, Ireland; Remote, UK Description Keeper Security is hiring an experienced Bilingual (French) Channel Sales Engineer to work with our EMEA channel sales team. This is a remote position and qualified candidates must permanently reside in Ireland or the UK. Keeper’s cybersecurity software is trusted by millions of people and thousands of organisations, globally. Keeper is published in 23 languages and is sold in over 150 countries. Join one of the fastest-growing cybersecurity companies and be responsible for navigating our customers through the technical landscape of our products. About Keeper Keeper Security is transforming cybersecurity for people and organisations globally. Keeper’s intuitive solutions are built with end-to-end encryption to protect every user, on every device, in every location. Our zero-trust privileged access management platform deploys in minutes and seamlessly integrates with any tech stack to prevent breaches, reduce help desk costs and ensure compliance. Trusted by millions of individuals and thousands of organisations, Keeper is the leader for password, passkey and secrets management, privileged access, secure remote access and encrypted messaging. Learn how our zero-trust and zero-knowledge solutions defend against cyber threats at KeeperSecurity.com . About the Role As a bilingual Channel Sales Engineer you will work alongside the Keeper Security sales force by supporting the pre-sales and post-sales cycle from a technical perspective. You will be responsible for identifying the technical requirements within an opportunity, matching them to Keeper Security solutions, and supporting the sale by positioning and demonstrating differences. You will provide product trials and evaluations to Keeper Security partners, assist with implementation and integration, and provide level-2 technical assistance to existing customers. Responsibilities Provide and manage pre-sales technical support for the technical sales process of Keeper products for Channel partners in EMEA. Work closely with the Channel Account Management team to support and develop strategic partners technical capability and drive incremental partner revenue. Conduct product demonstrations and technical presentations remotely, at customer locations, or on-site at a Keeper facility Collaborate with product development and engineering teams to stay updated on product features, enhancements, and updates Communicate with German and English speaking partners, both verbally and in writing Address technical questions, concerns, and objections during the sales process to ensure customer confidence and satisfaction Act as a technical advisor to partners, helping them understand how our solutions can solve their business challenges and achieve their goals Stay informed about industry trends, competitive landscape, and emerging technologies relevant to the business Analyse complex multivariate problems and use a systematic approach to gain quick resolution, often under pressure Works on issues that affect design/selling success or address future concepts, products or technologies Establish relationships and engage with the technical personnel to identify opportunities and sell Keeper Security products and services Ensure accurate and timely activity, issue updates in Salesforce and report to management Create and deliver technical product presentations and/or training sessions to channel partners and customers Participates as part of a sales team to achieve or exceed revenue targets Contribute to the execution of company objectives to achieve goals in creative and effective ways Ability to travel to and from customer meetings (locally and nationally) & rent and/or operate a vehicle on behalf of the company Requirements 5+ years of experience in a pre-sales technical role (Sales Engineer, Systems Engineer, Solutions Engineer, etc.) Must be bilingual, native French with English fluency (both verbal and written) Excellent communication and",
+    "url": "https://weworkremotely.com/remote-jobs/keeper-security-bilingual-channel-sales-engineer-emea",
+    "description": "Headquarters: Remote, Ireland; Remote, UK Description Keeper Security is hiring an experienced Bilingual Channel Sales Engineer to work with our EMEA channel sales team. This is a remote position and qualified candidates must permanently reside in Ireland or the UK. Keeper’s cybersecurity software is trusted by millions of people and thousands of organisations, globally. Keeper is published in 23 languages and is sold in over 150 countries. Join one of the fastest-growing cybersecurity companies and be responsible for navigating our customers through the technical landscape of our products. About Keeper Keeper Security is transforming cybersecurity for people and organisations globally. Keeper’s intuitive solutions are built with end-to-end encryption to protect every user, on every device, in every location. Our zero-trust privileged access management platform deploys in minutes and seamlessly integrates with any tech stack to prevent breaches, reduce help desk costs and ensure compliance. Trusted by millions of individuals and thousands of organisations, Keeper is the leader for password, passkey and secrets management, privileged access, secure remote access and encrypted messaging. Learn how our zero-trust and zero-knowledge solutions defend against cyber threats at KeeperSecurity.com . About the Role As a bilingual Channel Sales Engineer you will work alongside the Keeper Security sales force by supporting the pre-sales and post-sales cycle from a technical perspective. You will be responsible for identifying the technical requirements within an opportunity, matching them to Keeper Security solutions, and supporting the sale by positioning and demonstrating differences. You will provide product trials and evaluations to Keeper Security partners, assist with implementation and integration, and provide level-2 technical assistance to existing customers. Responsibilities Provide and manage pre-sales technical support for the technical sales process of Keeper products for Channel partners in EMEA. Work closely with the Channel Account Management team to support and develop strategic partners technical capability and drive incremental partner revenue. Conduct product demonstrations and technical presentations remotely, at customer locations, or on-site at a Keeper facility Collaborate with product development and engineering teams to stay updated on product features, enhancements, and updates Communicate with German and English speaking partners, both verbally and in writing Address technical questions, concerns, and objections during the sales process to ensure customer confidence and satisfaction Act as a technical advisor to partners, helping them understand how our solutions can solve their business challenges and achieve their goals Stay informed about industry trends, competitive landscape, and emerging technologies relevant to the business Analyse complex multivariate problems and use a systematic approach to gain quick resolution, often under pressure Works on issues that affect design/selling success or address future concepts, products or technologies Establish relationships and engage with the technical personnel to identify opportunities and sell Keeper Security products and services Ensure accurate and timely activity, issue updates in Salesforce and report to management Create and deliver technical product presentations and/or training sessions to channel partners and customers Participates as part of a sales team to achieve or exceed revenue targets Contribute to the execution of company objectives to achieve goals in creative and effective ways Ability to travel to and from customer meetings (locally and nationally) & rent and/or operate a vehicle on behalf of the company Requirements 5+ years of experience in a pre-sales technical role (Sales Engineer, Systems Engineer, Solutions Engineer, etc.) Must be bilingual, bilingual English fluency (both verbal and written) Excellent communication and",
     "tags": "rss, remote",
     "published_at": "Sun, 25 Oc",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 40,
+    "id": 56,
     "job_hash": "d75387553f3884f19ecfcfb8",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1680,7 +2106,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 41,
+    "id": 57,
     "job_hash": "81cba903b0f96533b8cd6e0b",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1697,7 +2123,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 42,
+    "id": 58,
     "job_hash": "564baa076db31606270c2372",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1714,7 +2140,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 43,
+    "id": 59,
     "job_hash": "578622878594f16ffb6fe3b2",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1731,7 +2157,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 44,
+    "id": 60,
     "job_hash": "8911680b0314dff9bc1dbcd4",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1748,7 +2174,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 45,
+    "id": 61,
     "job_hash": "e2b924bf762d4e678e1ef735",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1765,7 +2191,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 46,
+    "id": 62,
     "job_hash": "3c9d4a872130e06a67eb0564",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1782,7 +2208,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 47,
+    "id": 63,
     "job_hash": "e01f10556e8c61f83ff24b52",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1799,7 +2225,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 48,
+    "id": 64,
     "job_hash": "edc9ac0320ce829ca5e758a8",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1816,7 +2242,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 49,
+    "id": 65,
     "job_hash": "b3272bd0a79069135b3206bf",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1833,7 +2259,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 50,
+    "id": 66,
     "job_hash": "ba8d95cca15ecaa6429e1360",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1850,7 +2276,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 51,
+    "id": 67,
     "job_hash": "4ee916950134c027ec115a02",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
@@ -1867,7 +2293,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "id": 52,
+    "id": 68,
     "job_hash": "739383127f0e59f819fd9837",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1884,7 +2310,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:05"
   },
   {
-    "id": 53,
+    "id": 69,
     "job_hash": "65d29970be994b7cc3399d23",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1901,7 +2327,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:05"
   },
   {
-    "id": 54,
+    "id": 70,
     "job_hash": "f9f4b2ea2eefed06b9b6dd9d",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1918,7 +2344,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:05"
   },
   {
-    "id": 55,
+    "id": 71,
     "job_hash": "03d452187300aee4d1477026",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1935,7 +2361,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:05"
   },
   {
-    "id": 56,
+    "id": 72,
     "job_hash": "e15767050ef7c9542611c158",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1952,7 +2378,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:05"
   },
   {
-    "id": 57,
+    "id": 73,
     "job_hash": "51bab040d760e13c5ea64817",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -1969,7 +2395,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:05"
   },
   {
-    "id": 58,
+    "id": 74,
     "job_hash": "3fc82adc996ec72e4a0a2528",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -1986,7 +2412,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:08"
   },
   {
-    "id": 59,
+    "id": 75,
     "job_hash": "4bf8a163e3b6cecb7e2f99d7",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
@@ -2003,7 +2429,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:09"
   },
   {
-    "id": 60,
+    "id": 76,
     "job_hash": "e525f145f275012ab6c1b4d7",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
@@ -2020,7 +2446,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:09"
   },
   {
-    "id": 61,
+    "id": 77,
     "job_hash": "eb90ed56020b117634acd795",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
@@ -2037,7 +2463,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:09"
   },
   {
-    "id": 62,
+    "id": 78,
     "job_hash": "f00dcdab0a2127a51887eeac",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
@@ -2054,7 +2480,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:09"
   },
   {
-    "id": 63,
+    "id": 79,
     "job_hash": "948c92b7e4f4f87f1a30d704",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
@@ -2071,7 +2497,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:09"
   },
   {
-    "id": 64,
+    "id": 80,
     "job_hash": "c9e1c7c7cdde90ec41a97aca",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
@@ -2088,7 +2514,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:09"
   },
   {
-    "id": 65,
+    "id": 81,
     "job_hash": "7785dab0073468802c9481a6",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2105,7 +2531,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "id": 66,
+    "id": 82,
     "job_hash": "4f865445e4fd2489cfcc3eff",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2122,7 +2548,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "id": 67,
+    "id": 83,
     "job_hash": "6cab1433bd4571f0bf2545ce",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2139,7 +2565,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "id": 68,
+    "id": 84,
     "job_hash": "ddcd235e304f7e1003dd3e19",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2156,7 +2582,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "id": 69,
+    "id": 85,
     "job_hash": "2fa5b172adc62a8c4d507052",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2173,7 +2599,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "id": 70,
+    "id": 86,
     "job_hash": "bd0794d32a7f93df161be2ab",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2190,7 +2616,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "id": 71,
+    "id": 87,
     "job_hash": "d331380a53e297a3e58fe6e4",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2207,7 +2633,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "id": 72,
+    "id": 88,
     "job_hash": "b29b72bec25385d54e69b5d8",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2224,7 +2650,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "id": 73,
+    "id": 89,
     "job_hash": "3bfa23fa8421bc86e309ae2b",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2241,7 +2667,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "id": 74,
+    "id": 90,
     "job_hash": "c199834308a85076a55df4a1",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2258,7 +2684,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "id": 75,
+    "id": 91,
     "job_hash": "164d585175ee8ca6ab551aef",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2275,7 +2701,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "id": 76,
+    "id": 92,
     "job_hash": "2a6f5d49f674489447b67850",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2292,7 +2718,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "id": 77,
+    "id": 93,
     "job_hash": "5b5e067b086e26fc937572cf",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2309,7 +2735,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "id": 78,
+    "id": 94,
     "job_hash": "6686936285691a1e0f5bba29",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2326,7 +2752,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "id": 79,
+    "id": 95,
     "job_hash": "2388513b7013df56a88a1e38",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2343,7 +2769,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "id": 80,
+    "id": 96,
     "job_hash": "d174ff84710a6de501163586",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2360,7 +2786,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "id": 81,
+    "id": 97,
     "job_hash": "78e0e460be8bae70c21a30de",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2377,7 +2803,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "id": 82,
+    "id": 98,
     "job_hash": "1f92bf4430398f0a4fd166d8",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2394,7 +2820,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "id": 83,
+    "id": 99,
     "job_hash": "fced5bdd2f1691034b3b4398",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely (DevOps & SysAdmin RSS)",
@@ -2411,24 +2837,24 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:19"
   },
   {
-    "id": 84,
+    "id": 100,
     "job_hash": "3f31767b78c76a18b736004a",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
-    "title": "Speech & Conversation Analytics Analyst - French & English (Remote, Any Location",
+    "title": "Speech & Conversation Analytics Analyst - Spanish & English (Remote, Any Location",
     "company": "Himalayas.app RSS Feed",
     "location": "Remote Worldwide",
-    "url": "https://himalayas.app/companies/foundever/jobs/speech-conversation-analytics-analyst-french-english-remote-any-location",
-    "description": "Speech & Conversation Analytics Analyst — French & English(CallMiner / Verint / NICE / Genesys / Observe.",
+    "url": "https://himalayas.app/companies/foundever/jobs/speech-conversation-analytics-analyst-bilingual-remote-any-location",
+    "description": "Speech & Conversation Analytics Analyst — Spanish & English(CallMiner / Verint / NICE / Genesys / Observe.",
     "tags": "rss, remote",
     "published_at": "Fri, 30 Oc",
     "discovered_at": "2026-10-30T01:00:03"
   },
   {
-    "id": 85,
+    "id": 101,
     "job_hash": "c71aaed638beee7305a0923d",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2445,7 +2871,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T03:00:13"
   },
   {
-    "id": 86,
+    "id": 102,
     "job_hash": "948db1317d5a023080f89fae",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2462,14 +2888,14 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T08:00:04"
   },
   {
-    "id": 87,
+    "id": 103,
     "job_hash": "a0119050018d2f8d8faea710",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
-    "title": "Gestionnaire senior, génération de la demande - Télétravail - FS464",
+    "title": "Senior Demand Generation Manager - Remote - FS464",
     "company": "Himalayas.app RSS Feed",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/fresche-solutions-inc/jobs/gestionnaire-senior-generation-de-la-demande-teletravail-fs464",
@@ -2479,7 +2905,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T08:00:04"
   },
   {
-    "id": 88,
+    "id": 104,
     "job_hash": "fc53665270951d327a779580",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2496,7 +2922,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T08:00:04"
   },
   {
-    "id": 89,
+    "id": 105,
     "job_hash": "484a737b6d73fe34c4229b90",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2513,7 +2939,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T08:00:04"
   },
   {
-    "id": 90,
+    "id": 106,
     "job_hash": "9640a80e664df040365b6659",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely (DevOps & SysAdmin RSS)",
@@ -2530,7 +2956,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T08:00:12"
   },
   {
-    "id": 91,
+    "id": 107,
     "job_hash": "b8d3935f90c7f1eeced588e8",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely (DevOps & SysAdmin RSS)",
@@ -2547,7 +2973,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T08:00:12"
   },
   {
-    "id": 92,
+    "id": 108,
     "job_hash": "a28768ebb6eae6c7a675e517",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely (DevOps & SysAdmin RSS)",
@@ -2564,7 +2990,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T08:00:12"
   },
   {
-    "id": 93,
+    "id": 109,
     "job_hash": "4e05ec2915f66771b5888d03",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2581,7 +3007,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-31T08:00:04"
   },
   {
-    "id": 94,
+    "id": 110,
     "job_hash": "1e7639e6f190f1e21fc7844f",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2598,7 +3024,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-31T08:00:04"
   },
   {
-    "id": 95,
+    "id": 111,
     "job_hash": "6249e080ad16ed98e1322874",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
@@ -2615,7 +3041,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-31T08:00:05"
   },
   {
-    "id": 96,
+    "id": 112,
     "job_hash": "ab802f50f7b72cf5f3ec951f",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2632,7 +3058,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-01T08:00:04"
   },
   {
-    "id": 97,
+    "id": 113,
     "job_hash": "56b9c21197de85a05a8873ca",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2649,7 +3075,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-01T08:00:04"
   },
   {
-    "id": 98,
+    "id": 114,
     "job_hash": "a5e0488c55cd61c9e8826ea4",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2666,7 +3092,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-03T08:00:06"
   },
   {
-    "id": 99,
+    "id": 115,
     "job_hash": "bb51aaf24ddd71d319616767",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2683,24 +3109,24 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-03T08:00:06"
   },
   {
-    "id": 100,
+    "id": 116,
     "job_hash": "3c66898708e2fb0073926ed0",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
-    "title": "Customer Service Representative (French)",
+    "title": "Customer Service Representative (Bilingual Spanish/English)",
     "company": "Himalayas.app RSS Feed",
     "location": "Remote Worldwide",
-    "url": "https://himalayas.app/companies/microsourcing/jobs/customer-service-representative-french",
-    "description": "Discover your 100% YOU with MicroSourcing! Position: Customer Service Representative (French) Work setup & shift: Remote | Shifting Schedule Why join MicroSourcing?",
+    "url": "https://himalayas.app/companies/microsourcing/jobs/customer-service-representative-bilingual",
+    "description": "Discover your 100% YOU with MicroSourcing! Position: Customer Service Representative (Bilingual Spanish/English) Work setup & shift: Remote | Shifting Schedule Why join MicroSourcing?",
     "tags": "rss, remote",
     "published_at": "Tue, 03 No",
     "discovered_at": "2026-11-03T08:00:06"
   },
   {
-    "id": 101,
+    "id": 117,
     "job_hash": "9edc8849c547f04174163a81",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2717,7 +3143,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-03T09:43:00"
   },
   {
-    "id": 102,
+    "id": 118,
     "job_hash": "f5bd33d6e94400616a6e32a3",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2734,7 +3160,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-04T08:00:06"
   },
   {
-    "id": 103,
+    "id": 119,
     "job_hash": "6f9e63d77cec49c157d6ea4e",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -2751,7 +3177,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-05T08:00:03"
   },
   {
-    "id": 104,
+    "id": 120,
     "job_hash": "a2a6b27c84b9f1e880e822db",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2768,7 +3194,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-05T08:00:04"
   },
   {
-    "id": 105,
+    "id": 121,
     "job_hash": "51a00de181564201d62a46d8",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2785,7 +3211,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-05T08:00:15"
   },
   {
-    "id": 106,
+    "id": 122,
     "job_hash": "5ba52d23a571bfecc4d82111",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2802,7 +3228,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-07T08:00:05"
   },
   {
-    "id": 107,
+    "id": 123,
     "job_hash": "6814a0d3610a9fc4f521c02b",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2819,7 +3245,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-07T08:00:05"
   },
   {
-    "id": 108,
+    "id": 124,
     "job_hash": "d0bfd57878140d0008d70bb8",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2836,7 +3262,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-07T08:00:05"
   },
   {
-    "id": 109,
+    "id": 125,
     "job_hash": "ec4132441e2acec5d2cd2d0f",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2853,7 +3279,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-07T08:00:05"
   },
   {
-    "id": 110,
+    "id": 126,
     "job_hash": "31ea60c1c025c875da2d2dec",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
@@ -2870,7 +3296,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-07T08:00:05"
   },
   {
-    "id": 111,
+    "id": 127,
     "job_hash": "c7b556676892560d217bd4be",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
@@ -2887,7 +3313,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-07T08:00:10"
   },
   {
-    "id": 112,
+    "id": 128,
     "job_hash": "c8f18b03450b4a7720e4f074",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2904,7 +3330,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-08T08:00:05"
   },
   {
-    "id": 113,
+    "id": 129,
     "job_hash": "727510602be29a70b041136b",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2921,7 +3347,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-08T08:00:05"
   },
   {
-    "id": 114,
+    "id": 130,
     "job_hash": "54666cfd49286d210addfc8e",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2938,7 +3364,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-08T08:00:05"
   },
   {
-    "id": 115,
+    "id": 131,
     "job_hash": "4a1d64838e450ad984022e60",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2955,7 +3381,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-08T08:00:05"
   },
   {
-    "id": 116,
+    "id": 132,
     "job_hash": "6a991dd61a8b4dcffc94f893",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
@@ -2972,7 +3398,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-08T08:00:05"
   },
   {
-    "id": 117,
+    "id": 133,
     "job_hash": "15f238a432cba7d944d58220",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
@@ -2989,7 +3415,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T07:09:12"
   },
   {
-    "id": 118,
+    "id": 134,
     "job_hash": "ef460d3cf2cbda2215bc3026",
     "platform_id": "ai_eval_outlier_bolivia",
     "platform_name": "Outlier AI Portal (Andean Spanish & Tech Writer)",
@@ -3000,13 +3426,13 @@ export const INITIAL_OPPORTUNITIES = [
     "company": "Outlier AI",
     "location": "Remote Worldwide / Bolivia Actively Hiring",
     "url": "https://app.outlier.ai/en/expert/jobs/sysadmin-spanish-evaluator",
-    "description": "Evaluate and audit complex LLM responses covering Linux (Debian), Microsoft Azure, system administration, network troubleshooting, and BCDR procedures across English, French, and Andean Spanish. 100% asynchronous self-paced contract ($28-$35/hr equivalent) ideal for experienced IT infrastructure auditors.",
-    "tags": "ai evaluator, rlhf, spanish, french, linux, azure, documentation, async, part-time",
+    "description": "Evaluate and audit complex LLM responses covering Linux (Debian), Microsoft Azure, system administration, network troubleshooting, and BCDR procedures across English and Andean Spanish. 100% asynchronous self-paced contract ($28-$35/hr equivalent) ideal for experienced IT infrastructure auditors.",
+    "tags": "ai evaluator, rlhf, spanish, linux, azure, documentation, async, part-time",
     "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T07:09:12"
   },
   {
-    "id": 119,
+    "id": 135,
     "job_hash": "4bc70b5b546761210a8c4044",
     "platform_id": "ai_eval_innodata",
     "platform_name": "Innodata Careers (IT/Systems Auditing & Localization)",
@@ -3017,13 +3443,13 @@ export const INITIAL_OPPORTUNITIES = [
     "company": "Innodata",
     "location": "Remote (Global / Latin America)",
     "url": "https://www.innodata.com/careers/ai-trainer-enterprise-it",
-    "description": "Rewrite and validate machine-generated Standard Operating Procedures (SOPs), disaster recovery (BCDR) manuals, and M365/Azure administration guides. Requires 10+ years of non-coding systems engineering or IT auditing logic plus bilingual English/Spanish or English/French proficiency. Flexible part-time.",
-    "tags": "ai trainer, sop, documentation, m365, azure, bcdr, spanish, french, async, contract",
+    "description": "Rewrite and validate machine-generated Standard Operating Procedures (SOPs), disaster recovery (BCDR) manuals, and M365/Azure administration guides. Requires 10+ years of non-coding systems engineering or IT auditing logic plus bilingual English/Spanish proficiency. Flexible part-time.",
+    "tags": "ai trainer, sop, documentation, m365, azure, bcdr, spanish, async, contract",
     "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T07:09:12"
   },
   {
-    "id": 120,
+    "id": 136,
     "job_hash": "79f850e25fcd6e1b3b38607e",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
@@ -3040,7 +3466,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T07:09:12"
   },
   {
-    "id": 121,
+    "id": 137,
     "job_hash": "573f7153f0745e2a664ad725",
     "platform_id": "remoteok_api",
     "platform_name": "Remote OK API",

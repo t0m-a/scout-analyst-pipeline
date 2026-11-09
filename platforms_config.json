@@ -1,5 +1,5 @@
 {
-  "version": "5.0.0",
+  "version": "5.1.0",
   "last_updated": "2026-11-09",
   "timezone": "America/La_Paz",
   "utc_offset": "UTC-4",
@@ -41,7 +41,7 @@
       "enabled": true,
       "domain": "outlier.ai",
       "url": "https://outlier.ai/",
-      "search_query": "site:outlier.ai (\"Spanish\" OR \"Andean\" OR \"French\" OR \"Technical Writer\" OR \"SysAdmin\" OR \"Cloud\" OR \"Linux\" OR \"Python\")",
+      "search_query": "site:outlier.ai (\"Spanish\" OR \"Andean\" OR \"\" OR \"Technical Writer\" OR \"SysAdmin\" OR \"Cloud\" OR \"Linux\" OR \"Python\")",
       "contract_caveat": "async_flexible",
       "notes": "Tag Cloud, SysAdmin, Network Security, IT Auditing to bypass generalist queues."
     },
@@ -54,7 +54,7 @@
       "enabled": true,
       "domain": "alignerr.com",
       "url": "https://www.alignerr.com/",
-      "search_query": "site:alignerr.com (\"French\" OR \"Spanish\" OR \"Python\" OR \"Technical\" OR \"IT\" OR \"Cloud\" OR \"Evaluator\")",
+      "search_query": "site:alignerr.com (\"\" OR \"Spanish\" OR \"Python\" OR \"Technical\" OR \"IT\" OR \"Cloud\" OR \"Evaluator\")",
       "contract_caveat": "async_flexible",
       "notes": "$30-$120/hr domain-specific RLHF and technical prompt evaluation."
     },
@@ -67,7 +67,7 @@
       "enabled": true,
       "domain": "dataannotation.tech",
       "url": "https://www.dataannotation.tech/",
-      "search_query": "site:dataannotation.tech (\"Coding\" OR \"Python\" OR \"French\" OR \"Spanish\" OR \"STEM\" OR \"Technical\")",
+      "search_query": "site:dataannotation.tech (\"Coding\" OR \"Python\" OR \"\" OR \"Spanish\" OR \"STEM\" OR \"Technical\")",
       "contract_caveat": "async_flexible",
       "notes": "$20-$40+/hr self-paced asynchronous logic debugging and bilingual evaluation."
     },
@@ -80,7 +80,7 @@
       "enabled": true,
       "domain": "mindrift.ai",
       "url": "https://mindrift.ai/",
-      "search_query": "site:mindrift.ai (\"AI Tutor\" OR \"Tech\" OR \"Editor\" OR \"IT\" OR \"Spanish\" OR \"French\" OR \"Python\")",
+      "search_query": "site:mindrift.ai (\"AI Tutor\" OR \"Tech\" OR \"Editor\" OR \"IT\" OR \"Spanish\" OR \"\" OR \"Python\")",
       "contract_caveat": "async_flexible",
       "notes": "Tech Domain Editor & AI Tutor track rewriting sysadmin guides."
     },
@@ -93,7 +93,7 @@
       "enabled": true,
       "domain": "innodata.com",
       "url": "https://innodata.com/careers/",
-      "search_query": "site:innodata.com (\"Generative AI\" OR \"Evaluator\" OR \"Annotator\" OR \"French\" OR \"Spanish\" OR \"Bolivia\" OR \"LATAM\" OR \"Technical\")",
+      "search_query": "site:innodata.com (\"Generative AI\" OR \"Evaluator\" OR \"Annotator\" OR \"\" OR \"Spanish\" OR \"Bolivia\" OR \"LATAM\" OR \"Technical\")",
       "contract_caveat": "async_flexible",
       "notes": "Proyectos asíncronos de evaluación y anotación de modelos de IA generativa para Latinoamérica y global."
     },
@@ -106,7 +106,7 @@
       "enabled": true,
       "domain": "oneforma.com",
       "url": "https://www.oneforma.com/",
-      "search_query": "site:oneforma.com (\"GenAI\" OR \"Prompt\" OR \"French\" OR \"Spanish\" OR \"Technical\" OR \"Evaluator\")",
+      "search_query": "site:oneforma.com (\"GenAI\" OR \"Prompt\" OR \"\" OR \"Spanish\" OR \"Technical\" OR \"Evaluator\")",
       "contract_caveat": "async_flexible",
       "notes": "Apply directly to GenAI Mastery Program under Tech / Prompt Evaluator."
     },
@@ -119,7 +119,7 @@
       "enabled": true,
       "domain": "mercor.com",
       "url": "https://mercor.com/",
-      "search_query": "site:mercor.com (\"Cloud\" OR \"SysAdmin\" OR \"DevOps\" OR \"Linux\" OR \"Python\" OR \"French\" OR \"Spanish\" OR \"AI\")",
+      "search_query": "site:mercor.com (\"Cloud\" OR \"SysAdmin\" OR \"DevOps\" OR \"Linux\" OR \"Python\" OR \"\" OR \"Spanish\" OR \"AI\")",
       "contract_caveat": "async_flexible",
       "notes": "$40-$150+/hr senior technical specialist rubric design and agentic benchmarking."
     },
@@ -132,7 +132,7 @@
       "enabled": true,
       "domain": "opentrain.ai",
       "url": "https://www.opentrain.ai/",
-      "search_query": "site:opentrain.ai (\"RLHF\" OR \"Cybersecurity\" OR \"DevOps\" OR \"Cloud\" OR \"Python\" OR \"French\" OR \"Spanish\" OR \"Bolivia\")",
+      "search_query": "site:opentrain.ai (\"RLHF\" OR \"Cybersecurity\" OR \"DevOps\" OR \"Cloud\" OR \"Python\" OR \"\" OR \"Spanish\" OR \"Bolivia\")",
       "contract_caveat": "async_flexible",
       "notes": "Aggregates vetted AI training and red-teaming contracts ($45-$95/hr) across 240+ countries."
     },
@@ -145,7 +145,7 @@
       "enabled": true,
       "domain": "surgehq.ai",
       "url": "https://www.surgehq.ai/careers",
-      "search_query": "site:surgehq.ai (\"RLHF\" OR \"Evaluation\" OR \"Code\" OR \"French\" OR \"Spanish\" OR \"Red Team\" OR \"Linux\")",
+      "search_query": "site:surgehq.ai (\"RLHF\" OR \"Evaluation\" OR \"Code\" OR \"\" OR \"Spanish\" OR \"Red Team\" OR \"Linux\")",
       "contract_caveat": "async_flexible",
       "notes": "Elite technical evaluators for complex reasoning verification and red-teaming."
     },
@@ -158,7 +158,7 @@
       "enabled": true,
       "domain": "pareto.ai",
       "url": "https://pareto.ai/",
-      "search_query": "site:pareto.ai (\"Trainer\" OR \"Evaluator\" OR \"Specialist\" OR \"Technical\" OR \"French\" OR \"Spanish\")",
+      "search_query": "site:pareto.ai (\"Trainer\" OR \"Evaluator\" OR \"Specialist\" OR \"Technical\" OR \"\" OR \"Spanish\")",
       "contract_caveat": "async_flexible",
       "notes": "$30-$100+/hr domain specialists for enterprise LLM workflow training."
     },
@@ -171,7 +171,7 @@
       "enabled": true,
       "domain": "micro1.ai",
       "url": "https://www.micro1.ai/",
-      "search_query": "site:micro1.ai (\"AI Trainer\" OR \"Python\" OR \"DevOps\" OR \"Cloud\" OR \"Azure\" OR \"French\" OR \"Spanish\")",
+      "search_query": "site:micro1.ai (\"AI Trainer\" OR \"Python\" OR \"DevOps\" OR \"Cloud\" OR \"Azure\" OR \"\" OR \"Spanish\")",
       "contract_caveat": "async_flexible",
       "notes": "Certifies technical talent for human-data operations and model alignment."
     },
@@ -184,9 +184,9 @@
       "enabled": true,
       "domain": "rws.com",
       "url": "https://www.rws.com/artificial-intelligence/train-ai-data-services/trainai-community/",
-      "search_query": "site:rws.com (\"TrainAI\" OR \"Evaluator\" OR \"Rater\" OR \"French\" OR \"Spanish\" OR \"Domain Expert\")",
+      "search_query": "site:rws.com (\"TrainAI\" OR \"Evaluator\" OR \"Rater\" OR \"\" OR \"Spanish\" OR \"Domain Expert\")",
       "contract_caveat": "async_flexible",
-      "notes": "Enterprise LLM validation and French/Spanish localization evaluation."
+      "notes": "Enterprise LLM validation and Spanish localization evaluation."
     },
     {
       "id": "telus_digital",
@@ -197,9 +197,9 @@
       "enabled": true,
       "domain": "telusdigital.com",
       "url": "https://www.telusdigital.com/careers",
-      "search_query": "site:telusdigital.com (\"Rater\" OR \"AI\" OR \"Evaluator\" OR \"French\" OR \"Spanish\" OR \"Analyst\")",
+      "search_query": "site:telusdigital.com (\"Rater\" OR \"AI\" OR \"Evaluator\" OR \"\" OR \"Spanish\" OR \"Analyst\")",
       "contract_caveat": "async_flexible",
-      "notes": "Part-time Quality Rater and Language Assessor roles in French, Spanish, and English."
+      "notes": "Part-time Quality Rater and Language Assessor roles in Spanish and English."
     },
     {
       "id": "peroptyx",
@@ -223,7 +223,7 @@
       "enabled": true,
       "domain": "dataforcecommunity.transperfect.com",
       "url": "https://dataforcecommunity.transperfect.com/",
-      "search_query": "site:dataforcecommunity.transperfect.com (\"French\" OR \"Spanish\" OR \"AI\" OR \"Annotation\" OR \"Remote\")",
+      "search_query": "site:dataforcecommunity.transperfect.com (\"\" OR \"Spanish\" OR \"AI\" OR \"Annotation\" OR \"Remote\")",
       "contract_caveat": "async_flexible",
       "notes": "Short- and long-term multilingual AI validation contracts."
     },
@@ -236,7 +236,7 @@
       "enabled": true,
       "domain": "jobs.welocalize.com",
       "url": "https://jobs.welocalize.com/",
-      "search_query": "site:jobs.welocalize.com (\"AI\" OR \"Rater\" OR \"French\" OR \"Spanish\" OR \"Technical\")",
+      "search_query": "site:jobs.welocalize.com (\"AI\" OR \"Rater\" OR \"\" OR \"Spanish\" OR \"Technical\")",
       "contract_caveat": "async_flexible",
       "notes": "Freelance AI trainers, search quality raters, and technical localization reviewers."
     },
@@ -249,7 +249,7 @@
       "enabled": true,
       "domain": "crowdgen.com",
       "url": "https://crowdgen.com/",
-      "search_query": "site:crowdgen.com (\"LLM\" OR \"AI\" OR \"French\" OR \"Spanish\" OR \"Evaluator\")",
+      "search_query": "site:crowdgen.com (\"LLM\" OR \"AI\" OR \"\" OR \"Spanish\" OR \"Evaluator\")",
       "contract_caveat": "async_flexible",
       "notes": "Proyectos flexibles y a propio ritmo de evaluación de modelos LLM y datos multilingües."
     },
@@ -262,7 +262,7 @@
       "enabled": true,
       "domain": "lxt.ai",
       "url": "https://www.lxt.ai/jobs/",
-      "search_query": "site:lxt.ai/jobs (\"Spanish\" OR \"French\" OR \"LATAM\" OR \"Bolivia\" OR \"AI\")",
+      "search_query": "site:lxt.ai/jobs (\"Spanish\" OR \"\" OR \"LATAM\" OR \"Bolivia\" OR \"AI\")",
       "contract_caveat": "async_flexible",
       "notes": "Multilingual AI training and validation across Latin America."
     },
@@ -288,7 +288,7 @@
       "enabled": true,
       "domain": "awesomeaijobs.com",
       "url": "https://www.awesomeaijobs.com/",
-      "search_query": "site:awesomeaijobs.com (\"RLHF\" OR \"Trainer\" OR \"Evaluator\" OR \"Python\" OR \"French\" OR \"Spanish\")",
+      "search_query": "site:awesomeaijobs.com (\"RLHF\" OR \"Trainer\" OR \"Evaluator\" OR \"Python\" OR \"\" OR \"Spanish\")",
       "contract_caveat": "async_flexible",
       "notes": "Curates verified AI training and evaluation roles across 28+ platforms."
     },
@@ -503,8 +503,8 @@
     {
       "id": "freelancermap",
       "name": "Freelancermap",
-      "category": "Category 3: Francophone & European IT Portals",
-      "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+      "category": "Category 3: European & International IT Portals",
+      "track": "Track D: European & International IT/Cloud Marketplaces",
       "type": "portal_dork",
       "enabled": true,
       "domain": "freelancermap.com",
@@ -516,47 +516,47 @@
     {
       "id": "free_work_fr",
       "name": "Free-Work (ex Freelance-Info)",
-      "category": "Category 3: Francophone & European IT Portals",
-      "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+      "category": "Category 3: European & International IT Portals",
+      "track": "Track D: European & International IT/Cloud Marketplaces",
       "type": "portal_dork",
       "enabled": true,
       "domain": "free-work.com",
       "url": "https://www.free-work.com/",
-      "search_query": "site:free-work.com (\"Administrateur\" OR \"Azure\" OR \"M365\" OR \"Entra\" OR \"Cloud\" OR \"SysOps\" OR \"DevOps\" OR \"Python\") \"Télétravail\"",
+      "search_query": "site:free-work.com (\"Administrator\" OR \"Azure\" OR \"M365\" OR \"Cloud\" OR \"SysOps\" OR \"DevOps\" OR \"Python\") \"Remote\"",
       "contract_caveat": "fractional_or_fulltime",
-      "notes": "Principal portal freelance de TI francófono; filtrar por modalidades 100% Télétravail / remoto internacional."
+      "notes": "Portal freelance de TI europeo e internacional; filtrar por modalidades 100% remoto internacional."
     },
     {
       "id": "lehibou_fr",
       "name": "LeHibou",
-      "category": "Category 3: Francophone & European IT Portals",
-      "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+      "category": "Category 3: European & International IT Portals",
+      "track": "Track D: European & International IT/Cloud Marketplaces",
       "type": "portal_dork",
       "enabled": true,
       "domain": "lehibou.com",
       "url": "https://www.lehibou.com/",
       "search_query": "site:lehibou.com (\"Cloud\" OR \"Azure\" OR \"M365\" OR \"Système\" OR \"Sécurité\" OR \"DevOps\" OR \"IA\")",
       "contract_caveat": "fractional_or_fulltime",
-      "notes": "Senior French-speaking IT, Cloud, Cybersecurity, and AI/Data consultants."
+      "notes": "Senior European and international IT, Cloud, Cybersecurity, and AI/Data consultants."
     },
     {
       "id": "freelance_informatique_fr",
       "name": "Freelance-Informatique",
-      "category": "Category 3: Francophone & European IT Portals",
-      "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+      "category": "Category 3: European & International IT Portals",
+      "track": "Track D: European & International IT/Cloud Marketplaces",
       "type": "portal_dork",
       "enabled": true,
       "domain": "freelance-informatique.fr",
       "url": "https://www.freelance-informatique.fr/",
       "search_query": "site:freelance-informatique.fr (\"Azure\" OR \"M365\" OR \"Office 365\" OR \"Système\" OR \"Cloud\" OR \"Linux\" OR \"VMware\")",
       "contract_caveat": "fractional_or_fulltime",
-      "notes": "High-TJM French enterprise missions for independent Cloud, Network, M365, and Systems Administrators."
+      "notes": "High-TJM European enterprise missions for independent Cloud, Network, M365, and Systems Administrators."
     },
     {
       "id": "malt_fr",
       "name": "Malt",
-      "category": "Category 3: Francophone & European IT Portals",
-      "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+      "category": "Category 3: European & International IT Portals",
+      "track": "Track D: European & International IT/Cloud Marketplaces",
       "type": "portal_dork",
       "enabled": true,
       "domain": "malt.fr",
@@ -568,47 +568,47 @@
     {
       "id": "comet_fr",
       "name": "Comet",
-      "category": "Category 3: Francophone & European IT Portals",
-      "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+      "category": "Category 3: European & International IT Portals",
+      "track": "Track D: European & International IT/Cloud Marketplaces",
       "type": "portal_dork",
       "enabled": true,
       "domain": "comet.co",
       "url": "https://www.comet.co/",
       "search_query": "site:comet.co (\"Cloud\" OR \"Azure\" OR \"DevOps\" OR \"Cybersécurité\" OR \"SysOps\" OR \"IA\" OR \"Data\")",
       "contract_caveat": "fractional_or_fulltime",
-      "notes": "Vetted French-speaking IT infrastructure, cybersecurity, cloud, and AI/data freelancers."
+      "notes": "Vetted European IT infrastructure, cybersecurity, cloud, and AI/data freelancers."
     },
     {
       "id": "creme_de_la_creme",
       "name": "Crème de la Crème",
-      "category": "Category 3: Francophone & European IT Portals",
-      "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+      "category": "Category 3: European & International IT Portals",
+      "track": "Track D: European & International IT/Cloud Marketplaces",
       "type": "portal_dork",
       "enabled": true,
       "domain": "cremedelacreme.io",
       "url": "https://cremedelacreme.io/",
       "search_query": "site:cremedelacreme.io (\"Cloud\" OR \"Architecture\" OR \"DevOps\" OR \"Cybersecurity\" OR \"AI\" OR \"Data\")",
       "contract_caveat": "fractional_friendly",
-      "notes": "Selective French community of senior freelance IT architects, DevOps engineers, and AI consultants."
+      "notes": "Selective European community of senior freelance IT architects, DevOps engineers, and AI consultants."
     },
     {
       "id": "codeur_com",
       "name": "Codeur.com (Sysadmin)",
-      "category": "Category 3: Francophone & European IT Portals",
-      "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+      "category": "Category 3: European & International IT Portals",
+      "track": "Track D: European & International IT/Cloud Marketplaces",
       "type": "portal_dork",
       "enabled": true,
       "domain": "codeur.com",
       "url": "https://www.codeur.com/sysadmin",
       "search_query": "site:codeur.com/projects (\"Linux\" OR \"Debian\" OR \"Cloudflare\" OR \"Microsoft 365\" OR \"Azure\" OR \"Serveur\" OR \"Script\" OR \"Python\")",
       "contract_caveat": "fractional_friendly",
-      "notes": "French tender-based marketplace for fixed-price Linux, Cloudflare, M365, and Python automation missions."
+      "notes": "European tender-based marketplace for fixed-price Linux, Cloudflare, M365, and Python automation missions."
     },
     {
       "id": "9am_works",
       "name": "9am.works",
-      "category": "Category 3: Francophone & European IT Portals",
-      "track": "Track D: Francophone & European IT/Cloud Marketplaces",
+      "category": "Category 3: European & International IT Portals",
+      "track": "Track D: European & International IT/Cloud Marketplaces",
       "type": "portal_dork",
       "enabled": true,
       "domain": "9am.works",
@@ -1022,6 +1022,160 @@
       "search_query": "site:jobs.wowremoteteams.com (\"IT\" OR \"Cloud\" OR \"Systems\" OR \"Azure\" OR \"Data\" OR \"Python\" OR \"AI\")",
       "contract_caveat": "full_time_only",
       "notes": "Places bilingual LATAM tech and systems leads with US clients, primarily on full-time schedules."
+    },
+    {
+      "id": "getonboard",
+      "name": "GetOnBoard (Portal Remoto Latinoamericano)",
+      "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+      "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+      "type": "portal_dork",
+      "enabled": true,
+      "domain": "getonbrd.com",
+      "url": "https://www.getonbrd.com/",
+      "search_query": "site:getonbrd.com (\"remoto\" OR \"remote\" OR \"LATAM\" OR \"asistente\" OR \"coordinador\" OR \"soporte\" OR \"ventas\" OR \"desarrollador\")",
+      "contract_caveat": "fractional_or_fulltime",
+      "notes": "Portal líder de empleo remoto en español para tecnología, operaciones, diseño y marketing en LATAM."
+    },
+    {
+      "id": "virtual_latinos",
+      "name": "Virtual Latinos (Asistentes Virtuales & Profesionales Remotos)",
+      "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+      "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+      "type": "portal_dork",
+      "enabled": true,
+      "domain": "virtuallatinos.com",
+      "url": "https://www.virtuallatinos.com/jobs/",
+      "search_query": "site:virtuallatinos.com (\"asistente virtual\" OR \"virtual assistant\" OR \"coordinador\" OR \"marketing\" OR \"ventas\")",
+      "contract_caveat": "fractional_friendly",
+      "notes": "Comunidad especializada en asistentes virtuales, coordinadores, marketing y ventas remotas desde Latinoamérica."
+    },
+    {
+      "id": "torre_ai",
+      "name": "Torre.ai (Bolsa de Empleo Remoto LATAM & Global)",
+      "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+      "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+      "type": "portal_dork",
+      "enabled": true,
+      "domain": "torre.ai",
+      "url": "https://torre.ai/",
+      "search_query": "site:torre.ai (\"remoto\" OR \"remote\" OR \"bolivia\" OR \"asistente\" OR \"soporte\" OR \"coordinador\" OR \"ventas\")",
+      "contract_caveat": "fractional_or_fulltime",
+      "notes": "Red masiva de talento y vacantes remotas para Latinoamérica y el mundo."
+    },
+    {
+      "id": "workana",
+      "name": "Workana (Proyectos Remotos & Freelance)",
+      "category": "Category 4: Direct-to-Client & Fractional MSP",
+      "track": "Track A: Direct B2B & Fractional MSP",
+      "type": "portal_dork",
+      "enabled": true,
+      "domain": "workana.com",
+      "url": "https://www.workana.com/jobs",
+      "search_query": "site:workana.com/jobs (\"remoto\" OR \"asistente virtual\" OR \"redacción\" OR \"diseño\" OR \"soporte\" OR \"ventas\")",
+      "contract_caveat": "fractional_friendly",
+      "notes": "Marketplace líder de proyectos freelance y trabajo remoto en español en América Latina."
+    },
+    {
+      "id": "soyfreelancer",
+      "name": "SoyFreelancer (Bolsa de Proyectos y Remoto)",
+      "category": "Category 4: Direct-to-Client & Fractional MSP",
+      "track": "Track A: Direct B2B & Fractional MSP",
+      "type": "portal_dork",
+      "enabled": true,
+      "domain": "soyfreelancer.com",
+      "url": "https://www.soyfreelancer.com/",
+      "search_query": "site:soyfreelancer.com (\"remoto\" OR \"freelance\" OR \"asistente\" OR \"diseño\" OR \"programación\")",
+      "contract_caveat": "fractional_friendly",
+      "notes": "Comunidad de trabajo remoto y proyectos independientes en español para Latinoamérica."
+    },
+    {
+      "id": "nodesk_feed",
+      "name": "NoDesk Remote Jobs Feed",
+      "category": "Category 6: Curated Remote-First Job Boards",
+      "track": "Track F: Curated Remote-First & WFA Job Boards",
+      "type": "rss_feed",
+      "enabled": true,
+      "domain": "nodesk.co",
+      "url": "https://nodesk.co/remote-jobs/index.xml",
+      "contract_caveat": "fractional_or_fulltime",
+      "notes": "Directorio curado de empleos 100% remotos a nivel global con feed RSS público."
+    },
+    {
+      "id": "dailyremote_api",
+      "name": "DailyRemote Public Job Board",
+      "category": "Category 6: Curated Remote-First Job Boards",
+      "track": "Track F: Curated Remote-First & WFA Job Boards",
+      "type": "portal_dork",
+      "enabled": true,
+      "domain": "dailyremote.com",
+      "url": "https://dailyremote.com/",
+      "search_query": "site:dailyremote.com (\"Remote\" OR \"Virtual Assistant\" OR \"Customer Support\" OR \"Data Entry\" OR \"Worldwide\")",
+      "contract_caveat": "fractional_or_fulltime",
+      "notes": "Bolsa de empleo remoto pública con vacantes diarias en soporte, asistentes, desarrollo y marketing."
+    },
+    {
+      "id": "jobspresso_feed",
+      "name": "Jobspresso Curated Remote Feed",
+      "category": "Category 6: Curated Remote-First Job Boards",
+      "track": "Track F: Curated Remote-First & WFA Job Boards",
+      "type": "rss_feed",
+      "enabled": true,
+      "domain": "jobspresso.co",
+      "url": "https://jobspresso.co/feed/",
+      "contract_caveat": "fractional_or_fulltime",
+      "notes": "Feed público de ofertas seleccionadas 100% remotas en operaciones, ventas, soporte y tecnología."
+    },
+    {
+      "id": "dynamite_jobs",
+      "name": "Dynamite Jobs Remote Board",
+      "category": "Category 6: Curated Remote-First Job Boards",
+      "track": "Track F: Curated Remote-First & WFA Job Boards",
+      "type": "portal_dork",
+      "enabled": true,
+      "domain": "dynamitejobs.com",
+      "url": "https://dynamitejobs.com/",
+      "search_query": "site:dynamitejobs.com (\"Remote\" OR \"Anywhere\" OR \"Assistant\" OR \"Marketing\" OR \"Operations\")",
+      "contract_caveat": "fractional_friendly",
+      "notes": "Bolsa de trabajo 100% remoto mundial con filtros para puestos asíncronos y globales."
+    },
+    {
+      "id": "latinhire",
+      "name": "LatinHire (Educación & Soporte Remoto)",
+      "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+      "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+      "type": "portal_dork",
+      "enabled": true,
+      "domain": "latinhire.com",
+      "url": "https://latinhire.com/",
+      "search_query": "site:latinhire.com (\"remoto\" OR \"online\" OR \"tutor\" OR \"soporte\" OR \"coordinador\")",
+      "contract_caveat": "fractional_friendly",
+      "notes": "Oportunidades remotas de tutoría, soporte y coordinación para profesionales latinoamericanos."
+    },
+    {
+      "id": "hirelatam",
+      "name": "HireLatam (Talento Remoto Nearshore)",
+      "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+      "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+      "type": "portal_dork",
+      "enabled": true,
+      "domain": "hirelatam.com",
+      "url": "https://hirelatam.com/",
+      "search_query": "site:hirelatam.com (\"virtual assistant\" OR \"operations\" OR \"sales\" OR \"remote\")",
+      "contract_caveat": "fractional_or_fulltime",
+      "notes": "Plataforma de reclutamiento remoto para roles de operaciones, finanzas, ventas y asistencia virtual en LATAM."
+    },
+    {
+      "id": "sheworks",
+      "name": "SheWorks! Remote Global Platform",
+      "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
+      "track": "Track C: Vetted Global & Nearshore LATAM Networks",
+      "type": "portal_dork",
+      "enabled": true,
+      "domain": "wheresheworks.com",
+      "url": "https://www.wheresheworks.com/",
+      "search_query": "site:wheresheworks.com (\"remote\" OR \"remoto\" OR \"LATAM\" OR \"marketing\" OR \"assistant\")",
+      "contract_caveat": "fractional_friendly",
+      "notes": "Plataforma de empleo remoto y flexible para talento en Latinoamérica y el mundo."
     }
   ]
 }

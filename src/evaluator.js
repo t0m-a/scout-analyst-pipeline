@@ -1,109 +1,155 @@
 /**
- * Dynamic Customizable Evaluation & Filtering Engine
+ * Dynamic Customizable Evaluation & Filtering Engine (v5.1.0)
  * Replaces personal selection criteria with user-customizable filters:
- *   1. Position Type & Custom Keywords (0-40 pts)
+ *   1. Position Type & Custom Keywords (0-35 pts)
  *   2. 100% Remote from Bolivia Eligibility (0-25 pts + Mandatory Eligibility Filter)
- *   3. Contract Type (Full-Time, Half-Time, Projects, Hourly, Advisory) & Experience Level (0-20 pts)
- *   4. Languages (ES, EN, FR, PT) (0-15 pts)
+ *   3. Contract Type & Experience Level (0-20 pts)
+ *   4. Language Match (0-20 pts + Strict Language Filtering when 'es' is selected)
  */
 
 export const POSITION_CATEGORIES = [
+  {
+    id: 'virtual_assistant',
+    label_es: 'Asistencia Virtual, Administración & Data Entry',
+    label_en: 'Virtual Assistant, Admin & Data Entry',
+    icon: '📋',
+    keywords: [
+      'virtual assistant', 'asistente virtual', 'executive assistant', 'asistente ejecutivo',
+      'administrative assistant', 'asistente administrativo', 'data entry', 'ingreso de datos',
+      'back office', 'secretaria', 'asistente personal', 'personal assistant', 'transcription',
+      'transcriptor', 'office manager', 'asistente remoto', 'remote assistant', 'revisión de datos',
+      'asistente bilingüe', 'virtual latinos', 'asistente'
+    ]
+  },
+  {
+    id: 'operations_coord',
+    label_es: 'Coordinación, Operaciones & Gestión de Proyectos',
+    label_en: 'Coordination, Operations & Project Management',
+    icon: '📁',
+    keywords: [
+      'coordinator', 'coordinador', 'project coordinator', 'coordinador de proyectos',
+      'operations coordinator', 'coordinador de operaciones', 'operations manager',
+      'project manager', 'scrum master', 'operations associate', 'logistics coordinator',
+      'coordinador de equipo', 'community coordinator', 'program coordinator', 'gestor de proyectos',
+      'coordinación', 'operaciones', 'gestión'
+    ]
+  },
+  {
+    id: 'customer_support',
+    label_es: 'Atención al Cliente, Helpdesk & Soporte Remoto',
+    label_en: 'Customer Support, Helpdesk & Client Care',
+    icon: '🎧',
+    keywords: [
+      'customer support', 'atención al cliente', 'customer service', 'servicio al cliente',
+      'soporte', 'helpdesk', 'help desk', 'service desk', 'chat support', 'soporte por chat',
+      'soporte técnico', 'technical support', 'customer success', 'customer experience',
+      'agente de soporte', 'call center', 'contact center', 'dispatch', 'tier 1', 'tier 2',
+      'tier 3', 'troubleshooting', 'asistencia técnica', 'soporte remoto'
+    ]
+  },
+  {
+    id: 'sales_bdr',
+    label_es: 'Ventas, BDR, SDR & Prospección Comercial',
+    label_en: 'Sales, BDR, SDR & Business Development',
+    icon: '💼',
+    keywords: [
+      'sales', 'ventas', 'sdr', 'bdr', 'sales development representative', 'business development',
+      'appointment setter', 'ejecutivo de cuentas', 'account executive', 'asesor comercial',
+      'televentas', 'inside sales', 'lead generation', 'cold outreach', 'prospección',
+      'ventas b2b', 'vendedor', 'closer', 'representante comercial', 'comercial'
+    ]
+  },
+  {
+    id: 'marketing_content',
+    label_es: 'Marketing Digital, Redes Sociales & Redacción',
+    label_en: 'Digital Marketing, Social Media & Content Writing',
+    icon: '📱',
+    keywords: [
+      'marketing', 'digital marketing', 'social media', 'community manager', 'redes sociales',
+      'copywriter', 'redactor', 'content writer', 'creador de contenido', 'seo', 'email marketing',
+      'copywriting', 'content manager', 'moderador', 'content moderator', 'traductor',
+      'translator', 'traducción', 'comunicaciones', 'communications', 'growth'
+    ]
+  },
+  {
+    id: 'hr_recruiting',
+    label_es: 'Recursos Humanos, Reclutamiento & Talento',
+    label_en: 'Human Resources, Recruitment & Talent',
+    icon: '👥',
+    keywords: [
+      'recruiter', 'reclutador', 'talent acquisition', 'recursos humanos', 'human resources',
+      'hr', 'rrhh', 'sourcer', 'talent scout', 'people operations', 'hr coordinator',
+      'hr assistant', 'asistente de recursos humanos', 'atracción de talento'
+    ]
+  },
+  {
+    id: 'finance_accounting',
+    label_es: 'Contabilidad, Finanzas & Bookkeeping',
+    label_en: 'Accounting, Finance & Bookkeeping',
+    icon: '💰',
+    keywords: [
+      'bookkeeper', 'bookkeeping', 'contabilidad', 'contador', 'accountant', 'accounting',
+      'finanzas', 'finance', 'asistente contable', 'billing', 'facturación',
+      'cuentas por cobrar', 'cuentas por pagar', 'quickbooks', 'xero', 'analista financiero',
+      'financial analyst', 'conciliaciones', 'impuestos'
+    ]
+  },
+  {
+    id: 'design_media',
+    label_es: 'Diseño Gráfico, UI/UX & Edición Multimedia',
+    label_en: 'Graphic Design, UI/UX & Multimedia Editing',
+    icon: '🎨',
+    keywords: [
+      'designer', 'diseñador', 'diseño gráfico', 'graphic design', 'ui/ux', 'ux/ui',
+      'video editor', 'editor de video', 'motion graphics', 'figma', 'canva', 'photoshop',
+      'illustrator', 'creativo', 'animator', 'diseñador web', 'web designer', 'multimedia'
+    ]
+  },
+  {
+    id: 'ai_rlhf',
+    label_es: 'Entrenamiento de IA, RLHF & Evaluación',
+    label_en: 'AI Training, RLHF & Model Evaluation',
+    icon: '🤖',
+    keywords: [
+      'ai trainer', 'entrenador de ia', 'ai evaluator', 'evaluador de ia', 'rlhf', 'prompt',
+      'prompt engineer', 'anotador', 'annotator', 'annotation', 'rater', 'quality assurance rater',
+      'rubric', 'llm', 'generative ai', 'ia generativa', 'ai logic', 'ai coding', 'outlier',
+      'mercor', 'alignerr', 'dataannotation', 'mindrift', 'context engineer'
+    ]
+  },
   {
     id: 'software',
     label_es: 'Desarrollo de Software, Web & QA',
     label_en: 'Software, Web Development & QA',
     icon: '💻',
     keywords: [
-      'software engineer', 'software developer', 'developer', 'fullstack', 'full-stack',
-      'backend', 'front-end', 'frontend', 'react', 'node.js', 'nodejs', 'nest.js',
-      'python', 'django', '.net', 'c#', 'java', 'golang', 'rust', 'rails', 'ruby',
-      'qa', 'sdet', 'tester', 'testlio', 'testing', 'automation engineer', 'sdk',
-      'mobile', 'ios', 'android', 'web', 'api', 'ingeniero de software', 'desarrollador'
+      'software engineer', 'desarrollador', 'developer', 'programador', 'fullstack', 'full-stack',
+      'backend', 'frontend', 'front-end', 'react', 'node.js', 'nodejs', 'python', 'django',
+      'javascript', 'typescript', 'php', 'wordpress', 'c#', '.net', 'java', 'golang',
+      'qa', 'sdet', 'tester', 'testlio', 'testing', 'mobile', 'ios', 'android', 'ingeniero de software'
     ]
   },
   {
     id: 'cloud_sys',
-    label_es: 'Cloud, DevOps, SRE & Sistemas TI',
-    label_en: 'Cloud, DevOps, SRE & IT Systems',
+    label_es: 'Cloud, DevOps, Infraestructura & Soporte TI',
+    label_en: 'Cloud, DevOps, Infrastructure & IT Support',
     icon: '☁️',
     keywords: [
-      'cloud', 'devops', 'sre', 'sysadmin', 'systems engineer', 'system administrator',
-      'administrateur systèmes', 'ingénieur cloud', 'azure', 'aws', 'gcp', 'm365',
-      'microsoft 365', 'office 365', 'entra', 'intune', 'linux', 'ubuntu', 'debian',
-      'rhel', 'kernel', 'kubernetes', 'terraform', 'docker', 'noc', 'msp', 'rmm',
-      'psa', 'infrastructure', 'cloudflare', 'vmware', 'hyper-v', 'proxmox', 'powershell',
-      'active directory', 'liongard', 'it glue', 'autotask', 'ninjaone', 'acronis', 'veeam'
-    ]
-  },
-  {
-    id: 'ai_rlhf',
-    label_es: 'Entrenamiento de IA, RLHF & Evaluación',
-    label_en: 'AI Training, RLHF & Evaluation',
-    icon: '🤖',
-    keywords: [
-      'ai trainer', 'ai evaluator', 'rlhf', 'prompt', 'context engineer', 'annotation',
-      'annotator', 'rater', 'quality assurance rater', 'rubric', 'llm', 'generative ai',
-      'ai logic', 'ai coding', 'ai solutions', 'agentic', 'outlier', 'mercor', 'alignerr',
-      'mindrift', 'dataannotation', 'imerit', 'entrenador de ia', 'evaluador'
+      'cloud', 'devops', 'sre', 'sysadmin', 'administrador de sistemas', 'systems engineer',
+      'azure', 'aws', 'gcp', 'm365', 'microsoft 365', 'entra', 'intune', 'linux', 'ubuntu',
+      'debian', 'kubernetes', 'docker', 'terraform', 'noc', 'msp', 'soporte ti', 'it support',
+      'powershell', 'infrastructure', 'cloudflare', 'redes'
     ]
   },
   {
     id: 'data',
-    label_es: 'Datos, SQL, BI & Machine Learning',
-    label_en: 'Data Engineering, SQL, BI & ML',
+    label_es: 'Datos, SQL, BI & Automatización No-Code',
+    label_en: 'Data, SQL, BI & No-Code Automation',
     icon: '📊',
     keywords: [
-      'data engineer', 'data analyst', 'data science', 'data scientist', 'database',
-      'dba', 'sql', 'postgres', 'multigres', 'analytics', 'pandas', 'machine learning',
-      'ml', 'mlops', 'etl', 'bi', 'snowflake', 'databricks', 'rag', 'mcp', 'ollama',
-      'langchain', 'datos', 'analista de datos'
-    ]
-  },
-  {
-    id: 'cyber',
-    label_es: 'Ciberseguridad & Redes',
-    label_en: 'Cybersecurity & Networking',
-    icon: '🛡️',
-    keywords: [
-      'security', 'cybersecurity', 'cybersécurité', 'sécurité', 'penetration tester',
-      'pentest', 'red team', 'detection', 'response', 'soc', 'siem', 'edr', 'mdr',
-      'itdr', 'iam', 'network engineer', 'huntress', 'blackpoint', 'sentinelone',
-      'crowdstrike', 'ciberseguridad', 'seguridad'
-    ]
-  },
-  {
-    id: 'support',
-    label_es: 'Soporte Técnico, Helpdesk & Atención al Cliente',
-    label_en: 'Technical Support, Helpdesk & Customer Service',
-    icon: '🎧',
-    keywords: [
-      'support', 'soporte', 'helpdesk', 'help desk', 'service desk', 'customer service',
-      'customer solutions', 'customer success', 'tier 1', 'tier 2', 'tier 3', 'tier iii',
-      'l1', 'l2', 'dispatch', 'technical assistance', 'troubleshooting', 'consumer support',
-      'patient care', 'atención al cliente', 'mesa de ayuda'
-    ]
-  },
-  {
-    id: 'product_mgmt',
-    label_es: 'Gestión, Producto, Ventas & Consultoría',
-    label_en: 'Management, Product, Sales & Consulting',
-    icon: '📈',
-    keywords: [
-      'product manager', 'engineering manager', 'project manager', 'manager', 'director',
-      'vice president', 'vp', 'consultant', 'consulting', 'advisor', 'advisory',
-      'consultation', 'sales', 'account', 'operations', 'hr', 'talent acquisition',
-      'analyst relations', 'growth', 'génération de la demande', 'business central', 'salesforce'
-    ]
-  },
-  {
-    id: 'design_other',
-    label_es: 'Diseño, Ingeniería CAD/CFD, Redacción & Otros',
-    label_en: 'Design, CAD/CFD Engineering, Writing & Other',
-    icon: '🎨',
-    keywords: [
-      'design', 'designer', 'ui', 'ux', 'cad', 'cfd', 'mechanical', 'simulation',
-      'technical writer', 'documentation', 'copywriter', 'translation', 'localization',
-      'communications', 'financial', 'nurse', 'redacción', 'diseño', 'traducción'
+      'data analyst', 'analista de datos', 'data engineer', 'sql', 'power bi', 'tableau',
+      'excel', 'google sheets', 'database', 'dba', 'postgres', 'analytics', 'pandas',
+      'machine learning', 'bi', 'zapier', 'make', 'scraping', 'web scraping', 'etl', 'datos'
     ]
   }
 ];
@@ -111,7 +157,6 @@ export const POSITION_CATEGORIES = [
 export const LANGUAGE_OPTIONS = [
   { id: 'es', label_es: 'Español', label_en: 'Spanish', flag: '🇧🇴' },
   { id: 'en', label_es: 'Inglés', label_en: 'English', flag: '🇬🇧' },
-  { id: 'fr', label_es: 'Francés', label_en: 'French', flag: '🇫🇷' },
   { id: 'pt', label_es: 'Portugués', label_en: 'Portuguese', flag: '🇧🇷' }
 ];
 
@@ -202,7 +247,6 @@ export function checkBoliviaRemoteEligibility(item) {
     };
   }
 
-  // Country list that lists many countries but excludes Bolivia / LATAM / Worldwide
   if (
     locLow.includes('united states') &&
     !locLow.includes('bolivia') &&
@@ -212,7 +256,6 @@ export function checkBoliviaRemoteEligibility(item) {
     !locLow.includes('worldwide') &&
     !locLow.includes('anywhere')
   ) {
-    // Check if it's a multi-country list that at least includes South America (Argentina/Brazil) or if it excludes Bolivia
     if (locLow.includes('argentina') || locLow.includes('brazil')) {
       return {
         eligible: true,
@@ -235,9 +278,8 @@ export function checkBoliviaRemoteEligibility(item) {
     };
   }
 
-  // Tier 1: Explicit Bolivia, LATAM, South America, Americas, or UTC-4 / EST alignment
   if (
-    /\b(?:bolivia|latam|latin america|south america|americas|andean|utc-4|est|edt|w-8ben)\b/i.test(blob)
+    /\b(?:bolivia|latam|latin america|south america|americas|andean|utc-4|est|edt|w-8ben|hispano|latinoam[eé]rica|sudam[eé]rica)\b/i.test(blob)
   ) {
     return {
       eligible: true,
@@ -250,10 +292,9 @@ export function checkBoliviaRemoteEligibility(item) {
     };
   }
 
-  // Tier 2: Worldwide / Work From Anywhere / Global Remote
   if (
-    /\b(?:worldwide|anywhere|global|international|télétravail|remote)\b/i.test(locLow) ||
-    /\b(?:work from anywhere|anywhere in the world|remote worldwide|global remote)\b/i.test(blob)
+    /\b(?:worldwide|anywhere|global|international|remote)\b/i.test(locLow) ||
+    /\b(?:work from anywhere|anywhere in the world|remote worldwide|global remote|100% remoto|remoto)\b/i.test(blob)
   ) {
     return {
       eligible: true,
@@ -266,7 +307,6 @@ export function checkBoliviaRemoteEligibility(item) {
     };
   }
 
-  // Tier 3: Timezone overlap (e.g. CET +/- 3 hours or USA/Canada timezones)
   return {
     eligible: true,
     score: 19,
@@ -279,7 +319,7 @@ export function checkBoliviaRemoteEligibility(item) {
 }
 
 /**
- * Infers languages, contract types, experience level, and position categories for an offer.
+ * Robustly detects languages, contract types, experience level, and position categories.
  */
 export function detectOfferAttributes(item) {
   const title = String(item.title || '');
@@ -290,48 +330,64 @@ export function detectOfferAttributes(item) {
   const caveat = String(item.contract_caveat || 'fractional_or_fulltime');
 
   const blob = `${title} ${desc} ${tags} ${loc} ${track}`.toLowerCase();
+  const textSample = `${title} ${desc}`.toLowerCase();
 
-  // 1. Languages
+  // 1. Language Detection
   const langs = new Set();
-  if (/\b(?:spanish|español|espanol|andean|castellano|bilingual|trilingual)\b/i.test(blob)) {
+
+  // Spanish vocabulary & markers
+  const spanishMarkers = /\b(?:spanish|español|espanol|castellano|hispano|andean|latam|bilingüe|bilingue|hablante nativo|hablante de español|spanish speaker|spanish-speaking|fluent in spanish|spanish required)\b/i;
+  const spanishGrammarMarkers = /\b(?:requisitos|experiencia|funciones|trabajo|remoto|puesto|vacante|empresa|buscamos|conocimientos|habilidades|ofrecemos|beneficios|postular|años|modalidad|horario|responsabilidades|asistente|coordinador|desarrollador|inglés)\b/i;
+
+  const isSpanishWritten = spanishGrammarMarkers.test(textSample);
+  const mentionsSpanish = spanishMarkers.test(blob);
+
+  if (isSpanishWritten || mentionsSpanish) {
     langs.add('es');
   }
-  if (/\b(?:french|français|francais|francophone|télétravail)\b/i.test(blob) || track.includes('Track D')) {
-    langs.add('fr');
-  }
-  if (/\b(?:portuguese|português|portugues|brazil)\b/i.test(blob)) {
+
+  // Portuguese markers
+  if (/\b(?:portuguese|português|portugues|brasileiro|brasil)\b/i.test(blob)) {
     langs.add('pt');
   }
-  // Most international remote descriptions in English require or accept English unless exclusively in FR/ES
-  const isFrenchTitle = /\b(?:ingénieur|administrateur|gestionnaire|télétravail)\b/i.test(title);
-  const isSpanishTitle = /\b(?:ingeniero|especialista|analista|desarrollador)\b/i.test(title);
-  if (!isFrenchTitle && !isSpanishTitle) {
-    langs.add('en');
-  } else if (/\b(?:english|anglais|inglés|bilingual|trilingual)\b/i.test(blob)) {
+
+  // English markers
+  const englishGrammarMarkers = /\b(?:the|and|with|for|requirements|responsibilities|looking for|we are|skills|experience|bachelor|fluent|english required|proficiency in english)\b/i;
+  const isEnglishWritten = englishGrammarMarkers.test(textSample);
+  const mentionsEnglish = /\b(?:english|inglés|ingles)\b/i.test(blob);
+
+  if (isEnglishWritten || mentionsEnglish || !isSpanishWritten) {
     langs.add('en');
   }
+
   if (langs.size === 0) {
     langs.add('en');
   }
 
+  // Primary language
+  let primaryLanguage = 'en';
+  if (isSpanishWritten || (mentionsSpanish && !isEnglishWritten)) {
+    primaryLanguage = 'es';
+  }
+
   // 2. Contract Types
   const contracts = new Set();
-  if (caveat === 'micro_advisory' || /\b(?:advisory|consultation|60-min|honorarium|expert network|council)\b/i.test(blob)) {
+  if (caveat === 'micro_advisory' || /\b(?:advisory|consultation|60-min|honorarium|expert network|council|asesor[ií]a|consultor[ií]a)\b/i.test(blob)) {
     contracts.add('advisory');
     contracts.add('hourly');
   }
-  if (caveat === 'async_flexible' || /\b(?:self-paced|async|asynchronous|per hour|\/hr|hourly|flexible hours)\b/i.test(blob)) {
+  if (caveat === 'async_flexible' || /\b(?:self-paced|async|asynchronous|per hour|\/hr|hourly|flexible hours|por horas|flexible|as[ií]ncrono)\b/i.test(blob)) {
     contracts.add('hourly');
     contracts.add('projects');
   }
-  if (caveat === 'fractional_friendly' || /\b(?:part-time|half-time|20 hours|20h|4 day week|4-day week|fractional|temps partiel)\b/i.test(blob)) {
+  if (caveat === 'fractional_friendly' || /\b(?:part-time|half-time|20 hours|20h|4 day week|4-day week|fractional|medio tiempo|media jornada)\b/i.test(blob)) {
     contracts.add('half_time');
     contracts.add('projects');
   }
-  if (/\b(?:freelance|contract|contractor|project|b2b|independent contractor|w-8ben)\b/i.test(blob)) {
+  if (/\b(?:freelance|contract|contractor|project|b2b|independent contractor|w-8ben|proyectos|por proyecto)\b/i.test(blob)) {
     contracts.add('projects');
   }
-  if (caveat === 'full_time_only' || caveat === 'fractional_or_fulltime' || /\b(?:full-time|full time|40 hrs|40h|permanent)\b/i.test(blob)) {
+  if (caveat === 'full_time_only' || caveat === 'fractional_or_fulltime' || /\b(?:full-time|full time|40 hrs|40h|permanent|tiempo completo|jornada completa)\b/i.test(blob)) {
     contracts.add('full_time');
   }
   if (contracts.size === 0) {
@@ -340,19 +396,19 @@ export function detectOfferAttributes(item) {
 
   // 3. Experience Level
   let experience = 'mid';
-  if (/\b(?:intern|internship|pasante|trainee|entry-level|entry level|sin experiencia)\b/i.test(blob)) {
+  if (/\b(?:intern|internship|pasante|trainee|entry-level|entry level|sin experiencia|inicial|entry|beginner)\b/i.test(blob)) {
     experience = 'entry';
-  } else if (/\b(?:junior|jr\.?|associate|l1|tier 1|level 1|1\+?\s*years?)\b/i.test(blob)) {
+  } else if (/\b(?:junior|jr\.?|associate|l1|tier 1|level 1|1\+?\s*years?|1\+?\s*año)\b/i.test(blob)) {
     experience = 'junior';
-  } else if (/\b(?:principal|staff|lead|director|vp|vice president|head of|engineering manager|architect|senior manager)\b/i.test(title.toLowerCase())) {
+  } else if (/\b(?:principal|staff|lead|director|vp|vice president|head of|engineering manager|architect|senior manager|líder|director|jefe)\b/i.test(title.toLowerCase())) {
     experience = 'lead';
-  } else if (/\b(?:senior|sr\.?|tier 3|tier iii|5\+?\s*years?|6\+?\s*years?|7\+?\s*years?)\b/i.test(blob)) {
+  } else if (/\b(?:senior|sr\.?|tier 3|tier iii|5\+?\s*years?|5\+?\s*años|6\+?\s*years?|7\+?\s*years?)\b/i.test(blob)) {
     experience = 'senior';
-  } else if (/\b(?:ai trainer|rater|annotator|evaluator)\b/i.test(title.toLowerCase()) && !/\bsenior\b/i.test(title.toLowerCase())) {
-    experience = 'entry'; // Many AI trainer/rater roles are open to entry/junior/mid domain speakers
+  } else if (/\b(?:asistente virtual|virtual assistant|data entry|atención al cliente|chat support|anotador|rater)\b/i.test(title.toLowerCase()) && !/\bsenior\b/i.test(title.toLowerCase())) {
+    experience = 'entry';
   }
 
-  // 4. Position Categories & Matched Skills
+  // 4. Position Categories
   const matchedCategories = [];
   const matchedKeywords = new Set();
 
@@ -375,6 +431,7 @@ export function detectOfferAttributes(item) {
 
   return {
     languages: Array.from(langs),
+    primaryLanguage,
     contracts: Array.from(contracts),
     experience,
     categories: matchedCategories.map(c => c.id),
@@ -383,7 +440,7 @@ export function detectOfferAttributes(item) {
 }
 
 /**
- * Evaluates a single opportunity dynamically against the user's selected filters.
+ * Evaluates an opportunity dynamically against the user's selected filters.
  */
 export function evaluateOpportunity(item, rawFilters = {}) {
   const filters = { ...DEFAULT_FILTERS, ...rawFilters };
@@ -397,7 +454,7 @@ export function evaluateOpportunity(item, rawFilters = {}) {
   const blob = `${titleLow} ${compLow} ${tagsLow} ${descLow}`;
 
   // ---------------------------------------------------------------------------
-  // 1. Position Type & Custom Keywords Score (0 - 40 pts)
+  // 1. Position Type & Custom Keywords Score (0 - 35 pts)
   // ---------------------------------------------------------------------------
   const selectedPositions = Array.isArray(filters.position_types) ? filters.position_types.filter(Boolean) : [];
   const customKws = String(filters.custom_keywords || '')
@@ -412,8 +469,7 @@ export function evaluateOpportunity(item, rawFilters = {}) {
   const hasPositionFilter = selectedPositions.length > 0 || customKws.length > 0;
 
   if (!hasPositionFilter) {
-    // Base score varies by how many concrete skills/categories were detected in the offer
-    positionScore = Math.min(34, 18 + Math.min(16, attrs.matchedKeywords.length * 3));
+    positionScore = Math.min(32, 20 + Math.min(12, attrs.matchedKeywords.length * 2));
   } else {
     let catMatchCount = 0;
     let primaryCategoryMatch = false;
@@ -434,21 +490,20 @@ export function evaluateOpportunity(item, rawFilters = {}) {
 
     if (selectedPositions.length > 0 && catMatchCount > 0) {
       const baseCat = primaryCategoryMatch ? 24 : 18;
-      positionScore += Math.min(34, baseCat + (catMatchCount - 1) * 4 + Math.min(8, attrs.matchedKeywords.length * 2));
+      positionScore += Math.min(32, baseCat + (catMatchCount - 1) * 3 + Math.min(6, attrs.matchedKeywords.length));
     }
     if (customKws.length > 0 && matchedUserKeywords.length > 0) {
-      const kwBonus = Math.min(26, matchedUserKeywords.length * 13);
-      positionScore = Math.min(40, Math.max(positionScore, 16) + kwBonus);
+      const kwBonus = Math.min(22, matchedUserKeywords.length * 11);
+      positionScore = Math.min(35, Math.max(positionScore, 16) + kwBonus);
     } else if (customKws.length > 0 && matchedUserKeywords.length === 0 && selectedPositions.length > 0 && catMatchCount > 0) {
-      // Category matched, but custom keyword wasn't found -> cap in POSSIBLE range
-      positionScore = Math.min(22, positionScore);
+      positionScore = Math.min(20, positionScore);
     }
 
     if (catMatchCount === 0 && matchedUserKeywords.length === 0) {
       matchesPositionFilter = false;
-      positionScore = 6;
+      positionScore = 5;
     } else {
-      positionScore = Math.min(40, positionScore);
+      positionScore = Math.min(35, positionScore);
     }
   }
 
@@ -467,7 +522,6 @@ export function evaluateOpportunity(item, rawFilters = {}) {
   const contractOverlap = attrs.contracts.filter(c => selectedContracts.includes(c));
   let contractPart = 3;
   if (contractOverlap.length > 0) {
-    // Higher score if the offer specifically highlights flexible/project/half-time/explicit modality
     contractPart = attrs.contracts.length > 1 ? 12 : 10;
   }
 
@@ -490,10 +544,10 @@ export function evaluateOpportunity(item, rawFilters = {}) {
       expPart = 1;
     }
   }
-  const contractExpScore = contractPart + expPart; // Max 20
+  const contractExpScore = contractPart + expPart;
 
   // ---------------------------------------------------------------------------
-  // 4. Language Match Score (0 - 15 pts)
+  // 4. Language Match Score (0 - 20 pts)
   // ---------------------------------------------------------------------------
   const selectedLangs = Array.isArray(filters.languages) && filters.languages.length > 0
     ? filters.languages
@@ -501,17 +555,20 @@ export function evaluateOpportunity(item, rawFilters = {}) {
 
   const langOverlap = attrs.languages.filter(l => selectedLangs.includes(l));
   let languageScore = 0;
+  const isOnlySpanishSelected = selectedLangs.length === 1 && selectedLangs[0] === 'es';
+  const hasSpanish = attrs.languages.includes('es');
+
   if (langOverlap.length > 0) {
-    // Bonus if offer explicitly welcomes Spanish or multilingual LATAM talent when user speaks ES
-    if (selectedLangs.includes('es') && attrs.languages.includes('es')) {
-      languageScore = 15;
+    if (isOnlySpanishSelected && hasSpanish) {
+      // User only wants Spanish: give full bonus for Spanish offers
+      languageScore = attrs.primaryLanguage === 'es' ? 20 : 17;
     } else if (langOverlap.length >= 2) {
-      languageScore = 15;
+      languageScore = 20;
     } else {
-      languageScore = 13;
+      languageScore = 15;
     }
   } else {
-    languageScore = 2;
+    languageScore = 0;
   }
 
   // ---------------------------------------------------------------------------
@@ -520,42 +577,56 @@ export function evaluateOpportunity(item, rawFilters = {}) {
   let totalScore = positionScore + boliviaScore + contractExpScore + languageScore;
 
   let verdict = 'SKIP';
+  let disqualifyReasonEs = '';
+  let disqualifyReasonEn = '';
+
   if (!bolivia.eligible) {
+    totalScore = Math.min(totalScore, 25);
+    verdict = 'SKIP';
+    disqualifyReasonEs = bolivia.reason_es;
+    disqualifyReasonEn = bolivia.reason_en;
+  } else if (isOnlySpanishSelected && !hasSpanish) {
+    // HARD PENALTY: User specifically selected ONLY Spanish, but this offer is English-only/first
     totalScore = Math.min(totalScore, 30);
     verdict = 'SKIP';
+    disqualifyReasonEs = 'Requiere inglés (la oferta está en inglés y no coincide con tu selección de solo Español).';
+    disqualifyReasonEn = 'Requires English (job is English-first and does not match your Spanish-only selection).';
+  } else if (langOverlap.length === 0) {
+    totalScore = Math.min(totalScore, 35);
+    verdict = 'SKIP';
+    disqualifyReasonEs = 'Idioma incompatible con tus filtros seleccionados.';
+    disqualifyReasonEn = 'Language incompatible with your selected filters.';
   } else if (hasPositionFilter && !matchesPositionFilter) {
     totalScore = Math.min(totalScore, 48);
     verdict = 'SKIP';
-  } else if (langOverlap.length === 0) {
-    totalScore = Math.min(totalScore, 52);
-    verdict = 'SKIP';
+    disqualifyReasonEs = 'Posición fuera de las áreas seleccionadas.';
+    disqualifyReasonEn = 'Role outside your selected job categories.';
   } else if (contractOverlap.length === 0) {
-    totalScore = Math.min(totalScore, 54);
+    totalScore = Math.min(totalScore, 50);
     verdict = 'SKIP';
-  } else if (!selectedExp.includes('all') && expPart <= 1) {
-    totalScore = Math.min(totalScore, 64);
-    verdict = totalScore >= 55 ? 'POSSIBLE' : 'SKIP';
-  } else if (totalScore >= 78) {
+    disqualifyReasonEs = 'Modalidad de contrato no coincide con tus filtros.';
+    disqualifyReasonEn = 'Contract modality does not match your filters.';
+  } else if (totalScore >= 75) {
     verdict = 'APPLY';
-  } else if (totalScore >= 58) {
+  } else if (totalScore >= 55) {
     verdict = 'POSSIBLE';
   } else {
     verdict = 'SKIP';
   }
 
-  // Build transparent, helpful notes in Spanish (Bolivia) and English
+  // Build helpful notes
   const contractLabelsEs = {
     full_time: 'Tiempo Completo',
-    half_time: 'Medio Tiempo / Part-Time',
-    projects: 'Por Proyectos / Freelance',
-    hourly: 'Por Horas / Flexible',
+    half_time: 'Medio Tiempo',
+    projects: 'Por Proyectos',
+    hourly: 'Por Horas / Asíncrono',
     advisory: 'Consultoría / Asesoría'
   };
   const contractLabelsEn = {
     full_time: 'Full-Time',
-    half_time: 'Half-Time / Part-Time',
+    half_time: 'Half-Time',
     projects: 'Projects / Freelance',
-    hourly: 'Hourly / Flexible',
+    hourly: 'Hourly / Async',
     advisory: 'Advisory / Consultation'
   };
   const expLabelsEs = {
@@ -563,14 +634,14 @@ export function evaluateOpportunity(item, rawFilters = {}) {
     junior: 'Junior',
     mid: 'Semi-Senior / Intermedio',
     senior: 'Senior',
-    lead: 'Lead / Principal / Manager'
+    lead: 'Lead / Manager'
   };
   const expLabelsEn = {
     entry: 'Entry-Level',
     junior: 'Junior',
     mid: 'Mid-Level',
     senior: 'Senior',
-    lead: 'Lead / Principal / Manager'
+    lead: 'Lead / Manager'
   };
 
   const cStrEs = attrs.contracts.map(c => contractLabelsEs[c] || c).join(', ');
@@ -580,8 +651,13 @@ export function evaluateOpportunity(item, rawFilters = {}) {
   const notesEsParts = [bolivia.reason_es];
   const notesEnParts = [bolivia.reason_en];
 
-  notesEsParts.push(`Modalidad: ${cStrEs} · Nivel: ${expLabelsEs[attrs.experience] || 'Intermedio'} · Idiomas: ${lStr}.`);
-  notesEnParts.push(`Contract: ${cStrEn} · Level: ${expLabelsEn[attrs.experience] || 'Mid-Level'} · Languages: ${lStr}.`);
+  if (disqualifyReasonEs) {
+    notesEsParts.push(disqualifyReasonEs);
+    notesEnParts.push(disqualifyReasonEn);
+  } else {
+    notesEsParts.push(`Modalidad: ${cStrEs} · Nivel: ${expLabelsEs[attrs.experience] || 'Intermedio'} · Idiomas: ${lStr}.`);
+    notesEnParts.push(`Contract: ${cStrEn} · Level: ${expLabelsEn[attrs.experience] || 'Mid-Level'} · Languages: ${lStr}.`);
+  }
 
   if (matchedUserKeywords.length > 0) {
     notesEsParts.push(`Coincide con tus palabras clave: ${matchedUserKeywords.join(', ')}.`);
@@ -602,6 +678,7 @@ export function evaluateOpportunity(item, rawFilters = {}) {
     contract_exp_score: contractExpScore,
     language_score: languageScore,
     detected_languages: attrs.languages,
+    primary_language: attrs.primaryLanguage,
     detected_contracts: attrs.contracts,
     detected_experience: attrs.experience,
     detected_categories: attrs.categories,
@@ -612,10 +689,14 @@ export function evaluateOpportunity(item, rawFilters = {}) {
 }
 
 /**
- * Evaluates a list of opportunities and sorts them by score descending.
+ * Evaluates all opportunities and sorts them by score descending.
  */
 export function evaluateAllOpportunities(opportunities, filters = {}) {
   const requireBolivia = filters.require_bolivia_remote !== false;
+  const isOnlySpanishSelected = Array.isArray(filters.languages) &&
+    filters.languages.length === 1 &&
+    filters.languages[0] === 'es';
+
   const evaluated = opportunities.map(opp => evaluateOpportunity(opp, filters));
 
   evaluated.sort((a, b) => {
@@ -628,18 +709,23 @@ export function evaluateAllOpportunities(opportunities, filters = {}) {
     return String(b.discovered_at || '').localeCompare(String(a.discovered_at || ''));
   });
 
-  const surfaced = requireBolivia
-    ? evaluated.filter(r => r.bolivia_eligible)
-    : evaluated;
-
   const geoExcluded = evaluated.filter(r => !r.bolivia_eligible);
+
+  // When 'es' is exclusively selected, exclude offers that do NOT have Spanish from surfaced
+  const surfaced = evaluated.filter(r => {
+    if (requireBolivia && !r.bolivia_eligible) return false;
+    if (isOnlySpanishSelected && !(r.detected_languages || []).includes('es')) {
+      return false;
+    }
+    return true;
+  });
 
   return {
     surfaced,
     all: evaluated,
     apply: surfaced.filter(r => r.verdict === 'APPLY'),
     possible: surfaced.filter(r => r.verdict === 'POSSIBLE'),
-    skip: surfaced.filter(r => r.verdict === 'SKIP'),
+    skip: evaluated.filter(r => r.verdict === 'SKIP' && r.bolivia_eligible),
     geo_excluded: geoExcluded
   };
 }
@@ -647,7 +733,7 @@ export function evaluateAllOpportunities(opportunities, filters = {}) {
 /**
  * Generates the on-the-fly "Resultados" / "Results" markdown report.
  */
-export function generateResultsMarkdown(evalResult, filters = {}, lang = 'es', platformsCount = 73, lastSyncIso = '') {
+export function generateResultsMarkdown(evalResult, filters = {}, lang = 'es', platformsCount = 85, lastSyncIso = '') {
   const isEs = lang !== 'en';
   const dateStr = new Date().toISOString().slice(0, 10);
   const syncStr = lastSyncIso || new Date().toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
@@ -660,7 +746,7 @@ export function generateResultsMarkdown(evalResult, filters = {}, lang = 'es', p
 
   if (isEs) {
     const lines = [
-      `# 🇧🇴 Resultados de Ofertas Remotas desde Bolivia — ${dateStr}`,
+      `# 🇧🇴 Resultados de Empleos Remotos desde Bolivia (BO) — ${dateStr}`,
       `**Plataformas Monitoreadas:** ${platformsCount} Portales Globales y Regionales | **Última Actualización:** ${syncStr} | **Frecuencia:** En vivo + Automático cada 15 min`,
       `**Filtro Base Activo:** 100% Remoto desde Bolivia (UTC-4 / LATAM / Global)`,
       `**Tus Filtros Activos:** Idiomas: \`${langsSelected}\` | Experiencia: \`${expSelected}\` | Contratos: \`${contractsSelected}\` | Palabras Clave: \`${customKw}\``,
@@ -707,7 +793,7 @@ export function generateResultsMarkdown(evalResult, filters = {}, lang = 'es', p
     return lines.join('\n') + '\n';
   } else {
     const lines = [
-      `# 🇧🇴 Bolivia 100% Remote Job Results — ${dateStr}`,
+      `# 🇧🇴 Bolivia (BO) 100% Remote Job Results — ${dateStr}`,
       `**Monitored Platforms:** ${platformsCount} Global & Regional Portals | **Last Synced:** ${syncStr} | **Schedule:** On-Demand + Every 15 mins`,
       `**Core Filter Active:** 100% Remote Eligible from Bolivia (UTC-4 / LATAM / Worldwide)`,
       `**Your Active Filters:** Languages: \`${langsSelected}\` | Experience: \`${expSelected}\` | Contracts: \`${contractsSelected}\` | Keywords: \`${customKw}\``,

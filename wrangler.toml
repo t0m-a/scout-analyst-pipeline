@@ -1,4 +1,4 @@
-name = "scout-analyst-pipeline"
+name = "bolivia-remote-scout"
 main = "src/worker.js"
 compatibility_date = "2025-01-01"
 workers_dev = true

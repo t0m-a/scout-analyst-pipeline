@@ -1,8 +1,8 @@
 {
-  "version": "5.0.0",
+  "version": "5.1.0",
   "application": {
-    "name_es": "Buscador y Evaluador de Empleos Remotos desde Bolivia",
-    "name_en": "Bolivia Remote Job Scout & Evaluator",
+    "name_es": "Buscador y Evaluador de Empleos 100% Remotos desde Bolivia (BO)",
+    "name_en": "Bolivia (BO) 100% Remote Job Scout & Evaluator",
     "default_language": "es-BO",
     "supported_languages": ["es-BO", "en"],
     "country_eligibility_requirement": "100% Remoto desde Bolivia (UTC-4 / LATAM / Global)",
@@ -20,10 +20,10 @@
   },
   "scoring_rubric": {
     "weights": {
-      "position_skills_max": 40,
+      "position_skills_max": 35,
       "bolivia_remote_max": 25,
       "contract_experience_max": 20,
-      "language_match_max": 15
+      "language_match_max": 20
     },
     "verdict_thresholds": {
       "APPLY": 75,
@@ -34,57 +34,80 @@
     "languages": [
       { "id": "es", "label_es": "Español", "label_en": "Spanish" },
       { "id": "en", "label_es": "Inglés", "label_en": "English" },
-      { "id": "fr", "label_es": "Francés", "label_en": "French" },
       { "id": "pt", "label_es": "Portugués", "label_en": "Portuguese" }
     ],
     "position_types": [
       {
-        "id": "software",
-        "label_es": "Desarrollo de Software, Web & QA",
-        "label_en": "Software, Web Development & QA",
-        "keywords": ["software engineer", "developer", "fullstack", "full-stack", "backend", "frontend", "react", "node", "node.js", "nest.js", "python", "django", ".net", "c#", "java", "golang", "rust", "rails", "qa", "sdet", "tester", "testlio", "testing", "mobile", "ios", "android", "sdk"]
+        "id": "virtual_assistant",
+        "label_es": "Asistencia Virtual, Administración & Data Entry",
+        "label_en": "Virtual Assistant, Admin & Data Entry",
+        "keywords": ["virtual assistant", "asistente virtual", "executive assistant", "asistente ejecutivo", "administrative assistant", "asistente administrativo", "data entry", "ingreso de datos", "back office", "secretaria", "asistente personal", "personal assistant", "transcription", "transcriptor", "office manager", "asistente remoto", "remote assistant", "asistente bilingüe"]
       },
       {
-        "id": "cloud_sys",
-        "label_es": "Cloud, DevOps, SRE & Sistemas TI",
-        "label_en": "Cloud, DevOps, SRE & IT Systems",
-        "keywords": ["cloud", "devops", "sre", "sysadmin", "systems engineer", "system administrator", "administrateur systèmes", "ingénieur cloud", "azure", "aws", "gcp", "m365", "microsoft 365", "office 365", "entra", "intune", "linux", "ubuntu", "debian", "rhel", "kubernetes", "terraform", "docker", "noc", "msp", "rmm", "psa", "infrastructure", "cloudflare", "vmware"]
+        "id": "operations_coord",
+        "label_es": "Coordinación, Operaciones & Gestión de Proyectos",
+        "label_en": "Coordination, Operations & Project Management",
+        "keywords": ["coordinator", "coordinador", "project coordinator", "coordinador de proyectos", "operations coordinator", "coordinador de operaciones", "operations manager", "project manager", "scrum master", "operations associate", "logistics coordinator", "coordinador de equipo", "community coordinator", "program coordinator"]
+      },
+      {
+        "id": "customer_support",
+        "label_es": "Atención al Cliente, Helpdesk & Soporte Remoto",
+        "label_en": "Customer Support, Helpdesk & Client Care",
+        "keywords": ["customer support", "atención al cliente", "customer service", "servicio al cliente", "soporte", "helpdesk", "help desk", "service desk", "chat support", "soporte por chat", "soporte técnico", "technical support", "customer success", "customer experience", "agente de soporte", "call center", "contact center", "dispatch", "tier 1", "tier 2", "troubleshooting"]
+      },
+      {
+        "id": "sales_bdr",
+        "label_es": "Ventas, BDR, SDR & Prospección Comercial",
+        "label_en": "Sales, BDR, SDR & Business Development",
+        "keywords": ["sales", "ventas", "sdr", "bdr", "sales development representative", "business development", "appointment setter", "ejecutivo de cuentas", "account executive", "asesor comercial", "televentas", "inside sales", "lead generation", "cold outreach", "prospección", "ventas b2b", "vendedor", "closer"]
+      },
+      {
+        "id": "marketing_content",
+        "label_es": "Marketing Digital, Redes Sociales & Redacción",
+        "label_en": "Digital Marketing, Social Media & Content Writing",
+        "keywords": ["marketing", "digital marketing", "social media", "community manager", "redes sociales", "copywriter", "redactor", "content writer", "creador de contenido", "seo", "email marketing", "copywriting", "content manager", "moderador", "content moderator", "traductor", "translator", "traducción", "comunicaciones"]
+      },
+      {
+        "id": "hr_recruiting",
+        "label_es": "Recursos Humanos, Reclutamiento & Talento",
+        "label_en": "Human Resources, Recruitment & Talent",
+        "keywords": ["recruiter", "reclutador", "talent acquisition", "recursos humanos", "human resources", "hr", "rrhh", "sourcer", "talent scout", "people operations", "hr coordinator", "hr assistant", "asistente de recursos humanos"]
+      },
+      {
+        "id": "finance_accounting",
+        "label_es": "Contabilidad, Finanzas & Bookkeeping",
+        "label_en": "Accounting, Finance & Bookkeeping",
+        "keywords": ["bookkeeper", "bookkeeping", "contabilidad", "contador", "accountant", "accounting", "finanzas", "finance", "asistente contable", "billing", "facturación", "cuentas por cobrar", "cuentas por pagar", "quickbooks", "xero", "analista financiero", "financial analyst"]
+      },
+      {
+        "id": "design_media",
+        "label_es": "Diseño Gráfico, UI/UX & Edición Multimedia",
+        "label_en": "Graphic Design, UI/UX & Multimedia Editing",
+        "keywords": ["designer", "diseñador", "diseño gráfico", "graphic design", "ui/ux", "ux/ui", "video editor", "editor de video", "motion graphics", "figma", "canva", "photoshop", "illustrator", "creativo", "animator", "diseñador web", "web designer"]
       },
       {
         "id": "ai_rlhf",
         "label_es": "Entrenamiento de IA, RLHF & Evaluación",
-        "label_en": "AI Training, RLHF & Evaluation",
-        "keywords": ["ai trainer", "ai evaluator", "rlhf", "prompt", "context engineer", "annotation", "annotator", "rater", "rubric", "llm", "generative ai", "ai logic", "ai coding", "outlier", "mercor", "alignerr", "mindrift", "dataannotation"]
+        "label_en": "AI Training, RLHF & Model Evaluation",
+        "keywords": ["ai trainer", "entrenador de ia", "ai evaluator", "evaluador de ia", "rlhf", "prompt", "prompt engineer", "anotador", "annotator", "annotation", "rater", "quality assurance rater", "rubric", "llm", "generative ai", "ia generativa", "ai logic", "ai coding", "outlier", "mercor", "alignerr", "dataannotation", "mindrift"]
+      },
+      {
+        "id": "software",
+        "label_es": "Desarrollo de Software, Web & QA",
+        "label_en": "Software, Web Development & QA",
+        "keywords": ["software engineer", "desarrollador", "developer", "programador", "fullstack", "full-stack", "backend", "frontend", "front-end", "react", "node.js", "nodejs", "python", "django", "javascript", "typescript", "php", "wordpress", "c#", ".net", "java", "golang", "qa", "sdet", "tester", "testlio", "testing", "mobile", "ios", "android"]
+      },
+      {
+        "id": "cloud_sys",
+        "label_es": "Cloud, DevOps, Infraestructura & Soporte TI",
+        "label_en": "Cloud, DevOps, Infrastructure & IT Support",
+        "keywords": ["cloud", "devops", "sre", "sysadmin", "administrador de sistemas", "systems engineer", "azure", "aws", "gcp", "m365", "microsoft 365", "entra", "intune", "linux", "ubuntu", "debian", "kubernetes", "docker", "terraform", "noc", "msp", "soporte ti", "it support", "powershell", "infrastructure"]
       },
       {
         "id": "data",
-        "label_es": "Datos, SQL, BI & Machine Learning",
-        "label_en": "Data Engineering, SQL, BI & ML",
-        "keywords": ["data engineer", "data analyst", "data science", "database", "dba", "sql", "postgres", "multigres", "analytics", "pandas", "machine learning", "ml", "mlops", "etl", "bi", "snowflake", "databricks"]
-      },
-      {
-        "id": "cyber",
-        "label_es": "Ciberseguridad & Redes",
-        "label_en": "Cybersecurity & Networking",
-        "keywords": ["security", "cybersecurity", "cybersécurité", "sécurité", "penetration tester", "pentest", "red team", "detection", "soc", "siem", "edr", "mdr", "itdr", "iam", "network engineer", "huntress", "blackpoint", "sentinelone", "crowdstrike"]
-      },
-      {
-        "id": "support",
-        "label_es": "Soporte Técnico, Helpdesk & Atención al Cliente",
-        "label_en": "Technical Support, Helpdesk & Customer Service",
-        "keywords": ["support", "soporte", "helpdesk", "help desk", "service desk", "customer service", "customer solutions", "customer success", "tier 1", "tier 2", "tier 3", "tier iii", "l1", "l2", "dispatch", "technical assistance", "troubleshooting"]
-      },
-      {
-        "id": "product_mgmt",
-        "label_es": "Gestión, Producto, Ventas & Consultoría",
-        "label_en": "Management, Product, Sales & Consulting",
-        "keywords": ["product manager", "engineering manager", "project manager", "manager", "director", "vice president", "vp", "consultant", "consulting", "advisor", "advisory", "consultation", "sales", "account", "operations", "hr", "talent acquisition", "analyst relations", "growth"]
-      },
-      {
-        "id": "design_other",
-        "label_es": "Diseño, Ingeniería CAD/CFD, Redacción & Otros",
-        "label_en": "Design, CAD/CFD Engineering, Writing & Other",
-        "keywords": ["design", "designer", "ui", "ux", "cad", "cfd", "mechanical", "simulation", "technical writer", "documentation", "copywriter", "translation", "localization", "communications", "financial", "nurse", "business central", "salesforce"]
+        "label_es": "Datos, SQL, BI & Automatización No-Code",
+        "label_en": "Data, SQL, BI & No-Code Automation",
+        "keywords": ["data analyst", "analista de datos", "data engineer", "sql", "power bi", "tableau", "excel", "google sheets", "database", "dba", "postgres", "analytics", "pandas", "machine learning", "bi", "zapier", "make", "scraping", "web scraping", "etl"]
       }
     ],
     "experience_levels": [
@@ -100,7 +123,7 @@
       { "id": "half_time", "label_es": "Medio Tiempo / Part-Time (20h / 4 Días)", "label_en": "Half-Time / Part-Time" },
       { "id": "projects", "label_es": "Por Proyectos / Freelance", "label_en": "Projects / Freelance" },
       { "id": "hourly", "label_es": "Por Horas / Flexible / Asíncrono", "label_en": "Hourly / Flexible / Async" },
-      { "id": "advisory", "label_es": "Consultoría / Micro-Asesoría", "label_en": "Advisory / Consultations" }
+      { "id": "advisory", "label_es": "Consultoría / Asesoría", "label_en": "Advisory / Consultations" }
     ]
   }
 }
