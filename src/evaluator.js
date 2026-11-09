@@ -696,6 +696,9 @@ export function evaluateAllOpportunities(opportunities, filters = {}) {
   const isOnlySpanishSelected = Array.isArray(filters.languages) &&
     filters.languages.length === 1 &&
     filters.languages[0] === 'es';
+  const hasActivePositionFilter = (Array.isArray(filters.position_types) && filters.position_types.length > 0) ||
+    Boolean(filters.custom_keywords && String(filters.custom_keywords).trim());
+  const strictPos = Boolean(filters.strict_position_match) && hasActivePositionFilter;
 
   const evaluated = opportunities.map(opp => evaluateOpportunity(opp, filters));
 
@@ -715,6 +718,9 @@ export function evaluateAllOpportunities(opportunities, filters = {}) {
   const surfaced = evaluated.filter(r => {
     if (requireBolivia && !r.bolivia_eligible) return false;
     if (isOnlySpanishSelected && !(r.detected_languages || []).includes('es')) {
+      return false;
+    }
+    if (strictPos && r.position_score === 0) {
       return false;
     }
     return true;

@@ -25,6 +25,7 @@ export function stripHtml(raw) {
     .replace(/&quot;/gi, '"')
     .replace(/&#39;/gi, "'")
     .replace(/&#x27;/gi, "'")
+    .replace(/[\uD83C-\uDBFF\uDC00-\uDFFF\u2600-\u27BF]/g, '')
     .replace(/\s+/g, ' ')
     .trim();
 }

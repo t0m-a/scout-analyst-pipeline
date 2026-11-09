@@ -124,7 +124,7 @@ async function runTests() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       url: 'https://weworkremotely.com/categories/remote-devops-sysadmin-jobs.rss',
-      name: 'WWR Custom Test Feed',
+      name: 'WWR DevOps Custom Feed',
       type: 'rss_feed'
     })
   });
@@ -133,6 +133,14 @@ async function runTests() {
   const scanUrlData = await respScanUrl.json();
   assert.equal(scanUrlData.ok, true);
   assert.ok(scanUrlData.platform.id.includes('weworkremotely'));
+
+  console.log('6b. Testing GET /api/platforms/sync (Export custom_* platforms)...');
+  const respSync = await worker.fetch(new Request('https://bolivia-remote-scout.workers.dev/api/platforms/sync'), {}, {});
+  assert.equal(respSync.status, 200);
+  const syncData = await respSync.json();
+  assert.equal(syncData.ok, true);
+  assert.ok(syncData.custom_platforms_count >= 1, 'Must export at least 1 custom_* platform');
+  assert.ok(syncData.custom_platforms.some(p => p.id.startsWith('custom_')), 'Must include custom_* platform record');
 
   console.log('7. Testing GET /favicon.svg and /favicon.ico (Earth with Bolivian flag colors)...');
   const respFavSvg = await worker.fetch(new Request('https://bolivia-remote-scout.workers.dev/favicon.svg'), {}, {});

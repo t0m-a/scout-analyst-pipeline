@@ -2436,7 +2436,7 @@ export function renderAppHtml(initialState) {
         const resp = await fetch('/api/platforms/scan-url', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url, name, type, track, filters: userFilters })
+          body: JSON.stringify({ url, name, type, track, persist: true, filters: userFilters })
         });
         if (!resp.ok) {
           const errData = await resp.json().catch(() => ({}));

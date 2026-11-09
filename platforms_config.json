@@ -782,16 +782,7 @@
       "enabled": true,
       "domain": "workingnomads.com",
       "url": "https://www.workingnomads.com/api/exposed_jobs/",
-      "json_root_key": null,
-      "field_mapping": {
-        "title": "title",
-        "company": "company_name",
-        "description": "description",
-        "url": "url",
-        "location": "location",
-        "tags": "tags",
-        "published_at": "pub_date"
-      },
+      "search_query": "site:workingnomads.com (\"remote\" OR \"remoto\" OR \"work from anywhere\" OR \"LATAM\" OR \"Bolivia\")",
       "contract_caveat": "fractional_or_fulltime",
       "notes": "Direct JSON API feed for System Administration, Cloud, Consulting, and AI Evaluation."
     },
@@ -804,16 +795,7 @@
       "enabled": true,
       "domain": "himalayas.app",
       "url": "https://himalayas.app/jobs/api/search?q=cloud+azure+sysadmin+devops+ai+security&worldwide=true&limit=20",
-      "json_root_key": "jobs",
-      "field_mapping": {
-        "title": "title",
-        "company": "companyName",
-        "description": "excerpt",
-        "url": "applicationLink",
-        "location": "locationRestrictions",
-        "tags": "categories",
-        "published_at": "pubDate"
-      },
+      "search_query": "site:himalayas.app (\"remote\" OR \"remoto\" OR \"work from anywhere\" OR \"LATAM\" OR \"Bolivia\")",
       "contract_caveat": "fractional_or_fulltime",
       "notes": "Public JSON Search API filtered for worldwide visa-free contractor eligibility."
     },
@@ -826,6 +808,7 @@
       "enabled": true,
       "domain": "himalayas.app",
       "url": "https://himalayas.app/jobs/rss",
+      "search_query": "site:himalayas.app (\"remote\" OR \"remoto\" OR \"work from anywhere\" OR \"LATAM\" OR \"Bolivia\")",
       "contract_caveat": "fractional_or_fulltime",
       "notes": "100 most recent remote jobs in XML/Atom format."
     },
@@ -838,16 +821,7 @@
       "enabled": true,
       "domain": "remotive.com",
       "url": "https://remotive.com/api/remote-jobs?category=devops&limit=50",
-      "json_root_key": "jobs",
-      "field_mapping": {
-        "title": "title",
-        "company": "company_name",
-        "description": "description",
-        "url": "url",
-        "location": "candidate_required_location",
-        "tags": "tags",
-        "published_at": "publication_date"
-      },
+      "search_query": "site:remotive.com (\"remote\" OR \"remoto\" OR \"work from anywhere\" OR \"LATAM\" OR \"Bolivia\")",
       "contract_caveat": "fractional_or_fulltime",
       "notes": "Verified remote DevOps, SysAdmin, Cloud, and SRE roles open to LATAM/Global."
     },
@@ -860,16 +834,7 @@
       "enabled": true,
       "domain": "jobicy.com",
       "url": "https://jobicy.com/api/v2/remote-jobs?count=50&geo=anywhere&industry=engineering",
-      "json_root_key": "jobs",
-      "field_mapping": {
-        "title": "jobTitle",
-        "company": "companyName",
-        "description": "jobExcerpt",
-        "url": "url",
-        "location": "jobGeo",
-        "tags": "jobIndustry",
-        "published_at": "pubDate"
-      },
+      "search_query": "site:jobicy.com (\"remote\" OR \"remoto\" OR \"work from anywhere\" OR \"LATAM\" OR \"Bolivia\")",
       "contract_caveat": "fractional_or_fulltime",
       "notes": "Worldwide remote infrastructure and engineering jobs without US residency restrictions."
     },
@@ -882,16 +847,7 @@
       "enabled": true,
       "domain": "remoteok.com",
       "url": "https://remoteok.com/api?tags=sysadmin,cloud,azure,security,python,devops",
-      "json_root_key": null,
-      "field_mapping": {
-        "title": "position",
-        "company": "company",
-        "description": "description",
-        "url": "url",
-        "location": "location",
-        "tags": "tags",
-        "published_at": "date"
-      },
+      "search_query": "site:remoteok.com (\"remote\" OR \"remoto\" OR \"work from anywhere\" OR \"LATAM\" OR \"Bolivia\")",
       "contract_caveat": "fractional_or_fulltime",
       "notes": "Tag-filtered global remote roles via JSON API."
     },
@@ -904,6 +860,7 @@
       "enabled": true,
       "domain": "weworkremotely.com",
       "url": "https://weworkremotely.com/categories/remote-devops-sysadmin-jobs.rss",
+      "search_query": "site:weworkremotely.com (\"remote\" OR \"remoto\" OR \"work from anywhere\" OR \"LATAM\" OR \"Bolivia\")",
       "contract_caveat": "fractional_or_fulltime",
       "notes": "High-signal global asynchronous SysAdmin, DevOps, and Cloud RSS feed."
     },
@@ -916,6 +873,7 @@
       "enabled": true,
       "domain": "realworkfromanywhere.com",
       "url": "https://www.realworkfromanywhere.com/remote-devops-and-sysadmin-jobs/rss.xml",
+      "search_query": "site:realworkfromanywhere.com (\"remote\" OR \"remoto\" OR \"work from anywhere\" OR \"LATAM\" OR \"Bolivia\")",
       "contract_caveat": "fractional_or_fulltime",
       "notes": "Strictly 100% location-independent work-from-anywhere roles."
     },
@@ -1097,6 +1055,7 @@
       "enabled": true,
       "domain": "nodesk.co",
       "url": "https://nodesk.co/remote-jobs/index.xml",
+      "search_query": "site:nodesk.co (\"remote\" OR \"remoto\" OR \"work from anywhere\" OR \"LATAM\" OR \"Bolivia\")",
       "contract_caveat": "fractional_or_fulltime",
       "notes": "Directorio curado de empleos 100% remotos a nivel global con feed RSS público."
     },
@@ -1122,6 +1081,7 @@
       "enabled": true,
       "domain": "jobspresso.co",
       "url": "https://jobspresso.co/feed/",
+      "search_query": "site:jobspresso.co (\"remote\" OR \"remoto\" OR \"work from anywhere\" OR \"LATAM\" OR \"Bolivia\")",
       "contract_caveat": "fractional_or_fulltime",
       "notes": "Feed público de ofertas seleccionadas 100% remotas en operaciones, ventas, soporte y tecnología."
     },
@@ -1176,6 +1136,19 @@
       "search_query": "site:wheresheworks.com (\"remote\" OR \"remoto\" OR \"LATAM\" OR \"marketing\" OR \"assistant\")",
       "contract_caveat": "fractional_friendly",
       "notes": "Plataforma de empleo remoto y flexible para talento en Latinoamérica y el mundo."
+    },
+    {
+      "id": "custom_remoteyeah_com",
+      "name": "RemoteYeah",
+      "category": "Plataforma Agregada por Usuario",
+      "track": "Track F: Curated Remote-First & WFA Job Boards",
+      "type": "html_board",
+      "enabled": true,
+      "domain": "remoteyeah.com",
+      "url": "https://remoteyeah.com",
+      "search_query": "site:remoteyeah.com (\"remote\" OR \"remoto\" OR \"work from anywhere\" OR \"LATAM\" OR \"Bolivia\")",
+      "contract_caveat": "fractional_or_fulltime",
+      "notes": "Plataforma escaneada desde https://remoteyeah.com"
     }
   ]
 }

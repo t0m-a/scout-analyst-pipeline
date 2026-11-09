@@ -18,10 +18,44 @@ import {
 import { scanCustomPlatformUrl, runIngestionScan } from './scanner.js';
 import { renderAppHtml } from './ui.js';
 import { FAVICON_SVG } from './favicon.js';
+import { buildSeedExportPayload, persistCustomPlatformsToDisk } from './seed_sync.js';
 
-const CACHE_KEY_URL = 'https://bolivia-remote-scout.internal/state-v5';
+const CACHE_KEY_URL = 'https://bolivia-remote-scout.internal/state-v5.1';
+const EMOJI_STRIP_RE = /[\uD83C-\uDBFF\uDC00-\uDFFF\u2600-\u27BF]/g;
 
 let MEMORY_STATE = null;
+
+function normalizeAndMergeState(rawState) {
+  const existingPlatIds = new Set((rawState.platforms || []).map(p => p.id));
+  const mergedPlatforms = [...(rawState.platforms || [])];
+  for (const p of INITIAL_PLATFORMS) {
+    if (!existingPlatIds.has(p.id)) {
+      existingPlatIds.add(p.id);
+      mergedPlatforms.push(p);
+    }
+  }
+
+  const existingHashes = new Set((rawState.opportunities || []).map(o => o.job_hash));
+  const mergedOpportunities = (rawState.opportunities || []).map(o => ({
+    ...o,
+    title: String(o.title || '').replace(EMOJI_STRIP_RE, '').trim(),
+    description: String(o.description || '').replace(EMOJI_STRIP_RE, '').trim(),
+    company: String(o.company || '').replace(EMOJI_STRIP_RE, '').trim()
+  }));
+
+  for (const opp of INITIAL_OPPORTUNITIES) {
+    if (!existingHashes.has(opp.job_hash)) {
+      existingHashes.add(opp.job_hash);
+      mergedOpportunities.push(opp);
+    }
+  }
+
+  return {
+    opportunities: mergedOpportunities,
+    platforms: mergedPlatforms,
+    lastScanAt: rawState.lastScanAt || new Date().toISOString()
+  };
+}
 
 async function loadState(env) {
   if (MEMORY_STATE) {
@@ -33,7 +67,7 @@ async function loadState(env) {
     try {
       const kvRaw = await env.STORE.get('bolivia_remote_state_v5', 'json');
       if (kvRaw && Array.isArray(kvRaw.opportunities)) {
-        MEMORY_STATE = kvRaw;
+        MEMORY_STATE = normalizeAndMergeState(kvRaw);
         return MEMORY_STATE;
       }
     } catch {
@@ -48,7 +82,7 @@ async function loadState(env) {
       if (cachedResp) {
         const cachedData = await cachedResp.json();
         if (cachedData && Array.isArray(cachedData.opportunities)) {
-          MEMORY_STATE = cachedData;
+          MEMORY_STATE = normalizeAndMergeState(cachedData);
           return MEMORY_STATE;
         }
       }
@@ -57,18 +91,18 @@ async function loadState(env) {
     }
   }
 
-  // 3. Initialize from bundled seed data (121 public opportunities + 73 platforms)
-  MEMORY_STATE = {
+  // 3. Initialize from bundled seed data (137 public opportunities + 85 platforms)
+  MEMORY_STATE = normalizeAndMergeState({
     opportunities: [...INITIAL_OPPORTUNITIES],
     platforms: [...INITIAL_PLATFORMS],
     lastScanAt: new Date().toISOString()
-  };
+  });
 
   return MEMORY_STATE;
 }
 
 async function saveState(state, env) {
-  MEMORY_STATE = state;
+  MEMORY_STATE = normalizeAndMergeState(state);
 
   // Save to KV if bound
   if (env && env.STORE && typeof env.STORE.put === 'function') {
@@ -283,6 +317,16 @@ export default {
           await saveState(state, env);
         }
 
+        let seedSyncInfo = null;
+        if (body.persist === true) {
+          const syncRes = await persistCustomPlatformsToDisk(state, ['.', 'z:/opt/scout-analyst']);
+          seedSyncInfo = {
+            persisted_to_disk: syncRes.persisted_to_disk,
+            custom_platforms_count: syncRes.custom_platforms_count,
+            total_platforms_count: syncRes.total_platforms_count
+          };
+        }
+
         return jsonResponse({
           ok: true,
           platform: scanRes.platform,
@@ -291,10 +335,66 @@ export default {
           opportunities: scanRes.opportunities,
           evaluated_opportunities: scanRes.evaluated_opportunities,
           all_opportunities: state.opportunities,
-          platforms: state.platforms
+          platforms: state.platforms,
+          seed_sync: seedSyncInfo
         });
       } catch (err) {
         return jsonResponse({ ok: false, error: err.message || 'Failed to scan URL' }, 400);
+      }
+    }
+
+    // 7. Export / Sync Custom Platforms to src/seed_data.js & platforms_config.json
+    if ((request.method === 'GET' || request.method === 'POST') && path === '/api/platforms/sync') {
+      try {
+        if (request.method === 'POST') {
+          const body = await request.json().catch(() => ({}));
+          if (Array.isArray(body.platforms)) {
+            const existingIds = new Set(state.platforms.map(p => p.id));
+            for (const p of body.platforms) {
+              if (p && p.id && !existingIds.has(p.id)) {
+                existingIds.add(p.id);
+                state.platforms.unshift(p);
+              }
+            }
+          }
+          if (Array.isArray(body.opportunities)) {
+            const existingHashes = new Set(state.opportunities.map(o => o.job_hash));
+            for (const o of body.opportunities) {
+              if (o && o.job_hash && !existingHashes.has(o.job_hash)) {
+                existingHashes.add(o.job_hash);
+                state.opportunities.unshift(o);
+              }
+            }
+          }
+          await saveState(state, env);
+          const syncRes = await persistCustomPlatformsToDisk(state, ['.', 'z:/opt/scout-analyst']);
+          return jsonResponse({
+            ok: true,
+            persisted_to_disk: syncRes.persisted_to_disk,
+            written_files: syncRes.written_files,
+            custom_platforms_count: syncRes.custom_platforms_count,
+            newly_added_platforms_count: syncRes.newly_added_platforms_count,
+            newly_added_opportunities_count: syncRes.newly_added_opportunities_count,
+            total_platforms_count: syncRes.total_platforms_count,
+            total_opportunities_count: syncRes.total_opportunities_count,
+            custom_platforms: syncRes.custom_platforms
+          });
+        }
+
+        const exportPayload = buildSeedExportPayload(state);
+        return jsonResponse({
+          ok: true,
+          custom_platforms_count: exportPayload.custom_platforms_count,
+          newly_added_platforms_count: exportPayload.newly_added_platforms_count,
+          newly_added_opportunities_count: exportPayload.newly_added_opportunities_count,
+          total_platforms_count: exportPayload.total_platforms_count,
+          total_opportunities_count: exportPayload.total_opportunities_count,
+          custom_platforms: exportPayload.custom_platforms,
+          newly_added_platforms: exportPayload.newly_added_platforms,
+          newly_added_opportunities: exportPayload.newly_added_opportunities
+        });
+      } catch (err) {
+        return jsonResponse({ ok: false, error: err.message || 'Sync failed' }, 500);
       }
     }
 

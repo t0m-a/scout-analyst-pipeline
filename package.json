@@ -9,6 +9,7 @@
     "dev": "npx wrangler dev",
     "deploy": "npx wrangler deploy",
     "build-html": "node -e \"import('./src/ui.js').then(async ({ renderAppHtml }) => { const { INITIAL_OPPORTUNITIES, INITIAL_PLATFORMS } = await import('./src/seed_data.js'); const fs = await import('node:fs'); fs.writeFileSync('index.html', renderAppHtml({ opportunities: INITIAL_OPPORTUNITIES, platforms: INITIAL_PLATFORMS, lastScanAt: new Date().toISOString() }), 'utf8'); console.log('Generated self-contained index.html'); })\"",
+    "sync-platforms": "node sync_platforms.mjs",
     "test": "node test_worker.mjs"
   },
   "keywords": [
