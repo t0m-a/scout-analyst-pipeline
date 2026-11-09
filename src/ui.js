@@ -315,9 +315,10 @@ export function renderAppHtml(initialState) {
     .banner-actions-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-top: 14px;
-      margin-bottom: 10px;
+      gap: 7px;
+      margin-top: 12px;
+      margin-bottom: 0;
+      flex-wrap: nowrap !important;
     }
     .lang-switch-group {
       display: inline-flex;
@@ -370,9 +371,9 @@ export function renderAppHtml(initialState) {
     }
     .banner-pills {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap !important;
       gap: 7px;
-      margin-top: 8px;
+      margin-top: 12px;
       align-items: center;
     }
     .banner-pill {
@@ -1180,7 +1181,11 @@ export function renderAppHtml(initialState) {
           Aviso: algunas de estas plataformas requieren registrarse y utilizar una herramienta de traducción en el navegador para aprovechar al máximo su contenido. Para el trabajo remoto a nivel global, se recomienda encarecidamente <a href="https://www.languagetransfer.org" title="Language Transfer: aprende inglés y más, ¡gratis!" target="_blank" rel="noopener noreferrer">aprender inglés</a>.
         </p>
       </div>
-      <div class="banner-actions-row">
+      <div class="banner-pills banner-actions-row">
+        <span class="banner-pill" id="pill-bolivia">Filtro Base: 100% Remoto desde Bolivia (UTC-4)</span>
+        <span class="banner-pill" id="pill-schedule">Ejecución: Bajo Demanda + Automático cada 15 min</span>
+        <span class="banner-pill"><span id="lbl-last-sync">Última sincronización:</span> <span id="val-last-sync">-</span></span>
+        <span class="banner-pill"><span id="lbl-monitored-count">Plataformas activas:</span> <span id="val-platforms-count">0</span></span>
         <div class="lang-switch-group">
           <button type="button" class="btn-lang active" id="btn-lang-es" onclick="setUiLanguage('es')">Español (Bolivia)</button>
           <button type="button" class="btn-lang" id="btn-lang-en" onclick="setUiLanguage('en')">English</button>
@@ -1196,12 +1201,6 @@ export function renderAppHtml(initialState) {
             <span id="lbl-scan-now">Escanear Ofertas Ahora</span>
           </button>
         </div>
-      </div>
-      <div class="banner-pills">
-        <span class="banner-pill" id="pill-bolivia">Filtro Base: 100% Remoto desde Bolivia (UTC-4)</span>
-        <span class="banner-pill" id="pill-schedule">Ejecución: Bajo Demanda + Automático cada 15 min</span>
-        <span class="banner-pill"><span id="lbl-last-sync">Última sincronización:</span> <span id="val-last-sync">-</span></span>
-        <span class="banner-pill"><span id="lbl-monitored-count">Plataformas activas:</span> <span id="val-platforms-count">0</span></span>
       </div>
     </section>
 
