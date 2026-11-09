@@ -293,17 +293,18 @@ export function renderAppHtml(initialState) {
       color: #0f172a;
       line-height: 1.3;
     }
-    .top-banner p {
+    .top-banner p,
+    #banner-subtitle,
+    .banner-disclaimer {
       margin: 4px 0;
       color: #334155;
+      font-family: inherit;
       font-size: 0.92em;
+      font-weight: 400;
       line-height: 1.5;
     }
     .banner-disclaimer {
-      margin-top: 8px !important;
-      font-size: 0.82em !important;
-      color: var(--text-muted) !important;
-      line-height: 1.5;
+      margin-top: 6px;
     }
     .banner-disclaimer a {
       color: var(--accent-primary);
@@ -970,11 +971,10 @@ export function renderAppHtml(initialState) {
     body.dark-mode .top-banner h1 {
       color: #f8fafc;
     }
-    body.dark-mode .top-banner p {
-      color: #cbd5e1;
-    }
+    body.dark-mode .top-banner p,
+    body.dark-mode #banner-subtitle,
     body.dark-mode .banner-disclaimer {
-      color: #94a3b8 !important;
+      color: #cbd5e1;
     }
     body.dark-mode .banner-disclaimer a {
       color: #38bdf8;
