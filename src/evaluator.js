@@ -155,9 +155,9 @@ export const POSITION_CATEGORIES = [
 ];
 
 export const LANGUAGE_OPTIONS = [
-  { id: 'es', label_es: 'Español', label_en: 'Spanish', flag: '🇧🇴' },
-  { id: 'en', label_es: 'Inglés', label_en: 'English', flag: '🇬🇧' },
-  { id: 'pt', label_es: 'Portugués', label_en: 'Portuguese', flag: '🇧🇷' }
+  { id: 'es', label_es: 'Español', label_en: 'Spanish' },
+  { id: 'en', label_es: 'Inglés', label_en: 'English' },
+  { id: 'pt', label_es: 'Portugués', label_en: 'Portuguese' }
 ];
 
 export const EXPERIENCE_OPTIONS = [
@@ -285,8 +285,8 @@ export function checkBoliviaRemoteEligibility(item) {
       eligible: true,
       score: 25,
       tier: 'bolivia_latam',
-      badge_es: '🇧🇴 Ideal desde Bolivia / LATAM (UTC-4)',
-      badge_en: '🇧🇴 Ideal from Bolivia / LATAM (UTC-4)',
+      badge_es: 'Ideal desde Bolivia / LATAM (UTC-4)',
+      badge_en: 'Ideal from Bolivia / LATAM (UTC-4)',
       reason_es: '100% remoto con alineación directa para Bolivia, Latinoamérica o zona horaria UTC-4.',
       reason_en: '100% remote with direct eligibility for Bolivia, LATAM, or UTC-4 timezone.'
     };
@@ -746,7 +746,7 @@ export function generateResultsMarkdown(evalResult, filters = {}, lang = 'es', p
 
   if (isEs) {
     const lines = [
-      `# 🇧🇴 Resultados de Empleos Remotos desde Bolivia (BO) — ${dateStr}`,
+      `# Resultados de Empleos Remotos desde Bolivia (BO) — ${dateStr}`,
       `**Plataformas Monitoreadas:** ${platformsCount} Portales Globales y Regionales | **Última Actualización:** ${syncStr} | **Frecuencia:** En vivo + Automático cada 15 min`,
       `**Filtro Base Activo:** 100% Remoto desde Bolivia (UTC-4 / LATAM / Global)`,
       `**Tus Filtros Activos:** Idiomas: \`${langsSelected}\` | Experiencia: \`${expSelected}\` | Contratos: \`${contractsSelected}\` | Palabras Clave: \`${customKw}\``,
@@ -793,7 +793,7 @@ export function generateResultsMarkdown(evalResult, filters = {}, lang = 'es', p
     return lines.join('\n') + '\n';
   } else {
     const lines = [
-      `# 🇧🇴 Bolivia (BO) 100% Remote Job Results — ${dateStr}`,
+      `# Bolivia (BO) 100% Remote Job Results — ${dateStr}`,
       `**Monitored Platforms:** ${platformsCount} Global & Regional Portals | **Last Synced:** ${syncStr} | **Schedule:** On-Demand + Every 15 mins`,
       `**Core Filter Active:** 100% Remote Eligible from Bolivia (UTC-4 / LATAM / Worldwide)`,
       `**Your Active Filters:** Languages: \`${langsSelected}\` | Experience: \`${expSelected}\` | Contracts: \`${contractsSelected}\` | Keywords: \`${customKw}\``,

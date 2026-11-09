@@ -12,8 +12,8 @@ async function runTests() {
   assert.ok(html.includes('lang="es-BO"'), 'Default language must be es-BO');
   assert.ok(html.includes('(BO)'), 'Must include (BO) in page title and nav bar');
   assert.ok(html.includes('Bolivia Remoto (BO)'), 'Must include Bolivia Remoto (BO) in nav header');
-  assert.ok(!html.includes('🇧🇴 <span id="nav-brand-title">'), 'Must NOT have 🇧🇴 before Bolivia Remoto (BO)');
-  assert.ok(!html.includes('🇧🇴 Buscador y Evaluador'), 'Must NOT have 🇧🇴 before Buscador y Evaluador');
+  assert.ok(!/[\uD83C][\uDDE6-\uDDFF][\uD83C][\uDDE6-\uDDFF]/.test(html), 'Must NOT contain any flag emoji anywhere in HTML');
+  assert.ok(!html.includes('id="tab-view-report"'), 'Must NOT have id="tab-view-report" in toolbar');
   assert.ok(html.includes('Buscador y Evaluador de Empleos 100% Remotos desde Bolivia (BO)'), 'Must include banner title with (BO)');
   assert.ok(!html.includes('id="nav-platforms"'), 'Must NOT have id="nav-platforms" in navbar');
   assert.ok(!html.includes('id="nav-hdr-views"'), 'Must NOT have Vistas Principales header in navbar');
@@ -25,6 +25,8 @@ async function runTests() {
   assert.ok(!html.includes('id="lbl-unfold-nav"'), 'Must remove Menu text from hamburger button');
   assert.ok(html.includes('body.sidebar-collapsed #main-doc'), 'Must expand main-doc when collapsed');
   assert.ok(html.includes('body.sidebar-collapsed .top-banner'), 'Must expand sections to full width when collapsed');
+  assert.ok(html.includes('body.view-manual-active .top-banner'), 'Must have CSS hiding preliminary sections when manual view is active');
+  assert.ok(html.includes('id="man-btn-back"'), 'Must include back to results button in manual view');
   assert.ok(html.includes('Agregar y Escanear tu Propia URL de Plataforma'), 'Must include Custom Platform URL scanner');
   assert.ok(html.includes('rel="icon" type="image/svg+xml"'), 'Must have SVG favicon in head');
   assert.ok(html.includes('data:image/svg+xml'), 'Must have embedded data URI for offline support');
@@ -160,7 +162,10 @@ async function runTests() {
   ];
 
   for (const relPath of filesToCheck) {
-    const content = fs.readFileSync(path.resolve(relPath), 'utf8').toLowerCase();
+    const rawContent = fs.readFileSync(path.resolve(relPath), 'utf8');
+    const flagMatches = rawContent.match(/[\uD83C][\uDDE6-\uDDFF][\uD83C][\uDDE6-\uDDFF]/g);
+    assert.ok(!flagMatches, `Forbidden flag emoji found in ${relPath}`);
+    const content = rawContent.toLowerCase();
     for (const term of forbiddenTerms) {
       assert.ok(!content.includes(term), `Forbidden personal term "${term}" found in ${relPath}`);
     }

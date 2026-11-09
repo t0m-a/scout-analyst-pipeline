@@ -85,8 +85,8 @@ Si estás utilizando la versión alojada públicamente en línea, esta guía te 
 Al abrir el portal, la aplicación carga por defecto en **Español (Bolivia)** (`es-BO`) con el nombre **Bolivia Remoto (BO)** en la barra de navegación y el título **Buscador y Evaluador de Empleos 100% Remotos desde Bolivia (BO)** en el banner principal. 
 
 Si prefieres navegar en inglés, haz clic en el botón superior derecho:
-- **`🇧🇴 Español (Bolivia)`**: Textos, etiquetas, badges de contratación y reportes orientados a la región.
-- **`🇬🇧 English`**: Traducción completa de la interfaz, explicaciones y del reporte en formato Markdown.
+- **`Español (Bolivia)`**: Textos, etiquetas, badges de contratación y reportes orientados a la región.
+- **`English`**: Traducción completa de la interfaz, explicaciones y del reporte en formato Markdown.
 
 ---
 
@@ -110,7 +110,7 @@ En la sección **"🎛️ Personaliza tu Búsqueda y Criterios de Evaluación"**
 
 ### Paso 3: El filtro base — ¿Por qué 100% Remoto desde Bolivia?
 
-La casilla **"🇧🇴 Mostrar solo ofertas 100% remotas desde Bolivia"** viene activada por defecto. 
+La casilla **"Mostrar solo ofertas 100% remotas desde Bolivia"** viene activada por defecto. 
 
 #### ¿Qué hace este filtro?
 El algoritmo analiza el texto completo de la oferta, su título, ubicación requerida y políticas de contratación para descartar automáticamente:
@@ -251,7 +251,7 @@ $$\text{Puntaje Total} = \text{Posición y Habilidades (35)} + \text{Elegibilida
   │   - Coincidencia con una de las 12 categorías laborales       │
   │   - Coincidencia con palabras clave libres del usuario        │
   │                                                               │
-  │ 🇧🇴 Elegibilidad Remota Bolivia: 25 pts                        │
+  │ 📍 Elegibilidad Remota Bolivia: 25 pts                        │
   │   - 25 pts: Explícitamente Bolivia / LATAM / UTC-4            │
   │   - 23 pts: Remoto Global / Work From Anywhere                │
   │   - 19 pts: Remoto internacional con traslape horario         │

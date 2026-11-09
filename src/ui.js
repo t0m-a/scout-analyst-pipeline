@@ -41,7 +41,7 @@ export function renderAppHtml(initialState) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🇧🇴 Empleos 100% Remotos desde Bolivia (BO) — Buscador y Evaluador en Vivo</title>
+  <title>Empleos 100% Remotos desde Bolivia (BO) — Buscador y Evaluador en Vivo</title>
   <link rel="icon" type="image/svg+xml" href="${FAVICON_DATA_URI}">
   <link rel="alternate icon" type="image/x-icon" href="/favicon.ico">
   <link rel="alternate icon" type="image/png" href="/favicon.png">
@@ -230,6 +230,24 @@ export function renderAppHtml(initialState) {
       width: 100% !important;
       max-width: 100% !important;
       box-sizing: border-box;
+    }
+    body.view-manual-active .top-banner,
+    body.view-manual-active #custom-filters-panel,
+    body.view-manual-active #custom-url-panel,
+    body.view-manual-active .kpi-grid,
+    body.view-manual-active .toolbar,
+    body.view-manual-active footer {
+      display: none !important;
+    }
+    .manual-card .btn-lang {
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #0f172a;
+    }
+    .manual-card .btn-lang.active, .manual-card .btn-lang:hover {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
     }
     .top-banner {
       background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
@@ -837,15 +855,15 @@ export function renderAppHtml(initialState) {
           </p>
         </div>
         <div class="lang-switch-group">
-          <button type="button" class="btn-lang active" id="btn-lang-es" onclick="setUiLanguage('es')">🇧🇴 Español (Bolivia)</button>
-          <button type="button" class="btn-lang" id="btn-lang-en" onclick="setUiLanguage('en')">🇬🇧 English</button>
+          <button type="button" class="btn-lang active" id="btn-lang-es" onclick="setUiLanguage('es')">Español (Bolivia)</button>
+          <button type="button" class="btn-lang" id="btn-lang-en" onclick="setUiLanguage('en')">English</button>
           <button type="button" class="btn-scan-now" id="btn-scan-now" onclick="triggerOnDemandScan()">
             <span>🔄</span> <span id="lbl-scan-now">Escanear Ofertas Ahora</span>
           </button>
         </div>
       </div>
       <div class="banner-pills">
-        <span class="banner-pill" id="pill-bolivia">🇧🇴 Filtro Base: 100% Remoto desde Bolivia (UTC-4)</span>
+        <span class="banner-pill" id="pill-bolivia">Filtro Base: 100% Remoto desde Bolivia (UTC-4)</span>
         <span class="banner-pill" id="pill-schedule">⏱️ Ejecución: Bajo Demanda + Automático cada 15 min</span>
         <span class="banner-pill"><span id="lbl-last-sync">Última sincronización:</span> <span id="val-last-sync">-</span></span>
         <span class="banner-pill"><span id="lbl-monitored-count">Plataformas activas:</span> <span id="val-platforms-count">0</span></span>
@@ -859,7 +877,7 @@ export function renderAppHtml(initialState) {
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
           <label style="font-size:0.84em;font-weight:700;color:#065f46;display:inline-flex;align-items:center;gap:6px;cursor:pointer;background:#ecfdf5;padding:5px 10px;border-radius:6px;border:1px solid #10b981;">
             <input type="checkbox" id="chk-bolivia-only" checked onchange="onBoliviaToggle(this.checked)">
-            <span id="lbl-bolivia-only">🇧🇴 Mostrar solo ofertas 100% remotas desde Bolivia</span>
+            <span id="lbl-bolivia-only">Mostrar solo ofertas 100% remotas desde Bolivia</span>
           </label>
           <button type="button" class="btn-action btn-secondary" onclick="resetFilters()" id="btn-reset-filters">↺ Restablecer Filtros</button>
         </div>
@@ -984,7 +1002,6 @@ export function renderAppHtml(initialState) {
       <div class="filter-group">
         <button type="button" class="btn-tab active" id="tab-view-results" onclick="switchMainView('results')">🎯 <span id="tab-lbl-results">Resultados</span></button>
         <button type="button" class="btn-tab" id="tab-view-manual" onclick="switchMainView('manual')">📖 <span id="tab-lbl-manual">Manual de Uso</span></button>
-        <button type="button" class="btn-tab" id="tab-view-report" onclick="switchMainView('report')">📄 <span id="tab-lbl-report">Reporte Markdown / Exportar</span></button>
         <button type="button" class="btn-tab" id="tab-view-platforms" onclick="switchMainView('platforms')">🛰️ <span id="tab-lbl-platforms">Plataformas Monitoreadas</span></button>
       </div>
       <div class="filter-group" id="verdictFilterBar">
@@ -1007,7 +1024,14 @@ export function renderAppHtml(initialState) {
       <div class="manual-container">
         <!-- GUÍA DEL USUARIO: BOLIVIA REMOTO (BO) -->
         <article class="manual-card">
-          <h3 id="man-h-intro">📖 Guía del Usuario: Bolivia Remoto (BO)</h3>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:14px;border-bottom:1px solid #f1f5f9;padding-bottom:12px;">
+            <h3 id="man-h-intro" style="margin:0;">📖 Guía del Usuario: Bolivia Remoto (BO)</h3>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <button type="button" class="btn-lang active" id="man-btn-lang-es" onclick="setUiLanguage('es')">Español (Bolivia)</button>
+              <button type="button" class="btn-lang" id="man-btn-lang-en" onclick="setUiLanguage('en')">English</button>
+              <button type="button" class="btn-action btn-primary" onclick="switchMainView('results')">🎯 <span id="man-btn-back">Ver Resultados en Vivo</span></button>
+            </div>
+          </div>
           <p id="man-p-intro" style="font-size:0.92em;color:#334155;line-height:1.6;">
             <strong>Bolivia Remoto (BO)</strong> es una plataforma pública, gratuita e interactiva diseñada para encontrar, filtrar y evaluar en vivo oportunidades laborales internacionales que admiten trabajo 100% remoto desde Bolivia (UTC-4), eliminando el ruido de ofertas con restricciones territoriales o visados extranjeros.
           </p>
@@ -1026,7 +1050,7 @@ export function renderAppHtml(initialState) {
               <h5 class="guide-step-title">Configura tus Idiomas de Trabajo</h5>
             </div>
             <div class="guide-step-body">
-              En la sección <strong>1. Tus Idiomas</strong>, haz clic sobre las etiquetas interactivas de los idiomas que dominas (<code>🇧🇴 Español</code>, <code>🇬🇧 Inglés</code>, <code>🇧🇷 Portugués</code>):
+              En la sección <strong>1. Tus Idiomas</strong>, haz clic sobre las etiquetas interactivas de los idiomas que dominas (<code>Español</code>, <code>Inglés</code>, <code>Portugués</code>):
               <ul>
                 <li><strong>Solo Español:</strong> Si seleccionas únicamente <em>Español (BO)</em>, el evaluador activa una regla estricta que prioriza vacantes en español y excluye ofertas redactadas en inglés.</li>
                 <li><strong>Bilingüe / Multilingüe:</strong> Si activas también <em>Inglés</em> o <em>Portugués</em>, el sistema evaluará y sumará oportunidades internacionales que requieren fluidez en esos idiomas.</li>
@@ -1232,7 +1256,7 @@ export function renderAppHtml(initialState) {
 
     const I18N = {
       es: {
-        pageTitle: '🇧🇴 Empleos 100% Remotos desde Bolivia (BO) — Buscador y Evaluador en Vivo',
+        pageTitle: 'Empleos 100% Remotos desde Bolivia (BO) — Buscador y Evaluador en Vivo',
         navBrand: 'Bolivia Remoto (BO)',
         unfoldNav: 'Menú',
         navViews: 'Vistas Principales',
@@ -1245,12 +1269,12 @@ export function renderAppHtml(initialState) {
         bannerSubtitle: 'Filtra y evalúa ofertas globales y regionales que permiten trabajar 100% remoto desde Bolivia (UTC-4). Personaliza tus idiomas, área profesional, experiencia y modalidad de contrato.',
         scanNow: 'Escanear Ofertas Ahora',
         scanningNow: 'Escaneando plataformas...',
-        pillBolivia: '🇧🇴 Filtro Base: 100% Remoto desde Bolivia (UTC-4)',
+        pillBolivia: 'Filtro Base: 100% Remoto desde Bolivia (UTC-4)',
         pillSchedule: '⏱️ Ejecución: Bajo Demanda + Automático cada 15 min',
         lastSync: 'Última sincronización:',
         monitoredCount: 'Plataformas activas:',
         filtersTitle: 'Personaliza tu Búsqueda y Criterios de Evaluación',
-        boliviaOnly: '🇧🇴 Mostrar solo ofertas 100% remotas desde Bolivia',
+        boliviaOnly: 'Mostrar solo ofertas 100% remotas desde Bolivia',
         resetFilters: '↺ Restablecer Filtros',
         filterLangs: '1. Tus Idiomas',
         weightLangs: '(Peso: 20 pts)',
@@ -1310,10 +1334,11 @@ export function renderAppHtml(initialState) {
         scanPlatformBtn: '🔄 Escanear esta plataforma',
         openPlatformBtn: '🌐 Abrir Portal',
         noResults: 'No se encontraron ofertas con los filtros actuales. Prueba ampliando los tipos de posición, contrato o palabras clave.',
+        manBtnBack: 'Ver Resultados en Vivo',
         footerText: 'Buscador y Evaluador Público de Empleos 100% Remotos desde Bolivia (BO · UTC-4) · Ejecución en Cloudflare Workers (Bajo Demanda + Cada 15 Minutos)'
       },
       en: {
-        pageTitle: '🇧🇴 100% Remote Jobs from Bolivia (BO) — Live Job Scout & Evaluator',
+        pageTitle: '100% Remote Jobs from Bolivia (BO) — Live Job Scout & Evaluator',
         navBrand: 'Bolivia Remote (BO)',
         unfoldNav: 'Menu',
         navViews: 'Main Views',
@@ -1326,12 +1351,12 @@ export function renderAppHtml(initialState) {
         bannerSubtitle: 'Filter and evaluate global & regional job offers eligible for 100% remote work from Bolivia (UTC-4). Customize your languages, position type, experience level, and contract modality.',
         scanNow: 'Scan Offers Now',
         scanningNow: 'Scanning platforms...',
-        pillBolivia: '🇧🇴 Core Filter: 100% Remote from Bolivia (UTC-4)',
+        pillBolivia: 'Core Filter: 100% Remote from Bolivia (UTC-4)',
         pillSchedule: '⏱️ Schedule: On-Demand + Auto Every 15 mins',
         lastSync: 'Last synced:',
         monitoredCount: 'Active platforms:',
         filtersTitle: 'Customize Your Search & Evaluation Criteria',
-        boliviaOnly: '🇧🇴 Show only positions 100% remote from Bolivia',
+        boliviaOnly: 'Show only positions 100% remote from Bolivia',
         resetFilters: '↺ Reset Filters',
         filterLangs: '1. Your Languages',
         weightLangs: '(Weight: 20 pts)',
@@ -1391,6 +1416,7 @@ export function renderAppHtml(initialState) {
         scanPlatformBtn: '🔄 Scan this platform',
         openPlatformBtn: '🌐 Open Portal',
         noResults: 'No offers matched your current filters. Try broadening your position types, contract modalities, or keywords.',
+        manBtnBack: 'View Live Results',
         footerText: 'Public 100% Remote Job Scout & Evaluator from Bolivia (BO · UTC-4) · Powered by Cloudflare Workers (On-Demand + Every 15 Minutes)'
       }
     };
@@ -1422,8 +1448,14 @@ export function renderAppHtml(initialState) {
       userFilters.ui_lang = lang === 'en' ? 'en' : 'es';
       saveFilters();
       document.documentElement.lang = userFilters.ui_lang === 'es' ? 'es-BO' : 'en';
-      document.getElementById('btn-lang-es').classList.toggle('active', userFilters.ui_lang === 'es');
-      document.getElementById('btn-lang-en').classList.toggle('active', userFilters.ui_lang === 'en');
+      const esBtn = document.getElementById('btn-lang-es');
+      const enBtn = document.getElementById('btn-lang-en');
+      if (esBtn) esBtn.classList.toggle('active', userFilters.ui_lang === 'es');
+      if (enBtn) enBtn.classList.toggle('active', userFilters.ui_lang === 'en');
+      const manEsBtn = document.getElementById('man-btn-lang-es');
+      const manEnBtn = document.getElementById('man-btn-lang-en');
+      if (manEsBtn) manEsBtn.classList.toggle('active', userFilters.ui_lang === 'es');
+      if (manEnBtn) manEnBtn.classList.toggle('active', userFilters.ui_lang === 'en');
       applyTranslations();
       renderFilterChips();
       recomputeAndRender();
@@ -1493,6 +1525,7 @@ export function renderAppHtml(initialState) {
         'lbl-dl-csv': t.dlCsv,
         'lbl-platforms-heading': t.platformsHeading,
         'lbl-platforms-sub': t.platformsSub,
+        'man-btn-back': t.manBtnBack,
         'footer-text': t.footerText
       };
       for (const [id, text] of Object.entries(map)) {
@@ -1520,7 +1553,7 @@ export function renderAppHtml(initialState) {
         const selected = (userFilters.languages || []).includes(opt.id);
         const label = isEs ? opt.label_es : opt.label_en;
         return '<span class="chip ' + (selected ? 'selected' : '') + '" onclick="toggleLanguageChip(\\'' + opt.id + '\\')">' +
-          opt.flag + ' ' + escapeHtml(label) + '</span>';
+          escapeHtml(label) + '</span>';
       }).join('');
 
       // 2. Experience
@@ -1726,10 +1759,10 @@ export function renderAppHtml(initialState) {
       });
 
       const langFlagMap = {
-        es: '🇧🇴 Español',
-        en: '🇬🇧 Inglés',
-        pt: '🇧🇷 Portugués',
-        de: '🇩🇪 Alemán'
+        es: 'Español',
+        en: 'Inglés',
+        pt: 'Portugués',
+        de: 'Alemán'
       };
 
       container.innerHTML = filtered.map((r, idx) => {
@@ -1760,7 +1793,7 @@ export function renderAppHtml(initialState) {
           '</div>' +
           '<div class="score-pills">' +
             '<span class="score-pill">🎯 ' + escapeHtml(t.scorePos) + ': ' + r.position_score + '/35</span>' +
-            '<span class="score-pill">🇧🇴 ' + escapeHtml(t.scoreBol) + ': ' + r.bolivia_score + '/25</span>' +
+            '<span class="score-pill">📍 ' + escapeHtml(t.scoreBol) + ': ' + r.bolivia_score + '/25</span>' +
             '<span class="score-pill">⏱️ ' + escapeHtml(t.scoreCont) + ': ' + r.contract_exp_score + '/20</span>' +
             '<span class="score-pill">🗣️ ' + escapeHtml(t.scoreLang) + ': ' + r.language_score + '/20</span>' +
           '</div>' +
@@ -1823,6 +1856,27 @@ export function renderAppHtml(initialState) {
       if (vManual) vManual.style.display = viewName === 'manual' ? '' : 'none';
       if (vReport) vReport.style.display = viewName === 'report' ? '' : 'none';
       if (vPlatforms) vPlatforms.style.display = viewName === 'platforms' ? '' : 'none';
+
+      const isManual = viewName === 'manual';
+      document.body.classList.toggle('view-manual-active', isManual);
+
+      const banner = document.querySelector('.top-banner');
+      const filters = document.getElementById('custom-filters-panel');
+      const urlPanel = document.getElementById('custom-url-panel');
+      const kpis = document.querySelector('.kpi-grid');
+      const toolbar = document.querySelector('.toolbar');
+      const footer = document.getElementById('footer-text');
+
+      if (banner) banner.style.display = isManual ? 'none' : '';
+      if (filters) filters.style.display = isManual ? 'none' : '';
+      if (urlPanel) urlPanel.style.display = isManual ? 'none' : '';
+      if (kpis) kpis.style.display = isManual ? 'none' : '';
+      if (toolbar) toolbar.style.display = isManual ? 'none' : '';
+      if (footer) footer.style.display = isManual ? 'none' : '';
+
+      if (isManual) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
 
       const tabResults = document.getElementById('tab-view-results');
       const tabManual = document.getElementById('tab-view-manual');
