@@ -286,7 +286,11 @@ export function renderAppHtml(initialState) {
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 14px;
+      gap: 16px;
+    }
+    .banner-title-area {
+      flex: 1 1 480px;
+      min-width: 260px;
     }
     .top-banner h1 {
       margin: 0 0 6px 0;
@@ -299,11 +303,27 @@ export function renderAppHtml(initialState) {
       color: #cbd5e1;
       font-size: 0.92em;
     }
+    .banner-disclaimer {
+      margin-top: 8px !important;
+      font-size: 0.82em !important;
+      color: #94a3b8 !important;
+      line-height: 1.5;
+    }
+    .banner-disclaimer a {
+      color: #38bdf8;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+    .banner-disclaimer a:hover {
+      color: #7dd3fc;
+    }
     .lang-switch-group {
-      display: flex;
+      display: inline-flex;
       gap: 8px;
       align-items: center;
-      flex-wrap: wrap;
+      flex-wrap: nowrap !important;
+      white-space: nowrap !important;
+      flex-shrink: 0;
     }
     .btn-lang {
       padding: 7px 13px;
@@ -829,17 +849,17 @@ export function renderAppHtml(initialState) {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      padding: 7px 12px;
-      border-radius: 999px;
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      border-radius: 50%;
       border: 1px solid rgba(255, 255, 255, 0.3);
       background: rgba(255, 255, 255, 0.1);
       color: #ffffff;
-      font-size: 0.84em;
-      font-weight: 700;
       cursor: pointer;
       transition: all 0.15s ease;
       line-height: 1;
+      flex-shrink: 0;
     }
     .btn-theme-toggle:hover {
       background: rgba(255, 255, 255, 0.22);
@@ -1141,10 +1161,13 @@ export function renderAppHtml(initialState) {
     <!-- TOP BANNER -->
     <section class="top-banner">
       <div class="banner-top-row">
-        <div>
+        <div class="banner-title-area">
           <h1 id="banner-title">Buscador y Evaluador de Empleos Remotos desde Bolivia</h1>
           <p id="banner-subtitle">
             Filtra y evalúa ofertas globales y regionales que permiten trabajar remoto desde Bolivia (UTC-4). Personaliza tus idiomas, área profesional, experiencia y modalidad de contrato.
+          </p>
+          <p id="banner-disclaimer" class="banner-disclaimer">
+            Aviso: algunas de estas plataformas requieren registrarse y utilizar una herramienta de traducción en el navegador para aprovechar al máximo su contenido. Para el trabajo remoto a nivel global, se recomienda encarecidamente <a href="https://www.languagetransfer.org" title="Language Transfer: aprende inglés y más, ¡gratis!" target="_blank" rel="noopener noreferrer">aprender inglés</a>.
           </p>
         </div>
         <div class="lang-switch-group">
@@ -1152,12 +1175,11 @@ export function renderAppHtml(initialState) {
           <button type="button" class="btn-lang" id="btn-lang-en" onclick="setUiLanguage('en')">English</button>
           <button type="button" class="btn-theme-toggle" id="btn-theme-toggle" onclick="toggleTheme()" title="Cambiar a modo oscuro" aria-label="Cambiar tema">
             <span class="theme-symbol theme-symbol-moon" id="theme-sym-moon">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
             </span>
             <span class="theme-symbol theme-symbol-sun" id="theme-sym-sun" style="display:none;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
             </span>
-            <span class="theme-text" id="theme-toggle-text">Oscuro</span>
           </button>
           <button type="button" class="btn-scan-now" id="btn-scan-now" onclick="triggerOnDemandScan()">
             <span id="lbl-scan-now">Escanear Ofertas Ahora</span>
@@ -1333,12 +1355,11 @@ export function renderAppHtml(initialState) {
               <button type="button" class="btn-lang" id="man-btn-lang-en" onclick="setUiLanguage('en')">English</button>
               <button type="button" class="btn-theme-toggle" id="man-btn-theme-toggle" onclick="toggleTheme()" title="Cambiar a modo oscuro" aria-label="Cambiar tema">
                 <span class="theme-symbol theme-symbol-moon">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                 </span>
                 <span class="theme-symbol theme-symbol-sun" style="display:none;">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                 </span>
-                <span class="theme-text">Oscuro</span>
               </button>
               <button type="button" class="btn-action btn-primary" onclick="switchMainView('results')"><span id="man-btn-back">Ver Resultados en Vivo</span></button>
             </div>
@@ -1598,17 +1619,14 @@ export function renderAppHtml(initialState) {
       const isDark = (currentTheme === 'dark');
       const t = I18N[userFilters.ui_lang] || I18N.es;
       const btnTitle = isDark ? (t.themeLightTitle || 'Cambiar a modo claro') : (t.themeDarkTitle || 'Cambiar a modo oscuro');
-      const btnText = isDark ? (t.themeLightText || 'Claro') : (t.themeDarkText || 'Oscuro');
 
       document.querySelectorAll('.btn-theme-toggle').forEach(btn => {
         btn.setAttribute('title', btnTitle);
         btn.setAttribute('aria-label', btnTitle);
         const moon = btn.querySelector('.theme-symbol-moon');
         const sun = btn.querySelector('.theme-symbol-sun');
-        const txt = btn.querySelector('.theme-text');
         if (moon) moon.style.display = isDark ? 'none' : 'inline-flex';
         if (sun) sun.style.display = isDark ? 'inline-flex' : 'none';
-        if (txt) txt.textContent = btnText;
       });
     }
 
@@ -1640,6 +1658,7 @@ export function renderAppHtml(initialState) {
         themeLightText: 'Claro',
         bannerTitle: 'Buscador y Evaluador de Empleos Remotos desde Bolivia',
         bannerSubtitle: 'Filtra y evalúa ofertas globales y regionales que permiten trabajar remoto desde Bolivia (UTC-4). Personaliza tus idiomas, área profesional, experiencia y modalidad de contrato.',
+        bannerDisclaimer: 'Aviso: algunas de estas plataformas requieren registrarse y utilizar una herramienta de traducción en el navegador para aprovechar al máximo su contenido. Para el trabajo remoto a nivel global, se recomienda encarecidamente <a href="https://www.languagetransfer.org" title="Language Transfer: aprende inglés y más, ¡gratis!" target="_blank" rel="noopener noreferrer">aprender inglés</a>.',
         scanNow: 'Escanear Ofertas Ahora',
         scanningNow: 'Escaneando plataformas...',
         pillBolivia: 'Filtro Base: 100% Remoto desde Bolivia (UTC-4)',
@@ -1733,6 +1752,7 @@ export function renderAppHtml(initialState) {
         themeLightText: 'Light',
         bannerTitle: 'Remote Job Scout & Evaluator from Bolivia',
         bannerSubtitle: 'Filter and evaluate global & regional job offers eligible for remote work from Bolivia (UTC-4). Customize your languages, position type, experience level, and contract modality.',
+        bannerDisclaimer: 'Notice: Some of these platforms require registration and using an in-browser translation tool to make the most of their listings. For global remote work, it is strongly recommended to <a href="https://www.languagetransfer.org" title="Language Transfer: free audio courses" target="_blank" rel="noopener noreferrer">learn English</a>.',
         scanNow: 'Scan Offers Now',
         scanningNow: 'Scanning platforms...',
         pillBolivia: 'Core Filter: 100% Remote from Bolivia (UTC-4)',
@@ -1865,6 +1885,7 @@ export function renderAppHtml(initialState) {
         'nav-track-f': t.navTrackF,
         'banner-title': t.bannerTitle,
         'banner-subtitle': t.bannerSubtitle,
+        'banner-disclaimer': t.bannerDisclaimer,
         'lbl-scan-now': t.scanNow,
         'pill-bolivia': t.pillBolivia,
         'pill-schedule': t.pillSchedule,
@@ -1920,7 +1941,13 @@ export function renderAppHtml(initialState) {
       };
       for (const [id, text] of Object.entries(map)) {
         const el = document.getElementById(id);
-        if (el) el.textContent = text;
+        if (el) {
+          if (id === 'banner-disclaimer') {
+            el.innerHTML = text;
+          } else {
+            el.textContent = text;
+          }
+        }
       }
       const unfoldBtn = document.getElementById('sidebar-unfold-btn');
       if (unfoldBtn) {

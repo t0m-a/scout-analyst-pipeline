@@ -21,7 +21,12 @@ async function runTests() {
   assert.ok(html.includes('id="btn-theme-toggle"'), 'Must have discrete dark mode theme toggle button');
   assert.ok(html.includes('theme-symbol-moon'), 'Must have discrete moon symbol');
   assert.ok(html.includes('theme-symbol-sun'), 'Must have discrete sun symbol');
+  assert.ok(!html.includes('id="theme-toggle-text"'), 'Must remove text label from theme toggle button');
   assert.ok(html.includes('body.dark-mode'), 'Must have dark mode stylesheet rules');
+  assert.ok(html.includes('flex-wrap: nowrap !important'), 'Button group must not wrap to two lines');
+  assert.ok(html.includes('id="banner-disclaimer"'), 'Must include banner disclaimer below subtitle');
+  assert.ok(html.includes('https://www.languagetransfer.org'), 'Must include Language Transfer link in disclaimer');
+  assert.ok(html.includes('aprender inglés'), 'Must include Spanish anchor text in disclaimer');
   assert.ok(!/[\uD83C][\uDDE6-\uDDFF][\uD83C][\uDDE6-\uDDFF]/.test(html), 'Must NOT contain any flag emoji anywhere in HTML');
   assert.ok(!EMOJI_REGEX.test(html), 'Must NOT contain any emoji icons anywhere in HTML (excluding favicon)');
   assert.ok(!html.includes('id="tab-view-report"'), 'Must NOT have id="tab-view-report" in toolbar');
