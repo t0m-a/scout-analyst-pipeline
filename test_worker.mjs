@@ -23,6 +23,8 @@ async function runTests() {
   assert.ok(html.includes('theme-symbol-sun'), 'Must have discrete sun symbol');
   assert.ok(!html.includes('id="theme-toggle-text"'), 'Must remove text label from theme toggle button');
   assert.ok(html.includes('body.dark-mode'), 'Must have dark mode stylesheet rules');
+  assert.ok(html.includes('class="banner-header-block"'), 'Must have full-width banner-header-block so title and subtitle do not break');
+  assert.ok(html.includes('class="banner-actions-row"'), 'Must have banner-actions-row grouping action buttons on one line');
   assert.ok(html.includes('flex-wrap: nowrap !important'), 'Button group must not wrap to two lines');
   assert.ok(html.includes('id="banner-disclaimer"'), 'Must include banner disclaimer below subtitle');
   assert.ok(html.includes('https://www.languagetransfer.org'), 'Must include Language Transfer link in disclaimer');

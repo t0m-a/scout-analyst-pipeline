@@ -281,27 +281,22 @@ export function renderAppHtml(initialState) {
       margin-bottom: 20px;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
     }
-    .banner-top-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 16px;
-    }
-    .banner-title-area {
-      flex: 1 1 480px;
-      min-width: 260px;
+    .banner-header-block {
+      width: 100%;
+      margin-bottom: 12px;
     }
     .top-banner h1 {
       margin: 0 0 6px 0;
       font-size: 1.55em;
       font-weight: 700;
       color: #ffffff;
+      line-height: 1.3;
     }
     .top-banner p {
       margin: 4px 0;
       color: #cbd5e1;
       font-size: 0.92em;
+      line-height: 1.5;
     }
     .banner-disclaimer {
       margin-top: 8px !important;
@@ -317,23 +312,32 @@ export function renderAppHtml(initialState) {
     .banner-disclaimer a:hover {
       color: #7dd3fc;
     }
+    .banner-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      margin-bottom: 10px;
+    }
     .lang-switch-group {
       display: inline-flex;
-      gap: 8px;
+      gap: 7px;
       align-items: center;
       flex-wrap: nowrap !important;
       white-space: nowrap !important;
       flex-shrink: 0;
     }
     .btn-lang {
-      padding: 7px 13px;
+      padding: 4px 11px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,0.3);
       background: rgba(255,255,255,0.1);
       color: #ffffff;
-      font-size: 0.84em;
-      font-weight: 700;
+      font-size: 0.79em;
+      font-weight: 600;
       cursor: pointer;
+      line-height: 1.5;
+      white-space: nowrap;
       transition: all 0.15s ease;
     }
     .btn-lang.active, .btn-lang:hover {
@@ -342,17 +346,19 @@ export function renderAppHtml(initialState) {
       border-color: #38bdf8;
     }
     .btn-scan-now {
-      padding: 8px 15px;
+      padding: 4px 11px;
       border-radius: 999px;
       border: 1px solid #34d399;
       background: #059669;
       color: #ffffff;
-      font-size: 0.85em;
-      font-weight: 700;
+      font-size: 0.79em;
+      font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
+      line-height: 1.5;
+      white-space: nowrap;
       transition: all 0.15s ease;
     }
     .btn-scan-now:hover {
@@ -365,8 +371,9 @@ export function renderAppHtml(initialState) {
     .banner-pills {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
+      gap: 7px;
+      margin-top: 8px;
+      align-items: center;
     }
     .banner-pill {
       background: rgba(255, 255, 255, 0.12);
@@ -376,6 +383,8 @@ export function renderAppHtml(initialState) {
       border-radius: 999px;
       font-size: 0.79em;
       font-weight: 600;
+      white-space: nowrap;
+      line-height: 1.5;
     }
     .panel-card {
       background: var(--bg-card);
@@ -849,8 +858,10 @@ export function renderAppHtml(initialState) {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 34px;
-      height: 34px;
+      width: 27px;
+      height: 27px;
+      min-width: 27px;
+      min-height: 27px;
       padding: 0;
       border-radius: 50%;
       border: 1px solid rgba(255, 255, 255, 0.3);
@@ -1160,25 +1171,25 @@ export function renderAppHtml(initialState) {
   <main id="main-doc">
     <!-- TOP BANNER -->
     <section class="top-banner">
-      <div class="banner-top-row">
-        <div class="banner-title-area">
-          <h1 id="banner-title">Buscador y Evaluador de Empleos Remotos desde Bolivia</h1>
-          <p id="banner-subtitle">
-            Filtra y evalúa ofertas globales y regionales que permiten trabajar remoto desde Bolivia (UTC-4). Personaliza tus idiomas, área profesional, experiencia y modalidad de contrato.
-          </p>
-          <p id="banner-disclaimer" class="banner-disclaimer">
-            Aviso: algunas de estas plataformas requieren registrarse y utilizar una herramienta de traducción en el navegador para aprovechar al máximo su contenido. Para el trabajo remoto a nivel global, se recomienda encarecidamente <a href="https://www.languagetransfer.org" title="Language Transfer: aprende inglés y más, ¡gratis!" target="_blank" rel="noopener noreferrer">aprender inglés</a>.
-          </p>
-        </div>
+      <div class="banner-header-block">
+        <h1 id="banner-title">Buscador y Evaluador de Empleos Remotos desde Bolivia</h1>
+        <p id="banner-subtitle">
+          Filtra y evalúa ofertas globales y regionales que permiten trabajar remoto desde Bolivia (UTC-4). Personaliza tus idiomas, área profesional, experiencia y modalidad de contrato.
+        </p>
+        <p id="banner-disclaimer" class="banner-disclaimer">
+          Aviso: algunas de estas plataformas requieren registrarse y utilizar una herramienta de traducción en el navegador para aprovechar al máximo su contenido. Para el trabajo remoto a nivel global, se recomienda encarecidamente <a href="https://www.languagetransfer.org" title="Language Transfer: aprende inglés y más, ¡gratis!" target="_blank" rel="noopener noreferrer">aprender inglés</a>.
+        </p>
+      </div>
+      <div class="banner-actions-row">
         <div class="lang-switch-group">
           <button type="button" class="btn-lang active" id="btn-lang-es" onclick="setUiLanguage('es')">Español (Bolivia)</button>
           <button type="button" class="btn-lang" id="btn-lang-en" onclick="setUiLanguage('en')">English</button>
           <button type="button" class="btn-theme-toggle" id="btn-theme-toggle" onclick="toggleTheme()" title="Cambiar a modo oscuro" aria-label="Cambiar tema">
             <span class="theme-symbol theme-symbol-moon" id="theme-sym-moon">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
             </span>
             <span class="theme-symbol theme-symbol-sun" id="theme-sym-sun" style="display:none;">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
             </span>
           </button>
           <button type="button" class="btn-scan-now" id="btn-scan-now" onclick="triggerOnDemandScan()">
@@ -1355,10 +1366,10 @@ export function renderAppHtml(initialState) {
               <button type="button" class="btn-lang" id="man-btn-lang-en" onclick="setUiLanguage('en')">English</button>
               <button type="button" class="btn-theme-toggle" id="man-btn-theme-toggle" onclick="toggleTheme()" title="Cambiar a modo oscuro" aria-label="Cambiar tema">
                 <span class="theme-symbol theme-symbol-moon">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                 </span>
                 <span class="theme-symbol theme-symbol-sun" style="display:none;">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                 </span>
               </button>
               <button type="button" class="btn-action btn-primary" onclick="switchMainView('results')"><span id="man-btn-back">Ver Resultados en Vivo</span></button>
