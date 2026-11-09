@@ -1,210 +1,106 @@
 {
-  "version": "4.0.0",
-  "distribution": {
-    "public_url": "https://pi.tsimon.me",
-    "tunnel_provider": "cloudflared",
-    "web_server": "nginx",
-    "nginx_web_root": "/var/www/html",
-    "windows_nginx_web_root": "Y:\\var\\www\\html",
-    "entrypoint_html": "index.html",
-    "cron_schedule": "0 * * * *"
+  "version": "5.0.0",
+  "application": {
+    "name_es": "Buscador y Evaluador de Empleos Remotos desde Bolivia",
+    "name_en": "Bolivia Remote Job Scout & Evaluator",
+    "default_language": "es-BO",
+    "supported_languages": ["es-BO", "en"],
+    "country_eligibility_requirement": "100% Remoto desde Bolivia (UTC-4 / LATAM / Global)",
+    "schedule": "*/15 * * * * (Every 15 minutes + On-Demand)"
   },
-  "candidate": {
-    "name": "Thomas Simon",
-    "title": "Senior IT Consultant | Cloud & Systems Engineer | NOC Specialist | AI Context Engineer",
-    "location": "La Paz, Bolivia (UTC-4)",
-    "tax_status": "Non-US Foreign Contractor (IRS Form W-8BEN — 0% US Tax Withholding, No Visa Needed)",
-    "portfolio": "https://tsimon.me",
-    "dashboard_url": "https://pi.tsimon.me",
-    "linkedin": "https://bo.linkedin.com/in/tsimonfreelance",
-    "email": "simon_thomas@outlook.fr",
-    "phone": "+591 734 62133",
-    "languages": {
-      "FR": "Native (CNAM France Associate of Science in Telecom & Computer Networks; ex-Orange Telecom SysAdmin)",
-      "EN": "Fluent (6.5+ years US Remote NOC/CSM Engineer at TeamLogic IT North Bay of San Francisco)",
-      "ES": "Intermediate / Active Working Mastery (Andean / Bolivia civic tech architect: AyniLab, PulpoLab, Minka Lab)"
-    },
-    "verified_metrics": {
-      "years_it_experience": "13+ years senior systems/NOC/cloud administration (20+ years total progressive IT since 2006)",
-      "msp_scale": "40+ to 100+ client environments, 1,500 to 3,500+ endpoints managed",
-      "incident_reduction": "30% reduction in recurring incidents through proactive RMM/PSA alerting, scripting, and Liongard/IT Glue automation",
-      "bcdr_reliability": "99%+ backup verification and disaster recovery compliance via Acronis, Veeam, Datto, and Backup Radar",
-      "certifications": [
-        "Associate of Science — Telecommunications Technology and Computer Networks (CNAM France, 2007)",
-        "Liongard Certified Partner",
-        "Acronis Cloud Tech & Cloud Sales Certified Professional (2024)",
-        "In Progress: Microsoft Certified Azure Administrator Associate (AZ-104) & M365/Entra ID"
-      ]
-    },
-    "mssp_vendor_scorecard": {
-      "Huntress (Managed EDR + ITDR + SIEM)": "10/10 — Best channel ROI ($2.50-$3.50 wholesale vs $8.99 MSRP), human-verified SOC remediation cards, low false positives, orchestrates native Defender.",
-      "Acronis Cyber Protect Cloud": "9/10 unified (BCDR + RMM + Patching + EDR single agent); 7/10 standalone EDR/ITDR.",
-      "Blackpoint Cyber (CompassOne / SNAP-Defense / LogIC)": "High-tier active SOC network isolation + 365-day SIEM compliance retention for HIPAA/SOC 2.",
-      "SentinelOne + Vigilance MDR / CrowdStrike": "Best for heavy Linux/macOS footprints & kernel rollback, but requires Vigilance MDR ($1.70-$4.00/mo extra) to avoid 3 AM raw alert fatigue.",
-      "SaaS Alerts": "5/10 — Requires heavy initial workflow tuning to stop alert floods and provides no 24/7 human SOC.",
-      "Augmentt": "4/10 — Clean UI for posture checks, but alerts lack forensic depth, forcing Tier 2 engineers into manual Entra log investigation."
-    }
+  "default_user_filters": {
+    "ui_lang": "es",
+    "require_bolivia_remote": true,
+    "languages": ["es", "en"],
+    "position_types": [],
+    "custom_keywords": "",
+    "strict_position_match": false,
+    "experience_levels": ["all"],
+    "contract_types": ["full_time", "half_time", "projects", "hourly", "advisory"]
   },
   "scoring_rubric": {
     "weights": {
-      "tech_domain_max": 35,
-      "burnout_safety_max": 25,
-      "geo_language_max": 20,
-      "contract_structure_max": 20
+      "position_skills_max": 40,
+      "bolivia_remote_max": 25,
+      "contract_experience_max": 20,
+      "language_match_max": 15
     },
     "verdict_thresholds": {
-      "APPLY": 80,
-      "POSSIBLE": 62
-    },
-    "high_value_tech_keywords": {
-      "liongard": 10,
-      "it glue": 10,
-      "autotask": 9,
-      "ninjaone": 9,
-      "kaseya": 8,
-      "backup radar": 9,
-      "acronis": 9,
-      "veeam": 8,
-      "datto": 8,
-      "huntress": 10,
-      "blackpoint": 9,
-      "sentinelone": 8,
-      "itdr": 9,
-      "entra": 9,
-      "entra id": 10,
-      "m365": 9,
-      "microsoft 365": 9,
-      "office 365": 8,
-      "intune": 9,
-      "conditional access": 9,
-      "azure": 8,
-      "az-104": 9,
-      "powershell": 8,
-      "power automate": 8,
-      "graph api": 9,
-      "noc": 9,
-      "csm": 9,
-      "centralized services": 10,
-      "msp": 9,
-      "mssp": 9,
-      "rmm": 9,
-      "psa": 8,
-      "ai trainer": 10,
-      "ai evaluator": 10,
-      "rlhf": 10,
-      "prompt engineer": 9,
-      "context engineer": 10,
-      "rubric": 9,
-      "red team": 9,
-      "systems audit": 9,
-      "technical writer": 8,
-      "documentation": 8,
-      "sop": 8,
-      "linux": 8,
-      "debian": 9,
-      "rhel": 8,
-      "vmware": 8,
-      "hyper-v": 8,
-      "cloudflare": 8,
-      "python": 8,
-      "pandas": 8,
-      "ollama": 9,
-      "langchain": 8,
-      "mcp": 9,
-      "rag": 8,
-      "télétravail": 8,
-      "administrateur systèmes": 9,
-      "ingénieur cloud": 9
-    },
-    "unlearned_gap_penalties": {
-      "terraform": -8,
-      "kubernetes": -8,
-      "aws": -8,
-      "c#": -8,
-      "react": -8,
-      "rust": -8,
-      "golang": -8,
-      "c++": -8,
-      "solidity": -8,
-      "ios": -8,
-      "android": -8,
-      "react native": -8
-    },
-    "burnout_positive_signals": {
-      "async": 5,
-      "asynchronous": 5,
-      "self-paced": 5,
-      "flexible hours": 4,
-      "fractional": 5,
-      "part-time": 4,
-      "20 hours": 5,
-      "4 day week": 5,
-      "documentation": 3,
-      "standardization": 3,
-      "automation": 3,
-      "advisory": 5,
-      "consultation": 4
-    },
-    "burnout_red_flags": [
-      "24/7 on-call",
-      "mandatory on-call",
-      "on-call",
-      "24/7",
-      "pager duty",
-      "pager",
-      "tier 1 helpdesk",
-      "level 1 helpdesk",
-      "tier 1",
-      "helpdesk",
-      "help desk",
-      "service desk",
-      "inbound call queue",
-      "inbound calls",
-      "phone support",
-      "dispatch queue",
-      "screenshot every",
-      "time tracker screenshot",
-      "webcam always on",
-      "keystroke logger",
-      "micromanage",
-      "rotating night shifts",
-      "full-time w2 only"
-    ],
-    "geo_language_signals": {
-      "geo_keywords": [
-        "bolivia",
-        "latam",
-        "latin america",
-        "south america",
-        "americas",
-        "utc-4",
-        "est",
-        "edt",
-        "worldwide",
-        "anywhere in the world",
-        "global remote",
-        "work from anywhere",
-        "w-8ben",
-        "international contractor"
-      ],
-      "french_keywords": [
-        "french",
-        "français",
-        "francophone",
-        "télétravail",
-        "france",
-        "belgique",
-        "suisse",
-        "canada"
-      ],
-      "spanish_keywords": [
-        "spanish",
-        "español",
-        "andean",
-        "bilingual",
-        "trilingual",
-        "multilingual"
-      ]
+      "APPLY": 75,
+      "POSSIBLE": 55
     }
+  },
+  "customizable_options": {
+    "languages": [
+      { "id": "es", "label_es": "Español", "label_en": "Spanish" },
+      { "id": "en", "label_es": "Inglés", "label_en": "English" },
+      { "id": "fr", "label_es": "Francés", "label_en": "French" },
+      { "id": "pt", "label_es": "Portugués", "label_en": "Portuguese" }
+    ],
+    "position_types": [
+      {
+        "id": "software",
+        "label_es": "Desarrollo de Software, Web & QA",
+        "label_en": "Software, Web Development & QA",
+        "keywords": ["software engineer", "developer", "fullstack", "full-stack", "backend", "frontend", "react", "node", "node.js", "nest.js", "python", "django", ".net", "c#", "java", "golang", "rust", "rails", "qa", "sdet", "tester", "testlio", "testing", "mobile", "ios", "android", "sdk"]
+      },
+      {
+        "id": "cloud_sys",
+        "label_es": "Cloud, DevOps, SRE & Sistemas TI",
+        "label_en": "Cloud, DevOps, SRE & IT Systems",
+        "keywords": ["cloud", "devops", "sre", "sysadmin", "systems engineer", "system administrator", "administrateur systèmes", "ingénieur cloud", "azure", "aws", "gcp", "m365", "microsoft 365", "office 365", "entra", "intune", "linux", "ubuntu", "debian", "rhel", "kubernetes", "terraform", "docker", "noc", "msp", "rmm", "psa", "infrastructure", "cloudflare", "vmware"]
+      },
+      {
+        "id": "ai_rlhf",
+        "label_es": "Entrenamiento de IA, RLHF & Evaluación",
+        "label_en": "AI Training, RLHF & Evaluation",
+        "keywords": ["ai trainer", "ai evaluator", "rlhf", "prompt", "context engineer", "annotation", "annotator", "rater", "rubric", "llm", "generative ai", "ai logic", "ai coding", "outlier", "mercor", "alignerr", "mindrift", "dataannotation"]
+      },
+      {
+        "id": "data",
+        "label_es": "Datos, SQL, BI & Machine Learning",
+        "label_en": "Data Engineering, SQL, BI & ML",
+        "keywords": ["data engineer", "data analyst", "data science", "database", "dba", "sql", "postgres", "multigres", "analytics", "pandas", "machine learning", "ml", "mlops", "etl", "bi", "snowflake", "databricks"]
+      },
+      {
+        "id": "cyber",
+        "label_es": "Ciberseguridad & Redes",
+        "label_en": "Cybersecurity & Networking",
+        "keywords": ["security", "cybersecurity", "cybersécurité", "sécurité", "penetration tester", "pentest", "red team", "detection", "soc", "siem", "edr", "mdr", "itdr", "iam", "network engineer", "huntress", "blackpoint", "sentinelone", "crowdstrike"]
+      },
+      {
+        "id": "support",
+        "label_es": "Soporte Técnico, Helpdesk & Atención al Cliente",
+        "label_en": "Technical Support, Helpdesk & Customer Service",
+        "keywords": ["support", "soporte", "helpdesk", "help desk", "service desk", "customer service", "customer solutions", "customer success", "tier 1", "tier 2", "tier 3", "tier iii", "l1", "l2", "dispatch", "technical assistance", "troubleshooting"]
+      },
+      {
+        "id": "product_mgmt",
+        "label_es": "Gestión, Producto, Ventas & Consultoría",
+        "label_en": "Management, Product, Sales & Consulting",
+        "keywords": ["product manager", "engineering manager", "project manager", "manager", "director", "vice president", "vp", "consultant", "consulting", "advisor", "advisory", "consultation", "sales", "account", "operations", "hr", "talent acquisition", "analyst relations", "growth"]
+      },
+      {
+        "id": "design_other",
+        "label_es": "Diseño, Ingeniería CAD/CFD, Redacción & Otros",
+        "label_en": "Design, CAD/CFD Engineering, Writing & Other",
+        "keywords": ["design", "designer", "ui", "ux", "cad", "cfd", "mechanical", "simulation", "technical writer", "documentation", "copywriter", "translation", "localization", "communications", "financial", "nurse", "business central", "salesforce"]
+      }
+    ],
+    "experience_levels": [
+      { "id": "all", "label_es": "Todos los niveles", "label_en": "All experience levels" },
+      { "id": "entry", "label_es": "Sin experiencia / Inicial / Pasante (0-1 años)", "label_en": "Entry-Level / Intern (0-1 yrs)" },
+      { "id": "junior", "label_es": "Junior (1-2 años)", "label_en": "Junior (1-2 yrs)" },
+      { "id": "mid", "label_es": "Semi-Senior / Intermedio (3-5 años)", "label_en": "Mid-Level (3-5 yrs)" },
+      { "id": "senior", "label_es": "Senior / Especialista (5+ años)", "label_en": "Senior / Specialist (5+ yrs)" },
+      { "id": "lead", "label_es": "Lead / Principal / Manager / Director (8+ años)", "label_en": "Lead / Principal / Manager (8+ yrs)" }
+    ],
+    "contract_types": [
+      { "id": "full_time", "label_es": "Tiempo Completo (Full-Time)", "label_en": "Full-Time (40h/wk)" },
+      { "id": "half_time", "label_es": "Medio Tiempo / Part-Time (20h / 4 Días)", "label_en": "Half-Time / Part-Time" },
+      { "id": "projects", "label_es": "Por Proyectos / Freelance", "label_en": "Projects / Freelance" },
+      { "id": "hourly", "label_es": "Por Horas / Flexible / Asíncrono", "label_en": "Hourly / Flexible / Async" },
+      { "id": "advisory", "label_es": "Consultoría / Micro-Asesoría", "label_en": "Advisory / Consultations" }
+    ]
   }
 }
