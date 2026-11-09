@@ -158,8 +158,16 @@ export async function persistCustomPlatformsToDisk(state, targetDirs = ['.']) {
   const writtenPaths = [];
 
   try {
-    const fs = await import('node:fs');
-    const path = await import('node:path');
+    const getBuiltin = globalThis.process && globalThis.process.getBuiltinModule;
+    if (typeof getBuiltin !== 'function') {
+      return {
+        ...payload,
+        persisted_to_disk: false,
+        written_files: writtenPaths
+      };
+    }
+    const fs = getBuiltin('node:fs');
+    const path = getBuiltin('node:path');
 
     for (const dir of targetDirs) {
       const resolvedDir = path.resolve(dir);
