@@ -16,6 +16,7 @@ import {
   evaluateAllOpportunities,
   generateResultsMarkdown
 } from './evaluator.js';
+import { FAVICON_DATA_URI } from './favicon.js';
 
 export function renderAppHtml(initialState) {
   const {
@@ -41,6 +42,10 @@ export function renderAppHtml(initialState) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🇧🇴 Empleos 100% Remotos desde Bolivia (BO) — Buscador y Evaluador en Vivo</title>
+  <link rel="icon" type="image/svg+xml" href="${FAVICON_DATA_URI}">
+  <link rel="alternate icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="alternate icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
   <meta name="description" content="Herramienta pública para filtrar, escanear y evaluar ofertas de trabajo 100% remotas elegibles desde Bolivia (BO) según tus idiomas, área profesional, experiencia y tipo de contrato.">
   <style>
     :root {

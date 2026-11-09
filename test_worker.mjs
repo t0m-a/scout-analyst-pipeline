@@ -18,6 +18,8 @@ async function runTests() {
   assert.ok(!html.includes('id="nav-report"'), 'Must NOT have id="nav-report" in navbar (removed as requested)');
   assert.ok(html.includes('setUiLanguage(\'en\')'), 'Must include English language switcher');
   assert.ok(html.includes('Agregar y Escanear tu Propia URL de Plataforma'), 'Must include Custom Platform URL scanner');
+  assert.ok(html.includes('rel="icon" type="image/svg+xml"'), 'Must have SVG favicon in head');
+  assert.ok(html.includes('data:image/svg+xml'), 'Must have embedded data URI for offline support');
   assert.ok(!html.includes('Francés'), 'Must not contain French in UI filters');
   assert.ok(!html.includes('French'), 'Must not contain French in UI');
   assert.ok(!html.toLowerCase().includes('thomas simon'), 'Must not contain personal name');
@@ -102,7 +104,20 @@ async function runTests() {
   assert.equal(scanUrlData.ok, true);
   assert.ok(scanUrlData.platform.id.includes('weworkremotely'));
 
-  console.log('7. Testing zero personal references across all repository files...');
+  console.log('7. Testing GET /favicon.svg and /favicon.ico (Earth with Bolivian flag colors)...');
+  const respFavSvg = await worker.fetch(new Request('https://bolivia-remote-scout.workers.dev/favicon.svg'), {}, {});
+  assert.equal(respFavSvg.status, 200);
+  assert.equal(respFavSvg.headers.get('Content-Type'), 'image/svg+xml');
+  const favSvgText = await respFavSvg.text();
+  assert.ok(favSvgText.includes('<svg'), 'Must return valid SVG');
+  assert.ok(favSvgText.includes('bol-red'), 'Must contain Bolivian red');
+  assert.ok(favSvgText.includes('bol-yellow'), 'Must contain Bolivian yellow');
+  assert.ok(favSvgText.includes('bol-green'), 'Must contain Bolivian green');
+
+  const respFavIco = await worker.fetch(new Request('https://bolivia-remote-scout.workers.dev/favicon.ico'), {}, {});
+  assert.equal(respFavIco.status, 200);
+
+  console.log('8. Testing zero personal references across all repository files...');
   const filesToCheck = [
     'README.md',
     'master_profile.json',
@@ -115,7 +130,8 @@ async function runTests() {
     'src/evaluator.js',
     'src/scanner.js',
     'src/ui.js',
-    'src/worker.js'
+    'src/worker.js',
+    'src/favicon.js'
   ];
   const forbiddenTerms = [
     'thomas simon',

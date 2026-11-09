@@ -17,6 +17,7 @@ import {
 } from './evaluator.js';
 import { scanCustomPlatformUrl, runIngestionScan } from './scanner.js';
 import { renderAppHtml } from './ui.js';
+import { FAVICON_SVG } from './favicon.js';
 
 const CACHE_KEY_URL = 'https://bolivia-remote-scout.internal/state-v5';
 
@@ -125,6 +126,17 @@ export default {
         headers: {
           'Content-Type': 'text/html; charset=utf-8',
           'Cache-Control': 'no-cache'
+        }
+      });
+    }
+
+    // 1b. Favicon Endpoints (Earth with Bolivian flag colors)
+    if (request.method === 'GET' && (path === '/favicon.ico' || path === '/favicon.svg' || path === '/favicon.png')) {
+      return new Response(FAVICON_SVG, {
+        status: 200,
+        headers: {
+          'Content-Type': path.endsWith('.ico') ? 'image/x-icon' : (path.endsWith('.png') ? 'image/png' : 'image/svg+xml'),
+          'Cache-Control': 'public, max-age=86400'
         }
       });
     }
