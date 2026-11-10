@@ -36,9 +36,10 @@ import {
   indexOpportunitiesInVectorStore,
   deduplicateSemantically
 } from './vector_store.js';
+import { handleMcpRequest } from './mcp.js';
 import { checkBoliviaRemoteEligibility } from './evaluator.js';
 
-const CACHE_KEY_URL = 'https://bolivia-remote-scout.internal/state-v5.7';
+const CACHE_KEY_URL = 'https://bolivia-remote-scout.internal/state-v5.8';
 const EMOJI_STRIP_RE = /[\uD83C-\uDBFF\uDC00-\uDFFF\u2600-\u27BF]/g;
 
 let MEMORY_STATE = null;
@@ -371,12 +372,13 @@ export default {
     // 2. Get Current State API
     if (request.method === 'GET' && path === '/api/state') {
       return jsonResponse({
-        version: '5.7.0',
+        version: '5.8.0',
         schedule: '*/15 * * * *',
         ai_enabled: Boolean(env && env.AI),
         d1_enabled: Boolean(env && env.DB),
         vectorize_enabled: Boolean(env && env.VECTORIZE),
         qdrant_enabled: Boolean(env && env.QDRANT_URL),
+        mcp_endpoint: '/mcp',
         lastScanAt: state.lastScanAt,
         platforms_count: state.platforms.length,
         opportunities_count: state.opportunities.length,
@@ -698,6 +700,11 @@ export default {
       } catch (err) {
         return jsonResponse({ ok: false, error: err.message || 'Vector indexing failed' }, 500);
       }
+    }
+
+    // 12. Model Context Protocol (MCP) Server over Streamable HTTP (`/mcp`, `/api/mcp`, `/.well-known/mcp.json`)
+    if (path === '/mcp' || path === '/api/mcp' || path === '/.well-known/mcp.json') {
+      return handleMcpRequest(request, state, env, ctx, () => saveState(state, env));
     }
 
     return jsonResponse({ error: 'Not Found' }, 404);

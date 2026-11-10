@@ -402,6 +402,84 @@ async function runTests() {
   assert.equal(semVecData.vector_backend, 'cloudflare-vectorize');
   assert.equal(semVecData.embedding_model, '@cf/baai/bge-m3');
 
+  console.log('6e. Testing Phase 4 Streamable HTTP MCP Server (/mcp and /.well-known/mcp.json)...');
+  const respMcpManifest = await worker.fetch(new Request('https://bolivia-remote-scout.workers.dev/.well-known/mcp.json'), {}, {});
+  assert.equal(respMcpManifest.status, 200);
+  const mcpManifest = await respMcpManifest.json();
+  assert.equal(mcpManifest.ok, true);
+  assert.equal(mcpManifest.transport, 'streamable-http');
+  assert.equal(mcpManifest.tools.length, 5);
+
+  // JSON-RPC initialize
+  const respMcpInit = await worker.fetch(
+    new Request('https://bolivia-remote-scout.workers.dev/mcp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'initialize', params: { protocolVersion: '2025-03-26' } })
+    }),
+    {},
+    {}
+  );
+  assert.equal(respMcpInit.status, 200);
+  const mcpInitData = await respMcpInit.json();
+  assert.equal(mcpInitData.jsonrpc, '2.0');
+  assert.equal(mcpInitData.id, 1);
+  assert.equal(mcpInitData.result.serverInfo.name, 'bolivia-remote-mcp-server');
+
+  // JSON-RPC tools/list
+  const respMcpTools = await worker.fetch(
+    new Request('https://bolivia-remote-scout.workers.dev/mcp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jsonrpc: '2.0', id: 2, method: 'tools/list' })
+    }),
+    {},
+    {}
+  );
+  const mcpToolsData = await respMcpTools.json();
+  assert.equal(mcpToolsData.result.tools.length, 5);
+
+  // JSON-RPC tools/call (search_bolivia_remote_jobs)
+  const respMcpCallSearch = await worker.fetch(
+    new Request('https://bolivia-remote-scout.workers.dev/mcp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: 3,
+        method: 'tools/call',
+        params: {
+          name: 'search_bolivia_remote_jobs',
+          arguments: { languages: ['es', 'en'], verdict: 'APPLY', limit: 3 }
+        }
+      })
+    }),
+    {},
+    {}
+  );
+  const mcpCallSearchData = await respMcpCallSearch.json();
+  assert.equal(mcpCallSearchData.result.isError, false);
+  const parsedToolOut = JSON.parse(mcpCallSearchData.result.content[0].text);
+  assert.ok(Array.isArray(parsedToolOut.results) && parsedToolOut.results.length > 0, 'MCP search_bolivia_remote_jobs must return evaluated APPLY jobs');
+
+  // JSON-RPC resources/read (bolivia://results/markdown)
+  const respMcpRes = await worker.fetch(
+    new Request('https://bolivia-remote-scout.workers.dev/mcp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: 4,
+        method: 'resources/read',
+        params: { uri: 'bolivia://results/markdown' }
+      })
+    }),
+    {},
+    {}
+  );
+  const mcpResData = await respMcpRes.json();
+  assert.ok(mcpResData.result.contents[0].text.includes('POSTULAR (Puntaje >= 78):'), 'MCP resource must return live Markdown report');
+
   console.log('7. Testing GET /favicon.svg and /favicon.ico (Earth with Bolivian flag colors)...');
   const respFavSvg = await worker.fetch(new Request('https://bolivia-remote-scout.workers.dev/favicon.svg'), {}, {});
   assert.equal(respFavSvg.status, 200);
@@ -429,6 +507,7 @@ async function runTests() {
     'src/scanner.js',
     'src/ai_enricher.js',
     'src/vector_store.js',
+    'src/mcp.js',
     'src/ui.js',
     'src/worker.js',
     'src/favicon.js'
