@@ -1405,7 +1405,7 @@ export function renderAppHtml(initialState) {
       <li class="nav-payment-item nav-payment-folded"><a href="https://www.payoneer.com/" target="_blank" rel="noopener noreferrer">Payoneer</a></li>
       <li class="nav-payment-item nav-payment-folded"><a href="https://wise.com/" target="_blank" rel="noopener noreferrer">Wise</a></li>
       <li class="nav-payment-item nav-payment-folded"><a href="https://tipalti.com/" target="_blank" rel="noopener noreferrer">Tipalti</a></li>
-      <li class="nav-payment-item nav-payment-folded"><a href="https://dolarboliviahoy.com/" target="_blank" rel="noopener noreferrer">Dólar Bolivia Hoy (dolarboliviahoy.com)</a></li>
+      <li class="nav-payment-item nav-payment-folded"><a href="https://dolarboliviahoy.com/" target="_blank" rel="noopener noreferrer">Dólar Bolivia Hoy</a></li>
       <li class="nav-payment-item nav-payment-folded nav-payment-desc">
         <p id="nav-payments-desc">Las empresas suelen liquidar mediante plataformas de nómina global como <strong>AirTM. Wise, Payoneer o Tipalti</strong>. Desde estas cuentas puedes transferir vía SWIFT O transferancia ACH hacia tu cuenta bancaria boliviana en Boliviano o en USD, usar tarjetas de débito internacionales, o liquidar honorarios a través de pasarelas reguladas entre tus cuentas globales y locales.</p>
       </li>
