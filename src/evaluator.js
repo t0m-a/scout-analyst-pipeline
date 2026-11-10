@@ -225,13 +225,16 @@ export function checkBoliviaRemoteEligibility(item) {
     { re: /\bm[eé]xico only\b/i, es: 'Restringido exclusivamente a México', en: 'Restricted to Mexico only' },
     { re: /\bspeakers in spain\b|\bin spain\b/i, es: 'Requiere residencia en España', en: 'Requires residency in Spain' },
     { re: /\bspeakers in france\b|\bin france\b/i, es: 'Requiere residencia en Francia', en: 'Requires residency in France' },
+    { re: /\bspeakers in (?!bolivia|latin america|latam|south america)[a-z]+/i, es: 'Requiere residir en un país específico fuera de Bolivia', en: 'Requires residency in a specific country outside Bolivia' },
     { re: /\beligible in bulgaria\b/i, es: 'Restringido a Bulgaria', en: 'Restricted to Bulgaria' },
     { re: /\(africa\)/i, es: 'Restringido a África', en: 'Restricted to Africa' },
     { re: /\(canada\)/i, es: 'Restringido a Canadá', en: 'Restricted to Canada' },
     { re: /\(us\)|\bus remote\b/i, es: 'Remoto exclusivo dentro de EE. UU.', en: 'US-only remote position' },
     { re: /\buk only\b|\bunited kingdom only\b/i, es: 'Restringido a Reino Unido', en: 'UK only' },
     { re: /\beu citizens only\b|\beurope only\b/i, es: 'Restringido a Unión Europea', en: 'EU only' },
-    { re: /\bon-site only\b|\bpresencial\b|\bhybrid in\b/i, es: 'No es 100% remoto (presencial/híbrido)', en: 'Not 100% remote (on-site/hybrid)' }
+    { re: /\b(?:emea|apac|d-a-ch|dach)\s+only\b|\b,\s*(?:emea|apac|dach)\b|\((?:emea|apac|dach)\)/i, es: 'Restringido a región EMEA/APAC/DACH', en: 'Restricted to EMEA/APAC/DACH region' },
+    { re: /\bon-site only\b|\bpresencial\b|\bhybrid in\b|\bremote-friendly\s*\(travel required\)/i, es: 'No es 100% remoto (presencial/híbrido/viajes locales)', en: 'Not 100% remote (on-site/hybrid/travel required)' },
+    { re: /\benglish to (?:maltese|lao|kyrgyz|burmese|khmer|amharic|sinhala|pashto|dzongkha|tagalog|vietnamese|thai|korean|japanese|chinese|mandarin|arabic|hebrew|farsi|urdu|hindi|bengali|tamil|telugu|marathi|gujarati|punjabi|swahili|yoruba|hausa|zulu|finnish|estonian|latvian|lithuanian|icelandic|georgian|armenian|azerbaijani|kazakh|uzbek|mongolian)\b/i, es: 'Requiere idioma nativo específico de otra región', en: 'Requires region-specific native language outside target scope' }
   ];
 
   for (const rule of hardExclusions) {
@@ -249,7 +252,7 @@ export function checkBoliviaRemoteEligibility(item) {
   }
 
   const strictBlockedLocations = new Set([
-    'united states', 'usa', 'u.s.', 'europe', 'uk', 'united kingdom',
+    'united states', 'usa', 'u.s.', 'europe', 'eu', 'emea', 'apac', 'uk', 'united kingdom',
     'canada', 'mexico', 'méxico', 'spain', 'france', 'australia', 'germany', 'india'
   ]);
   if (strictBlockedLocations.has(locLow)) {
@@ -264,16 +267,11 @@ export function checkBoliviaRemoteEligibility(item) {
     };
   }
 
-  if (
-    locLow.includes('united states') &&
-    !locLow.includes('bolivia') &&
-    !locLow.includes('latam') &&
-    !locLow.includes('latin america') &&
-    !locLow.includes('south america') &&
-    !locLow.includes('worldwide') &&
-    !locLow.includes('anywhere')
-  ) {
-    if (locLow.includes('argentina') || locLow.includes('brazil')) {
+  const hasInclusiveRegion = /\b(?:bolivia|latam|latin america|south america|sudam[eé]rica|latinoam[eé]rica|americas|all americas|worldwide|anywhere|global|international)\b/i.test(locLow);
+  const hasForeignCountryList = /\b(?:united states|usa|u\.s\.|canada|europe|eu|emea|apac|uk|united kingdom|australia|new zealand|singapore|saudi arabia|india|germany|spain|mexico|méxico|ireland|switzerland|iceland|norway|israel|japan|africa|asia)\b/i.test(locLow);
+
+  if (hasForeignCountryList && !hasInclusiveRegion) {
+    if (locLow.includes('argentina') || locLow.includes('brazil') || locLow.includes('colombia') || locLow.includes('chile') || locLow.includes('peru')) {
       return {
         eligible: true,
         score: 21,
@@ -288,10 +286,10 @@ export function checkBoliviaRemoteEligibility(item) {
       eligible: false,
       score: 0,
       tier: 'restricted',
-      badge_es: 'Restringido a EE. UU.',
-      badge_en: 'US Restricted',
-      reason_es: 'Ubicación limitada a EE. UU.',
-      reason_en: 'Location restricted to the United States.'
+      badge_es: 'Restringido por Región',
+      badge_en: 'Region Restricted',
+      reason_es: `Ubicación limitada a países específicos fuera de Bolivia (${loc}).`,
+      reason_en: `Location restricted to specific countries outside Bolivia (${loc}).`
     };
   }
 
@@ -486,7 +484,11 @@ export function evaluateOpportunity(item, rawFilters = {}) {
   const hasPositionFilter = selectedPositions.length > 0 || customKws.length > 0;
 
   if (!hasPositionFilter) {
-    positionScore = Math.min(32, 20 + Math.min(12, attrs.matchedKeywords.length * 2));
+    if (attrs.categories.length === 0) {
+      positionScore = 6;
+    } else {
+      positionScore = Math.min(32, 12 + Math.min(20, attrs.matchedKeywords.length * 3));
+    }
   } else {
     let catMatchCount = 0;
     let primaryCategoryMatch = false;
@@ -623,9 +625,14 @@ export function evaluateOpportunity(item, rawFilters = {}) {
     verdict = 'SKIP';
     disqualifyReasonEs = 'Modalidad de contrato no coincide con tus filtros.';
     disqualifyReasonEn = 'Contract modality does not match your filters.';
-  } else if (totalScore >= 75) {
+  } else if (!hasPositionFilter && attrs.categories.length === 0) {
+    totalScore = Math.min(totalScore, 54);
+    verdict = 'SKIP';
+    disqualifyReasonEs = 'Puesto de nicho fuera de las 13 categorías profesionales estándar.';
+    disqualifyReasonEn = 'Niche role outside the 13 standard professional categories.';
+  } else if (totalScore >= 78) {
     verdict = 'APPLY';
-  } else if (totalScore >= 55) {
+  } else if (totalScore >= 58) {
     verdict = 'POSSIBLE';
   } else {
     verdict = 'SKIP';
@@ -717,7 +724,27 @@ export function evaluateAllOpportunities(opportunities, filters = {}) {
     Boolean(filters.custom_keywords && String(filters.custom_keywords).trim());
   const strictPos = Boolean(filters.strict_position_match) && hasActivePositionFilter;
 
-  const evaluated = opportunities.map(opp => evaluateOpportunity(opp, filters));
+  const dedupedOpportunities = [];
+  const seenKeys = new Set();
+  const seenUrls = new Set();
+  for (const opp of (opportunities || [])) {
+    if (!opp) continue;
+    const normTitle = String(opp.title || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+    const normComp = String(opp.company || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+    const normUrl = String(opp.url || '').toLowerCase().replace(/\/+$/, '').trim();
+    const key = `${normTitle}|${normComp}`;
+    const isGenericUrl = /^https?:\/\/[^/]+\/?(?:jobs\/?|careers\/?|work\/?|remote\/?|apply\/?)?$/i.test(normUrl);
+    if (seenKeys.has(key) || (!isGenericUrl && normUrl && seenUrls.has(normUrl))) {
+      continue;
+    }
+    seenKeys.add(key);
+    if (!isGenericUrl && normUrl) {
+      seenUrls.add(normUrl);
+    }
+    dedupedOpportunities.push(opp);
+  }
+
+  const evaluated = dedupedOpportunities.map(opp => evaluateOpportunity(opp, filters));
 
   evaluated.sort((a, b) => {
     if (a.bolivia_eligible !== b.bolivia_eligible) {
@@ -775,12 +802,12 @@ export function generateResultsMarkdown(evalResult, filters = {}, lang = 'es', p
       `**Tus Filtros Activos:** Idiomas: \`${langsSelected}\` | Experiencia: \`${expSelected}\` | Contratos: \`${contractsSelected}\` | Palabras Clave: \`${customKw}\``,
       '',
       '## Resumen de Resultados en Vivo',
-      `- **POSTULAR (Puntaje >= 75):** ${apply.length} ofertas altamente recomendadas`,
-      `- **EXPLORAR (Puntaje 55–74):** ${possible.length} ofertas compatibles / secundarias`,
-      `- **BAJA COINCIDENCIA (< 55 pts):** ${skip.length} ofertas fuera de tus filtros actuales`,
+      `- **POSTULAR (Puntaje >= 78):** ${apply.length} ofertas altamente recomendadas`,
+      `- **EXPLORAR (Puntaje 58–77):** ${possible.length} ofertas compatibles / secundarias`,
+      `- **BAJA COINCIDENCIA (< 58 pts):** ${skip.length} ofertas fuera de tus filtros actuales`,
       `- **BLOQUEADAS POR PAÍS (No aptas desde Bolivia):** ${geo_excluded.length} ofertas filtradas automáticamente`,
       '',
-      '## Ofertas Principales para Postular (POSTULAR — Puntaje >= 75)'
+      '## Ofertas Principales para Postular (POSTULAR — Puntaje >= 78)'
     ];
 
     if (apply.length > 0) {
@@ -795,10 +822,10 @@ export function generateResultsMarkdown(evalResult, filters = {}, lang = 'es', p
         );
       }
     } else {
-      lines.push('_No hay ofertas con puntaje >= 75 para la combinación actual de filtros. Prueba ampliando tus filtros de posición o contrato._');
+      lines.push('_No hay ofertas con puntaje >= 78 para la combinación actual de filtros. Prueba ampliando tus filtros de posición o contrato._');
     }
 
-    lines.push('', '## Ofertas para Explorar (EXPLORAR — Puntaje 55–74)');
+    lines.push('', '## Ofertas para Explorar (EXPLORAR — Puntaje 58–77)');
     if (possible.length > 0) {
       lines.push(
         '| Puntaje | Plataforma / Empresa | Posición / Oferta | Ubicación | Notas de Evaluación |',
@@ -822,12 +849,12 @@ export function generateResultsMarkdown(evalResult, filters = {}, lang = 'es', p
       `**Your Active Filters:** Languages: \`${langsSelected}\` | Experience: \`${expSelected}\` | Contracts: \`${contractsSelected}\` | Keywords: \`${customKw}\``,
       '',
       '## On-the-Fly Results Summary',
-      `- **APPLY (Score >= 75):** ${apply.length} high-match remote positions`,
-      `- **POSSIBLE (Score 55–74):** ${possible.length} secondary / compatible positions`,
-      `- **LOW MATCH (< 55 pts):** ${skip.length} positions outside current filter preferences`,
+      `- **APPLY (Score >= 78):** ${apply.length} high-match remote positions`,
+      `- **POSSIBLE (Score 58–77):** ${possible.length} secondary / compatible positions`,
+      `- **LOW MATCH (< 58 pts):** ${skip.length} positions outside current filter preferences`,
       `- **GEO-RESTRICTED (Not eligible from Bolivia):** ${geo_excluded.length} positions automatically filtered out`,
       '',
-      '## Top Positions to Apply (APPLY — Score >= 75)'
+      '## Top Positions to Apply (APPLY — Score >= 78)'
     ];
 
     if (apply.length > 0) {
@@ -842,10 +869,10 @@ export function generateResultsMarkdown(evalResult, filters = {}, lang = 'es', p
         );
       }
     } else {
-      lines.push('_No positions scored >= 75 with your current filters. Try broadening your position or contract filters._');
+      lines.push('_No positions scored >= 78 with your current filters. Try broadening your position or contract filters._');
     }
 
-    lines.push('', '## Secondary Positions to Explore (POSSIBLE — Score 55–74)');
+    lines.push('', '## Secondary Positions to Explore (POSSIBLE — Score 58–77)');
     if (possible.length > 0) {
       lines.push(
         '| Score | Platform / Company | Role / Opportunity | Location | Evaluation Notes |',

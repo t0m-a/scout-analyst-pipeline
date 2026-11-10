@@ -13,28 +13,47 @@ const DEAD_DOMAINS = ['joinstellar.ai'];
 
 export function stripHtml(raw) {
   if (!raw) return '';
-  return String(raw)
-    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
-    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&nbsp;/gi, ' ')
-    .replace(/&amp;/gi, '&')
-    .replace(/&lt;/gi, '<')
-    .replace(/&gt;/gi, '>')
-    .replace(/&quot;/gi, '"')
-    .replace(/&#39;/gi, "'")
-    .replace(/&#x27;/gi, "'")
+  let text = String(raw).replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1');
+  for (let pass = 0; pass < 2; pass++) {
+    text = text
+      .replace(/&nbsp;/gi, ' ')
+      .replace(/&lt;/gi, '<')
+      .replace(/&gt;/gi, '>')
+      .replace(/&quot;/gi, '"')
+      .replace(/&#39;/gi, "'")
+      .replace(/&#x27;/gi, "'")
+      .replace(/&#(\d+);/g, (_, code) => {
+        const n = Number(code);
+        return n >= 32 && n <= 126 ? String.fromCharCode(n) : ' ';
+      })
+      .replace(/&amp;/gi, '&')
+      .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+      .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+      .replace(/<[^>]+>/g, ' ');
+  }
+  return text
     .replace(/[\uD83C-\uDBFF\uDC00-\uDFFF\u2600-\u27BF]/g, '')
     .replace(/\s+/g, ' ')
     .trim();
 }
 
 /**
- * Simple deterministic FNV-1a + hex hash for deduplication (sync, works everywhere)
+ * Canonical key for cross-platform and repost deduplication
+ */
+export function normalizeJobKey(title, company) {
+  const normTitle = String(title || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const normCompany = String(company || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  return `${normTitle}|${normCompany}`;
+}
+
+/**
+ * Simple deterministic FNV-1a + hex hash for deduplication (sync, works everywhere, identical to scout_agent.py)
  */
 export function computeJobHash(title, company, url) {
-  const norm = `${String(title || '').trim().toLowerCase()}|${String(company || '').trim().toLowerCase()}|${String(url || '').trim().toLowerCase()}`;
+  const normTitle = String(title || '').trim().toLowerCase().replace(/\s+/g, ' ');
+  const normCompany = String(company || '').trim().toLowerCase().replace(/\s+/g, ' ');
+  const normUrl = String(url || '').trim().toLowerCase().replace(/\/+$/, '');
+  const norm = `${normTitle}|${normCompany}|${normUrl}`;
   let h1 = 0xdeadbeef ^ norm.length;
   let h2 = 0x41c6ce57 ^ norm.length;
   for (let i = 0; i < norm.length; i++) {
@@ -194,12 +213,25 @@ export function parseRssFeed(rawXml, platform) {
     let title = stripHtml(titleMatch ? titleMatch[1] : '');
     if (!title) continue;
 
-    let company = platform.name;
+    let company = platform.name.replace(/\s+(?:RSS Feed|Remote Jobs Feed|Curated Remote Feed|Feed|API|\(.*?\))$/i, '').trim() || platform.name;
+    const creatorMatch = block.match(/<(?:dc:creator|author|company)[^>]*>([\s\S]*?)<\/(?:dc:creator|author|company)>/i);
+    if (creatorMatch) {
+      const cText = stripHtml(creatorMatch[1]);
+      if (cText && cText.length > 1 && cText.length < 60 && !cText.includes('@')) {
+        company = cText;
+      }
+    }
     if (title.includes(':')) {
       const parts = title.split(':');
       if (parts[0].length > 1 && parts[0].length < 45) {
         company = parts[0].trim();
         title = parts.slice(1).join(':').trim();
+      }
+    } else if (/\s+at\s+([A-Z0-9][A-Za-z0-9\s.&'-]{1,38})$/.test(title)) {
+      const atMatch = title.match(/^(.*?)\s+at\s+([A-Z0-9][A-Za-z0-9\s.&'-]{1,38})$/);
+      if (atMatch && atMatch[1].length >= 4) {
+        title = atMatch[1].trim();
+        company = atMatch[2].trim();
       }
     }
 

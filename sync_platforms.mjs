@@ -21,7 +21,7 @@ import { renderAppHtml } from './src/ui.js';
 
 function parseCliArgs(argv) {
   const args = {
-    endpoint: 'https://scout.tsimon.me',
+    endpoint: 'https://boliviaremote.work',
     url: '',
     name: '',
     type: 'auto',

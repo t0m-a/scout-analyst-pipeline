@@ -6,6 +6,7 @@
 
 import { INITIAL_PLATFORMS, INITIAL_OPPORTUNITIES } from './seed_data.js';
 import { checkBoliviaRemoteEligibility } from './evaluator.js';
+import { stripHtml, computeJobHash, normalizeJobKey } from './scanner.js';
 
 const EMOJI_STRIP_RE = /[\uD83C-\uDBFF\uDC00-\uDFFF\u2600-\u27BF]/g;
 const SANITIZE_PARTS = [
@@ -50,21 +51,38 @@ export function sanitizePlatformRecord(p) {
 }
 
 export function sanitizeOpportunityRecord(o) {
+  let title = sanitizeSeedText(stripHtml(o.title)).slice(0, 140);
+  let company = sanitizeSeedText(stripHtml(o.company || o.platform_name));
+  if (/\s+at\s+([A-Z0-9][A-Za-z0-9\s.&'-]{1,38})$/.test(title) && (company === o.platform_name || company.includes('Feed'))) {
+    const m = title.match(/^(.*?)\s+at\s+([A-Z0-9][A-Za-z0-9\s.&'-]{1,38})$/);
+    if (m && m[1].length >= 4) {
+      title = m[1].trim();
+      company = m[2].trim();
+    }
+  }
+  company = company.replace(/\s+(?:RSS Feed|Remote Jobs Feed|Curated Remote Feed|Feed|API)$/i, '').trim() || company;
+  const url = sanitizeSeedText(o.url);
+  const discovered_at = sanitizeSeedText(o.discovered_at || new Date().toISOString().slice(0, 19));
+  let published_at = sanitizeSeedText(o.published_at || '');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(published_at)) {
+    const parsed = new Date(published_at);
+    published_at = !isNaN(parsed.getTime()) ? parsed.toISOString().slice(0, 10) : discovered_at.slice(0, 10);
+  }
   return {
-    job_hash: sanitizeSeedText(o.job_hash),
+    job_hash: computeJobHash(title, company, url),
     platform_id: sanitizeSeedText(o.platform_id),
     platform_name: sanitizeSeedText(o.platform_name),
     category: sanitizeSeedText(o.category || 'Plataforma Agregada por Usuario'),
     track: sanitizeSeedText(o.track || 'Track F: Curated Remote-First & WFA Job Boards'),
     contract_caveat: sanitizeSeedText(o.contract_caveat || 'fractional_or_fulltime'),
-    title: sanitizeSeedText(o.title).slice(0, 140),
-    company: sanitizeSeedText(o.company || o.platform_name),
-    location: sanitizeSeedText(o.location || 'Remote Worldwide / Global'),
-    url: sanitizeSeedText(o.url),
-    description: sanitizeSeedText(o.description).slice(0, 900),
+    title,
+    company,
+    location: sanitizeSeedText(stripHtml(o.location || 'Remote Worldwide / Global')),
+    url,
+    description: sanitizeSeedText(stripHtml(o.description)).slice(0, 900),
     tags: sanitizeSeedText(o.tags || 'remote, custom-url'),
-    published_at: sanitizeSeedText(o.published_at || new Date().toISOString().slice(0, 10)),
-    discovered_at: sanitizeSeedText(o.discovered_at || new Date().toISOString().slice(0, 19))
+    published_at,
+    discovered_at
   };
 }
 
@@ -102,8 +120,20 @@ export function buildSeedExportPayload(state, basePlatforms = INITIAL_PLATFORMS,
 
   // Merge up to 5 Bolivia-eligible opportunities per custom platform
   const customPlatIds = new Set(customPlatforms.map(p => p.id));
-  const mergedOpportunities = baseOpportunities.map(sanitizeOpportunityRecord);
-  const existingHashes = new Set(mergedOpportunities.map(o => o.job_hash));
+  const mergedOpportunities = [];
+  const existingHashes = new Set();
+  const existingKeys = new Set();
+
+  for (const baseOpp of baseOpportunities) {
+    const cleanBase = sanitizeOpportunityRecord(baseOpp);
+    const key = normalizeJobKey(cleanBase.title, cleanBase.company);
+    if (!existingHashes.has(cleanBase.job_hash) && !existingKeys.has(key)) {
+      existingHashes.add(cleanBase.job_hash);
+      existingKeys.add(key);
+      mergedOpportunities.push(cleanBase);
+    }
+  }
+
   const perPlatCount = new Map();
 
   const newlyAddedOpportunities = [];
@@ -114,8 +144,10 @@ export function buildSeedExportPayload(state, basePlatforms = INITIAL_PLATFORMS,
     const elig = checkBoliviaRemoteEligibility(opp);
     if (!elig.eligible) continue;
     const cleanOpp = sanitizeOpportunityRecord(opp);
-    if (!existingHashes.has(cleanOpp.job_hash)) {
+    const key = normalizeJobKey(cleanOpp.title, cleanOpp.company);
+    if (!existingHashes.has(cleanOpp.job_hash) && !existingKeys.has(key)) {
       existingHashes.add(cleanOpp.job_hash);
+      existingKeys.add(key);
       mergedOpportunities.push(cleanOpp);
       newlyAddedOpportunities.push(cleanOpp);
       perPlatCount.set(opp.platform_id, countForPlat + 1);

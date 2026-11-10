@@ -2,6 +2,9 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import worker from './src/worker.js';
+import { stripHtml, computeJobHash } from './src/scanner.js';
+import { checkBoliviaRemoteEligibility, evaluateAllOpportunities } from './src/evaluator.js';
+import { extractCompensationUsd } from './src/ai_enricher.js';
 
 const EMOJI_REGEX = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83d\ud83e][\ud000-\udfff]|[\u200d\u20e3\ufe0f]|[\u2600-\u26ff])/g;
 
@@ -65,6 +68,8 @@ async function runTests() {
   assert.ok(html.includes('body.view-manual-active .top-banner'), 'Must have CSS hiding preliminary sections when manual view is active');
   assert.ok(html.includes('id="man-btn-back"'), 'Must include back to results button in manual view');
   assert.ok(html.includes('Agregar y Escanear tu Propia URL de Plataforma'), 'Must include Custom Platform URL scanner');
+  assert.ok(html.includes('id="ai-cv-panel"'), 'Must include Phase 2 AI CV Matcher & Cover Letter Generator panel');
+  assert.ok(html.includes('openAiProposalForJob'), 'Must include per-card AI Cover Letter trigger');
   assert.ok(html.includes('rel="icon" type="image/svg+xml"'), 'Must have SVG favicon in head');
   assert.ok(html.includes('data:image/svg+xml'), 'Must have embedded data URI for offline support');
   assert.ok(!html.includes('Francés'), 'Must not contain French in UI filters');
@@ -132,10 +137,53 @@ async function runTests() {
   const respMdEs = await worker.fetch(new Request('https://bolivia-remote-scout.workers.dev/api/results.md?lang=es'), {}, {});
   const mdEs = await respMdEs.text();
   assert.ok(mdEs.includes('Resultados de Empleos Remotos desde Bolivia (BO)'));
+  assert.ok(mdEs.includes('POSTULAR (Puntaje >= 78):'));
+  assert.ok(mdEs.includes('EXPLORAR (Puntaje 58–77):'));
 
   const respMdEn = await worker.fetch(new Request('https://bolivia-remote-scout.workers.dev/api/results.md?lang=en'), {}, {});
   const mdEn = await respMdEn.text();
   assert.ok(mdEn.includes('Bolivia (BO) 100% Remote Job Results'));
+  assert.ok(mdEn.includes('APPLY (Score >= 78):'));
+  assert.ok(mdEn.includes('POSSIBLE (Score 58–77):'));
+
+  console.log('5b. Testing Phase 1 fixes (entity-encoded HTML stripping, geo-leak blocking, deduplication, score distribution)...');
+  assert.equal(
+    stripHtml('&lt;p&gt; &lt;strong&gt;Headquarters:&lt;/strong&gt; Remote &lt;/p&gt;'),
+    'Headquarters: Remote',
+    'stripHtml must decode &lt; and &gt; before stripping HTML tags'
+  );
+  assert.equal(
+    checkBoliviaRemoteEligibility({ title: 'Senior Back-end Developer', location: 'Europe, USA, Canada, Australia, Singapore, Mexico, Saudi Arabia', description: '' }).eligible,
+    false,
+    'Must block multi-country location list that excludes Bolivia/LATAM/Worldwide'
+  );
+  assert.equal(
+    checkBoliviaRemoteEligibility({ title: 'Tech Lead Rails Engineer', location: 'USA, Canada, USA timezones', description: '' }).eligible,
+    false,
+    'Must block USA, Canada, USA timezones'
+  );
+  assert.equal(
+    checkBoliviaRemoteEligibility({ title: 'Quality Assurance Rater - German speakers in Germany', location: 'Global', description: '' }).eligible,
+    false,
+    'Must block country-specific speaker requirement outside Bolivia'
+  );
+  assert.equal(
+    checkBoliviaRemoteEligibility({ title: 'English to Maltese Review Lead', location: 'Anywhere', description: '' }).eligible,
+    false,
+    'Must block rare non-target language translation pairs'
+  );
+  assert.equal(
+    checkBoliviaRemoteEligibility({ title: 'Security Engineer', location: 'Anywhere in the World', description: 'Headquarters: Remote-Friendly (Travel Required) | San Francisco, CA' }).eligible,
+    false,
+    'Must block Remote-Friendly (Travel Required) roles'
+  );
+
+  const dupSample = [
+    { job_hash: computeJobHash('Senior DevOps Engineer', 'Lemon.io', 'https://a.com/1'), title: 'Senior DevOps Engineer', company: 'Lemon.io', location: 'LATAM', url: 'https://a.com/1', description: 'Azure Cloud DevOps Python' },
+    { job_hash: computeJobHash('Senior DevOps Engineer', 'Lemon.io', 'https://b.com/2'), title: 'Senior DevOps Engineer', company: 'Lemon.io', location: 'LATAM', url: 'https://b.com/2', description: 'Azure Cloud DevOps Python' }
+  ];
+  const dedupEval = evaluateAllOpportunities(dupSample, {});
+  assert.equal(dedupEval.all.length, 1, 'Must deduplicate cross-platform reposts with identical (title, company)');
 
   console.log('6. Testing POST /api/platforms/scan-url (Custom URL addition & evaluation)...');
   const reqScanUrl = new Request('https://bolivia-remote-scout.workers.dev/api/platforms/scan-url', {
@@ -160,6 +208,112 @@ async function runTests() {
   assert.equal(syncData.ok, true);
   assert.ok(syncData.custom_platforms_count >= 1, 'Must export at least 1 custom_* platform');
   assert.ok(syncData.custom_platforms.some(p => p.id.startsWith('custom_')), 'Must include custom_* platform record');
+
+  console.log('6c. Testing Phase 2 Cloudflare Workers AI (POST /api/ai/match-cv, POST /api/ai/enrich) & D1 (env.DB) bindings...');
+  assert.equal(
+    extractCompensationUsd({ title: 'Senior Cloud Engineer', description: 'Compensation: $4,500 - $6,500/mo USD contractor' }),
+    '$4,500 - $6,500/mo',
+    'Must extract USD range compensation accurately'
+  );
+
+  // Test POST /api/ai/match-cv with deterministic fallback (no env.AI)
+  const reqCvFallback = new Request('https://bolivia-remote-scout.workers.dev/api/ai/match-cv', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      cv_text: 'Senior Python, SQL, React, Azure and DevOps engineer with 6 years of remote experience in LATAM.'
+    })
+  });
+  const respCvFallback = await worker.fetch(reqCvFallback, {}, {});
+  assert.equal(respCvFallback.status, 200);
+  const cvFallbackData = await respCvFallback.json();
+  assert.equal(cvFallbackData.ok, true);
+  assert.equal(cvFallbackData.ai_engine, 'edge-deterministic-analyzer');
+  assert.ok(cvFallbackData.detected_profile.matched_skills.includes('python'), 'Must detect python skill from CV');
+  assert.ok(cvFallbackData.proposal_es.includes('UTC-4'), 'Spanish cover letter must highlight Bolivia UTC-4 advantage');
+  assert.ok(cvFallbackData.proposal_en.includes('W-8BEN'), 'English cover letter must highlight W-8BEN contractor readiness');
+
+  // Test POST /api/ai/match-cv with mocked Cloudflare Workers AI binding (`env.AI`)
+  const mockAiEnv = {
+    AI: {
+      async run(model, opts) {
+        return {
+          response: JSON.stringify({
+            analysis_es: 'Análisis IA desde Cloudflare Workers: Perfil Senior Cloud & Python ideal para UTC-4.',
+            analysis_en: 'Workers AI Analysis: Senior Cloud & Python profile ideal for UTC-4.',
+            proposal_es: 'Estimado equipo: Postulación generada con Llama 3.1 desde Bolivia (UTC-4).',
+            proposal_en: 'Dear Hiring Team: Application generated with Llama 3.1 from Bolivia (UTC-4).'
+          })
+        };
+      }
+    }
+  };
+  const reqCvAi = new Request('https://bolivia-remote-scout.workers.dev/api/ai/match-cv', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      cv_text: 'Cloud Architect & DevOps Engineer with Python, Terraform, Kubernetes, and SQL.'
+    })
+  });
+  const respCvAi = await worker.fetch(reqCvAi, mockAiEnv, {});
+  assert.equal(respCvAi.status, 200);
+  const cvAiData = await respCvAi.json();
+  assert.equal(cvAiData.ok, true);
+  assert.ok(cvAiData.ai_engine.includes('llama-3.1'), 'Must use Workers AI Llama model when env.AI is bound');
+  assert.ok(cvAiData.analysis_es.includes('Cloudflare Workers'), 'Must return AI-generated Spanish analysis');
+
+  // Test POST /api/ai/enrich with mocked `env.AI` and `env.DB` (Cloudflare D1)
+  let d1StatementsExecuted = 0;
+  const mockD1Env = {
+    AI: {
+      async run() {
+        return {
+          response: JSON.stringify({
+            bolivia_eligible: true,
+            company: 'Acme Global Cloud',
+            compensation_usd: '$5,000/mo',
+            summary_es: 'Rol 100% remoto verificado con IA para Bolivia.',
+            summary_en: '100% remote role verified by AI for Bolivia.'
+          })
+        };
+      }
+    },
+    DB: {
+      prepare(sql) {
+        return {
+          bind(...args) {
+            return {
+              async run() {
+                d1StatementsExecuted++;
+                return { success: true };
+              }
+            };
+          },
+          async run() {
+            d1StatementsExecuted++;
+            return { success: true };
+          },
+          async all() {
+            return { results: [] };
+          }
+        };
+      }
+    }
+  };
+  const reqEnrich = new Request('https://bolivia-remote-scout.workers.dev/api/ai/enrich', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ max_items: 2 })
+  });
+  const respEnrich = await worker.fetch(reqEnrich, mockD1Env, {});
+  assert.equal(respEnrich.status, 200);
+  const enrichData = await respEnrich.json();
+  assert.equal(enrichData.ok, true);
+  assert.equal(enrichData.ai_enabled, true);
+  assert.equal(enrichData.enriched_count, 2);
+  assert.equal(enrichData.opportunities[0].ai_verified, 1);
+  assert.equal(enrichData.opportunities[0].compensation_usd, '$5,000/mo');
+  assert.ok(d1StatementsExecuted > 0, 'Must persist enriched opportunities to Cloudflare D1 (env.DB)');
 
   console.log('7. Testing GET /favicon.svg and /favicon.ico (Earth with Bolivian flag colors)...');
   const respFavSvg = await worker.fetch(new Request('https://bolivia-remote-scout.workers.dev/favicon.svg'), {}, {});
@@ -186,6 +340,7 @@ async function runTests() {
     'src/seed_data.js',
     'src/evaluator.js',
     'src/scanner.js',
+    'src/ai_enricher.js',
     'src/ui.js',
     'src/worker.js',
     'src/favicon.js'

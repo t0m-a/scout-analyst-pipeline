@@ -96,15 +96,34 @@ def save_config(cfg: dict, config_path: Path = CONFIG_PATH) -> None:
 def strip_html(raw_text: str) -> str:
     if not raw_text:
         return ""
-    unescaped = html.unescape(str(raw_text))
-    cleaned = re.sub(r"<[^>]+>", " ", unescaped)
-    return re.sub(r"\s+", " ", cleaned).strip()
+    text = str(raw_text)
+    for _ in range(2):
+        text = html.unescape(text)
+        text = re.sub(r"<script[\s\S]*?</script>", " ", text, flags=re.IGNORECASE)
+        text = re.sub(r"<style[\s\S]*?</style>", " ", text, flags=re.IGNORECASE)
+        text = re.sub(r"<[^>]+>", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def _imul32(a: int, b: int) -> int:
+    return ((a & 0xFFFFFFFF) * (b & 0xFFFFFFFF)) & 0xFFFFFFFF
 
 
 def compute_hash(title: str, company: str, url: str) -> str:
-    norm_title = re.sub(r"\s+", " ", title.strip().lower()).strip()
-    payload = f"{norm_title}|{company.strip().lower()}|{url.strip().lower()}"
-    return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:24]
+    norm_title = re.sub(r"\s+", " ", str(title or "").strip().lower())
+    norm_company = re.sub(r"\s+", " ", str(company or "").strip().lower())
+    norm_url = re.sub(r"/+$", "", str(url or "").strip().lower())
+    norm = f"{norm_title}|{norm_company}|{norm_url}"
+    h1 = (0xDEADBEEF ^ len(norm)) & 0xFFFFFFFF
+    h2 = (0x41C6CE57 ^ len(norm)) & 0xFFFFFFFF
+    for ch in norm:
+        code = ord(ch)
+        h1 = _imul32(h1 ^ code, 2654435761)
+        h2 = _imul32(h2 ^ code, 1597334677)
+    h1 = (_imul32(h1 ^ (h1 >> 16), 2246822507) ^ _imul32(h2 ^ (h2 >> 13), 3266489909)) & 0xFFFFFFFF
+    h2 = (_imul32(h2 ^ (h2 >> 16), 2246822507) ^ _imul32(h1 ^ (h1 >> 13), 3266489909)) & 0xFFFFFFFF
+    h3 = (h1 ^ h2) & 0xFFFFFFFF
+    return f"{h1:08x}{h2:08x}{h3:08x}"
 
 
 def is_bolivia_remote_eligible(item: dict, cfg: dict) -> bool:
@@ -123,15 +142,24 @@ def is_bolivia_remote_eligible(item: dict, cfg: dict) -> bool:
         r"\bus only\b", r"\busa only\b", r"\bunited states only\b",
         r"\bmust reside in the us\b", r"\bu\.s\.-based\b", r"\bus citizens only\b",
         r"\bw-2 only\b", r"\bm[eé]xico only\b", r"\bin spain\b", r"\bin france\b",
+        r"\bspeakers in (?!bolivia|latin america|latam|south america)[a-z]+",
         r"\beligible in bulgaria\b", r"\(africa\)", r"\(canada\)", r"\(us\)",
         r"\bus remote\b", r"\buk only\b", r"\beu citizens only\b", r"\bon-site only\b",
+        r"\bremote-friendly\s*\(travel required\)",
+        r"\b(?:emea|apac|d-a-ch|dach)\s+only\b",
     ]
     for pat in hard_patterns:
         if re.search(pat, blob):
             return False
 
-    if loc_low in {"united states", "usa", "europe", "uk", "canada", "mexico", "spain", "france"}:
+    if loc_low in {"united states", "usa", "u.s.", "europe", "eu", "emea", "apac", "uk", "canada", "mexico", "spain", "france"}:
         return False
+
+    has_inclusive = bool(re.search(r"\b(?:bolivia|latam|latin america|south america|sudam[eé]rica|latinoam[eé]rica|americas|worldwide|anywhere|global|international)\b", loc_low))
+    has_foreign_list = bool(re.search(r"\b(?:united states|usa|u\.s\.|canada|europe|eu|emea|apac|uk|united kingdom|australia|singapore|saudi arabia|india|germany|spain|mexico)\b", loc_low))
+    if has_foreign_list and not has_inclusive:
+        if not any(sa in loc_low for sa in ("argentina", "brazil", "colombia", "chile", "peru")):
+            return False
 
     return True
 

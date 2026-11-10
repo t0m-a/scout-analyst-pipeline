@@ -7,5 +7,15 @@ workers_dev = true
 [triggers]
 crons = ["*/15 * * * *"]
 
+# Cloudflare Workers AI binding (used for ingestion enrichment, geo-verification, and CV/cover-letter matching)
+[ai]
+binding = "AI"
+
+# Optional Cloudflare D1 SQL Database binding (uncomment and set database_id after `npx wrangler d1 create bolivia_remote_db`)
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "bolivia_remote_db"
+# database_id = "00000000-0000-0000-0000-000000000000"
+
 [observability]
 enabled = true

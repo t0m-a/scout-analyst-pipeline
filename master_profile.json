@@ -26,8 +26,8 @@
       "language_match_max": 20
     },
     "verdict_thresholds": {
-      "APPLY": 75,
-      "POSSIBLE": 55
+      "APPLY": 78,
+      "POSSIBLE": 58
     }
   },
   "customizable_options": {

@@ -15,15 +15,105 @@ import {
   evaluateAllOpportunities,
   generateResultsMarkdown
 } from './evaluator.js';
-import { scanCustomPlatformUrl, runIngestionScan } from './scanner.js';
+import {
+  scanCustomPlatformUrl,
+  runIngestionScan,
+  stripHtml,
+  computeJobHash,
+  normalizeJobKey
+} from './scanner.js';
 import { renderAppHtml } from './ui.js';
 import { FAVICON_SVG } from './favicon.js';
 import { buildSeedExportPayload, persistCustomPlatformsToDisk } from './seed_sync.js';
+import {
+  buildDeterministicSummaries,
+  enrichOpportunityWithAI,
+  enrichBatchWithAI,
+  matchCvAndGenerateProposal
+} from './ai_enricher.js';
+import { checkBoliviaRemoteEligibility } from './evaluator.js';
 
-const CACHE_KEY_URL = 'https://bolivia-remote-scout.internal/state-v5.1';
+const CACHE_KEY_URL = 'https://bolivia-remote-scout.internal/state-v5.6';
 const EMOJI_STRIP_RE = /[\uD83C-\uDBFF\uDC00-\uDFFF\u2600-\u27BF]/g;
 
 let MEMORY_STATE = null;
+
+function cleanOpportunityFields(o) {
+  let title = stripHtml(o.title || '').replace(EMOJI_STRIP_RE, '').trim();
+  let company = stripHtml(o.company || o.platform_name || '').replace(EMOJI_STRIP_RE, '').trim();
+  if (/\s+at\s+([A-Z0-9][A-Za-z0-9\s.&'-]{1,38})$/.test(title) && (company === o.platform_name || company.includes('Feed'))) {
+    const m = title.match(/^(.*?)\s+at\s+([A-Z0-9][A-Za-z0-9\s.&'-]{1,38})$/);
+    if (m && m[1].length >= 4) {
+      title = m[1].trim();
+      company = m[2].trim();
+    }
+  }
+  company = company.replace(/\s+(?:RSS Feed|Remote Jobs Feed|Curated Remote Feed|Feed|API)$/i, '').trim() || company;
+  const description = stripHtml(o.description || '').replace(EMOJI_STRIP_RE, '').trim();
+  const url = String(o.url || '').trim();
+  let published_at = String(o.published_at || '').trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(published_at)) {
+    const d = new Date(published_at);
+    published_at = !isNaN(d.getTime()) ? d.toISOString().slice(0, 10) : String(o.discovered_at || new Date().toISOString()).slice(0, 10);
+  }
+  const job_hash = computeJobHash(title, company, url);
+  const cleaned = {
+    ...o,
+    job_hash,
+    title,
+    company,
+    description,
+    url,
+    published_at
+  };
+  const det = buildDeterministicSummaries(cleaned);
+  return {
+    ...cleaned,
+    compensation_usd: cleaned.compensation_usd || det.compensation_usd,
+    ai_summary_es: cleaned.ai_summary_es || det.ai_summary_es,
+    ai_summary_en: cleaned.ai_summary_en || det.ai_summary_en,
+    ai_verified: Number(cleaned.ai_verified || 0)
+  };
+}
+
+async function ensureD1Tables(db) {
+  if (!db || typeof db.prepare !== 'function') return;
+  await db.prepare(`
+    CREATE TABLE IF NOT EXISTS opportunities (
+      job_hash TEXT PRIMARY KEY,
+      title TEXT NOT NULL,
+      company TEXT,
+      platform_id TEXT,
+      platform_name TEXT,
+      track TEXT,
+      url TEXT,
+      location TEXT,
+      contract_caveat TEXT,
+      tags TEXT,
+      description TEXT,
+      published_at TEXT,
+      discovered_at TEXT,
+      bolivia_eligible INTEGER DEFAULT 1,
+      compensation_usd TEXT DEFAULT '',
+      ai_summary_es TEXT DEFAULT '',
+      ai_summary_en TEXT DEFAULT '',
+      ai_verified INTEGER DEFAULT 0
+    )
+  `).run();
+  await db.prepare(`
+    CREATE TABLE IF NOT EXISTS custom_platforms (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      track TEXT DEFAULT 'Custom',
+      url TEXT NOT NULL,
+      rss_url TEXT DEFAULT '',
+      contract_caveat TEXT DEFAULT 'fractional_or_fulltime',
+      bolivia_avenue TEXT DEFAULT '',
+      notes TEXT DEFAULT '',
+      created_at TEXT
+    )
+  `).run();
+}
 
 function normalizeAndMergeState(rawState) {
   const existingPlatIds = new Set((rawState.platforms || []).map(p => p.id));
@@ -35,19 +125,29 @@ function normalizeAndMergeState(rawState) {
     }
   }
 
-  const existingHashes = new Set((rawState.opportunities || []).map(o => o.job_hash));
-  const mergedOpportunities = (rawState.opportunities || []).map(o => ({
-    ...o,
-    title: String(o.title || '').replace(EMOJI_STRIP_RE, '').trim(),
-    description: String(o.description || '').replace(EMOJI_STRIP_RE, '').trim(),
-    company: String(o.company || '').replace(EMOJI_STRIP_RE, '').trim()
-  }));
+  const existingHashes = new Set();
+  const existingKeys = new Set();
+  const existingUrls = new Set();
+  const mergedOpportunities = [];
 
-  for (const opp of INITIAL_OPPORTUNITIES) {
-    if (!existingHashes.has(opp.job_hash)) {
-      existingHashes.add(opp.job_hash);
-      mergedOpportunities.push(opp);
+  const allCandidates = [...(rawState.opportunities || []), ...INITIAL_OPPORTUNITIES];
+  for (const rawOpp of allCandidates) {
+    if (!rawOpp) continue;
+    const opp = cleanOpportunityFields(rawOpp);
+    if (!opp.title) continue;
+    const key = normalizeJobKey(opp.title, opp.company);
+    const normUrl = opp.url.toLowerCase().replace(/\/+$/, '');
+    const isGenericUrl = /^https?:\/\/[^/]+\/?(?:jobs\/?|careers\/?|work\/?|remote\/?|apply\/?)?$/i.test(normUrl);
+
+    if (existingHashes.has(opp.job_hash) || existingKeys.has(key) || (!isGenericUrl && normUrl && existingUrls.has(normUrl))) {
+      continue;
     }
+    existingHashes.add(opp.job_hash);
+    existingKeys.add(key);
+    if (!isGenericUrl && normUrl) {
+      existingUrls.add(normUrl);
+    }
+    mergedOpportunities.push(opp);
   }
 
   return {
@@ -58,8 +158,30 @@ function normalizeAndMergeState(rawState) {
 }
 
 async function loadState(env) {
-  if (MEMORY_STATE) {
+  if (MEMORY_STATE && !(env && env.DB && !MEMORY_STATE._d1Loaded)) {
     return MEMORY_STATE;
+  }
+
+  // 0. Try Cloudflare D1 SQL Database if bound (`env.DB`)
+  if (env && env.DB && typeof env.DB.prepare === 'function') {
+    try {
+      await ensureD1Tables(env.DB);
+      const oppsRes = await env.DB.prepare('SELECT * FROM opportunities ORDER BY published_at DESC LIMIT 500').all();
+      const platsRes = await env.DB.prepare('SELECT * FROM custom_platforms ORDER BY created_at DESC LIMIT 200').all();
+      const dbOpps = Array.isArray(oppsRes && oppsRes.results) ? oppsRes.results : [];
+      const dbPlats = Array.isArray(platsRes && platsRes.results) ? platsRes.results : [];
+      if (dbOpps.length > 0 || dbPlats.length > 0) {
+        MEMORY_STATE = normalizeAndMergeState({
+          opportunities: [...dbOpps, ...(MEMORY_STATE ? MEMORY_STATE.opportunities : [])],
+          platforms: [...dbPlats, ...(MEMORY_STATE ? MEMORY_STATE.platforms : [])],
+          lastScanAt: new Date().toISOString()
+        });
+        MEMORY_STATE._d1Loaded = true;
+        return MEMORY_STATE;
+      }
+    } catch {
+      // Ignore D1 read error and fallback to KV / Cache / Seed
+    }
   }
 
   // 1. Try Cloudflare KV if bound
@@ -97,17 +219,83 @@ async function loadState(env) {
     platforms: [...INITIAL_PLATFORMS],
     lastScanAt: new Date().toISOString()
   });
+  if (env && env.DB) {
+    MEMORY_STATE._d1Loaded = true;
+  }
 
   return MEMORY_STATE;
 }
 
 async function saveState(state, env) {
   MEMORY_STATE = normalizeAndMergeState(state);
+  state.opportunities = MEMORY_STATE.opportunities;
+  state.platforms = MEMORY_STATE.platforms;
+
+  // Save to Cloudflare D1 if bound (`env.DB`)
+  if (env && env.DB && typeof env.DB.prepare === 'function') {
+    try {
+      await ensureD1Tables(env.DB);
+      const oppsToSave = MEMORY_STATE.opportunities.slice(0, 200);
+      for (const o of oppsToSave) {
+        const bol = checkBoliviaRemoteEligibility(o);
+        await env.DB.prepare(
+          `INSERT OR REPLACE INTO opportunities (
+            job_hash, title, company, platform_id, platform_name, track, url,
+            location, contract_caveat, tags, description, published_at, discovered_at,
+            bolivia_eligible, compensation_usd, ai_summary_es, ai_summary_en, ai_verified
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+        ).bind(
+          o.job_hash,
+          o.title,
+          o.company,
+          o.platform_id || 'custom',
+          o.platform_name || o.company,
+          o.track || 'Custom',
+          o.url,
+          o.location || 'Remote',
+          o.contract_caveat || 'fractional_or_fulltime',
+          o.tags || '',
+          o.description || '',
+          o.published_at || '',
+          o.discovered_at || new Date().toISOString(),
+          bol.eligible ? 1 : 0,
+          o.compensation_usd || '',
+          o.ai_summary_es || '',
+          o.ai_summary_en || '',
+          Number(o.ai_verified || 0)
+        ).run();
+      }
+
+      const seedIds = new Set(INITIAL_PLATFORMS.map(p => p.id));
+      for (const p of MEMORY_STATE.platforms) {
+        if (p && p.id && (!seedIds.has(p.id) || String(p.id).startsWith('custom_'))) {
+          await env.DB.prepare(
+            `INSERT OR REPLACE INTO custom_platforms (
+              id, name, track, url, rss_url, contract_caveat, bolivia_avenue, notes, created_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+          ).bind(
+            p.id,
+            p.name || p.id,
+            p.track || 'Custom',
+            p.url || '',
+            p.rss_url || '',
+            p.contract_caveat || 'fractional_or_fulltime',
+            p.bolivia_avenue || '',
+            p.notes || '',
+            new Date().toISOString()
+          ).run();
+        }
+      }
+      MEMORY_STATE._d1Loaded = true;
+    } catch {
+      // Ignore D1 write error
+    }
+  }
 
   // Save to KV if bound
   if (env && env.STORE && typeof env.STORE.put === 'function') {
     try {
-      await env.STORE.put('bolivia_remote_state_v5', JSON.stringify(state));
+      await env.STORE.put('bolivia_remote_state_v5', JSON.stringify(MEMORY_STATE));
     } catch {
       // Ignore KV write error
     }
@@ -116,7 +304,7 @@ async function saveState(state, env) {
   // Save to Cloudflare Edge Cache API
   if (typeof caches !== 'undefined' && caches.default) {
     try {
-      const resp = new Response(JSON.stringify(state), {
+      const resp = new Response(JSON.stringify(MEMORY_STATE), {
         headers: {
           'Content-Type': 'application/json',
           'Cache-Control': 'public, max-age=86400'
@@ -178,8 +366,10 @@ export default {
     // 2. Get Current State API
     if (request.method === 'GET' && path === '/api/state') {
       return jsonResponse({
-        version: '5.0.0',
+        version: '5.6.0',
         schedule: '*/15 * * * *',
+        ai_enabled: Boolean(env && env.AI),
+        d1_enabled: Boolean(env && env.DB),
         lastScanAt: state.lastScanAt,
         platforms_count: state.platforms.length,
         opportunities_count: state.opportunities.length,
@@ -268,7 +458,8 @@ export default {
       });
 
       if (scanRes.new_opportunities.length > 0) {
-        state.opportunities = [...scanRes.new_opportunities, ...state.opportunities];
+        const enrichedNew = await enrichBatchWithAI(scanRes.new_opportunities, env, 5);
+        state.opportunities = [...enrichedNew, ...state.opportunities];
       }
       state.lastScanAt = scanRes.timestamp;
       if (ctx && typeof ctx.waitUntil === 'function') {
@@ -292,6 +483,7 @@ export default {
       try {
         const body = await request.json();
         const scanRes = await scanCustomPlatformUrl(body, body.filters || DEFAULT_FILTERS);
+        scanRes.opportunities = await enrichBatchWithAI(scanRes.opportunities, env, 4);
 
         // Save or update platform in registry
         const existingIdx = state.platforms.findIndex(p => p.id === scanRes.platform.id);
@@ -398,6 +590,54 @@ export default {
       }
     }
 
+    // 8. Cloudflare Workers AI — CV / Profile Matcher & Tailored Cover Letter Generator
+    if (request.method === 'POST' && path === '/api/ai/match-cv') {
+      try {
+        const body = await request.json().catch(() => ({}));
+        const res = await matchCvAndGenerateProposal(body, state.opportunities, env);
+        return jsonResponse(res);
+      } catch (err) {
+        return jsonResponse({ ok: false, error: err.message || 'AI CV match failed' }, 400);
+      }
+    }
+
+    // 9. Cloudflare Workers AI — On-Demand Opportunity Enrichment API
+    if (request.method === 'POST' && path === '/api/ai/enrich') {
+      try {
+        const body = await request.json().catch(() => ({}));
+        const targetHash = String(body.job_hash || '').trim();
+        let enrichedCount = 0;
+        const updatedItems = [];
+
+        if (targetHash) {
+          const idx = state.opportunities.findIndex(o => o.job_hash === targetHash);
+          if (idx < 0) {
+            return jsonResponse({ ok: false, error: 'Opportunity not found' }, 404);
+          }
+          state.opportunities[idx] = await enrichOpportunityWithAI(state.opportunities[idx], env);
+          updatedItems.push(state.opportunities[idx]);
+          enrichedCount = 1;
+        } else {
+          const limit = Math.min(Math.max(Number(body.max_items) || 5, 1), 15);
+          for (let i = 0; i < Math.min(limit, state.opportunities.length); i++) {
+            state.opportunities[i] = await enrichOpportunityWithAI(state.opportunities[i], env);
+            updatedItems.push(state.opportunities[i]);
+            enrichedCount++;
+          }
+        }
+
+        await saveState(state, env);
+        return jsonResponse({
+          ok: true,
+          ai_enabled: Boolean(env && env.AI),
+          enriched_count: enrichedCount,
+          opportunities: updatedItems
+        });
+      } catch (err) {
+        return jsonResponse({ ok: false, error: err.message || 'AI enrichment failed' }, 500);
+      }
+    }
+
     return jsonResponse({ error: 'Not Found' }, 404);
   },
 
@@ -413,7 +653,8 @@ export default {
         maxDorkClusters: 2
       });
       if (scanRes.new_opportunities.length > 0) {
-        state.opportunities = [...scanRes.new_opportunities, ...state.opportunities];
+        const enrichedNew = await enrichBatchWithAI(scanRes.new_opportunities, env, 5);
+        state.opportunities = [...enrichedNew, ...state.opportunities];
       }
       state.lastScanAt = scanRes.timestamp;
       await saveState(state, env);

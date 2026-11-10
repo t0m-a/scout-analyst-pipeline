@@ -1,7 +1,7 @@
 /**
  * Self-contained seed data for Bolivia Remote Job Scout & Evaluator (Cloudflare Worker)
  * Contains 86 global & regional remote platforms across Tracks A-F
- * and 145 sanitized remote job opportunities.
+ * and 142 sanitized remote job opportunities.
  */
 
 export const INITIAL_PLATFORMS = [
@@ -1127,7 +1127,7 @@ export const INITIAL_PLATFORMS = [
 
 export const INITIAL_OPPORTUNITIES = [
   {
-    "job_hash": "hash_va_01_es",
+    "job_hash": "3689dc7019f4efaf2f7d33df",
     "platform_id": "virtual_latinos",
     "platform_name": "Virtual Latinos",
     "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
@@ -1143,7 +1143,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "hash_coord_02_es",
+    "job_hash": "5fe5a7d3d12f6d058ecacad6",
     "platform_id": "getonboard",
     "platform_name": "GetOnBoard",
     "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
@@ -1159,7 +1159,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "hash_support_03_es",
+    "job_hash": "825fe581e87601776a29e4f6",
     "platform_id": "torre_ai",
     "platform_name": "Torre.ai",
     "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
@@ -1175,7 +1175,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "hash_sdr_04_es",
+    "job_hash": "eda417729c0cd6ae71a8c1dc",
     "platform_id": "getonboard",
     "platform_name": "GetOnBoard",
     "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
@@ -1191,7 +1191,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "hash_marketing_05_es",
+    "job_hash": "2080d922e9a53d18c925e43a",
     "platform_id": "workana",
     "platform_name": "Workana",
     "category": "Category 4: Direct-to-Client & Fractional MSP",
@@ -1207,7 +1207,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "hash_finance_06_es",
+    "job_hash": "8fd3c3a5b6ffeae1392c2944",
     "platform_id": "hirelatam",
     "platform_name": "HireLatam",
     "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
@@ -1223,7 +1223,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "hash_hr_07_es",
+    "job_hash": "99efb244dcfce81045135a54",
     "platform_id": "torre_ai",
     "platform_name": "Torre.ai",
     "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
@@ -1239,7 +1239,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "hash_design_08_es",
+    "job_hash": "4792ed6604be022e432cef48",
     "platform_id": "soyfreelancer",
     "platform_name": "SoyFreelancer",
     "category": "Category 4: Direct-to-Client & Fractional MSP",
@@ -1255,7 +1255,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "hash_ai_09_es",
+    "job_hash": "8311372f6d4b3224ee5a050b",
     "platform_id": "outlier_ai",
     "platform_name": "Outlier AI",
     "category": "Category 1: AI Training & RLHF",
@@ -1271,7 +1271,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "hash_dataentry_10_es",
+    "job_hash": "f0804f31f0c2aac00042e5f1",
     "platform_id": "dailyremote_api",
     "platform_name": "DailyRemote",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1287,7 +1287,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "hash_logistics_11_es",
+    "job_hash": "dd8b42ff71e25bc4ac69193b",
     "platform_id": "getonboard",
     "platform_name": "GetOnBoard",
     "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
@@ -1303,7 +1303,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "hash_copy_12_es",
+    "job_hash": "f93b988a64630da19d58952b",
     "platform_id": "workana",
     "platform_name": "Workana",
     "category": "Category 4: Direct-to-Client & Fractional MSP",
@@ -1319,7 +1319,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "hash_closer_13_es",
+    "job_hash": "a3d8a2eb33fce6dc90244437",
     "platform_id": "virtual_latinos",
     "platform_name": "Virtual Latinos",
     "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
@@ -1335,7 +1335,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "hash_csm_14_es",
+    "job_hash": "0797dbff9bbdbe9e9c2a6561",
     "platform_id": "latinhire",
     "platform_name": "LatinHire",
     "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
@@ -1351,7 +1351,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "hash_lang_16_es",
+    "job_hash": "dee9bea2309c2d01ee7593a3",
     "platform_id": "welocalize",
     "platform_name": "Welocalize",
     "category": "Category 1: AI Training & RLHF",
@@ -1367,7 +1367,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "hash_interp_17_es",
+    "job_hash": "ca36d5709deeb04157d86531",
     "platform_id": "transperfect_dataforce",
     "platform_name": "TransPerfect DataForce",
     "category": "Category 1: AI Training & RLHF",
@@ -1383,7 +1383,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "hash_tutor_18_es",
+    "job_hash": "fc3f0d27618c44b29db34995",
     "platform_id": "latinhire",
     "platform_name": "LatinHire (Educación & Soporte Remoto)",
     "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
@@ -1399,7 +1399,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "hash_dev_15_es",
+    "job_hash": "7918a781d0d51334a9cdb4b5",
     "platform_id": "getonboard",
     "platform_name": "GetOnBoard",
     "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
@@ -1415,7 +1415,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "hash_data_16_es",
+    "job_hash": "5e61f841989a3e2fc6fbc66e",
     "platform_id": "torre_ai",
     "platform_name": "Torre.ai",
     "category": "Category 2: Vetted Global & Nearshore LATAM Networks",
@@ -1431,7 +1431,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-09T17:36:49"
   },
   {
-    "job_hash": "1f6d8afc93c4ddc06cc5d5eb",
+    "job_hash": "da7e29ea6a995d4ab0e774a0",
     "platform_id": "upwork_msp",
     "platform_name": "Upwork (Managed Services & Cloud)",
     "category": "Category 4: Direct-to-Client & Fractional MSP",
@@ -1447,7 +1447,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T02:58:38"
   },
   {
-    "job_hash": "c180b9a7e0bce5f6bd185ded",
+    "job_hash": "d08ad7f9095b112ad9d1c6d3",
     "platform_id": "outlier_ai",
     "platform_name": "Outlier AI",
     "category": "Category 1: AI Training & RLHF",
@@ -1463,7 +1463,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T02:58:38"
   },
   {
-    "job_hash": "fbf004648b55f33310bb912c",
+    "job_hash": "66193c652a78a72c4c619b49",
     "platform_id": "mercor",
     "platform_name": "Mercor",
     "category": "Category 1: AI Training & RLHF",
@@ -1479,7 +1479,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T02:58:38"
   },
   {
-    "job_hash": "a0fe6fcd4b6545bc030f5196",
+    "job_hash": "631c0a5f551c256336002f3c",
     "platform_id": "neuronhire",
     "platform_name": "NeuronHire",
     "category": "Category 2: Vetted Global & LATAM Tech Networks",
@@ -1495,7 +1495,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T02:58:38"
   },
   {
-    "job_hash": "18d4b64e6a8688d5b3c2cc66",
+    "job_hash": "905829185e0ed736ce56fe2e",
     "platform_id": "free_work_fr",
     "platform_name": "Free-Work (ex Freelance-Info)",
     "category": "Category 3: European & International IT Portals",
@@ -1511,7 +1511,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T02:58:38"
   },
   {
-    "job_hash": "1d79128e7b91e64784394fd0",
+    "job_hash": "71238fa7957f5ab7e45cd510",
     "platform_id": "glg_insights",
     "platform_name": "GLG (Gerson Lehrman Group)",
     "category": "Category 5: Executive Expert Networks",
@@ -1527,7 +1527,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T02:58:38"
   },
   {
-    "job_hash": "5eae25f89dbd3e5d04e926e8",
+    "job_hash": "c6610bfbb0b85dfe76d95605",
     "platform_id": "4dayweek_io",
     "platform_name": "4 Day Week (4DayWeek.io)",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1543,7 +1543,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T02:58:38"
   },
   {
-    "job_hash": "fbb0d839ff9d2291d95b3526",
+    "job_hash": "3c2b5c2daff3189093d844bd",
     "platform_id": "distantjob",
     "platform_name": "DistantJob",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1559,7 +1559,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T02:58:38"
   },
   {
-    "job_hash": "6ed45e06935d6a1a959e0a15",
+    "job_hash": "9661ba26f7b7444461d6fe62",
     "platform_id": "remoteok_api",
     "platform_name": "Remote OK API (SysAdmin/Cloud/Python)",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1575,7 +1575,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T02:58:38"
   },
   {
-    "job_hash": "583810ed05dfd0c1d664b42e",
+    "job_hash": "1cfabdd149f379135509c4c2",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1591,7 +1591,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "e2f181263b155269c3467c50",
+    "job_hash": "813438d0cf76cc544e42f484",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1607,7 +1607,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "d3bcb452dabe56ee670f594d",
+    "job_hash": "d990e71883d904fc5a49e3e4",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1623,7 +1623,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "98af63ae98ff918a272e67c1",
+    "job_hash": "9dca4854c1d16e9f5c1b26cb",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1639,7 +1639,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "28aad77a096b019bac460229",
+    "job_hash": "1d62d4636ec86efa73aaba99",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1655,7 +1655,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "17d479476d6a2530f387059c",
+    "job_hash": "57518770458fce9f12de49ef",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1671,7 +1671,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "b96de6a78c6cb8c7497c571c",
+    "job_hash": "b7f947fb5c02774eebfb30b5",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1687,7 +1687,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "f4f3d0868c7a162aa3d14591",
+    "job_hash": "7df632779f20d100e2d6e377",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1703,7 +1703,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "159477112e9791b7972eb664",
+    "job_hash": "fa7ad5a2751a17408f60c2e2",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1719,7 +1719,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "8d3f14ac419085f1989ed226",
+    "job_hash": "c9da946668ee65baa134f1dc",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1735,7 +1735,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "44b9802c07d1dc9d1e9fb786",
+    "job_hash": "9d4f1037f279ee7c6f36fe4b",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1751,7 +1751,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "952bdf8bdf48b166c98b6e86",
+    "job_hash": "8511789d8f7959400a6821dd",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1767,7 +1767,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "2f7af5300346b9af2f4726a7",
+    "job_hash": "6f7b6c5f4e818db721fae1e8",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1783,7 +1783,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "3ad532d3bd02dd5b773c2222",
+    "job_hash": "72d0c81b37f0945345205c48",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1799,7 +1799,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "76ab2f9da81738ceeb3574fa",
+    "job_hash": "12e3a4283c3b73042ed8d72c",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1815,7 +1815,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "6133c00bcf763003297168a5",
+    "job_hash": "6552bf86997b7260fc29cde6",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1831,7 +1831,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "a5d1d9cfaa37ca3ee68e1851",
+    "job_hash": "8932910f08cc9a5981fe0b56",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1847,7 +1847,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "779b135157eb7da35b55a960",
+    "job_hash": "6598952b1184a1ec741c34c7",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1863,7 +1863,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "b20c64f50672d160dec0ebd8",
+    "job_hash": "2c77070de9206e8cc5576981",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1879,7 +1879,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "7df93145ad2cab00b20b07d0",
+    "job_hash": "311d454248aa30ae79b775ec",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1895,7 +1895,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "1eacd3f5da3ca689960cd206",
+    "job_hash": "88e4fe2f0eb451fb8650afd4",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1911,7 +1911,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "552066cc9c949c2cfed34656",
+    "job_hash": "f6e66716bd29ae8e4bcfc998",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1927,7 +1927,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "a6fa61fc0e2df278fdc4c659",
+    "job_hash": "993a61020043a1429979c040",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1939,11 +1939,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/zoominfo-technologies-llc-principal-data-engineer",
     "description": "Headquarters: Remote-US ZoomInfo is where careers accelerate. We move fast, think boldly, and empower you to do the best work of your life. You’ll be surrounded by teammates who care deeply, challenge each other, and celebrate wins. With tools that amplify your impact and a culture that backs your ambition, you won’t just contribute. You’ll make things happen fast. We are seeking a highly experienced, hands-on Principal Data Engineer to define and evolve the architecture, engineering standards, and operating model for our enterprise data platform. This role is for a technical leader who excels at complex system design: translating business and analytical needs into scalable, reliable, secure, and maintainable data products. The Principal Data Engineer will lead critical architectural decisions across data ingestion, storage, transformation, orchestration, governance, observability, and c",
     "tags": "rss, remote",
-    "published_at": "Thu, 29 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "89f21bc975339de0014a1206",
+    "job_hash": "46a88039ea4e5f7aace6df43",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1955,11 +1955,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/calm-com-software-development-engineer-in-test",
     "description": "Headquarters: Remote, United States About Calm Calm is the leading mental health brand on a mission to make the world happier and healthier. Known for its flagship consumer app—ranked #1 in its category with over 180 million downloads and availability in ten languages across 190 countries—Calm helps people sleep better, stress less, and live more mindfully through content and tools from experts and beloved celebrity voices. Building on this foundation, Calm has created a broader portfolio including evidence-based solutions like Calm Health , offered through employers, health plans and providers, designed to expand access to mental health and sleep support, boost benefits engagement, and drive positive health outcomes. Today, Calm supports more than 3,500 organizations and reaches over 42 million covered lives through Calm Health. Calm has been recognized as a TIME100 Most Influential Com",
     "tags": "rss, remote",
-    "published_at": "Thu, 29 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "d69963b8ee94bf2ac075ae54",
+    "job_hash": "6c0b9d05cf1c1c81a3178184",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1971,11 +1971,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/upsun-senior-it-systems-engineer",
     "description": "Headquarters: Remote • Canada About Upsun Upsun is the software factory for human-AI workflows. We give teams one unified platform to create, review, deploy, and run software, with AI agents and humans working in sync. Developers, DevOps engineers, and platform teams use Upsun to build and ship with confidence, without wrestling with infrastructure. Upsun brings this together through two products: one that shapes the work, and one that runs it. Upsun Dispatch™: the AI-first product accelerator. Dispatch governs and simplifies collaboration between AI agents and cross-functional human teams, so work gets shaped, reviewed, and moved to production faster. Ship better code, not just more code. Upsun Cloud: the Cloud Application Platform for AI acceleration. Cloud is where that software runs. It helps organizations launch agentic software into production confidently and reliably, with: Predic",
     "tags": "rss, remote",
-    "published_at": "Tue, 27 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "0c0b81a0f4961859a2b8d0cd",
+    "job_hash": "63c5494b96cd4c60f508052b",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -1987,11 +1987,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/ignition-inc-msp-mac-help-desk-guru-work-from-home",
     "description": "Headquarters: ignitionit.com URL: https://ignitionit.com Fully Remote · Work from home · Full-time (Eastern or Pacific time zones) · Apple-first TL;DR ignitionit.com is a seasoned, Apple-first MSP — in business for almost 30 years — and we're hiring a Help Desk Technician to be the friendly, capable first voice our clients reach when something isn't working. This position is a remote, work-from-home, full-time role. We've written this as a junior-to-mid-level job description because that's where most great people start on our team. But if you're more seasoned — comfortable in identity, MDM, or security work — don't scroll past. We'd be delighted to find someone who can step in higher up the ladder, and we'll happily talk about a more senior scope and comp if that's you. What the actual job??? Unlike many IT shops, we believe that the technology is the tactic. The actual job is making peo",
     "tags": "rss, remote",
-    "published_at": "Tue, 27 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "f3743d553eb565e26f199d9b",
+    "job_hash": "be824ebea3a4079f1d264921",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2003,11 +2003,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/ping-identity-director-partner-operations",
     "description": "Headquarters: USA - Remote About Ping Identity: At Ping Identity, we believe in making digital experiences both secure and seamless for all users, without compromise. We call this digital freedom. And it's not just something we provide our customers. It's something that inspires our company. People don't come here to join a culture that's built on digital freedom. They come to cultivate it. Our intelligent, cloud identity platform lets people shop, work, bank, and interact wherever and however they want. Without friction. Without fear. While protecting digital identities is at the core of our technology, protecting individual identities is at the core of our culture. We champion every identity. One of our core values, Respect Individuality, reminds us to celebrate differences so you are empowered to bring your authentic self to work. We're headquartered in Denver, Colorado and we have of",
     "tags": "rss, remote",
-    "published_at": "Mon, 26 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "51f8b6dd0fb70d12cca032e0",
+    "job_hash": "d50ebfe29c341a37493aa5d5",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2019,11 +2019,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/upstart-devops-engineer-ii-cloud-platform",
     "description": "Headquarters: United States | Remote About Upstart At Upstart, we’re united by a mission that matters: to radically reduce the cost and complexity of borrowing for all Americans. Every day, we bring creativity, experimentation, and advanced AI to reshape access to credit, helping millions move forward financially with clarity and confidence. As the leading AI lending marketplace, we partner with banks and credit unions to expand access to affordable credit through technology that’s both radically intelligent and deeply human. Our platform runs over one million predictions per borrower using more than 3,000 signals, powering smarter, fairer decisions for millions of customers. But the numbers only hint at the impact. Every idea, every voice, and every contribution moves us closer to a world where credit never stands between people and their financial progress. We’re proudly digital-first,",
     "tags": "rss, remote",
-    "published_at": "Mon, 26 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "1f8a297d511f6ebb1d60b6e9",
+    "job_hash": "a7e532b76fef3a4cc80a08fb",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2035,11 +2035,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/keeper-security-communications-intern",
     "description": "Headquarters: Remote, US Description Keeper is hiring a bright and talented Communications Intern to assist Keeper’s Global Communications team this Fall/Winter. This is a 100% remote internship from select locations with an opportunity to work a hybrid schedule for candidates based in the Chicago, IL metro area. Keeper’s cybersecurity software is trusted by millions of people and thousands of organizations, globally. Keeper is published in 23 languages and is sold in over 150 countries. Join one of the fastest-growing cybersecurity companies and gain valuable skills assisting our communications team in our public relations and social media efforts. About Keeper Keeper is a pioneer of zero-knowledge and zero-trust security built for any IT environment. Its core offering, KeeperPAM®, is an AI-enabled, cloud-native platform that protects all users, devices and infrastructure from cyber att",
     "tags": "rss, remote",
-    "published_at": "Sun, 25 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "36c2972c25b6570b874ac2c8",
+    "job_hash": "9fa64b60a8dab2f7377cf997",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2051,11 +2051,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/keeper-security-bilingual-channel-sales-engineer-emea",
     "description": "Headquarters: Remote, Ireland; Remote, UK Description Keeper Security is hiring an experienced Bilingual Channel Sales Engineer to work with our EMEA channel sales team. This is a remote position and qualified candidates must permanently reside in Ireland or the UK. Keeper’s cybersecurity software is trusted by millions of people and thousands of organisations, globally. Keeper is published in 23 languages and is sold in over 150 countries. Join one of the fastest-growing cybersecurity companies and be responsible for navigating our customers through the technical landscape of our products. About Keeper Keeper Security is transforming cybersecurity for people and organisations globally. Keeper’s intuitive solutions are built with end-to-end encryption to protect every user, on every device, in every location. Our zero-trust privileged access management platform deploys in minutes and sea",
     "tags": "rss, remote",
-    "published_at": "Sun, 25 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "d75387553f3884f19ecfcfb8",
+    "job_hash": "120e74ade8b1e216fabf96bb",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2067,11 +2067,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/discord-qa-devops-engineer",
     "description": "Headquarters: San Francisco Bay Area or Remote (U.S.) Discord has a highly engaged community of millions of daily active users who use the platform for many different reasons, but there’s one thing that nearly everyone does: play video games. Discord plays a uniquely important role in the future of gaming, and we are focused on making it easier and more fun for people to hang out before, during, and after playing games. We are seeking a QA/DevOps Engineer to join Discord’s Business Systems team. In this role, you will own automated test suite development and maintenance across Oracle ERP Cloud (Fusion) and Salesforce, with a focus on Tosca-based regression and progression testing. You will embed automated testing into CI/CD pipelines and partner closely with ERP Functional, Technical, and DevOps teams to ensure every release is tested consistently and defects are caught early. What you'l",
     "tags": "rss, remote",
-    "published_at": "Fri, 23 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "81cba903b0f96533b8cd6e0b",
+    "job_hash": "bc2e09e165bc54e8d9925d09",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2083,11 +2083,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/discord-engineering-manager-platform-security",
     "description": "Headquarters: Remote (West Coast) Discord has a highly engaged community of millions of daily active users who use the platform for many different reasons, but there’s one thing that nearly everyone does: play video games. Discord plays a uniquely important role in the future of gaming, and we are focused on making it easier and more fun for people to hang out before, during, and after playing games. More broadly, Discord is about empowering people to find belonging in all kinds of communities, and those people trust us to keep their communications safe. Our Platform Security Engineering team protects the systems we use to create Discord, making the “secure way” the “easy way.” We’re looking for an Engineering Manager to lead a team of software engineers in articulating and pursuing the most leveraged opportunities to reduce security risk across Engineering. This team will design and bui",
     "tags": "rss, remote",
-    "published_at": "Fri, 23 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "564baa076db31606270c2372",
+    "job_hash": "539b76a73149fee262d28845",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2099,11 +2099,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/flexport-senior-security-engineer-detection-response",
     "description": "Headquarters: U.S. Remote About Flexport: At Flexport, we believe global trade can move the human race forward. That’s why it’s our mission to make global commerce so easy there will be more of it. We’re shaping the future of a $10T industry with solutions powered by innovative technology and exceptional people. Today, companies of all sizes—from emerging brands to Fortune 500s—use Flexport technology to move more than $19B of merchandise across 112 countries a year. The recent global supply chain crisis has put Flexport center stage as we continue to play a pivotal role in how goods move around the world. We are proud to have the support of the best investors in the game who believe in our mission, solutions and people. Ready to tackle global challenges that impact business, society, and the environment? Come join us. What you'll do There is no MSSP and no tier-1 queue here. Detection &",
     "tags": "rss, remote",
-    "published_at": "Mon, 19 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "578622878594f16ffb6fe3b2",
+    "job_hash": "62fcc807465bb8f424a770f3",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2115,11 +2115,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/planetscale-enterprise-support-engineer",
     "description": "Headquarters: Remote - NA, APAC, EMEA PlanetScale is growing rapidly and reinventing the database space. The PlanetScale platform offers both Postgres and Vitess clusters. Vitess, an open-source database clustering system for horizontal scaling of MySQL, enables businesses to efficiently handle large-scale data workloads — without sacrificing developer experience. Our customers entrust us with what is often their most precious digital asset, their data, so the stakes couldn't be higher. We're looking for a Software Engineer to join our core engineering team and help us build the next generation of database infrastructure. What's the job to be done? You will advise and handle support requests from enterprise customers on the PlanetScale platform. You will become a customer-facing subject-matter expert for enterprise customers on the PlanetScale platform. You will identify product gaps in",
     "tags": "rss, remote",
-    "published_at": "Sun, 18 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "8911680b0314dff9bc1dbcd4",
+    "job_hash": "6be5481217099c3a7cecd428",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2131,11 +2131,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/expel-senior-detection-response-engineer",
     "description": "Headquarters: Remote You're the detection engineer people turn to when they ask \"what does Microsoft actually see here?\" Not the marketing-slide answer, the real map. Which product emits which telemetry, any anticipated ingestion lags, what table or API it lands in, which license tier gates it, how long it survives before it ages out, and where the documentation quietly disagrees with reality. When a new technique drops, your first instinct is to ask which Microsoft signal would catch it, and whether customers have it switched on. You also know Microsoft never sits still. Hunting tables appear, columns get renamed, Graph versions retire, capability shuffles between SKUs, previews go GA, features quietly vanish, and native alert logic shifts underneath you. You've got a repeatable way of staying ahead of that churn instead of finding out when a detection stops firing. You're comfortable b",
     "tags": "rss, remote",
-    "published_at": "Sat, 17 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "e2b924bf762d4e678e1ef735",
+    "job_hash": "bb29cedf3c49c0d487600e0b",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2147,11 +2147,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/beyondtrust-cloud-network-engineer",
     "description": "Headquarters: Remote United States BeyondTrust is a place where you can bring your purpose to life through the work that you do, creating a safer world through our cybersecurity SaaS portfolio. Our culture of flexibility, trust, and continual learning means you will be recognized for your growth, and for the impact you make on our success. You will be surrounded by people who challenge, support, and inspire you to be the best version of yourself. The Role The Cloud Network Engineer extends BeyondTrust's on-premises networking fundamentals into AWS cloud networking, with a primary focus on architecting and operating FedRAMP-aligned environments. The successful candidate demonstrates strong technical judgment, operational discipline, and the ability to apply practical solutions to complex hybrid network engineering challenges, while serving as the primary liaison between the Network and Cl",
     "tags": "rss, remote",
-    "published_at": "Fri, 16 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "3c9d4a872130e06a67eb0564",
+    "job_hash": "e1a1a378a702cc6e46a36f16",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2163,11 +2163,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/abnormal-customer-solutions-engineer-emea",
     "description": "Headquarters: Remote - Ireland About the Role Abnormal AI is looking for a Customer Solutions Engineer to join the Technical Account Management team. This role gives Abnormal a flexible, technical resource for situations that fall between standard support and a long-term, dedicated Technical Account Manager. Customer Solutions Engineers are floating technical specialists who partner with CSMs for the duration of a specific need, triggered by things like recurring support cases, asks beyond the typical support experience, or short-term project-based work. The ideal candidate combines deep technical fluency with strong triage judgment and is comfortable moving between engagements without an existing playbook. What you will do Serve as a flexible technical resource CSMs can bring into challenging or recurring account situations that a standard support case isn't built to resolve. Take on sh",
     "tags": "rss, remote",
-    "published_at": "Thu, 15 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "e01f10556e8c61f83ff24b52",
+    "job_hash": "d8606ced024f02e1da2f6e0c",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2179,11 +2179,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/keeper-security-associate-talent-acquisition-partner-tech",
     "description": "Headquarters: Remote, US Description Keeper is hiring a motivated Associate Talent Acquisition Partner to support the full cycle recruiting process. This is a 100% remote position from select locations with an opportunity to work a hybrid schedule for candidates based in the Chicago, IL metro area. Keeper’s cybersecurity software is trusted by millions of people and thousands of organizations globally. Keeper is published in 23 languages and is sold in over 150 countries. Join one of the fastest-growing cybersecurity companies and be responsible for a variety of recruiting support activities from reviewing applications, to sourcing candidates and facilitating new hire on-boarding logistics. About Keeper Keeper Security is one of the fastest-growing cybersecurity software companies that protects thousands of organizations and millions of people in over 150 countries. Keeper is a pioneer o",
     "tags": "rss, remote",
-    "published_at": "Mon, 12 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "edc9ac0320ce829ca5e758a8",
+    "job_hash": "f96b57dfdf18ccca26739b15",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2195,11 +2195,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/keeper-security-analyst-relations-manager",
     "description": "Headquarters: Remote, US Keeper Security is hiring an Analyst Relations Manager to join our Global Communications team. This individual will own and execute the day-to-day analyst relations program at Keeper by managing evaluations, timelines, coordination and internal workflows to ensure effective analyst engagement. This is a 100% remote position from select locations, with an opportunity to work a hybrid schedule for candidates who live near our global headquarters in Chicago. Keeper’s cybersecurity software is trusted by millions of people and thousands of organizations, globally. Keeper is published in 23 languages and is sold in over 150 countries. Join one of the fastest-growing cybersecurity companies as the leader of Keeper’s analyst relations operations. About Keeper Keeper Security is transforming cybersecurity for people and organizations globally. Keeper’s intuitive solution",
     "tags": "rss, remote",
-    "published_at": "Mon, 12 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "b3272bd0a79069135b3206bf",
+    "job_hash": "7064de2b84645cd7f40082fc",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2211,11 +2211,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/launchdarkly-engineering-manager-cloud-engineering",
     "description": "Headquarters: Remote - US About the Job: We’re looking for an Engineering Manager to lead LaunchDarkly’s Cloud Engineering team, the team responsible for the foundational infrastructure our products and engineering teams depend on. Cloud Engineering owns LaunchDarkly’s AWS accounts and networking, multi-region Kubernetes infrastructure, Terraform and GitOps workflows, CockroachDB operations, disaster-recovery capabilities, and FedRAMP infrastructure posture. The team is small, senior, and recently rebuilt. This is a frontline leadership role for a manager who treats operational health as a top priority, leads calmly through incidents, and creates leverage through software, automation, and reliable paved paths. In your first year, you’ll lead a marquee infrastructure insourcing program from planning through completion. The program’s cost savings will help fund additional team growth, givi",
     "tags": "rss, remote",
-    "published_at": "Tue, 06 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "ba8d95cca15ecaa6429e1360",
+    "job_hash": "fdb8f21499e940f06451b2e4",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2227,11 +2227,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/vercel-senior-manager-solutions-architect",
     "description": "Headquarters: Remote - Australia About Vercel: Vercel is the agentic infrastructure company, freeing people and agents to ship what's next. For more than a decade we've helped builders move from idea to production with speed, security, and exceptional developer experience. Now we're scaling our products for both agents and people to ship and run software, built in the open and trusted by OpenAI, PayPal, Ramp, Supreme, and millions of developers worldwide. About The Role: We are looking for a Senior Manager of Solutions Architecture to join and lead our our APAC SA team. In this role, you will be responsible for leading a team of Solutions Architects who support our sales teams across pre and post sales. You will drive technical excellence, mentor the team, and partner closely with sales leadership to win new business and expand existing accounts. This position will be based in Sydney, Au",
     "tags": "rss, remote",
-    "published_at": "Sat, 03 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "4ee916950134c027ec115a02",
+    "job_hash": "b4af5329ed79739d59d620b4",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely - DevOps & Sysadmin RSS",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2243,11 +2243,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/vercel-security-engineer-cloud",
     "description": "Headquarters: Remote - United States About Vercel: Vercel is the agentic infrastructure company, freeing people and agents to ship what's next. For more than a decade we've helped builders move from idea to production with speed, security, and exceptional developer experience. Now we're scaling our products for both agents and people to ship and run software, built in the open and trusted by OpenAI, PayPal, Ramp, Supreme, and millions of developers worldwide. About the role: We're looking for a Security Engineer to join our Cloud Security Engineering team. In this role, you'll help strengthen the security of our platform by building and improving the controls that protect our infrastructure. You'll play a key role in making security a core part of how we build, deploy, and scale our systems, while helping the company grow securely and confidently. You'll report to the Security Operations",
     "tags": "rss, remote",
-    "published_at": "Sat, 03 Oc",
+    "published_at": "2026-10-29",
     "discovered_at": "2026-10-29T03:49:31"
   },
   {
-    "job_hash": "739383127f0e59f819fd9837",
+    "job_hash": "acaf4c452708f59a8ba7b9df",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2263,7 +2263,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:05"
   },
   {
-    "job_hash": "65d29970be994b7cc3399d23",
+    "job_hash": "3c179d97b2fd39388eeaa4af",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2279,7 +2279,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:05"
   },
   {
-    "job_hash": "f9f4b2ea2eefed06b9b6dd9d",
+    "job_hash": "d5ee8590cbca0f5c1e248acc",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2295,7 +2295,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:05"
   },
   {
-    "job_hash": "03d452187300aee4d1477026",
+    "job_hash": "839bcaeb9641bacf15da7024",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2311,7 +2311,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:05"
   },
   {
-    "job_hash": "e15767050ef7c9542611c158",
+    "job_hash": "5c36b15104eb291b58dd984a",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2327,7 +2327,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:05"
   },
   {
-    "job_hash": "51bab040d760e13c5ea64817",
+    "job_hash": "d448ed45f22c19002664f445",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2343,39 +2343,23 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:05"
   },
   {
-    "job_hash": "3fc82adc996ec72e4a0a2528",
+    "job_hash": "c20a5d536189fac3a383a790",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "CFD Engineer - AI Trainer",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/mindrift/jobs/cfd-engineer-ai-trainer-1320845209",
     "description": "About the role Help train and evaluate AI agents on expert-level fluid simulation tasks.",
     "tags": "rss, remote",
-    "published_at": "Fri, 30 Oc",
+    "published_at": "2026-10-30",
     "discovered_at": "2026-10-30T00:00:08"
   },
   {
-    "job_hash": "4bf8a163e3b6cecb7e2f99d7",
-    "platform_id": "remotive_api",
-    "platform_name": "Remotive DevOps & SysAdmin API",
-    "category": "Category 6: Curated Remote-First Job Boards",
-    "track": "Track F: Curated Remote-First & WFA Job Boards",
-    "contract_caveat": "fractional_or_fulltime",
-    "title": "Senior Back-end Developer",
-    "company": "Lemon.io",
-    "location": "Europe, USA, Canada, Australia, Singapore, Mexico, Saudi Arabia",
-    "url": "https://remotive.com/remote-jobs/software-development/senior-back-end-developer-2091135",
-    "description": "Lemon.io helps companies in the US and Europe hire experienced engineers, from funded startups to teams like Klarna, Retool, and Pinterest. We’ve been doing this since 2015, and more than 1,500 companies have hired engineers through us. Currently, we have a few open positions from our client, an AI-native cloud company. AI teams use its platform to run inference on open-source models, fine-tune them and rent large GPU clusters. The fleet is set to grow about 10×; the team won't. That's where you come in. Who they’re looking for : Site Reliability Engineer, Senior Back-end Developer with Golang, Senior Back-end Developer with Python, AI Infrastructure Engineer, Distributed Storage Engineer, DevOps. Requirements for Senior Back-end Developers with Golang 5+ years of commercial experience with Golang 2+ years of commercial experience with Kubernetes 1+ year of experience in AI-assisted codi",
-    "tags": ".Net, android, C, C#, C++, cloud, data science, golang, ios, java, javascript, kubernetes, node.js, php, python, react, ruby/rails, scala, shopify, swift, UI/UX, wordpress, blockchain, AI/ML, automation, project management, react native, rust, unity, electron, spring, laravel, Ethereum, graphic design, Typescript , distributed systems, angular , firebase, data engineering, Site Reliability, Symfony, Linux/Unix, next.js, infrastructure, flutter, GPU",
-    "published_at": "2026-10-27",
-    "discovered_at": "2026-10-30T00:00:09"
-  },
-  {
-    "job_hash": "e525f145f275012ab6c1b4d7",
+    "job_hash": "1a9262bd52a0da7c4832b8c1",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2391,7 +2375,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:09"
   },
   {
-    "job_hash": "eb90ed56020b117634acd795",
+    "job_hash": "2bfb9cde7cdf8b32572417ec",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2407,7 +2391,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:09"
   },
   {
-    "job_hash": "f00dcdab0a2127a51887eeac",
+    "job_hash": "5583829110a6daf845255869",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2423,23 +2407,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:09"
   },
   {
-    "job_hash": "948c92b7e4f4f87f1a30d704",
-    "platform_id": "remotive_api",
-    "platform_name": "Remotive DevOps & SysAdmin API",
-    "category": "Category 6: Curated Remote-First Job Boards",
-    "track": "Track F: Curated Remote-First & WFA Job Boards",
-    "contract_caveat": "fractional_or_fulltime",
-    "title": "Senior React Full-stack Developer",
-    "company": "Lemon.io",
-    "location": "Europe, USA, Canada, APAC",
-    "url": "https://remotive.com/remote-jobs/software-development/senior-react-full-stack-developer-2091133",
-    "description": "Are you a talented Senior Developer looking for a remote job that lets you show your skills and get decent compensation? Look no further than Lemon.io — the marketplace that connects you with hand-picked startups in the US and Europe. What we offer: The rate depends on your seniority level, skills and experience. We've already paid out over $11M to our engineers. No more hunting for clients or negotiating rates — let us handle the business side of things so you can focus on what you do best. We'll manually find the best project for you according to your skills and preferences. Choose a schedule that works best for you. It’s possible to communicate async or minimally overlap within team working hours. We respect your seniority so you can expect no micromanagement or screen trackers. Communicate directly with the clients. Most of them have technical backgrounds. Sounds good, yeah? We will",
-    "tags": ".Net, android, AWS, azure, C, C#, C++, data science, fullstack, golang, ios, java, javascript, node.js, php, python, react, react js, ruby/rails, scala, shopify, swift, UI/UX, wordpress, blockchain, AI/ML, automation, react native, rust, product management, unity, electron, spring, data analysis, laravel, Ethereum, graphic design, Typescript , angular , GCP, firebase, data engineering, Site Reliability, Symfony, startup, marketplace, next.js, flutter",
-    "published_at": "2026-10-02",
-    "discovered_at": "2026-10-30T00:00:09"
-  },
-  {
-    "job_hash": "c9e1c7c7cdde90ec41a97aca",
+    "job_hash": "e9c2e636d97da0eb30bf46dd",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2455,7 +2423,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:09"
   },
   {
-    "job_hash": "7785dab0073468802c9481a6",
+    "job_hash": "3dd78bdc823b511ebfecdac2",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2471,7 +2439,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "job_hash": "4f865445e4fd2489cfcc3eff",
+    "job_hash": "0c19b59ee4359f2ce82c2ab2",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2487,7 +2455,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "job_hash": "6cab1433bd4571f0bf2545ce",
+    "job_hash": "b04735ccdfbbcf146ffcfad8",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2503,7 +2471,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "job_hash": "ddcd235e304f7e1003dd3e19",
+    "job_hash": "6e826827357a1e235bf87604",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2519,7 +2487,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "job_hash": "2fa5b172adc62a8c4d507052",
+    "job_hash": "16e777ea940105ce82e67224",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2535,7 +2503,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "job_hash": "bd0794d32a7f93df161be2ab",
+    "job_hash": "4d01f1830374caa44e753b27",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2551,7 +2519,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "job_hash": "d331380a53e297a3e58fe6e4",
+    "job_hash": "9770d819a2841e4935f4c650",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2567,7 +2535,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "job_hash": "b29b72bec25385d54e69b5d8",
+    "job_hash": "1553b8a89e4bfca78b18440f",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2583,7 +2551,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "job_hash": "3bfa23fa8421bc86e309ae2b",
+    "job_hash": "525c8752fc137318ae4ff44a",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2599,7 +2567,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "job_hash": "c199834308a85076a55df4a1",
+    "job_hash": "d3d7d6d3a5edb9bb763a6f68",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2615,7 +2583,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "job_hash": "164d585175ee8ca6ab551aef",
+    "job_hash": "efd5f4fb58f3c8c9b7263c32",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2631,7 +2599,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "job_hash": "2a6f5d49f674489447b67850",
+    "job_hash": "3b1f37cb84b11145bfae268e",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2647,7 +2615,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "job_hash": "5b5e067b086e26fc937572cf",
+    "job_hash": "30981eb6770bb8f14793a647",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2663,7 +2631,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "job_hash": "6686936285691a1e0f5bba29",
+    "job_hash": "322344ffecd8cdb2defb894d",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2679,7 +2647,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "job_hash": "2388513b7013df56a88a1e38",
+    "job_hash": "6560569fc56a06dfa00a5040",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2695,7 +2663,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "job_hash": "d174ff84710a6de501163586",
+    "job_hash": "902083dfb71635fc2736b623",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2711,7 +2679,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "job_hash": "78e0e460be8bae70c21a30de",
+    "job_hash": "d80ff46d697a54deb175a0b3",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2727,7 +2695,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "job_hash": "1f92bf4430398f0a4fd166d8",
+    "job_hash": "94af3735823a0c4916953b7c",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2743,7 +2711,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T00:00:17"
   },
   {
-    "job_hash": "fced5bdd2f1691034b3b4398",
+    "job_hash": "e13a6c5de85f9e1e0965f243",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely (DevOps & SysAdmin RSS)",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2755,27 +2723,27 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/datadog-enterprise-security-sales-specialist",
     "description": "Headquarters: District of Columbia, USA, Remote; North Carolina, USA, Remote As a Security Sales Specialist, you'll partner with Enterprise Account Executives to drive adoption of Datadog’s Security platform across key accounts. This is a high-impact role focused on positioning our Security solutions (Cloud SIEM, Cloud Workload Security, CSPM, and more) into new and existing customers—expanding our footprint and helping customers modernize their security stack in the cloud. At Datadog, we place value in our office culture - the relationships and collaboration it builds and the creativity it brings to the table. We operate as a hybrid workplace to ensure our Datadogs can create a work-life harmony that best fits them. What You’ll Do: Act as the subject matter expert (SME) for Datadog Security products across a targeted account patch Collaborate closely with Enterprise AEs to support net n",
     "tags": "rss, remote",
-    "published_at": "Mon, 12 Oc",
+    "published_at": "2026-10-30",
     "discovered_at": "2026-10-30T00:00:19"
   },
   {
-    "job_hash": "3f31767b78c76a18b736004a",
+    "job_hash": "ff55290a38c7ea5bc792c351",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "Speech & Conversation Analytics Analyst - Spanish & English (Remote, Any Location",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/foundever/jobs/speech-conversation-analytics-analyst-bilingual-remote-any-location",
     "description": "Speech & Conversation Analytics Analyst — Spanish & English(CallMiner / Verint / NICE / Genesys / Observe.",
     "tags": "rss, remote",
-    "published_at": "Fri, 30 Oc",
+    "published_at": "2026-10-30",
     "discovered_at": "2026-10-30T01:00:03"
   },
   {
-    "job_hash": "c71aaed638beee7305a0923d",
+    "job_hash": "1f92d9e6f0305acdefa2832b",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2791,71 +2759,55 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-30T03:00:13"
   },
   {
-    "job_hash": "948db1317d5a023080f89fae",
+    "job_hash": "6a5a8e01b35063a6d90aeda7",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "Ingeniero de Soporte de Aplicaciones L2 (Datadog & SQL) - México Only",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/dacodes/jobs/ingeniero-de-soporte-de-aplicaciones-l2-datadog-sql-mexico-only",
     "description": "¡Trabaja en DaCodes! Somos una firma de expertos en software y transformación digital de alto impacto.",
     "tags": "rss, remote",
-    "published_at": "Fri, 30 Oc",
+    "published_at": "2026-10-30",
     "discovered_at": "2026-10-30T08:00:04"
   },
   {
-    "job_hash": "a0119050018d2f8d8faea710",
+    "job_hash": "ef4cf97495c657797a8aae0d",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "Senior Demand Generation Manager - Remote - FS464",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/fresche-solutions-inc/jobs/gestionnaire-senior-generation-de-la-demande-teletravail-fs464",
     "description": "À propos de FrescheCinquante ans plus tard, nous ne faisons que commencer.",
     "tags": "rss, remote",
-    "published_at": "Fri, 30 Oc",
+    "published_at": "2026-10-30",
     "discovered_at": "2026-10-30T08:00:04"
   },
   {
-    "job_hash": "fc53665270951d327a779580",
+    "job_hash": "fb89042b20a49bc8db2d9fe3",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "Freelance Mechanical CAD&Simulation Engineer - AI Trainer",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/mindrift/jobs/freelance-mechanical-cad-simulation-engineer-ai-trainer-4438702876",
     "description": "About the role Help train and evaluate AI agents that work inside a real CAD environment on long engineering tasks, work that would take an expert 10–15 hours.",
     "tags": "rss, remote",
-    "published_at": "Fri, 30 Oc",
+    "published_at": "2026-10-30",
     "discovered_at": "2026-10-30T08:00:04"
   },
   {
-    "job_hash": "484a737b6d73fe34c4229b90",
-    "platform_id": "himalayas_rss",
-    "platform_name": "Himalayas.app RSS Feed",
-    "category": "Category 6: Curated Remote-First Job Boards",
-    "track": "Track F: Curated Remote-First & WFA Job Boards",
-    "contract_caveat": "fractional_or_fulltime",
-    "title": "CFD Engineer - AI Trainer",
-    "company": "Himalayas.app RSS Feed",
-    "location": "Remote Worldwide",
-    "url": "https://himalayas.app/companies/mindrift/jobs/cfd-engineer-ai-trainer-7512431273",
-    "description": "About the role Help train and evaluate AI agents on expert-level fluid simulation tasks.",
-    "tags": "rss, remote",
-    "published_at": "Fri, 30 Oc",
-    "discovered_at": "2026-10-30T08:00:04"
-  },
-  {
-    "job_hash": "9640a80e664df040365b6659",
+    "job_hash": "39ee178f305667d309b8705c",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely (DevOps & SysAdmin RSS)",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2867,11 +2819,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/anthropic-autonomous-systems-security-engineer",
     "description": "Headquarters: Remote-Friendly (Travel Required) | San Francisco, CA About Anthropic Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our team is a quickly growing group of committed researchers, engineers, policy experts, and business leaders working together to build beneficial AI systems. About the role Claude is trained and served on hardware in data centers Anthropic operates and in sites partners build and run for us. DCSE secures that footprint: the sites, the hardware moving through them, and the people and vendors who touch it. You'll be the engineer who owns autonomous systems across that footprint as one security domain, from both sides: drones, ground robots and automated vehicles for patrol, inspection and moving hardware, including the security of that automation",
     "tags": "rss, remote",
-    "published_at": "Fri, 30 Oc",
+    "published_at": "2026-10-30",
     "discovered_at": "2026-10-30T08:00:12"
   },
   {
-    "job_hash": "b8d3935f90c7f1eeced588e8",
+    "job_hash": "30b6392d2984d50a1932ec27",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely (DevOps & SysAdmin RSS)",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2883,11 +2835,11 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/smartsheet-devops-engineer-edge-and-developer-experience-remote-eligible-in-bulgaria",
     "description": "Headquarters: -REMOTE, BULGARIA- For over 20 years, Smartsheet has empowered teams to manage work seamlessly and scale solutions smarter. Now, in our most ambitious chapter yet, we are uniting human teams with AI agents. By orchestrating the work agents do best, automating manual tasks and uncovering insights at scale, we create the space for people to focus on what truly matters: judgment, creativity, and big thinking. That is magic at work, and it’s what we show up for every day. We are seeking a DevOps Engineer II to join the Edge and Developer Experience team. Our team collaboratively operates Smartsheet's high-performance edge proxy platform and drives the adoption of internal engineering tooling. The edge proxy serves as the entry point for all traffic across Smartsheet's commercial and FedRAMP-authorized US Government environments. The team supports the lifecycle of this platform:",
     "tags": "rss, remote",
-    "published_at": "Fri, 30 Oc",
+    "published_at": "2026-10-30",
     "discovered_at": "2026-10-30T08:00:12"
   },
   {
-    "job_hash": "a28768ebb6eae6c7a675e517",
+    "job_hash": "8eba02948ee16993005b6b07",
     "platform_id": "wwr_devops_rss",
     "platform_name": "We Work Remotely (DevOps & SysAdmin RSS)",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2899,43 +2851,43 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://weworkremotely.com/remote-jobs/keeper-security-consumer-support-specialist-weekend-shift-sunday-thursday",
     "description": "Headquarters: Remote, US Keeper is hiring a passionate Technical Consumer Support Specialist to contribute knowledge and expertise to our B2C Support team. This is a 100% remote position from select locations (Central, Mountain or Eastern Time Zones) with an opportunity to work a hybrid schedule for candidates based in the Chicago, IL metro area. Keeper’s cybersecurity software is trusted by millions of people and thousands of organizations, globally. Keeper is published in 23 languages and is sold in over 150 countries. Join one of the fastest-growing cybersecurity companies and gain valuable skills while supporting and guiding our consumer market in this pivotal role! About Keeper Keeper Security is one of the fastest-growing cybersecurity software companies that protects thousands of organizations and millions of people in over 150 countries. Keeper is a pioneer of zero-knowledge and",
     "tags": "rss, remote",
-    "published_at": "Fri, 30 Oc",
+    "published_at": "2026-10-30",
     "discovered_at": "2026-10-30T08:00:12"
   },
   {
-    "job_hash": "4e05ec2915f66771b5888d03",
+    "job_hash": "d9d8615376b8d28daf60b3de",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "SQL Server Cloud Database Lead",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/peraton/jobs/sql-server-cloud-database-lead",
     "description": "Peraton OverviewPeraton is a next-generation national security company that drives missions of consequence spanning the globe and extending to the farthest reaches of the galaxy.",
     "tags": "rss, remote",
-    "published_at": "Sat, 31 Oc",
+    "published_at": "2026-10-31",
     "discovered_at": "2026-10-31T08:00:04"
   },
   {
-    "job_hash": "1e7639e6f190f1e21fc7844f",
+    "job_hash": "b630ede80b0ad78fbd3a3a67",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "SQL Database Administrator",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/bright-vision-technologies/jobs/sql-database-administrator",
     "description": "SQL Database Administrator – Remote Bright Vision Technologies is a technology consulting and software development company delivering cloud, AI, data, and enterprise solutions across the United States.",
     "tags": "rss, remote",
-    "published_at": "Sat, 31 Oc",
+    "published_at": "2026-10-31",
     "discovered_at": "2026-10-31T08:00:04"
   },
   {
-    "job_hash": "6249e080ad16ed98e1322874",
+    "job_hash": "6d92cf52e2742bec8fe6e4be",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -2951,119 +2903,119 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-31T08:00:05"
   },
   {
-    "job_hash": "ab802f50f7b72cf5f3ec951f",
+    "job_hash": "0a73726bd6b0fd81dcc38fea",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "Staff Software Engineer - Platform",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/alpaca/jobs/staff-software-engineer-platform",
     "description": "Who We Are:Alpaca is a US-headquartered, global leader in agent-first brokerage infrastructure for stocks, ETFs, options, crypto, fixed income, 24/5 trading, and more.",
     "tags": "rss, remote",
-    "published_at": "Sun, 01 No",
+    "published_at": "2026-11-01",
     "discovered_at": "2026-11-01T08:00:04"
   },
   {
-    "job_hash": "56b9c21197de85a05a8873ca",
+    "job_hash": "5caf23fa91817d5dcd2e5ea7",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "Product Manager, Corporate Actions",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/alpaca/jobs/product-manager-corporate-actions",
     "description": "Who We Are:Alpaca is a US-headquartered, global leader in agent-first brokerage infrastructure for stocks, ETFs, options, crypto, fixed income, 24/5 trading, and more.",
     "tags": "rss, remote",
-    "published_at": "Sun, 01 No",
+    "published_at": "2026-11-01",
     "discovered_at": "2026-11-01T08:00:04"
   },
   {
-    "job_hash": "a5e0488c55cd61c9e8826ea4",
+    "job_hash": "34911ec477765d5843e7439c",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "Document Annotation Specialist (Africa)",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/lifted-an-upwork-company/jobs/document-annotation-specialist-africa-1396369325",
     "description": "• Review and annotate document images to accurately identify text, paragraphs, tables, and other document elements.",
     "tags": "rss, remote",
-    "published_at": "Tue, 03 No",
+    "published_at": "2026-11-03",
     "discovered_at": "2026-11-03T08:00:06"
   },
   {
-    "job_hash": "bb51aaf24ddd71d319616767",
+    "job_hash": "269d906e60358ad646a81ab8",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "Registered Nurse, Remote- Contract",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/xperteez-technology/jobs/registered-nurse-remote-contract-6866000930",
     "description": "Role Title: Registered Nurse Role Type: Contract Location: United States, Remote Compensation: $60-$70 USD per hour Required Skills:• Inpatient clinical expertise • Clinical documentation review • Annotation of medical records • Nursing judgment • Evaluation of ai-generated clinical outputs • Attention to detail • Written and verbal communication • Feedback provision • Knowledge of inpatient workflows • Collaboration with stakeholders In this role, you'll apply your inpatient clinical expertise to help train next-generation AI systems.",
     "tags": "rss, remote",
-    "published_at": "Tue, 03 No",
+    "published_at": "2026-11-03",
     "discovered_at": "2026-11-03T08:00:06"
   },
   {
-    "job_hash": "3c66898708e2fb0073926ed0",
+    "job_hash": "c2d1e3029dc2b6215f135523",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "Customer Service Representative (Bilingual Spanish/English)",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/microsourcing/jobs/customer-service-representative-bilingual",
     "description": "Discover your 100% YOU with MicroSourcing! Position: Customer Service Representative (Bilingual Spanish/English) Work setup & shift: Remote | Shifting Schedule Why join MicroSourcing?",
     "tags": "rss, remote",
-    "published_at": "Tue, 03 No",
+    "published_at": "2026-11-03",
     "discovered_at": "2026-11-03T08:00:06"
   },
   {
-    "job_hash": "9edc8849c547f04174163a81",
+    "job_hash": "cca0e1f88fb217c24312f63a",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "Regional Associate, Growth & Competition (Portuguese-Speaking, Brazil / Spanish",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/maleda-tech/jobs/regional-associate-growth-competition-portuguese-speaking-brazil-spanish",
     "description": "About the RoleWe are seeking a Portuguese-speaking Regional Associate to join a new outreach team supporting property hosts across Brazil and Spanish-speaking South America.",
     "tags": "rss, remote",
-    "published_at": "Tue, 03 No",
+    "published_at": "2026-11-03",
     "discovered_at": "2026-11-03T09:43:00"
   },
   {
-    "job_hash": "f5bd33d6e94400616a6e32a3",
+    "job_hash": "090b0ac8e472fd5ded79f795",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "Azure Cloud Engineer",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/the-hr-ally/jobs/azure-cloud-engineer",
     "description": "Job Title: Azure Cloud EngineerEmployment Type: ContractEligibility- Australian Citizen/ PR Holders Experience- 8+ Years Job SummaryWe are looking for an experienced Azure Cloud Engineer responsible for designing, implementing, managing, and maintaining cloud infrastructure on Microsoft Azure.",
     "tags": "rss, remote",
-    "published_at": "Wed, 04 No",
+    "published_at": "2026-11-04",
     "discovered_at": "2026-11-04T08:00:06"
   },
   {
-    "job_hash": "6f9e63d77cec49c157d6ea4e",
+    "job_hash": "61422423c9570251a8152672",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -3079,23 +3031,23 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-05T08:00:03"
   },
   {
-    "job_hash": "a2a6b27c84b9f1e880e822db",
+    "job_hash": "1022b23243eec33b53cc7109",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "Senior Software Engineer, Object Storage - DGX Cloud",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/nvidia/jobs/senior-software-engineer-object-storage-dgx-cloud-3663268560",
     "description": "NVIDIA is looking for a Senior Software Engineer in Object Storage to design, implement, and extend the capabilities of our internal object storage system.",
     "tags": "rss, remote",
-    "published_at": "Thu, 05 No",
+    "published_at": "2026-11-05",
     "discovered_at": "2026-11-05T08:00:04"
   },
   {
-    "job_hash": "51a00de181564201d62a46d8",
+    "job_hash": "5b60ae4b1c4deabc472d44f7",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -3111,71 +3063,71 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-05T08:00:15"
   },
   {
-    "job_hash": "5ba52d23a571bfecc4d82111",
+    "job_hash": "06181babc32a8c70c53297db",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "Regional Vice President, MSP Channel Sales",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/calix/jobs/regional-vice-president-msp-channel-sales",
     "description": "The Calix platform enables Communication Service Providers (CSPs) of all sizes to transform and future-proof their businesses.",
     "tags": "rss, remote",
-    "published_at": "Sat, 07 No",
+    "published_at": "2026-11-07",
     "discovered_at": "2026-11-07T08:00:05"
   },
   {
-    "job_hash": "6814a0d3610a9fc4f521c02b",
+    "job_hash": "d7b6181cccf9e7121b4fff0e",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "Senior Microsoft 365 Administrator",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/wilson-sonsini-goodrich-rosati/jobs/senior-microsoft-365-administrator",
     "description": "Wilson Sonsini is the premier legal advisor to technology, life sciences, and other growth enterprises worldwide.",
     "tags": "rss, remote",
-    "published_at": "Sat, 07 No",
+    "published_at": "2026-11-07",
     "discovered_at": "2026-11-07T08:00:05"
   },
   {
-    "job_hash": "d0bfd57878140d0008d70bb8",
+    "job_hash": "c1dcb34cf9a3f982387f4ace",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "AWS Cloud Architect (US)",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/snapsoft-kft/jobs/aws-cloud-architect-us",
     "description": "Remote, from the US · Full-time employment · Daily overlap with both Central European Time and North American client hours Are you a senior AWS Solutions Architect who has led large-scale cloud migrations end to end?",
     "tags": "rss, remote",
-    "published_at": "Sat, 07 No",
+    "published_at": "2026-11-07",
     "discovered_at": "2026-11-07T08:00:05"
   },
   {
-    "job_hash": "ec4132441e2acec5d2cd2d0f",
+    "job_hash": "414545104fac9d930ee9d883",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "Senior Database Administrator",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/people10-technologies-inc/jobs/senior-database-administrator",
     "description": "This is a remote position. Senior Database Administrator @ PEOPLE10Experience: 5 - 7 yearsJob Location: Remote (India)Graduation :Any (BE/Btech/MCA-Preferred)Job Overview:As part of a global enterprise tech team, you will manage enterprise scale databases through leading industry standards, automation and transformational roadmap for optimal resource utilization and scalability You will work in a full stack agile team of Architects, Technical Leads, Scrum Masters, Business Analysts, Developers, QA automators, and DevOps experts.",
     "tags": "rss, remote",
-    "published_at": "Sat, 07 No",
+    "published_at": "2026-11-07",
     "discovered_at": "2026-11-07T08:00:05"
   },
   {
-    "job_hash": "31ea60c1c025c875da2d2dec",
+    "job_hash": "fdecf32614b01b5ae95ce87c",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -3191,7 +3143,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-07T08:00:05"
   },
   {
-    "job_hash": "c7b556676892560d217bd4be",
+    "job_hash": "0aef73453951021033be7155",
     "platform_id": "jobicy_api",
     "platform_name": "Jobicy Anywhere Engineering API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -3207,39 +3159,39 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-11-07T08:00:10"
   },
   {
-    "job_hash": "c8f18b03450b4a7720e4f074",
+    "job_hash": "d8bd6002a314763f7ba9163d",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "Penetration Tester - Infrastructure & Red Team (Canada)",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/packetlabs-ltd/jobs/penetration-tester-infrastructure-red-team-canada",
     "description": "Packetlabs was built by an ethical hacker after seeing vulnerability assessments presented as penetration tests.",
     "tags": "rss, remote",
-    "published_at": "Sun, 08 No",
+    "published_at": "2026-11-08",
     "discovered_at": "2026-11-08T08:00:05"
   },
   {
-    "job_hash": "727510602be29a70b041136b",
+    "job_hash": "44df4292447f737c00a031ee",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "DevOps Engineer - AWS",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/ensono/jobs/devops-engineer-aws",
     "description": "Worker Type:EmployeeThis is an exciting opportunity to join a friendly team working on some of the hottest AWS technologies.",
     "tags": "rss, remote",
-    "published_at": "Sun, 08 No",
+    "published_at": "2026-11-08",
     "discovered_at": "2026-11-08T08:00:05"
   },
   {
-    "job_hash": "54666cfd49286d210addfc8e",
+    "job_hash": "bbfdb2e43a39f29781c44073",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -3251,43 +3203,43 @@ export const INITIAL_OPPORTUNITIES = [
     "url": "https://himalayas.app/companies/eatfuku/jobs/lead-engineer-node-js-python-ml-100-remote",
     "description": "Lead Engineer: Node. JS, Python & ML (100% Remote) Location & Company Overview• 100% remote position based in Malaysia.",
     "tags": "rss, remote",
-    "published_at": "Sun, 08 No",
+    "published_at": "2026-11-08",
     "discovered_at": "2026-11-08T08:00:05"
   },
   {
-    "job_hash": "4a1d64838e450ad984022e60",
+    "job_hash": "f613085de5c6f36213d5fb3f",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "Global Vice President, HR Business Partnering",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/clinigen/jobs/global-vice-president-hr-business-partnering",
     "description": "Clinigen is looking for an accomplished Global Vice President, HR Business Partnering to lead our HR Business Partner organization globally and play a central role in the continued evolution of our business and People strategy.",
     "tags": "rss, remote",
-    "published_at": "Sun, 08 No",
+    "published_at": "2026-11-08",
     "discovered_at": "2026-11-08T08:00:05"
   },
   {
-    "job_hash": "6a991dd61a8b4dcffc94f893",
+    "job_hash": "e1a0b8581a63796ffbc3c137",
     "platform_id": "himalayas_rss",
     "platform_name": "Himalayas.app RSS Feed",
     "category": "Category 6: Curated Remote-First Job Boards",
     "track": "Track F: Curated Remote-First & WFA Job Boards",
     "contract_caveat": "fractional_or_fulltime",
     "title": "CAD Engineer - AI Trainer",
-    "company": "Himalayas.app RSS Feed",
+    "company": "Himalayas.app",
     "location": "Remote Worldwide",
     "url": "https://himalayas.app/companies/mindrift/jobs/cad-engineer-ai-trainer-313963363",
     "description": "About the role Help train and evaluate AI agents that work inside a real CAD environment on long engineering tasks, work that would take an expert 10–15 hours.",
     "tags": "rss, remote",
-    "published_at": "Sun, 08 No",
+    "published_at": "2026-11-08",
     "discovered_at": "2026-11-08T08:00:05"
   },
   {
-    "job_hash": "15f238a432cba7d944d58220",
+    "job_hash": "b9eddc5b04e38981bd0e55da",
     "platform_id": "working_nomads_api",
     "platform_name": "Working Nomads API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -3303,7 +3255,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T07:09:12"
   },
   {
-    "job_hash": "ef460d3cf2cbda2215bc3026",
+    "job_hash": "223eda6f967ee0beb4403ad1",
     "platform_id": "ai_eval_outlier_bolivia",
     "platform_name": "Outlier AI Portal (Andean Spanish & Tech Writer)",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -3319,7 +3271,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T07:09:12"
   },
   {
-    "job_hash": "4bc70b5b546761210a8c4044",
+    "job_hash": "67470216d11e51c8b65953de",
     "platform_id": "ai_eval_innodata",
     "platform_name": "Innodata Careers (IT/Systems Auditing & Localization)",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -3335,7 +3287,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T07:09:12"
   },
   {
-    "job_hash": "79f850e25fcd6e1b3b38607e",
+    "job_hash": "cb8a463fdc9246fe171800c1",
     "platform_id": "remotive_api",
     "platform_name": "Remotive DevOps & SysAdmin API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -3351,7 +3303,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T07:09:12"
   },
   {
-    "job_hash": "573f7153f0745e2a664ad725",
+    "job_hash": "9e8054d0306f61dbaeef350b",
     "platform_id": "remoteok_api",
     "platform_name": "Remote OK API",
     "category": "Category 6: Curated Remote-First Job Boards",
@@ -3367,7 +3319,7 @@ export const INITIAL_OPPORTUNITIES = [
     "discovered_at": "2026-10-29T07:09:12"
   },
   {
-    "job_hash": "30294000ed63f878dd4ab878",
+    "job_hash": "26442cf251239dee7767b11c",
     "platform_id": "custom_remoteyeah_com",
     "platform_name": "RemoteYeah",
     "category": "Plataforma Agregada por Usuario",

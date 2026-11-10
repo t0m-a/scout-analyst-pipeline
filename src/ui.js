@@ -862,6 +862,62 @@ export function renderAppHtml(initialState) {
       max-width: 100%;
       overflow-wrap: anywhere;
     }
+    .comp-pill {
+      display: inline-block;
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #86efac;
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 0.79em;
+      font-weight: 700;
+      max-width: 100%;
+    }
+    .ai-cv-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      width: 100%;
+    }
+    .ai-textarea {
+      width: 100%;
+      min-height: 78px;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.88em;
+      font-family: inherit;
+      background: #ffffff;
+      color: #0f172a;
+      resize: vertical;
+      line-height: 1.45;
+    }
+    .ai-textarea:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
+    }
+    .ai-result-box {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 8px;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      display: none;
+    }
+    .ai-proposal-pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 14px;
+      border-radius: 6px;
+      font-size: 0.84em;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin: 8px 0 0 0;
+      line-height: 1.5;
+      max-height: 320px;
+      overflow-y: auto;
+    }
     .contract-tag {
       display: inline-block;
       background: #f3e8ff;
@@ -1322,6 +1378,21 @@ export function renderAppHtml(initialState) {
       background: #082f49;
       color: #38bdf8;
     }
+    body.dark-mode .comp-pill {
+      background: #064e3b;
+      color: #a7f3d0;
+      border-color: #10b981;
+    }
+    body.dark-mode .ai-textarea {
+      background: #0f172a;
+      color: #f8fafc;
+      border-color: #334155;
+    }
+    body.dark-mode .ai-result-box {
+      background: #0f172a;
+      border-color: #334155;
+      color: #cbd5e1;
+    }
     body.dark-mode .contract-tag {
       background: #3b0764;
       color: #d8b4fe;
@@ -1754,6 +1825,53 @@ export function renderAppHtml(initialState) {
       <div id="scan-feedback-box" class="scan-alert"></div>
     </section>
 
+    <!-- CLOUDFLARE WORKERS AI — CV MATCHER & APPLICATION LETTER GENERATOR PANEL -->
+    <section class="panel-card" id="ai-cv-panel">
+      <div class="panel-header" style="margin-bottom:10px;padding-bottom:8px;">
+        <h2 class="panel-title"><span id="lbl-ai-cv-title">Asistente IA de Perfil y Generador de Cartas de Postulación (Cloudflare Workers AI)</span></h2>
+        <span style="font-size:0.82em;color:#64748b;" id="lbl-ai-cv-sub">Pega tu resumen profesional o habilidades para detectar tu afinidad y redactar una carta de presentación a medida (UTC-4 / W-8BEN)</span>
+      </div>
+      <div class="ai-cv-grid">
+        <div class="form-field">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;">
+            <label for="ai-cv-input" id="lbl-ai-cv-field" style="margin-bottom:0;">Tu Resumen Profesional, Experiencia o Habilidades Clave *</label>
+            <span id="ai-target-job-pill" style="display:none;font-size:0.78em;background:#e0f2fe;color:#0369a1;padding:2px 9px;border-radius:999px;font-weight:700;">
+              <span id="ai-target-job-text"></span>
+              <button type="button" onclick="clearAiTargetJob()" style="border:none;background:none;color:#0369a1;font-weight:800;cursor:pointer;margin-left:6px;">x</button>
+            </span>
+          </div>
+          <textarea
+            id="ai-cv-input"
+            class="ai-textarea"
+            placeholder="Ej: Ingeniero de Software / Analista de Datos / Asistente Virtual Bilingüe con 4 años de experiencia en Python, SQL, React, Soporte Técnico, Gestión de Proyectos y Atención al Cliente..."
+          ></textarea>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <button type="button" class="btn-action btn-primary" id="btn-submit-ai-cv" onclick="submitAiCvMatch()">
+            <span id="lbl-btn-ai-cv">Analizar CV y Redactar Carta IA</span>
+          </button>
+          <button type="button" class="btn-action btn-secondary" id="btn-apply-ai-filters" onclick="applyAiSkillsToFilters()" style="display:none;">
+            <span id="lbl-btn-apply-ai-filters">Aplicar Habilidades Detectadas a Mis Filtros</span>
+          </button>
+        </div>
+      </div>
+      <div id="ai-cv-error" class="scan-alert"></div>
+      <div id="ai-cv-result-box" class="ai-result-box">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+          <strong style="font-size:0.92em;" id="lbl-ai-analysis-hdr">Diagnóstico de Compatibilidad Remota (Bolivia UTC-4)</strong>
+          <span id="ai-engine-badge" class="score-pill" style="font-size:0.75em;">Workers AI</span>
+        </div>
+        <p id="ai-cv-analysis-text" style="margin:0 0 12px 0;font-size:0.88em;line-height:1.5;"></p>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+          <strong style="font-size:0.9em;" id="lbl-ai-proposal-hdr">Carta de Postulación Personalizada</strong>
+          <button type="button" class="btn-action btn-secondary" style="padding:4px 10px;font-size:0.78em;" onclick="copyAiProposal()">
+            <span id="lbl-copy-ai-proposal">Copiar Carta</span>
+          </button>
+        </div>
+        <pre id="ai-cv-proposal-pre" class="ai-proposal-pre"></pre>
+      </div>
+    </section>
+
     <!-- KPI SUMMARY CARDS -->
     <section class="kpi-grid">
       <div class="kpi-card apply" onclick="switchMainView('results'); setVerdictFilter('APPLY');">
@@ -2146,6 +2264,18 @@ export function renderAppHtml(initialState) {
         typeAuto: 'Auto-detectar (Web / RSS / JSON)',
         btnSubmitUrl: 'Escanear y Evaluar URL',
         scanningUrl: 'Escaneando URL...',
+        aiCvTitle: 'Asistente IA de Perfil y Generador de Cartas de Postulación (Cloudflare Workers AI)',
+        aiCvSub: 'Pega tu resumen profesional o habilidades para detectar tu afinidad y redactar una carta de presentación a medida (UTC-4 / W-8BEN)',
+        aiCvField: 'Tu Resumen Profesional, Experiencia o Habilidades Clave *',
+        aiCvPlaceholder: 'Ej: Ingeniero de Software / Analista de Datos / Asistente Virtual Bilingüe con 4 años de experiencia en Python, SQL, React, Soporte Técnico, Gestión de Proyectos y Atención al Cliente...',
+        btnAiCv: 'Analizar CV y Redactar Carta IA',
+        btnAiCvLoading: 'Analizando con IA...',
+        btnApplyAiFilters: 'Aplicar Habilidades Detectadas a Mis Filtros',
+        aiAnalysisHdr: 'Diagnóstico de Compatibilidad Remota (Bolivia UTC-4)',
+        aiProposalHdr: 'Carta de Postulación Personalizada',
+        copyAiProposal: 'Copiar Carta',
+        copiedAiProposal: '¡Carta Copiada!',
+        draftAiBtn: 'Redactar Carta IA',
         kpiApplyTitle: 'POSTULAR',
         kpiApplySub: 'Puntaje ≥ 78/100',
         kpiPossibleTitle: 'EXPLORAR',
@@ -2242,6 +2372,18 @@ export function renderAppHtml(initialState) {
         typeAuto: 'Auto-detect (Web / RSS / JSON)',
         btnSubmitUrl: 'Scan & Evaluate URL',
         scanningUrl: 'Scanning URL...',
+        aiCvTitle: 'AI Profile Matcher & Cover Letter Generator (Cloudflare Workers AI)',
+        aiCvSub: 'Paste your CV summary or key skills to evaluate remote fit and draft a tailored application letter (UTC-4 / W-8BEN)',
+        aiCvField: 'Your Professional Summary, Experience, or Key Skills *',
+        aiCvPlaceholder: 'E.g., Software Engineer / Data Analyst / Bilingual Virtual Assistant with 4 years of experience in Python, SQL, React, Technical Support, Project Management, and Customer Success...',
+        btnAiCv: 'Analyze CV & Draft AI Cover Letter',
+        btnAiCvLoading: 'Analyzing with AI...',
+        btnApplyAiFilters: 'Apply Detected Skills to My Filters',
+        aiAnalysisHdr: 'Remote Compatibility Assessment (Bolivia UTC-4)',
+        aiProposalHdr: 'Tailored Application Cover Letter',
+        copyAiProposal: 'Copy Letter',
+        copiedAiProposal: 'Letter Copied!',
+        draftAiBtn: 'Draft AI Cover Letter',
         kpiApplyTitle: 'APPLY',
         kpiApplySub: 'Score ≥ 78/100',
         kpiPossibleTitle: 'POSSIBLE',
@@ -2375,6 +2517,14 @@ export function renderAppHtml(initialState) {
         'lbl-type-field': t.typeField,
         'opt-type-auto': t.typeAuto,
         'lbl-btn-submit-url': t.btnSubmitUrl,
+        'lbl-ai-cv-title': t.aiCvTitle,
+        'lbl-ai-cv-sub': t.aiCvSub,
+        'lbl-ai-cv-field': t.aiCvField,
+        'lbl-btn-ai-cv': t.btnAiCv,
+        'lbl-btn-apply-ai-filters': t.btnApplyAiFilters,
+        'lbl-ai-analysis-hdr': t.aiAnalysisHdr,
+        'lbl-ai-proposal-hdr': t.aiProposalHdr,
+        'lbl-copy-ai-proposal': t.copyAiProposal,
         'kpi-apply-title': t.kpiApplyTitle,
         'kpi-apply-sub': t.kpiApplySub,
         'kpi-possible-title': t.kpiPossibleTitle,
@@ -2421,6 +2571,8 @@ export function renderAppHtml(initialState) {
       }
       const kwInput = document.getElementById('input-custom-keywords');
       if (kwInput) kwInput.placeholder = t.customKwPlaceholder;
+      const aiCvInput = document.getElementById('ai-cv-input');
+      if (aiCvInput) aiCvInput.placeholder = t.aiCvPlaceholder;
       const searchEl = document.getElementById('searchInput');
       if (searchEl) searchEl.placeholder = t.searchPlaceholder;
       updateThemeButtons();
@@ -2669,6 +2821,7 @@ export function renderAppHtml(initialState) {
           '</div>' +
           '<div class="meta-line">' +
             '<span class="bolivia-pill ' + (r.bolivia_eligible ? '' : 'restricted') + '">' + escapeHtml(bolBadge) + '</span>' +
+            (r.compensation_usd ? '<span class="comp-pill">USD: ' + escapeHtml(r.compensation_usd) + '</span>' : '') +
             '<span><strong>Plataforma:</strong> ' + escapeHtml(r.platform_name) + '</span>' +
             '<span><strong>Ubicación:</strong> ' + escapeHtml(r.location) + '</span>' +
             '<span><strong>' + escapeHtml(t.categoryLabel || 'Categoría') + ':</strong> ' + escapeHtml(cleanTrackName(r.track)) + '</span>' +
@@ -2690,6 +2843,8 @@ export function renderAppHtml(initialState) {
           '<div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">' +
             '<a class="btn-action btn-primary" href="' + escapeHtml(r.url) + '" target="_blank" rel="noopener">' +
               escapeHtml(t.openOfferBtn) + '</a>' +
+            '<button type="button" class="btn-action btn-secondary" onclick="openAiProposalForJob(\\'' + escapeHtml(r.job_hash) + '\\')">' +
+              escapeHtml(t.draftAiBtn || 'Redactar Carta IA') + '</button>' +
           '</div>' +
         '</article>';
       }).join('');
@@ -2745,6 +2900,7 @@ export function renderAppHtml(initialState) {
       const banner = document.querySelector('.top-banner');
       const filters = document.getElementById('custom-filters-panel');
       const urlPanel = document.getElementById('custom-url-panel');
+      const aiPanel = document.getElementById('ai-cv-panel');
       const kpis = document.querySelector('.kpi-grid');
       const toolbar = document.querySelector('.toolbar');
       const footer = document.getElementById('footer-text');
@@ -2752,6 +2908,7 @@ export function renderAppHtml(initialState) {
       if (banner) banner.style.display = isManual ? 'none' : '';
       if (filters) filters.style.display = isManual ? 'none' : '';
       if (urlPanel) urlPanel.style.display = isManual ? 'none' : '';
+      if (aiPanel) aiPanel.style.display = isManual ? 'none' : '';
       if (kpis) kpis.style.display = isManual ? 'none' : '';
       if (toolbar) toolbar.style.display = isManual ? 'none' : '';
       if (footer) footer.style.display = isManual ? 'none' : '';
@@ -2985,6 +3142,154 @@ export function renderAppHtml(initialState) {
       switchMainView('results');
       submitCustomPlatformScan({ url, name, type, track });
     }
+
+    let currentAiTargetJobHash = '';
+    let lastAiDetectedProfile = null;
+    let lastAiResultData = null;
+
+    function openAiProposalForJob(jobHash) {
+      currentAiTargetJobHash = String(jobHash || '');
+      const job = opportunitiesState.find(o => o.job_hash === currentAiTargetJobHash);
+      const pill = document.getElementById('ai-target-job-pill');
+      const txt = document.getElementById('ai-target-job-text');
+      if (job && pill && txt) {
+        txt.textContent = job.title + ' (' + job.company + ')';
+        pill.style.display = 'inline-flex';
+      }
+      const cvInput = document.getElementById('ai-cv-input');
+      if (cvInput && !cvInput.value.trim()) {
+        const kw = userFilters.custom_keywords || (job ? job.tags || job.title : '');
+        cvInput.value = userFilters.ui_lang === 'en'
+          ? 'Remote professional based in Bolivia (UTC-4) with experience in ' + kw + '.'
+          : 'Profesional remoto desde Bolivia (UTC-4) con experiencia en ' + kw + '.';
+      }
+      const panel = document.getElementById('ai-cv-panel');
+      if (panel) {
+        panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      submitAiCvMatch();
+    }
+    window.openAiProposalForJob = openAiProposalForJob;
+
+    function clearAiTargetJob() {
+      currentAiTargetJobHash = '';
+      const pill = document.getElementById('ai-target-job-pill');
+      if (pill) pill.style.display = 'none';
+    }
+    window.clearAiTargetJob = clearAiTargetJob;
+
+    async function submitAiCvMatch() {
+      const t = I18N[userFilters.ui_lang] || I18N.es;
+      const isEs = userFilters.ui_lang !== 'en';
+      const cvInput = document.getElementById('ai-cv-input');
+      const errBox = document.getElementById('ai-cv-error');
+      const resBox = document.getElementById('ai-cv-result-box');
+      const btn = document.getElementById('btn-submit-ai-cv');
+      const lbl = document.getElementById('lbl-btn-ai-cv');
+      const applyBtn = document.getElementById('btn-apply-ai-filters');
+
+      const cvText = (cvInput ? cvInput.value : '').trim();
+      errBox.className = 'scan-alert';
+      errBox.style.display = 'none';
+
+      if (cvText.length < 10) {
+        errBox.className = 'scan-alert error';
+        errBox.style.display = 'block';
+        errBox.textContent = isEs
+          ? 'Ingresa al menos 10 caracteres describiendo tu perfil, experiencia o habilidades.'
+          : 'Please enter at least 10 characters describing your profile, experience, or skills.';
+        return;
+      }
+
+      btn.disabled = true;
+      lbl.textContent = t.btnAiCvLoading || 'Analizando...';
+
+      try {
+        const resp = await fetch('/api/ai/match-cv', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            cv_text: cvText,
+            target_job_hash: currentAiTargetJobHash,
+            filters: userFilters
+          })
+        });
+        if (!resp.ok) {
+          const errJson = await resp.json().catch(() => ({}));
+          throw new Error(errJson.error || 'AI service unavailable');
+        }
+        const data = await resp.json();
+        lastAiResultData = data;
+        lastAiDetectedProfile = data.detected_profile || null;
+        document.getElementById('ai-engine-badge').textContent = data.ai_engine || 'Workers AI';
+        document.getElementById('ai-cv-analysis-text').textContent = isEs ? data.analysis_es : data.analysis_en;
+        document.getElementById('ai-cv-proposal-pre').textContent = isEs ? data.proposal_es : data.proposal_en;
+        resBox.style.display = 'block';
+        if (applyBtn) applyBtn.style.display = 'inline-flex';
+      } catch (e) {
+        // Offline / static HTML fallback
+        const attrs = detectOfferAttributes({
+          title: cvText.slice(0, 240),
+          description: cvText,
+          tags: '',
+          location: 'Bolivia',
+          contract_caveat: 'fractional_or_fulltime'
+        });
+        lastAiDetectedProfile = {
+          categories: attrs.categories,
+          matched_skills: attrs.matchedKeywords,
+          experience: attrs.experience
+        };
+        const target = opportunitiesState.find(o => o.job_hash === currentAiTargetJobHash) ||
+          (lastEvaluationResult.surfaced && lastEvaluationResult.surfaced[0]) || null;
+        const jTitle = target ? target.title : (isEs ? 'Especialista Remoto' : 'Remote Specialist');
+        const jComp = target ? target.company : (isEs ? 'Empresa Contratante' : 'Hiring Team');
+        const sk = attrs.matchedKeywords.length ? attrs.matchedKeywords.join(', ') : cvText.slice(0, 80);
+
+        document.getElementById('ai-engine-badge').textContent = 'Edge Local Analyzer';
+        document.getElementById('ai-cv-analysis-text').textContent = isEs
+          ? 'Habilidades identificadas: ' + sk + '. Ventaja desde Bolivia: Zona horaria UTC-4 alineada con EST/EDT y modalidad contratista internacional W-8BEN.'
+          : 'Identified skills: ' + sk + '. Bolivia Advantage: UTC-4 timezone aligned with US EST/EDT and W-8BEN independent contractor readiness.';
+        document.getElementById('ai-cv-proposal-pre').textContent = isEs
+          ? 'Asunto: Postulación a ' + jTitle + ' — ' + jComp + ' (Remoto UTC-4)\n\nEstimado equipo de ' + jComp + ',\n\nPresento mi postulación a la vacante de ' + jTitle + '. Cuento con experiencia práctica en ' + sk + ' y disponibilidad inmediata desde Bolivia (UTC-4) bajo contrato internacional independiente (W-8BEN).\n\nAtentamente,\n[Tu Nombre]'
+          : 'Subject: Application for ' + jTitle + ' — ' + jComp + ' (Remote UTC-4)\n\nDear ' + jComp + ' Team,\n\nI am writing to apply for the ' + jTitle + ' role. I bring hands-on experience in ' + sk + ' and full US Eastern Timezone overlap from Bolivia (UTC-4) as an independent contractor (W-8BEN).\n\nBest regards,\n[Your Name]';
+        resBox.style.display = 'block';
+        if (applyBtn) applyBtn.style.display = 'inline-flex';
+      } finally {
+        btn.disabled = false;
+        lbl.textContent = (I18N[userFilters.ui_lang] || I18N.es).btnAiCv;
+      }
+    }
+    window.submitAiCvMatch = submitAiCvMatch;
+
+    function applyAiSkillsToFilters() {
+      if (!lastAiDetectedProfile) return;
+      if (Array.isArray(lastAiDetectedProfile.categories) && lastAiDetectedProfile.categories.length > 0) {
+        const set = new Set([...(userFilters.position_types || []), ...lastAiDetectedProfile.categories]);
+        userFilters.position_types = Array.from(set);
+      }
+      if (Array.isArray(lastAiDetectedProfile.matched_skills) && lastAiDetectedProfile.matched_skills.length > 0) {
+        const existingKw = String(userFilters.custom_keywords || '').split(/[,;]+/).map(s => s.trim()).filter(Boolean);
+        const mergedKw = Array.from(new Set([...existingKw, ...lastAiDetectedProfile.matched_skills]));
+        userFilters.custom_keywords = mergedKw.join(', ');
+      }
+      saveFilters();
+      renderFilterChips();
+      recomputeAndRender();
+    }
+    window.applyAiSkillsToFilters = applyAiSkillsToFilters;
+
+    function copyAiProposal() {
+      const t = I18N[userFilters.ui_lang] || I18N.es;
+      const text = document.getElementById('ai-cv-proposal-pre').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const lbl = document.getElementById('lbl-copy-ai-proposal');
+        const orig = lbl.textContent;
+        lbl.textContent = t.copiedAiProposal || 'Copiado';
+        setTimeout(() => { lbl.textContent = orig; }, 1800);
+      });
+    }
+    window.copyAiProposal = copyAiProposal;
 
     function copyReportMarkdown(btn) {
       const t = I18N[userFilters.ui_lang] || I18N.es;
