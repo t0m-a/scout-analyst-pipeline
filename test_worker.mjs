@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
 import worker from './src/worker.js';
 import { stripHtml, computeJobHash } from './src/scanner.js';
 import { checkBoliviaRemoteEligibility, evaluateAllOpportunities } from './src/evaluator.js';
@@ -80,6 +81,58 @@ async function runTests() {
   assert.ok(!htmlNoFooter.includes('tsimon.me'), 'Must not contain personal domain outside footer attribution');
   assert.ok(!html.toLowerCase().includes('burnout'), 'Must not contain burnout safety references');
   assert.ok(!html.toLowerCase().includes('proposals ready'), 'Must not contain pre-populated proposals');
+
+  // Compile and execute all inline <script> blocks in node:vm to catch any syntax/escaping errors
+  const allScripts = [...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/gi)];
+  assert.equal(allScripts.length, 3, 'Must contain 3 script blocks (theme init, JSON payload, main client logic)');
+  const domElements = {};
+  const getMockEl = (id) => {
+    if (!domElements[id]) {
+      domElements[id] = {
+        id,
+        textContent: id === 'initial-payload' ? allScripts[1][1] : '',
+        innerHTML: '',
+        value: '',
+        checked: false,
+        disabled: false,
+        style: {},
+        classList: { add() {}, remove() {}, toggle() { return false; } },
+        setAttribute() {},
+        getAttribute() { return ''; },
+        querySelector() { return getMockEl('sub-' + id); },
+        scrollIntoView() {}
+      };
+    }
+    return domElements[id];
+  };
+  const vmSandbox = {
+    window: { matchMedia: () => ({ matches: false }), scrollTo() {} },
+    document: {
+      title: '',
+      documentElement: { lang: 'es-BO', classList: { add() {}, remove() {}, toggle() {} } },
+      body: { classList: { add() {}, remove() {}, toggle() { return false; } } },
+      getElementById: (id) => getMockEl(id),
+      querySelector: (sel) => getMockEl(sel),
+      querySelectorAll: () => []
+    },
+    localStorage: { getItem: () => null, setItem: () => {} },
+    navigator: { clipboard: { writeText: async () => {} } },
+    fetch: async () => ({ ok: true, json: async () => ({}) }),
+    setInterval: () => {},
+    setTimeout: () => {},
+    URL,
+    Blob: class {},
+    console
+  };
+  vm.createContext(vmSandbox);
+  new vm.Script(allScripts[0][1], { filename: 'theme-init.js' }).runInContext(vmSandbox);
+  new vm.Script(allScripts[2][1], { filename: 'client-main.js' }).runInContext(vmSandbox);
+  assert.ok(domElements['chips-languages'].innerHTML.includes('toggleLanguageChip'), 'Must render interactive language chips on load');
+  assert.ok(domElements['chips-experience'].innerHTML.includes('toggleExperienceChip'), 'Must render interactive experience chips on load');
+  assert.ok(domElements['chips-contracts'].innerHTML.includes('toggleContractChip'), 'Must render interactive contract chips on load');
+  assert.ok(domElements['chips-positions'].innerHTML.includes('togglePositionChip'), 'Must render interactive position chips on load');
+  assert.ok(domElements['resultsCardsContainer'].innerHTML.includes('opp-card'), 'Must render job cards on load');
+  assert.equal(typeof vmSandbox.window.toggleSidebar, 'function', 'Menu button handler toggleSidebar must be bound');
 
   console.log('2. Testing GET /api/state (85 platforms + 137 opportunities)...');
   const reqState = new Request('https://bolivia-remote-scout.workers.dev/api/state');

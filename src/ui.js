@@ -2849,7 +2849,7 @@ export function renderAppHtml(initialState) {
           contract_caveat: 'fractional_or_fulltime'
         });
         const qCats = new Set(qAttrs.categories || []);
-        const qWords = query.toLowerCase().split(/\s+/).filter(w => w.length >= 3);
+        const qWords = query.toLowerCase().split(/\\s+/).filter(w => w.length >= 3);
         const pool = lastEvaluationResult.surfaced || [];
 
         const scored = pool.map(r => {
@@ -3399,8 +3399,8 @@ export function renderAppHtml(initialState) {
           ? 'Habilidades identificadas: ' + sk + '. Ventaja desde Bolivia: Zona horaria UTC-4 alineada con EST/EDT y modalidad contratista internacional W-8BEN.'
           : 'Identified skills: ' + sk + '. Bolivia Advantage: UTC-4 timezone aligned with US EST/EDT and W-8BEN independent contractor readiness.';
         document.getElementById('ai-cv-proposal-pre').textContent = isEs
-          ? 'Asunto: Postulación a ' + jTitle + ' — ' + jComp + ' (Remoto UTC-4)\n\nEstimado equipo de ' + jComp + ',\n\nPresento mi postulación a la vacante de ' + jTitle + '. Cuento con experiencia práctica en ' + sk + ' y disponibilidad inmediata desde Bolivia (UTC-4) bajo contrato internacional independiente (W-8BEN).\n\nAtentamente,\n[Tu Nombre]'
-          : 'Subject: Application for ' + jTitle + ' — ' + jComp + ' (Remote UTC-4)\n\nDear ' + jComp + ' Team,\n\nI am writing to apply for the ' + jTitle + ' role. I bring hands-on experience in ' + sk + ' and full US Eastern Timezone overlap from Bolivia (UTC-4) as an independent contractor (W-8BEN).\n\nBest regards,\n[Your Name]';
+          ? 'Asunto: Postulación a ' + jTitle + ' — ' + jComp + ' (Remoto UTC-4)\\n\\nEstimado equipo de ' + jComp + ',\\n\\nPresento mi postulación a la vacante de ' + jTitle + '. Cuento con experiencia práctica en ' + sk + ' y disponibilidad inmediata desde Bolivia (UTC-4) bajo contrato internacional independiente (W-8BEN).\\n\\nAtentamente,\\n[Tu Nombre]'
+          : 'Subject: Application for ' + jTitle + ' — ' + jComp + ' (Remote UTC-4)\\n\\nDear ' + jComp + ' Team,\\n\\nI am writing to apply for the ' + jTitle + ' role. I bring hands-on experience in ' + sk + ' and full US Eastern Timezone overlap from Bolivia (UTC-4) as an independent contractor (W-8BEN).\\n\\nBest regards,\\n[Your Name]';
         resBox.style.display = 'block';
         if (applyBtn) applyBtn.style.display = 'inline-flex';
       } finally {
