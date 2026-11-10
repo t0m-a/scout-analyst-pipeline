@@ -121,6 +121,8 @@ export function renderAppHtml(initialState) {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
       padding: 10px 24px;
       background: #f8fafc;
       width: 100%;
@@ -133,6 +135,8 @@ export function renderAppHtml(initialState) {
       display: flex;
       align-items: center;
       gap: 6px;
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
     .sidebar-fold-btn,
     #sidebar-unfold-btn {
@@ -182,7 +186,7 @@ export function renderAppHtml(initialState) {
       position: absolute;
       top: 100%;
       right: 24px;
-      width: 300px;
+      width: min(300px, calc(100vw - 32px));
       max-height: calc(100vh - 70px);
       margin: 0;
       padding: 0;
@@ -203,10 +207,10 @@ export function renderAppHtml(initialState) {
     #navbar li.nav-group-header {
       background: #f1f5f9;
       padding: 10px 16px;
-      font-size: 0.76em;
+      font-size: 0.88em;
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      text-transform: capitalize;
+      letter-spacing: normal;
       color: #475569;
     }
     #navbar li.nav-collapsible-header {
@@ -357,21 +361,21 @@ export function renderAppHtml(initialState) {
     .banner-actions-row {
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
       margin-top: 12px;
       margin-bottom: 0;
-      flex-wrap: nowrap !important;
+      flex-wrap: wrap;
+      width: 100%;
     }
     .lang-switch-group {
       display: inline-flex;
       gap: 7px;
       align-items: center;
-      flex-wrap: nowrap !important;
-      white-space: nowrap !important;
-      flex-shrink: 0;
+      flex-wrap: wrap;
+      max-width: 100%;
     }
     .btn-lang {
-      padding: 4px 11px;
+      padding: 5px 12px;
       border-radius: 999px;
       border: 1px solid #cbd5e1;
       background: #f8fafc;
@@ -379,8 +383,13 @@ export function renderAppHtml(initialState) {
       font-size: 0.79em;
       font-weight: 600;
       cursor: pointer;
-      line-height: 1.5;
-      white-space: nowrap;
+      line-height: 1.4;
+      white-space: normal;
+      text-align: center;
+      max-width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       transition: all 0.15s ease;
     }
     .btn-lang.active, .btn-lang:hover {
@@ -389,7 +398,7 @@ export function renderAppHtml(initialState) {
       border-color: var(--accent-primary);
     }
     .btn-scan-now {
-      padding: 4px 11px;
+      padding: 5px 12px;
       border-radius: 999px;
       border: 1px solid #059669;
       background: #059669;
@@ -399,9 +408,12 @@ export function renderAppHtml(initialState) {
       cursor: pointer;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 5px;
-      line-height: 1.5;
-      white-space: nowrap;
+      line-height: 1.4;
+      white-space: normal;
+      text-align: center;
+      max-width: 100%;
       transition: all 0.15s ease;
     }
     .btn-scan-now:hover {
@@ -414,10 +426,11 @@ export function renderAppHtml(initialState) {
     }
     .banner-pills {
       display: flex;
-      flex-wrap: nowrap !important;
-      gap: 7px;
+      flex-wrap: wrap;
+      gap: 8px;
       margin-top: 12px;
       align-items: center;
+      width: 100%;
     }
     .banner-pill {
       background: #f8fafc;
@@ -427,8 +440,14 @@ export function renderAppHtml(initialState) {
       border-radius: 999px;
       font-size: 0.79em;
       font-weight: 600;
-      white-space: nowrap;
-      line-height: 1.5;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      line-height: 1.45;
+      max-width: 100%;
+      display: inline-flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 4px;
     }
     .panel-card {
       background: var(--bg-card);
@@ -437,6 +456,7 @@ export function renderAppHtml(initialState) {
       padding: 18px 22px;
       margin-bottom: 18px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      max-width: 100%;
     }
     .panel-header {
       display: flex;
@@ -448,6 +468,33 @@ export function renderAppHtml(initialState) {
       padding-bottom: 10px;
       border-bottom: 1px solid #f1f5f9;
     }
+    .panel-header-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      max-width: 100%;
+    }
+    .bolivia-only-label {
+      font-size: 0.84em;
+      font-weight: 700;
+      color: #065f46;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      background: #ecfdf5;
+      padding: 6px 11px;
+      border-radius: 6px;
+      border: 1px solid #10b981;
+      max-width: 100%;
+      white-space: normal;
+      line-height: 1.35;
+    }
+    .bolivia-only-label input[type="checkbox"] {
+      flex-shrink: 0;
+      margin: 0;
+    }
     .panel-title {
       margin: 0;
       font-size: 1.1em;
@@ -455,11 +502,15 @@ export function renderAppHtml(initialState) {
       color: #0f172a;
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 8px;
+      flex: 1 1 240px;
+      min-width: 0;
+      line-height: 1.35;
     }
     .filter-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
       gap: 16px;
     }
     .filter-block {
@@ -467,6 +518,8 @@ export function renderAppHtml(initialState) {
       border: 1px solid #e2e8f0;
       border-radius: 8px;
       padding: 12px 14px;
+      min-width: 0;
+      max-width: 100%;
     }
     .filter-block-label {
       font-size: 0.85em;
@@ -480,16 +533,28 @@ export function renderAppHtml(initialState) {
       gap: 6px;
     }
     .keywords-input-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
+      display: flex;
+      flex-wrap: wrap;
       gap: 10px;
       align-items: center;
       margin-top: 8px;
+      width: 100%;
+    }
+    .keywords-input-row .input-text {
+      flex: 1 1 260px;
+      min-width: 0;
+      width: auto;
+    }
+    .keywords-input-row #lbl-weight-pos {
+      flex: 0 1 auto;
+      max-width: 100%;
+      line-height: 1.4;
     }
     .chip-group {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
+      width: 100%;
     }
     .chip {
       display: inline-flex;
@@ -505,6 +570,11 @@ export function renderAppHtml(initialState) {
       cursor: pointer;
       user-select: none;
       transition: all 0.12s ease;
+      max-width: 100%;
+      white-space: normal;
+      text-align: left;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
     }
     .chip:hover {
       border-color: var(--accent-primary);
@@ -517,6 +587,7 @@ export function renderAppHtml(initialState) {
     }
     .input-text, .input-select {
       width: 100%;
+      max-width: 100%;
       padding: 8px 11px;
       border: 1px solid #cbd5e1;
       border-radius: 6px;
@@ -531,14 +602,20 @@ export function renderAppHtml(initialState) {
     }
     .url-scanner-form {
       display: grid;
-      grid-template-columns: 2fr 1.1fr 1fr auto;
+      grid-template-columns: minmax(220px, 2fr) minmax(150px, 1.1fr) minmax(160px, 1fr) auto;
       gap: 10px;
       align-items: end;
+      width: 100%;
     }
-    @media (max-width: 960px) {
-      .url-scanner-form {
-        grid-template-columns: 1fr;
-      }
+    .url-scanner-form #btn-submit-url {
+      min-height: 36px;
+      height: auto;
+      width: 100%;
+      justify-content: center;
+    }
+    .form-field {
+      min-width: 0;
+      width: 100%;
     }
     .form-field label {
       display: block;
@@ -569,9 +646,10 @@ export function renderAppHtml(initialState) {
     }
     .kpi-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
       gap: 12px;
       margin-bottom: 18px;
+      width: 100%;
     }
     .kpi-card {
       background: var(--bg-card);
@@ -581,6 +659,7 @@ export function renderAppHtml(initialState) {
       box-shadow: 0 2px 5px rgba(0,0,0,0.04);
       cursor: pointer;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
+      min-width: 0;
     }
     .kpi-card:hover {
       transform: translateY(-2px);
@@ -599,6 +678,8 @@ export function renderAppHtml(initialState) {
       font-size: 0.82em;
       color: var(--text-muted);
       margin-top: 4px;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
     }
     .toolbar {
       display: flex;
@@ -611,12 +692,20 @@ export function renderAppHtml(initialState) {
       border-radius: 8px;
       border: 1px solid #e2e8f0;
       margin-bottom: 18px;
+      width: 100%;
+    }
+    .toolbar #searchInput {
+      flex: 1 1 220px;
+      max-width: 300px;
+      min-width: min(100%, 180px);
+      width: auto;
     }
     .filter-group {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       align-items: center;
+      max-width: 100%;
     }
     .btn-tab {
       border: 1px solid #cbd5e1;
@@ -628,6 +717,13 @@ export function renderAppHtml(initialState) {
       font-weight: 600;
       cursor: pointer;
       transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      white-space: normal;
+      line-height: 1.35;
+      max-width: 100%;
     }
     .btn-tab:hover, .btn-tab.active {
       background: var(--accent-primary);
@@ -642,6 +738,7 @@ export function renderAppHtml(initialState) {
       padding: 16px 20px;
       margin-bottom: 14px;
       box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+      max-width: 100%;
     }
     .opp-card.verdict-APPLY { border-left-color: var(--apply-border); }
     .opp-card.verdict-POSSIBLE { border-left-color: var(--possible-border); }
@@ -660,14 +757,46 @@ export function renderAppHtml(initialState) {
       font-size: 1.1em;
       font-weight: 700;
       color: #0f172a;
+      flex: 1 1 240px;
+      min-width: 0;
+      line-height: 1.35;
+    }
+    .opp-company {
+      font-weight: 500;
+      color: #475569;
+    }
+    .opp-notes {
+      font-size: 0.88em;
+      color: #334155;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+    .opp-tags-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 14px;
+      margin-bottom: 6px;
+    }
+    .opp-tag-group {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px;
+      max-width: 100%;
     }
     .badge {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       padding: 4px 10px;
       border-radius: 999px;
       font-size: 0.78em;
       font-weight: 700;
-      white-space: nowrap;
+      white-space: normal;
+      text-align: center;
+      line-height: 1.3;
+      max-width: 100%;
     }
     .badge-APPLY { background: var(--apply-bg); color: var(--apply-text); border: 1px solid var(--apply-border); }
     .badge-POSSIBLE { background: var(--possible-bg); color: var(--possible-text); border: 1px solid var(--possible-border); }
@@ -679,8 +808,12 @@ export function renderAppHtml(initialState) {
       margin-bottom: 10px;
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px 12px;
       align-items: center;
+    }
+    .meta-line > span {
+      max-width: 100%;
+      overflow-wrap: anywhere;
     }
     .bolivia-pill {
       display: inline-block;
@@ -691,6 +824,9 @@ export function renderAppHtml(initialState) {
       border-radius: 999px;
       font-size: 0.79em;
       font-weight: 700;
+      max-width: 100%;
+      white-space: normal;
+      line-height: 1.35;
     }
     .bolivia-pill.restricted {
       background: #fef2f2;
@@ -711,6 +847,8 @@ export function renderAppHtml(initialState) {
       font-size: 0.8em;
       font-weight: 600;
       color: #334155;
+      max-width: 100%;
+      white-space: normal;
     }
     .skill-tag {
       display: inline-block;
@@ -721,6 +859,8 @@ export function renderAppHtml(initialState) {
       font-size: 0.78em;
       margin: 2px 4px 2px 0;
       font-family: monospace;
+      max-width: 100%;
+      overflow-wrap: anywhere;
     }
     .contract-tag {
       display: inline-block;
@@ -731,6 +871,8 @@ export function renderAppHtml(initialState) {
       font-size: 0.78em;
       margin: 2px 4px 2px 0;
       font-weight: 600;
+      max-width: 100%;
+      overflow-wrap: anywhere;
     }
     .lang-tag {
       display: inline-block;
@@ -741,10 +883,13 @@ export function renderAppHtml(initialState) {
       font-size: 0.78em;
       margin: 2px 4px 2px 0;
       font-weight: 600;
+      max-width: 100%;
+      overflow-wrap: anywhere;
     }
     .btn-action {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
       padding: 7px 14px;
       border-radius: 6px;
@@ -753,6 +898,10 @@ export function renderAppHtml(initialState) {
       text-decoration: none;
       cursor: pointer;
       border: 1px solid transparent;
+      white-space: normal;
+      text-align: center;
+      line-height: 1.35;
+      max-width: 100%;
     }
     .btn-primary {
       background: var(--accent-primary);
@@ -782,12 +931,14 @@ export function renderAppHtml(initialState) {
       margin: 10px 0 0 0;
       max-height: 640px;
       overflow-y: auto;
+      max-width: 100%;
     }
     .radar-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
       gap: 14px;
       margin-top: 12px;
+      width: 100%;
     }
     .radar-box {
       background: #f8fafc;
@@ -795,6 +946,11 @@ export function renderAppHtml(initialState) {
       border-left: 4px solid var(--accent-primary);
       border-radius: 8px;
       padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+      max-width: 100%;
     }
     .radar-box h4 {
       margin: 0 0 6px 0;
@@ -1146,6 +1302,17 @@ export function renderAppHtml(initialState) {
     body.dark-mode .opp-title {
       color: #f8fafc;
     }
+    body.dark-mode .opp-company {
+      color: #94a3b8;
+    }
+    body.dark-mode .opp-notes {
+      color: #cbd5e1;
+    }
+    body.dark-mode .bolivia-only-label {
+      background: #064e3b;
+      color: #a7f3d0;
+      border-color: #10b981;
+    }
     body.dark-mode .score-pill {
       background: #0f172a;
       border-color: #334155;
@@ -1229,11 +1396,13 @@ export function renderAppHtml(initialState) {
       color: #7dd3fc;
     }
 
-    @media only screen and (max-width: 1200px) {
-      .banner-pills.banner-actions-row,
-      .banner-pills,
-      .lang-switch-group {
-        flex-wrap: wrap !important;
+    @media only screen and (max-width: 1080px) {
+      .url-scanner-form {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+      }
+      .toolbar #searchInput {
+        max-width: 100%;
+        flex: 1 1 100%;
       }
     }
 
@@ -1253,6 +1422,7 @@ export function renderAppHtml(initialState) {
       #navbar ul {
         position: static;
         width: 100%;
+        max-width: 100%;
         right: auto;
         border: none;
         border-top: 1px solid #e2e8f0;
@@ -1276,23 +1446,29 @@ export function renderAppHtml(initialState) {
       .top-banner h1 {
         font-size: 1.32em;
       }
-      .keywords-input-row {
-        grid-template-columns: 1fr;
+      .keywords-input-row .input-text {
+        flex: 1 1 100%;
+        width: 100%;
       }
       .toolbar {
         flex-direction: column;
         align-items: stretch;
       }
+      .toolbar .filter-group {
+        width: 100%;
+      }
+      .toolbar #searchInput,
       #searchInput {
         max-width: 100% !important;
         width: 100%;
+        flex: 1 1 auto;
       }
       .kpi-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 155px), 1fr));
         gap: 10px;
       }
       .radar-grid {
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
       }
     }
 
@@ -1325,7 +1501,15 @@ export function renderAppHtml(initialState) {
       .lang-switch-group {
         width: 100%;
         justify-content: flex-start;
-        flex-wrap: wrap !important;
+        flex-wrap: wrap;
+      }
+      .panel-header-actions {
+        width: 100%;
+      }
+      .panel-header-actions .btn-action,
+      .panel-header-actions .bolivia-only-label {
+        width: 100%;
+        justify-content: center;
       }
       .filter-grid {
         grid-template-columns: 1fr;
@@ -1335,27 +1519,38 @@ export function renderAppHtml(initialState) {
         white-space: normal;
         line-height: 1.35;
       }
+      .url-scanner-form {
+        grid-template-columns: 1fr;
+      }
       .url-scanner-form #btn-submit-url {
         width: 100%;
         justify-content: center;
       }
       .kpi-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 145px), 1fr));
         gap: 8px;
-      }
-      .kpi-grid .kpi-card:last-child {
-        grid-column: 1 / -1;
       }
       .kpi-value {
         font-size: 1.35em;
+      }
+      .toolbar .filter-group .btn-tab {
+        flex: 1 1 auto;
       }
       .opp-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 6px;
       }
+      .opp-title {
+        flex: 1 1 auto;
+        width: 100%;
+      }
       .badge {
         white-space: normal;
+      }
+      .opp-card .btn-action {
+        width: 100%;
+        justify-content: center;
       }
       .radar-grid {
         grid-template-columns: 1fr;
@@ -1366,6 +1561,15 @@ export function renderAppHtml(initialState) {
       }
       .guide-step {
         padding: 12px 14px;
+      }
+    }
+
+    @media only screen and (max-width: 400px) {
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+      .lang-switch-group .btn-scan-now {
+        width: 100%;
       }
     }
   </style>
@@ -1386,7 +1590,7 @@ export function renderAppHtml(initialState) {
       <li><a id="nav-manual" onclick="switchMainView('manual'); closeNavbarMenu();"><span id="nav-lbl-manual">Manual de Uso</span></a></li>
 
       <li class="nav-group-header nav-collapsible-header" id="nav-hdr-tracks-item" onclick="toggleCategoriesMenu()" role="button" tabindex="0" aria-expanded="false">
-        <span id="nav-hdr-tracks">Categorías de Plataformas</span>
+        <span id="nav-hdr-tracks">Categorías De Plataformas</span>
         <span class="nav-caret" id="nav-tracks-caret" aria-hidden="true"></span>
       </li>
       <li class="nav-track-item nav-track-folded"><a onclick="switchMainView('results'); filterByTrack('ALL'); closeNavbarMenu();"><span id="nav-track-all">Todas las Categorías</span></a></li>
@@ -1451,8 +1655,8 @@ export function renderAppHtml(initialState) {
     <section class="panel-card" id="custom-filters-panel">
       <div class="panel-header">
         <h2 class="panel-title"><span id="lbl-filters-title">Personaliza tu Búsqueda y Criterios de Evaluación</span></h2>
-        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-          <label style="font-size:0.84em;font-weight:700;color:#065f46;display:inline-flex;align-items:center;gap:6px;cursor:pointer;background:#ecfdf5;padding:5px 10px;border-radius:6px;border:1px solid #10b981;">
+        <div class="panel-header-actions">
+          <label class="bolivia-only-label">
             <input type="checkbox" id="chk-bolivia-only" checked onchange="onBoliviaToggle(this.checked)">
             <span id="lbl-bolivia-only">Mostrar solo ofertas 100% remotas desde Bolivia</span>
           </label>
@@ -1542,7 +1746,7 @@ export function renderAppHtml(initialState) {
           </select>
         </div>
         <div>
-          <button type="submit" class="btn-action btn-primary" id="btn-submit-url" style="height:36px;">
+          <button type="submit" class="btn-action btn-primary" id="btn-submit-url">
             <span id="lbl-btn-submit-url">Escanear y Evaluar URL</span>
           </button>
         </div>
@@ -1588,7 +1792,7 @@ export function renderAppHtml(initialState) {
         <button type="button" class="btn-tab" data-verdict="SKIP" onclick="setVerdictFilter('SKIP')"><span id="btn-v-skip">Baja Coincidencia</span></button>
         <button type="button" class="btn-tab" data-verdict="GEO" onclick="setVerdictFilter('GEO')"><span id="btn-v-geo">Bloqueadas País</span></button>
       </div>
-      <input type="search" id="searchInput" class="input-text" style="max-width:240px;" placeholder="Buscar por cargo, empresa, país..." oninput="renderResultsCards()">
+      <input type="search" id="searchInput" class="input-text" placeholder="Buscar por cargo, empresa, país..." oninput="renderResultsCards()">
     </section>
 
     <!-- VIEW 1: LIVE RESULTS -->
@@ -1896,7 +2100,7 @@ export function renderAppHtml(initialState) {
         navResults: 'Resultados en Vivo',
         navManual: 'Manual de Uso',
         navPlatforms: 'Plataformas y Escáner URL',
-        navTracks: 'Categorías de Plataformas',
+        navTracks: 'Categorías De Plataformas',
         navTrackAll: 'Todas las Categorías',
         navTrackA: 'B2B Directo & Freelance',
         navTrackB: 'Entrenamiento IA & RLHF',
@@ -2460,7 +2664,7 @@ export function renderAppHtml(initialState) {
         return '<article class="opp-card verdict-' + vKey + '">' +
           '<div class="opp-header">' +
             '<h3 class="opp-title">#' + (idx + 1) + '. [' + r.total_score + '/100] ' + escapeHtml(r.title) +
-              ' — <span style="font-weight:500;color:#475569;">' + escapeHtml(r.company) + '</span></h3>' +
+              ' — <span class="opp-company">' + escapeHtml(r.company) + '</span></h3>' +
             '<span class="badge badge-' + vKey + '">' + escapeHtml(vLabel) + ' · ' + r.total_score + '/100</span>' +
           '</div>' +
           '<div class="meta-line">' +
@@ -2475,12 +2679,12 @@ export function renderAppHtml(initialState) {
             '<span class="score-pill">' + escapeHtml(t.scoreCont) + ': ' + r.contract_exp_score + '/20</span>' +
             '<span class="score-pill">' + escapeHtml(t.scoreLang) + ': ' + r.language_score + '/20</span>' +
           '</div>' +
-          '<div style="margin-bottom:6px;">' +
-            '<strong style="font-size:0.82em;">' + escapeHtml(t.contractsLabel) + '</strong> ' + contractTagsHtml +
-            (langTagsHtml ? ' &nbsp; <strong style="font-size:0.82em;">' + escapeHtml(t.matchedLangs) + '</strong> ' + langTagsHtml : '') +
-            (skillTagsHtml ? ' &nbsp; <strong style="font-size:0.82em;">' + escapeHtml(t.matchedSkills) + '</strong> ' + skillTagsHtml : '') +
+          '<div class="opp-tags-row">' +
+            '<span class="opp-tag-group"><strong style="font-size:0.82em;">' + escapeHtml(t.contractsLabel) + '</strong> ' + contractTagsHtml + '</span>' +
+            (langTagsHtml ? '<span class="opp-tag-group"><strong style="font-size:0.82em;">' + escapeHtml(t.matchedLangs) + '</strong> ' + langTagsHtml + '</span>' : '') +
+            (skillTagsHtml ? '<span class="opp-tag-group"><strong style="font-size:0.82em;">' + escapeHtml(t.matchedSkills) + '</strong> ' + skillTagsHtml + '</span>' : '') +
           '</div>' +
-          '<div style="font-size:0.88em;color:#334155;margin-top:6px;">' +
+          '<div class="opp-notes">' +
             escapeHtml(notes) +
           '</div>' +
           '<div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">' +

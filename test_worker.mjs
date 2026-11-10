@@ -25,7 +25,10 @@ async function runTests() {
   assert.ok(html.includes('body.dark-mode'), 'Must have dark mode stylesheet rules');
   assert.ok(html.includes('class="banner-header-block"'), 'Must have full-width banner-header-block so title and subtitle do not break');
   assert.ok(html.includes('class="banner-pills banner-actions-row"'), 'Must have banner-pills and banner-actions-row on the same bottom line');
-  assert.ok(html.includes('flex-wrap: nowrap !important'), 'Button group must not wrap to two lines');
+  assert.ok(!html.includes('flex-wrap: nowrap !important'), 'Must not force nowrap so buttons and pills wrap responsively');
+  assert.ok(html.includes('text-transform: capitalize'), 'Hamburger menu group headers must keep only the first letter of each word capitalized');
+  assert.ok(!html.includes('text-transform: uppercase'), 'Hamburger menu group headers must be decapitalized from uppercase');
+  assert.ok(html.includes('id="nav-hdr-tracks">Categorías De Plataformas</span>'), 'Must include Categorías De Plataformas with first letter of each word capitalized');
   assert.ok(html.includes('id="banner-disclaimer"'), 'Must include banner disclaimer below subtitle');
   assert.ok(html.includes('https://www.languagetransfer.org'), 'Must include Language Transfer link in disclaimer');
   assert.ok(html.includes('aprender inglés</a>. Te abre todo un entorno de oportunidades y con <a href="https://www.languagetransfer.org" title="Language Transfer: aprende inglés y más, ¡gratis!" target="_blank" rel="noopener noreferrer">Language Transfer</a>, es <strong>gratis</strong>!'), 'Must include Spanish anchor text, linked Language Transfer, and bold gratis in disclaimer');
