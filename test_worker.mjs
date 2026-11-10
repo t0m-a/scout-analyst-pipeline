@@ -14,6 +14,7 @@ async function runTests() {
   assert.ok(html.includes('lang="es-BO"'), 'Default language must be es-BO');
   assert.ok(html.includes('id="nav-brand-title">Bolivia Remote Work</span>'), 'Must include Bolivia Remote Work without (BO) in navbar brand');
   assert.ok(!html.includes('id="nav-brand-title">Bolivia Remote Work (BO)</span>'), 'Must NOT have (BO) in navbar brand');
+  assert.ok(!html.includes('Bolivia Remoto'), 'Must NOT contain Bolivia Remoto anywhere in HTML');
   assert.ok(html.includes('Buscador y Evaluador de Empleos Remotos desde Bolivia'), 'Must include banner title without 100% and without (BO)');
   assert.ok(!html.includes('Buscador y Evaluador de Empleos 100% Remotos desde Bolivia (BO)'), 'Must remove 100% and (BO) from banner title');
   assert.ok(html.includes('id="nav-track-a">B2B Directo &amp; Freelance'), 'Must keep category name and remove Track A prefix in categories list');
