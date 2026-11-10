@@ -17,5 +17,15 @@ binding = "AI"
 # database_name = "bolivia_remote_db"
 # database_id = "00000000-0000-0000-0000-000000000000"
 
+# Optional Cloudflare Vectorize Index binding (uncomment after `npx wrangler vectorize create bolivia-remote-jobs --dimensions=1024 --metric=cosine`)
+# [[vectorize]]
+# binding = "VECTORIZE"
+# index_name = "bolivia-remote-jobs"
+
+# Optional Raspberry Pi 5 Qdrant Edge Bridge (e.g. edge-rag-hub Qdrant v1.12)
+# [vars]
+# QDRANT_URL = "http://localhost:6333"
+# QDRANT_COLLECTION = "bolivia_remote_jobs"
+
 [observability]
 enabled = true

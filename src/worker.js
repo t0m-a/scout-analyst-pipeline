@@ -31,9 +31,14 @@ import {
   enrichBatchWithAI,
   matchCvAndGenerateProposal
 } from './ai_enricher.js';
+import {
+  semanticSearchOpportunities,
+  indexOpportunitiesInVectorStore,
+  deduplicateSemantically
+} from './vector_store.js';
 import { checkBoliviaRemoteEligibility } from './evaluator.js';
 
-const CACHE_KEY_URL = 'https://bolivia-remote-scout.internal/state-v5.6';
+const CACHE_KEY_URL = 'https://bolivia-remote-scout.internal/state-v5.7';
 const EMOJI_STRIP_RE = /[\uD83C-\uDBFF\uDC00-\uDFFF\u2600-\u27BF]/g;
 
 let MEMORY_STATE = null;
@@ -366,10 +371,12 @@ export default {
     // 2. Get Current State API
     if (request.method === 'GET' && path === '/api/state') {
       return jsonResponse({
-        version: '5.6.0',
+        version: '5.7.0',
         schedule: '*/15 * * * *',
         ai_enabled: Boolean(env && env.AI),
         d1_enabled: Boolean(env && env.DB),
+        vectorize_enabled: Boolean(env && env.VECTORIZE),
+        qdrant_enabled: Boolean(env && env.QDRANT_URL),
         lastScanAt: state.lastScanAt,
         platforms_count: state.platforms.length,
         opportunities_count: state.opportunities.length,
@@ -459,6 +466,7 @@ export default {
 
       if (scanRes.new_opportunities.length > 0) {
         const enrichedNew = await enrichBatchWithAI(scanRes.new_opportunities, env, 5);
+        await indexOpportunitiesInVectorStore(enrichedNew, env, 10);
         state.opportunities = [...enrichedNew, ...state.opportunities];
       }
       state.lastScanAt = scanRes.timestamp;
@@ -484,6 +492,7 @@ export default {
         const body = await request.json();
         const scanRes = await scanCustomPlatformUrl(body, body.filters || DEFAULT_FILTERS);
         scanRes.opportunities = await enrichBatchWithAI(scanRes.opportunities, env, 4);
+        await indexOpportunitiesInVectorStore(scanRes.opportunities, env, 10);
 
         // Save or update platform in registry
         const existingIdx = state.platforms.findIndex(p => p.id === scanRes.platform.id);
@@ -638,6 +647,59 @@ export default {
       }
     }
 
+    // 10. Vectorial Database — Multilingual Semantic Search API (Cloudflare Vectorize / Qdrant / Edge Vectors)
+    if ((request.method === 'GET' || request.method === 'POST') && path === '/api/search/semantic') {
+      try {
+        let query = url.searchParams.get('q') || url.searchParams.get('query') || '';
+        let filters = { ...DEFAULT_FILTERS };
+        let topK = Number(url.searchParams.get('limit') || url.searchParams.get('topK') || 25);
+
+        if (request.method === 'POST') {
+          const body = await request.json().catch(() => ({}));
+          query = body.query || body.q || query;
+          if (body.filters) {
+            filters = { ...DEFAULT_FILTERS, ...body.filters };
+          }
+          if (body.topK || body.limit) {
+            topK = Number(body.topK || body.limit);
+          }
+        }
+
+        const semRes = await semanticSearchOpportunities(query, state.opportunities, filters, env, { topK });
+        return jsonResponse(semRes);
+      } catch (err) {
+        return jsonResponse({ ok: false, error: err.message || 'Semantic search failed' }, 400);
+      }
+    }
+
+    // 11. Vectorial Database — Index Opportunities & Semantic Deduplication API
+    if (request.method === 'POST' && path === '/api/vectors/index') {
+      try {
+        const body = await request.json().catch(() => ({}));
+        const maxItems = Math.min(Math.max(Number(body.max_items) || 25, 1), 150);
+        let dedupRemoved = 0;
+
+        if (body.deduplicate === true) {
+          const dedupRes = deduplicateSemantically(state.opportunities, Number(body.threshold) || 0.92);
+          state.opportunities = dedupRes.opportunities;
+          dedupRemoved = dedupRes.duplicates_removed;
+        }
+
+        const idxRes = await indexOpportunitiesInVectorStore(state.opportunities, env, maxItems);
+        await saveState(state, env);
+
+        return jsonResponse({
+          ok: true,
+          indexed_count: idxRes.indexed_count,
+          backends: idxRes.backends,
+          duplicates_removed: dedupRemoved,
+          total_opportunities: state.opportunities.length
+        });
+      } catch (err) {
+        return jsonResponse({ ok: false, error: err.message || 'Vector indexing failed' }, 500);
+      }
+    }
+
     return jsonResponse({ error: 'Not Found' }, 404);
   },
 
@@ -654,6 +716,7 @@ export default {
       });
       if (scanRes.new_opportunities.length > 0) {
         const enrichedNew = await enrichBatchWithAI(scanRes.new_opportunities, env, 5);
+        await indexOpportunitiesInVectorStore(enrichedNew, env, 10);
         state.opportunities = [...enrichedNew, ...state.opportunities];
       }
       state.lastScanAt = scanRes.timestamp;

@@ -5,6 +5,7 @@ import worker from './src/worker.js';
 import { stripHtml, computeJobHash } from './src/scanner.js';
 import { checkBoliviaRemoteEligibility, evaluateAllOpportunities } from './src/evaluator.js';
 import { extractCompensationUsd } from './src/ai_enricher.js';
+import { buildLocalSemanticVector, cosineSimilarity, deduplicateSemantically } from './src/vector_store.js';
 
 const EMOJI_REGEX = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83d\ud83e][\ud000-\udfff]|[\u200d\u20e3\ufe0f]|[\u2600-\u26ff])/g;
 
@@ -315,6 +316,92 @@ async function runTests() {
   assert.equal(enrichData.opportunities[0].compensation_usd, '$5,000/mo');
   assert.ok(d1StatementsExecuted > 0, 'Must persist enriched opportunities to Cloudflare D1 (env.DB)');
 
+  console.log('6d. Testing Phase 3 Vectorial Database (Semantic Search, Cross-Lingual Embeddings, Vectorize & Semantic Deduplication)...');
+  const esVec = buildLocalSemanticVector('asistente virtual atención al cliente soporte administrativo agenda');
+  const enMatchVec = buildLocalSemanticVector('Bilingual Executive Virtual Assistant & Customer Support Specialist');
+  const unrelatedVec = buildLocalSemanticVector('Senior Kernel Rust Embedded Firmware Engineer');
+  assert.ok(
+    cosineSimilarity(esVec, enMatchVec) > cosineSimilarity(esVec, unrelatedVec),
+    'Cross-lingual Spanish query must have higher cosine similarity with English Virtual Assistant role than unrelated role'
+  );
+
+  // Test semantic deduplication
+  const semDupRes = deduplicateSemantically([
+    { title: 'Senior Cloud DevOps Engineer (AWS / Terraform)', company: 'Acme Cloud', description: 'Manage AWS Kubernetes Terraform CI/CD pipelines remotely from LATAM.' },
+    { title: 'Sr. Cloud & DevOps Engineer - AWS/Terraform', company: 'Acme Cloud', description: 'Manage AWS Kubernetes Terraform CI/CD pipelines remotely from LATAM.' },
+    { title: 'Bilingual Virtual Assistant', company: 'Virtual Latinos', description: 'Executive assistant and customer support in Spanish and English.' }
+  ]);
+  assert.equal(semDupRes.duplicates_removed, 1, 'Must semantically deduplicate near-identical role at same company');
+  assert.equal(semDupRes.opportunities.length, 2);
+
+  // Test GET /api/search/semantic with local multilingual vector engine
+  const respSemLocal = await worker.fetch(
+    new Request('https://bolivia-remote-scout.workers.dev/api/search/semantic?q=asistente+virtual+atencion+al+cliente+espanol&limit=5'),
+    {},
+    {}
+  );
+  assert.equal(respSemLocal.status, 200);
+  const semLocalData = await respSemLocal.json();
+  assert.equal(semLocalData.ok, true);
+  assert.equal(semLocalData.vector_backend, 'edge-multilingual-vectors');
+  assert.ok(semLocalData.results.length > 0, 'Semantic search must return ranked results');
+  assert.ok(typeof semLocalData.results[0].semantic_score === 'number', 'Results must include semantic_score');
+  assert.ok(typeof semLocalData.results[0].blended_score === 'number', 'Results must include blended_score');
+
+  // Test POST /api/search/semantic & POST /api/vectors/index with mocked Cloudflare Vectorize (`env.VECTORIZE`) & BGE-M3 (`env.AI`)
+  let vectorizeUpsertedCount = 0;
+  const mockVectorEnv = {
+    AI: {
+      async run(model, input) {
+        return { data: [new Array(128).fill(0.08)] };
+      }
+    },
+    VECTORIZE: {
+      async upsert(records) {
+        vectorizeUpsertedCount += records.length;
+        return { count: records.length };
+      },
+      async query(vec, opts) {
+        return {
+          matches: [
+            { id: stateData.opportunities[0].job_hash, score: 0.94, metadata: { job_hash: stateData.opportunities[0].job_hash } }
+          ]
+        };
+      }
+    }
+  };
+
+  const respVecIndex = await worker.fetch(
+    new Request('https://bolivia-remote-scout.workers.dev/api/vectors/index', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ max_items: 4, deduplicate: true })
+    }),
+    mockVectorEnv,
+    {}
+  );
+  assert.equal(respVecIndex.status, 200);
+  const vecIndexData = await respVecIndex.json();
+  assert.equal(vecIndexData.ok, true);
+  assert.equal(vecIndexData.indexed_count, 4);
+  assert.ok(vecIndexData.backends.includes('cloudflare-vectorize'), 'Must report cloudflare-vectorize backend');
+  assert.equal(vectorizeUpsertedCount, 4);
+
+  const respSemVec = await worker.fetch(
+    new Request('https://bolivia-remote-scout.workers.dev/api/search/semantic', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: 'Senior Cloud Engineer Python AWS', topK: 5 })
+    }),
+    mockVectorEnv,
+    {}
+  );
+  assert.equal(respSemVec.status, 200);
+  const semVecData = await respSemVec.json();
+  assert.equal(semVecData.ok, true);
+  assert.equal(semVecData.vector_backend, 'cloudflare-vectorize');
+  assert.equal(semVecData.embedding_model, '@cf/baai/bge-m3');
+
   console.log('7. Testing GET /favicon.svg and /favicon.ico (Earth with Bolivian flag colors)...');
   const respFavSvg = await worker.fetch(new Request('https://bolivia-remote-scout.workers.dev/favicon.svg'), {}, {});
   assert.equal(respFavSvg.status, 200);
@@ -341,6 +428,7 @@ async function runTests() {
     'src/evaluator.js',
     'src/scanner.js',
     'src/ai_enricher.js',
+    'src/vector_store.js',
     'src/ui.js',
     'src/worker.js',
     'src/favicon.js'

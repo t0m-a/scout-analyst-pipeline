@@ -873,6 +873,17 @@ export function renderAppHtml(initialState) {
       font-weight: 700;
       max-width: 100%;
     }
+    .semantic-pill {
+      display: inline-block;
+      background: #ede9fe;
+      color: #5b21b6;
+      border: 1px solid #c4b5fd;
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 0.79em;
+      font-weight: 700;
+      max-width: 100%;
+    }
     .ai-cv-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -1382,6 +1393,11 @@ export function renderAppHtml(initialState) {
       background: #064e3b;
       color: #a7f3d0;
       border-color: #10b981;
+    }
+    body.dark-mode .semantic-pill {
+      background: #2e1065;
+      color: #ddd6fe;
+      border-color: #7c3aed;
     }
     body.dark-mode .ai-textarea {
       background: #0f172a;
@@ -1910,11 +1926,20 @@ export function renderAppHtml(initialState) {
         <button type="button" class="btn-tab" data-verdict="SKIP" onclick="setVerdictFilter('SKIP')"><span id="btn-v-skip">Baja Coincidencia</span></button>
         <button type="button" class="btn-tab" data-verdict="GEO" onclick="setVerdictFilter('GEO')"><span id="btn-v-geo">Bloqueadas País</span></button>
       </div>
-      <input type="search" id="searchInput" class="input-text" placeholder="Buscar por cargo, empresa, país..." oninput="renderResultsCards()">
+      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;flex:1 1 280px;justify-content:flex-end;">
+        <input type="search" id="searchInput" class="input-text" placeholder="Buscar por cargo, empresa, país..." oninput="onSearchInputChange(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();runSemanticSearch();}">
+        <button type="button" class="btn-action btn-primary" id="btn-semantic-search" onclick="runSemanticSearch()" style="padding:7px 12px;font-size:0.82em;">
+          <span id="lbl-btn-semantic">Búsqueda Vectorial IA</span>
+        </button>
+        <button type="button" class="btn-action btn-secondary" id="btn-clear-semantic" onclick="clearSemanticSearch()" style="display:none;padding:7px 10px;font-size:0.8em;">
+          <span id="lbl-btn-clear-semantic">Limpiar Vector</span>
+        </button>
+      </div>
     </section>
 
     <!-- VIEW 1: LIVE RESULTS -->
     <section id="view-results">
+      <div id="semantic-status-bar" class="scan-alert success" style="display:none;margin-top:0;margin-bottom:14px;"></div>
       <div id="resultsCardsContainer"></div>
     </section>
 
@@ -2276,6 +2301,10 @@ export function renderAppHtml(initialState) {
         copyAiProposal: 'Copiar Carta',
         copiedAiProposal: '¡Carta Copiada!',
         draftAiBtn: 'Redactar Carta IA',
+        semanticBtn: 'Búsqueda Vectorial IA',
+        semanticLoading: 'Buscando Vectores...',
+        semanticClear: 'Limpiar Vector',
+        semanticBadge: 'Afinidad Vectorial:',
         kpiApplyTitle: 'POSTULAR',
         kpiApplySub: 'Puntaje ≥ 78/100',
         kpiPossibleTitle: 'EXPLORAR',
@@ -2384,6 +2413,10 @@ export function renderAppHtml(initialState) {
         copyAiProposal: 'Copy Letter',
         copiedAiProposal: 'Letter Copied!',
         draftAiBtn: 'Draft AI Cover Letter',
+        semanticBtn: 'AI Vector Search',
+        semanticLoading: 'Searching Vectors...',
+        semanticClear: 'Clear Vector',
+        semanticBadge: 'Vector Match:',
         kpiApplyTitle: 'APPLY',
         kpiApplySub: 'Score ≥ 78/100',
         kpiPossibleTitle: 'POSSIBLE',
@@ -2525,6 +2558,8 @@ export function renderAppHtml(initialState) {
         'lbl-ai-analysis-hdr': t.aiAnalysisHdr,
         'lbl-ai-proposal-hdr': t.aiProposalHdr,
         'lbl-copy-ai-proposal': t.copyAiProposal,
+        'lbl-btn-semantic': t.semanticBtn,
+        'lbl-btn-clear-semantic': t.semanticClear,
         'kpi-apply-title': t.kpiApplyTitle,
         'kpi-apply-sub': t.kpiApplySub,
         'kpi-possible-title': t.kpiPossibleTitle,
@@ -2752,13 +2787,125 @@ export function renderAppHtml(initialState) {
       return m ? m[1].toUpperCase() : 'OTHER';
     }
 
+    let semanticOverrideResults = null;
+
+    function onSearchInputChange(val) {
+      if (!String(val || '').trim() && semanticOverrideResults) {
+        clearSemanticSearch();
+        return;
+      }
+      if (!semanticOverrideResults) {
+        renderResultsCards();
+      }
+    }
+    window.onSearchInputChange = onSearchInputChange;
+
+    async function runSemanticSearch() {
+      const t = I18N[userFilters.ui_lang] || I18N.es;
+      const isEs = userFilters.ui_lang !== 'en';
+      const searchEl = document.getElementById('searchInput');
+      const btn = document.getElementById('btn-semantic-search');
+      const lbl = document.getElementById('lbl-btn-semantic');
+      const clearBtn = document.getElementById('btn-clear-semantic');
+      const statusBar = document.getElementById('semantic-status-bar');
+
+      const query = (searchEl ? searchEl.value : '').trim();
+      if (!query) {
+        clearSemanticSearch();
+        return;
+      }
+
+      btn.disabled = true;
+      lbl.textContent = t.semanticLoading || 'Buscando Vectores...';
+
+      try {
+        const resp = await fetch('/api/search/semantic', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query,
+            filters: userFilters,
+            topK: 30
+          })
+        });
+        if (!resp.ok) throw new Error('Semantic API unavailable');
+        const data = await resp.json();
+        semanticOverrideResults = Array.isArray(data.results) ? data.results : [];
+        if (clearBtn) clearBtn.style.display = 'inline-flex';
+        if (statusBar) {
+          statusBar.style.display = 'block';
+          statusBar.textContent = isEs
+            ? 'Búsqueda Vectorial IA activa ("' + query + '"): ' + semanticOverrideResults.length + ' ofertas ordenadas por similitud semántica (' + (data.vector_backend || 'edge-multilingual-vectors') + ').'
+            : 'AI Vector Search active ("' + query + '"): ' + semanticOverrideResults.length + ' offers ranked by semantic similarity (' + (data.vector_backend || 'edge-multilingual-vectors') + ').';
+        }
+        renderResultsCards();
+      } catch (e) {
+        // Offline client-side semantic fallback using detectOfferAttributes
+        const qAttrs = detectOfferAttributes({
+          title: query,
+          description: query,
+          tags: '',
+          location: 'Bolivia',
+          contract_caveat: 'fractional_or_fulltime'
+        });
+        const qCats = new Set(qAttrs.categories || []);
+        const qWords = query.toLowerCase().split(/\s+/).filter(w => w.length >= 3);
+        const pool = lastEvaluationResult.surfaced || [];
+
+        const scored = pool.map(r => {
+          const rCats = r.detected_categories || [];
+          let catOverlap = 0;
+          for (const c of rCats) {
+            if (qCats.has(c)) catOverlap++;
+          }
+          const blob = (r.title + ' ' + r.company + ' ' + r.matched_skills + ' ' + r.description).toLowerCase();
+          let wordHits = 0;
+          for (const w of qWords) {
+            if (blob.includes(w)) wordHits++;
+          }
+          const simScore = Math.min(100, Math.round(catOverlap * 38 + (qWords.length ? (wordHits / qWords.length) * 62 : 0)));
+          return Object.assign({}, r, {
+            semantic_score: simScore,
+            blended_score: Math.round(simScore * 0.55 + r.total_score * 0.45)
+          });
+        }).filter(r => r.semantic_score >= 20);
+
+        scored.sort((a, b) => b.blended_score - a.blended_score);
+        semanticOverrideResults = scored.slice(0, 30);
+        if (clearBtn) clearBtn.style.display = 'inline-flex';
+        if (statusBar) {
+          statusBar.style.display = 'block';
+          statusBar.textContent = isEs
+            ? 'Búsqueda Vectorial Local activa ("' + query + '"): ' + semanticOverrideResults.length + ' ofertas encontradas.'
+            : 'Local Vector Search active ("' + query + '"): ' + semanticOverrideResults.length + ' offers matched.';
+        }
+        renderResultsCards();
+      } finally {
+        btn.disabled = false;
+        lbl.textContent = (I18N[userFilters.ui_lang] || I18N.es).semanticBtn;
+      }
+    }
+    window.runSemanticSearch = runSemanticSearch;
+
+    function clearSemanticSearch() {
+      semanticOverrideResults = null;
+      const clearBtn = document.getElementById('btn-clear-semantic');
+      const statusBar = document.getElementById('semantic-status-bar');
+      if (clearBtn) clearBtn.style.display = 'none';
+      if (statusBar) statusBar.style.display = 'none';
+      renderResultsCards();
+    }
+    window.clearSemanticSearch = clearSemanticSearch;
+
     function renderResultsCards() {
       const isEs = userFilters.ui_lang !== 'en';
       const t = I18N[userFilters.ui_lang] || I18N.es;
       const q = (document.getElementById('searchInput').value || '').trim().toLowerCase();
 
       let pool = [];
-      if (currentVerdictFilter === 'GEO') {
+      if (Array.isArray(semanticOverrideResults)) {
+        pool = semanticOverrideResults;
+      } else if (currentVerdictFilter === 'GEO') {
         pool = lastEvaluationResult.geo_excluded;
       } else if (currentVerdictFilter === 'APPLY') {
         pool = lastEvaluationResult.apply;
@@ -2773,7 +2920,7 @@ export function renderAppHtml(initialState) {
       const filtered = pool.filter(r => {
         const tCode = extractTrackCode(r.track);
         if (currentTrackFilter !== 'ALL' && tCode !== currentTrackFilter) return false;
-        if (q) {
+        if (q && !Array.isArray(semanticOverrideResults)) {
           const hay = (r.title + ' ' + r.company + ' ' + r.platform_name + ' ' + r.location + ' ' + r.matched_skills + ' ' + r.description).toLowerCase();
           if (!hay.includes(q)) return false;
         }
@@ -2821,6 +2968,7 @@ export function renderAppHtml(initialState) {
           '</div>' +
           '<div class="meta-line">' +
             '<span class="bolivia-pill ' + (r.bolivia_eligible ? '' : 'restricted') + '">' + escapeHtml(bolBadge) + '</span>' +
+            (typeof r.semantic_score === 'number' ? '<span class="semantic-pill">' + escapeHtml(t.semanticBadge || 'Afinidad Vectorial:') + ' ' + r.semantic_score + '%</span>' : '') +
             (r.compensation_usd ? '<span class="comp-pill">USD: ' + escapeHtml(r.compensation_usd) + '</span>' : '') +
             '<span><strong>Plataforma:</strong> ' + escapeHtml(r.platform_name) + '</span>' +
             '<span><strong>Ubicación:</strong> ' + escapeHtml(r.location) + '</span>' +
