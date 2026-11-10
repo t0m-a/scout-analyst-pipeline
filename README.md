@@ -57,7 +57,7 @@ Esta herramienta es una **solución pública y gratuita** que centraliza **86 pl
 ### Principales Características y Novedades (v5.4)
 
 - **Diseño Responsivo para Tablets y Teléfonos Móviles:** Adaptación fluida a resoluciones de escritorio, tabletas (`<= 1200px`, `<= 820px`) y celulares (`<= 640px`), con ajuste limpio de líneas de texto (`overflow-wrap: break-word`), grillas flexibles y cero desbordamiento horizontal.
-- **Navegación Plegada en Menú Hamburguesa, Categorías e Información Financiera en Acordeón:** La barra de navegación inicia plegada mostrando **Bolivia Remoto** a la izquierda y el botón de menú hamburguesa a la derecha (con la etiqueta **Menú** a la izquierda del ícono en resolución de escritorio). Al desplegar el menú, incluye las secciones desplegables **Categorías de Plataformas** e **Información Financiera** (con enlaces a AirTM, Payoneer, Wise, Tipalti y Dólar Bolivia Hoy e información sobre liquidación de nómina global).
+- **Navegación Plegada en Menú Hamburguesa, Categorías e Información Financiera en Acordeón:** La barra de navegación inicia plegada mostrando **Bolivia Remote Work** a la izquierda y el botón de menú hamburguesa a la derecha (con la etiqueta **Menú** a la izquierda del ícono en resolución de escritorio). Al desplegar el menú, incluye las secciones desplegables **Categorías de Plataformas** e **Información Financiera** (con enlaces a AirTM, Payoneer, Wise, Tipalti y Dólar Bolivia Hoy e información sobre liquidación de nómina global).
 - **Banner Unificado con Controles Compactos y Recomendación de Idioma:** El banner superior adopta el mismo esquema de colores de las tarjetas en modo claro y oscuro, integra en su fila inferior las píldoras de estado junto a los botones compactos (`Español (Bolivia)`, `English`, selector de tema y `Escanear Ofertas Ahora`), e incluye el aviso formativo con enlace directo a [Language Transfer](https://www.languagetransfer.org): *"Para el trabajo remoto a nivel global, se recomienda encarecidamente aprender inglés. Te abre todo un entorno de oportunidades y con Language Transfer, es gratis!"*
 - **Sincronización Automática de Nuevas Plataformas (`custom_*`):** Nuevo motor [`src/seed_sync.js`](src/seed_sync.js), script CLI [`sync_platforms.mjs`](sync_platforms.mjs) (`npm run sync-platforms`) y endpoint `/api/platforms/sync` que exportan plataformas agregadas por usuarios en vivo directamente hacia [`platforms_config.json`](platforms_config.json) y [`src/seed_data.js`](src/seed_data.js), compatible con el empaquetador de Cloudflare Workers sin advertencias de compilación.
 - **Modo Oscuro & Modo Claro con Símbolos Discretos:** Selector visual estilizado con símbolos vectoriales de luna creciente y sol, guardando la preferencia del usuario en `localStorage` y sincronizando con el tema del sistema operativo.
@@ -86,7 +86,7 @@ Si estás utilizando la versión alojada públicamente en línea, esta guía te 
 
 ### Paso 1: Acceso e idioma
 
-Al abrir el portal, la aplicación carga por defecto en **Español (Bolivia)** (`es-BO`) con el nombre **Bolivia Remoto** en la barra de navegación y el título **Buscador y Evaluador de Empleos Remotos desde Bolivia** en el banner principal. 
+Al abrir el portal, la aplicación carga por defecto en **Español (Bolivia)** (`es-BO`) con el nombre **Bolivia Remote Work** en la barra de navegación y el título **Buscador y Evaluador de Empleos Remotos desde Bolivia** en el banner principal. 
 
 Si prefieres navegar en inglés, haz clic en el botón superior derecho:
 - **`Español (Bolivia)`**: Textos, etiquetas, badges de contratación y reportes orientados a la región.
@@ -175,7 +175,7 @@ graph TD
 
 ### Paso 6: Pestaña interactiva "Manual de Uso" integrada
 
-En la barra de navegación lateral encontrarás el enlace directo a **Manual de Uso**, que contiene exclusivamente la **Guía del Usuario: Bolivia Remoto (BO)** estructurada en 9 pasos prácticos para dominar la plataforma:
+En la barra de navegación lateral encontrarás el enlace directo a **Manual de Uso**, que contiene exclusivamente la **Guía del Usuario: Bolivia Remote Work** estructurada en 9 pasos prácticos para dominar la plataforma:
 
 1. **Configura tus Idiomas de Trabajo:** Selecciona entre `Español (BO)`, `Inglés` y `Portugués`. *(Regla Estricta: si seleccionas únicamente Español, el motor descarta vacantes en inglés y prioriza empleos en habla hispana).*
 2. **Define tu Nivel de Experiencia:** Desde *Inicial / Sin Experiencia (0-1 a)* hasta *Senior (5+ a)* y *Lead (8+ a)*.
@@ -340,7 +340,7 @@ Puedes alojar tu propia instancia en Cloudflare en menos de 5 minutos utilizando
    npm test
    ```
    *Ejecuta 8 grupos de prueba automáticos que validan:*
-   - Carga de la interfaz web en español Bolivia (`es-BO`), diseño responsivo para tablets y móviles, menú hamburguesa plegado por defecto al nivel de **Bolivia Remoto**, categorías plegadas en acordeón, modo oscuro y manual integrado.
+   - Carga de la interfaz web en español Bolivia (`es-BO`), diseño responsivo para tablets y móviles, menú hamburguesa plegado por defecto al nivel de **Bolivia Remote Work**, categorías plegadas en acordeón, modo oscuro y manual integrado.
    - Estado general del servicio con 86 plataformas monitoreadas y catálogo base de 142+ oportunidades.
    - Ponderación estricta de idiomas (exclusión garantizada de ofertas en inglés si solo se marca Español).
    - Cobertura de 12 categorías y roles ampliados (Asistente Virtual, Coordinación, Operaciones, Soporte) y filtro estricto de área profesional (`strict_position_match`).

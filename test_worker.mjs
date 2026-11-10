@@ -12,8 +12,8 @@ async function runTests() {
   assert.equal(respRoot.status, 200);
   const html = await respRoot.text();
   assert.ok(html.includes('lang="es-BO"'), 'Default language must be es-BO');
-  assert.ok(html.includes('id="nav-brand-title">Bolivia Remoto</span>'), 'Must include Bolivia Remoto without (BO) in navbar brand');
-  assert.ok(!html.includes('id="nav-brand-title">Bolivia Remoto (BO)</span>'), 'Must NOT have (BO) in navbar brand');
+  assert.ok(html.includes('id="nav-brand-title">Bolivia Remote Work</span>'), 'Must include Bolivia Remote Work without (BO) in navbar brand');
+  assert.ok(!html.includes('id="nav-brand-title">Bolivia Remote Work (BO)</span>'), 'Must NOT have (BO) in navbar brand');
   assert.ok(html.includes('Buscador y Evaluador de Empleos Remotos desde Bolivia'), 'Must include banner title without 100% and without (BO)');
   assert.ok(!html.includes('Buscador y Evaluador de Empleos 100% Remotos desde Bolivia (BO)'), 'Must remove 100% and (BO) from banner title');
   assert.ok(html.includes('id="nav-track-a">B2B Directo &amp; Freelance'), 'Must keep category name and remove Track A prefix in categories list');
@@ -43,7 +43,7 @@ async function runTests() {
   assert.ok(html.includes('setUiLanguage(\'en\')'), 'Must include English language switcher');
   assert.ok(html.includes('id="sidebar-unfold-btn"'), 'Must have sidebar unfold button');
   assert.ok(html.includes('<body class="sidebar-collapsed">'), 'Navbar must start folded in hamburger menu by default');
-  assert.ok(/<div class="navbar-header">[\s\S]*?id="nav-brand-title">Bolivia Remoto<\/span>[\s\S]*?id="sidebar-unfold-btn"[\s\S]*?<span class="hamburger-label" id="lbl-unfold-nav">Menú<\/span>[\s\S]*?<span class="hamburger-icon">/.test(html), 'Hamburger button must be inside navbar-header on the right with Menú on the left of hamburger icon');
+  assert.ok(/<div class="navbar-header">[\s\S]*?id="nav-brand-title">Bolivia Remote Work<\/span>[\s\S]*?id="sidebar-unfold-btn"[\s\S]*?<span class="hamburger-label" id="lbl-unfold-nav">Menú<\/span>[\s\S]*?<span class="hamburger-icon">/.test(html), 'Hamburger button must be inside navbar-header on the right with Menú on the left of hamburger icon');
   assert.ok(html.includes('onclick="toggleCategoriesMenu()"'), 'Categories header inside menu must be collapsible');
   assert.ok(html.includes('class="nav-track-item nav-track-folded"'), 'Categories inside menu must start folded');
   assert.ok(html.includes('id="nav-hdr-payments">Información Financiera</span>'), 'Must include Información Financiera section header under Categorías de Plataformas');

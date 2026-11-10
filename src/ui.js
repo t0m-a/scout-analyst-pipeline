@@ -1579,7 +1579,7 @@ export function renderAppHtml(initialState) {
 
   <nav id="navbar">
     <div class="navbar-header">
-      <header class="header-title"><span id="nav-brand-title">Bolivia Remoto</span></header>
+      <header class="header-title"><span id="nav-brand-title">Bolivia Remote Work</span></header>
       <button type="button" id="sidebar-unfold-btn" class="sidebar-fold-btn" onclick="toggleSidebar()" title="Mostrar menú" aria-label="Mostrar menú" aria-expanded="false">
         <span class="hamburger-label" id="lbl-unfold-nav">Menú</span>
         <span class="hamburger-icon"><span></span><span></span><span></span></span>
@@ -1803,10 +1803,10 @@ export function renderAppHtml(initialState) {
     <!-- VIEW 2: INTERACTIVE USER MANUAL -->
     <section id="view-manual" style="display:none;">
       <div class="manual-container">
-        <!-- GUÍA DEL USUARIO: BOLIVIA REMOTO (BO) -->
+        <!-- GUÍA DEL USUARIO: Bolivia Remote Work -->
         <article class="manual-card">
           <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:14px;border-bottom:1px solid #f1f5f9;padding-bottom:12px;">
-            <h3 id="man-h-intro" style="margin:0;">Guía del Usuario: Bolivia Remoto (BO)</h3>
+            <h3 id="man-h-intro" style="margin:0;">Guía del Usuario: Bolivia Remote Work</h3>
             <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
               <button type="button" class="btn-lang active" id="man-btn-lang-es" onclick="setUiLanguage('es')">Español (Bolivia)</button>
               <button type="button" class="btn-lang" id="man-btn-lang-en" onclick="setUiLanguage('en')">English</button>
@@ -1822,7 +1822,7 @@ export function renderAppHtml(initialState) {
             </div>
           </div>
           <p id="man-p-intro" style="font-size:0.92em;color:#334155;line-height:1.6;">
-            <strong>Bolivia Remoto (BO)</strong> es una plataforma pública, gratuita e interactiva diseñada para encontrar, filtrar y evaluar en vivo oportunidades laborales internacionales que admiten trabajo 100% remoto desde Bolivia (UTC-4), eliminando el ruido de ofertas con restricciones territoriales o visados extranjeros.
+            <strong>Bolivia Remote Work</strong> es una plataforma pública, gratuita e interactiva diseñada para encontrar, filtrar y evaluar en vivo oportunidades laborales internacionales que admiten trabajo 100% remoto desde Bolivia (UTC-4), eliminando el ruido de ofertas con restricciones territoriales o visados extranjeros.
           </p>
           <div class="info-callout" id="man-box-privacy">
             <strong>Privacidad Total y Sin Registros:</strong> No necesitas crear una cuenta ni ingresar datos personales. Tus filtros y preferencias se guardan de forma privada en tu propio navegador (localStorage).
@@ -2094,7 +2094,7 @@ export function renderAppHtml(initialState) {
     const I18N = {
       es: {
         pageTitle: 'Empleos Remotos desde Bolivia — Buscador y Evaluador en Vivo',
-        navBrand: 'Bolivia Remoto',
+        navBrand: 'Bolivia Remote Work',
         unfoldNav: 'Menú',
         navViews: 'Vistas Principales',
         navResults: 'Resultados en Vivo',
@@ -2190,7 +2190,7 @@ export function renderAppHtml(initialState) {
       },
       en: {
         pageTitle: 'Remote Jobs from Bolivia — Live Job Scout & Evaluator',
-        navBrand: 'Bolivia Remote',
+        navBrand: 'Bolivia Remote Work',
         unfoldNav: 'Menu',
         navViews: 'Main Views',
         navResults: 'Live Results',
