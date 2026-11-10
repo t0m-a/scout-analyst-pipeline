@@ -1398,7 +1398,7 @@ export function renderAppHtml(initialState) {
       <li class="nav-track-item nav-track-folded"><a onclick="switchMainView('results'); filterByTrack('TRACK F'); closeNavbarMenu();"><span id="nav-track-f">Bolsas de Empleo Remoto</span></a></li>
 
       <li class="nav-group-header nav-collapsible-header" id="nav-hdr-payments-item" onclick="togglePaymentsMenu()" role="button" tabindex="0" aria-expanded="false">
-        <span id="nav-hdr-payments">Tus medios de cobrar</span>
+        <span id="nav-hdr-payments">Información Financiera</span>
         <span class="nav-caret" id="nav-payments-caret" aria-hidden="true"></span>
       </li>
       <li class="nav-payment-item nav-payment-folded"><a href="https://www.airtm.com/" target="_blank" rel="noopener noreferrer">AirTM</a></li>
@@ -1904,7 +1904,7 @@ export function renderAppHtml(initialState) {
         navTrackD: 'Portales Europeos & Globales',
         navTrackE: 'Redes de Consultoría Experta',
         navTrackF: 'Bolsas de Empleo Remoto',
-        navPayments: 'Tus medios de cobrar',
+        navPayments: 'Información Financiera',
         navPaymentsDesc: 'Las empresas suelen liquidar mediante plataformas de nómina global como <strong>AirTM. Wise, Payoneer o Tipalti</strong>. Desde estas cuentas puedes transferir vía SWIFT O transferancia ACH hacia tu cuenta bancaria boliviana en Boliviano o en USD, usar tarjetas de débito internacionales, o liquidar honorarios a través de pasarelas reguladas entre tus cuentas globales y locales.',
         categoryLabel: 'Categoría',
         themeDarkTitle: 'Cambiar a modo oscuro',
@@ -2000,7 +2000,7 @@ export function renderAppHtml(initialState) {
         navTrackD: 'European & Global Portals',
         navTrackE: 'Expert Consulting Networks',
         navTrackF: 'Remote Job Boards',
-        navPayments: 'Tus medios de cobrar',
+        navPayments: 'Información Financiera',
         navPaymentsDesc: 'Las empresas suelen liquidar mediante plataformas de nómina global como <strong>AirTM. Wise, Payoneer o Tipalti</strong>. Desde estas cuentas puedes transferir vía SWIFT O transferancia ACH hacia tu cuenta bancaria boliviana en Boliviano o en USD, usar tarjetas de débito internacionales, o liquidar honorarios a través de pasarelas reguladas entre tus cuentas globales y locales.',
         categoryLabel: 'Category',
         themeDarkTitle: 'Switch to dark mode',
