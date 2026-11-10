@@ -631,18 +631,47 @@ export function renderAppHtml(initialState) {
       font-size: 0.88em;
       font-weight: 600;
       display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
     }
     .scan-alert.success {
-      display: block;
+      display: flex;
       background: #ecfdf5;
       border: 1px solid #10b981;
       color: #065f46;
     }
     .scan-alert.error {
-      display: block;
+      display: flex;
       background: #fef2f2;
       border: 1px solid #ef4444;
       color: #991b1b;
+    }
+    .scan-alert-content {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .scan-alert-close {
+      border: none;
+      background: transparent;
+      color: inherit;
+      font-size: 1.25em;
+      font-weight: 800;
+      cursor: pointer;
+      padding: 2px 8px;
+      line-height: 1;
+      border-radius: 4px;
+      opacity: 0.8;
+      flex-shrink: 0;
+    }
+    .scan-alert-close:hover {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.06);
     }
     .kpi-grid {
       display: grid;
@@ -1339,6 +1368,19 @@ export function renderAppHtml(initialState) {
     }
     body.dark-mode .form-field label {
       color: #94a3b8;
+    }
+    body.dark-mode .scan-alert.success {
+      background: #064e3b;
+      border-color: #10b981;
+      color: #ecfdf5;
+    }
+    body.dark-mode .scan-alert.error {
+      background: #450a0a;
+      border-color: #ef4444;
+      color: #fecaca;
+    }
+    body.dark-mode .scan-alert-close:hover {
+      background: rgba(255, 255, 255, 0.12);
     }
     body.dark-mode .kpi-card {
       background: var(--bg-card);
@@ -3167,13 +3209,40 @@ export function renderAppHtml(initialState) {
       }
     }
 
+    function closeScanFeedback() {
+      const feedbackBox = document.getElementById('scan-feedback-box');
+      if (!feedbackBox) return;
+      feedbackBox.className = 'scan-alert';
+      feedbackBox.style.display = 'none';
+      feedbackBox.innerHTML = '';
+    }
+
+    function renderScanFeedback(platformName, counts, isDeadLead) {
+      const feedbackBox = document.getElementById('scan-feedback-box');
+      if (!feedbackBox) return;
+      const c = counts || { apply: 0, possible: 0, skip: 0, geo: 0 };
+      const dead = Boolean(isDeadLead);
+      feedbackBox.className = 'scan-alert ' + (dead ? 'error' : 'success');
+      feedbackBox.style.display = 'flex';
+      const badgesHtml = dead
+        ? '<span class="badge badge-GEO">DEAD LEAD</span>'
+        : '<span class="badge badge-APPLY">POSTULAR: ' + Number(c.apply || 0) + '</span>' +
+          ' &middot; <span class="badge badge-POSSIBLE">EXPLORAR: ' + Number(c.possible || 0) + '</span>' +
+          ' &middot; <span class="badge badge-SKIP">BAJA COINCIDENCIA: ' + Number(c.skip || 0) + '</span>' +
+          ' &middot; <span class="badge badge-GEO">BLOQUEADAS PA&Iacute;S: ' + Number(c.geo || 0) + '</span>';
+      feedbackBox.innerHTML =
+        '<div class="scan-alert-content">' +
+          '<strong>' + escapeHtml(platformName || 'URL') + '</strong>' +
+          '<span>' + badgesHtml + '</span>' +
+        '</div>' +
+        '<button type="button" class="scan-alert-close" onclick="closeScanFeedback()" aria-label="Cerrar" title="Cerrar">&times;</button>';
+    }
+
     async function submitCustomPlatformScan(customArgs) {
       const t = I18N[userFilters.ui_lang] || I18N.es;
-      const isEs = userFilters.ui_lang !== 'en';
       const urlInput = document.getElementById('scan-url-input');
       const nameInput = document.getElementById('scan-name-input');
       const typeSelect = document.getElementById('scan-type-select');
-      const feedbackBox = document.getElementById('scan-feedback-box');
       const submitBtn = document.getElementById('btn-submit-url');
       const submitLbl = document.getElementById('lbl-btn-submit-url');
 
@@ -3186,8 +3255,7 @@ export function renderAppHtml(initialState) {
 
       submitBtn.disabled = true;
       submitLbl.textContent = t.scanningUrl;
-      feedbackBox.className = 'scan-alert';
-      feedbackBox.style.display = 'none';
+      closeScanFeedback();
 
       try {
         const resp = await fetch('/api/platforms/scan-url', {
@@ -3197,94 +3265,69 @@ export function renderAppHtml(initialState) {
         });
         if (!resp.ok) {
           const errData = await resp.json().catch(() => ({}));
-          throw new Error(errData.error || 'Error scanning URL');
+          throw new Error(errData.error || 'HTTP ' + resp.status);
         }
         const data = await resp.json();
-        if (Array.isArray(data.all_opportunities)) {
-          opportunitiesState = data.all_opportunities;
-        } else if (Array.isArray(data.opportunities)) {
-          const existingHashes = new Set(opportunitiesState.map(o => o.job_hash));
-          for (const o of data.opportunities) {
-            if (!existingHashes.has(o.job_hash)) {
-              opportunitiesState.unshift(o);
+        const evalList = Array.isArray(data.evaluated_opportunities) ? data.evaluated_opportunities : [];
+        const counts = data.verdict_counts || {
+          apply: evalList.filter(r => r.bolivia_eligible && r.verdict === 'APPLY').length,
+          possible: evalList.filter(r => r.bolivia_eligible && r.verdict === 'POSSIBLE').length,
+          skip: evalList.filter(r => r.bolivia_eligible && r.verdict === 'SKIP').length,
+          geo: evalList.filter(r => !r.bolivia_eligible).length
+        };
+        const isDeadLead = Boolean(
+          data.dead_lead ||
+          !data.discovered_count ||
+          (data.http_status && data.http_status >= 400)
+        );
+
+        if (!isDeadLead) {
+          if (Array.isArray(data.all_opportunities)) {
+            opportunitiesState = data.all_opportunities;
+          } else if (Array.isArray(data.opportunities)) {
+            const existingHashes = new Set(opportunitiesState.map(o => o.job_hash));
+            for (const o of data.opportunities) {
+              if (!existingHashes.has(o.job_hash)) {
+                opportunitiesState.unshift(o);
+              }
             }
           }
-        }
-        if (Array.isArray(data.platforms)) {
-          platformsState = data.platforms;
-        } else if (data.platform) {
-          const exists = platformsState.some(p => p.id === data.platform.id);
-          if (!exists) platformsState.unshift(data.platform);
-        }
-        lastScanAtState = new Date().toISOString();
-        recomputeAndRender();
-        renderPlatformsDirectory();
-
-        feedbackBox.className = 'scan-alert success';
-        feedbackBox.textContent = isEs
-          ? 'Plataforma "' + data.platform.name + '" escaneada (' + data.platform.type + '): ' +
-            data.discovered_count + ' ofertas analizadas, ' + data.bolivia_eligible_count +
-            ' elegibles 100% remoto desde Bolivia agregadas a Resultados.'
-          : 'Platform "' + data.platform.name + '" scanned (' + data.platform.type + '): ' +
-            data.discovered_count + ' offers analyzed, ' + data.bolivia_eligible_count +
-            ' 100% remote from Bolivia added to Results.';
-        if (!customArgs) {
-          urlInput.value = '';
-          nameInput.value = '';
-        }
-      } catch (err) {
-        // Offline / static file fallback: register platform & evaluate locally
-        try {
-          const cleanUrl = /^https?:\\/\\//i.test(url) ? url : 'https://' + url;
-          const parsed = new URL(cleanUrl);
-          const dom = parsed.hostname.replace(/^www\\./i, '');
-          const pName = name || dom.split('.')[0].toUpperCase();
-          const newPlat = {
-            id: 'custom_' + dom.replace(/[^a-z0-9]+/g, '_'),
-            name: pName,
-            category: 'Plataforma Agregada por Usuario',
-            track,
-            type: type === 'auto' ? 'html_board' : type,
-            enabled: true,
-            domain: dom,
-            url: cleanUrl,
-            notes: 'Agregada desde el escáner de URL'
-          };
-          const newOpp = {
-            job_hash: 'custom_' + Date.now(),
-            platform_id: newPlat.id,
-            platform_name: pName,
-            category: newPlat.category,
-            track: newPlat.track,
-            contract_caveat: 'fractional_or_fulltime',
-            title: pName + ' — Ofertas Remotas Evaluadas (' + dom + ')',
-            company: pName,
-            location: 'Remote Worldwide / Global (Apto Bolivia)',
-            url: cleanUrl,
-            description: 'Plataforma agregada y evaluada por el usuario (' + cleanUrl + '). Elegible para postulación remota desde Bolivia.',
-            tags: 'remote, custom-url',
-            published_at: new Date().toISOString().slice(0, 10),
-            discovered_at: new Date().toISOString().slice(0, 19)
-          };
-          if (!platformsState.some(p => p.id === newPlat.id)) {
-            platformsState.unshift(newPlat);
+          if (Array.isArray(data.platforms)) {
+            platformsState = data.platforms;
+          } else if (data.platform) {
+            const exists = platformsState.some(p => p.id === data.platform.id);
+            if (!exists) platformsState.unshift(data.platform);
           }
-          opportunitiesState.unshift(newOpp);
+          lastScanAtState = new Date().toISOString();
           recomputeAndRender();
           renderPlatformsDirectory();
-          feedbackBox.className = 'scan-alert success';
-          feedbackBox.textContent = isEs
-            ? 'Plataforma "' + pName + '" (' + cleanUrl + ') agregada y evaluada en Resultados.'
-            : 'Platform "' + pName + '" (' + cleanUrl + ') added and evaluated in Results.';
-        } catch (innerErr) {
-          feedbackBox.className = 'scan-alert error';
-          feedbackBox.textContent = err.message || 'No se pudo escanear la URL';
+          if (!customArgs) {
+            urlInput.value = '';
+            nameInput.value = '';
+          }
         }
+
+        renderScanFeedback((data.platform && data.platform.name) || name || url, counts, isDeadLead);
+      } catch (err) {
+        let fallbackName = name;
+        if (!fallbackName) {
+          try {
+            const cleanUrl = /^https?:\\/\\//i.test(url) ? url : 'https://' + url;
+            const parsed = new URL(cleanUrl);
+            fallbackName = parsed.hostname.replace(/^www\\./i, '');
+          } catch (e) {
+            fallbackName = url;
+          }
+        }
+        renderScanFeedback(fallbackName, { apply: 0, possible: 0, skip: 0, geo: 0 }, true);
       } finally {
         submitBtn.disabled = false;
         submitLbl.textContent = (I18N[userFilters.ui_lang] || I18N.es).btnSubmitUrl;
       }
     }
+    window.closeScanFeedback = closeScanFeedback;
+    window.renderScanFeedback = renderScanFeedback;
+    window.submitCustomPlatformScan = submitCustomPlatformScan;
 
     function scanExistingPlatform(url, name, type, track) {
       switchMainView('results');

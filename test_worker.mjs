@@ -133,6 +133,27 @@ async function runTests() {
   assert.ok(domElements['chips-positions'].innerHTML.includes('togglePositionChip'), 'Must render interactive position chips on load');
   assert.ok(domElements['resultsCardsContainer'].innerHTML.includes('opp-card'), 'Must render job cards on load');
   assert.equal(typeof vmSandbox.window.toggleSidebar, 'function', 'Menu button handler toggleSidebar must be bound');
+  assert.equal(typeof vmSandbox.window.renderScanFeedback, 'function', 'renderScanFeedback must be bound');
+  assert.equal(typeof vmSandbox.window.closeScanFeedback, 'function', 'closeScanFeedback must be bound');
+
+  // Verify #scan-feedback-box display:flex fix, verdict badges, DEAD LEAD, and close button
+  vmSandbox.window.renderScanFeedback('Remotive', { apply: 6, possible: 9, skip: 3, geo: 6 }, false);
+  assert.equal(domElements['scan-feedback-box'].style.display, 'flex', '#scan-feedback-box must set style.display = flex when visible');
+  assert.ok(domElements['scan-feedback-box'].innerHTML.includes('Remotive'), 'Must show Platform Name');
+  assert.ok(domElements['scan-feedback-box'].innerHTML.includes('POSTULAR: 6'), 'Must show POSTULAR badge count');
+  assert.ok(domElements['scan-feedback-box'].innerHTML.includes('EXPLORAR: 9'), 'Must show EXPLORAR badge count');
+  assert.ok(domElements['scan-feedback-box'].innerHTML.includes('BAJA COINCIDENCIA: 3'), 'Must show BAJA COINCIDENCIA badge count');
+  assert.ok(domElements['scan-feedback-box'].innerHTML.includes('BLOQUEADAS PA&Iacute;S: 6'), 'Must show BLOQUEADAS PAIS badge count');
+  assert.ok(domElements['scan-feedback-box'].innerHTML.includes('closeScanFeedback()'), 'Must include close button');
+
+  vmSandbox.window.renderScanFeedback('BrokenBoard', { apply: 0, possible: 0, skip: 0, geo: 0 }, true);
+  assert.equal(domElements['scan-feedback-box'].style.display, 'flex', '#scan-feedback-box must set style.display = flex on DEAD LEAD');
+  assert.ok(domElements['scan-feedback-box'].className.includes('error'), 'DEAD LEAD must use error class');
+  assert.ok(domElements['scan-feedback-box'].innerHTML.includes('BrokenBoard'), 'Must show Platform Name on DEAD LEAD');
+  assert.ok(domElements['scan-feedback-box'].innerHTML.includes('DEAD LEAD'), 'Must show DEAD LEAD badge');
+
+  vmSandbox.window.closeScanFeedback();
+  assert.equal(domElements['scan-feedback-box'].style.display, 'none', 'closeScanFeedback must hide #scan-feedback-box');
 
   console.log('2. Testing GET /api/state (85 platforms + 137 opportunities)...');
   const reqState = new Request('https://bolivia-remote-scout.workers.dev/api/state');
@@ -254,6 +275,8 @@ async function runTests() {
   const scanUrlData = await respScanUrl.json();
   assert.equal(scanUrlData.ok, true);
   assert.ok(scanUrlData.platform.id.includes('weworkremotely'));
+  assert.equal(typeof scanUrlData.dead_lead, 'boolean', 'scan-url must return dead_lead boolean');
+  assert.ok(scanUrlData.verdict_counts && typeof scanUrlData.verdict_counts.apply === 'number', 'scan-url must return verdict_counts');
 
   console.log('6b. Testing GET /api/platforms/sync (Export custom_* platforms)...');
   const respSync = await worker.fetch(new Request('https://bolivia-remote-scout.workers.dev/api/platforms/sync'), {}, {});

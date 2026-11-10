@@ -511,101 +511,60 @@ export async function scanCustomPlatformUrl(input, userFilters = {}) {
 
   let discovered = [];
   let detectedType = requestedType;
+  let deadLead = false;
+  let httpStatus = 200;
 
   try {
     if (requestedType === 'portal_dork') {
       discovered = await fetchPortalDork(platformObj);
+      if (discovered.length === 0) {
+        deadLead = true;
+      }
     } else {
       const resp = await fetchWithTimeout(rawUrl, 9500);
-      const text = resp.text || '';
-      const trimmed = text.trim();
-      const ct = (resp.contentType || '').toLowerCase();
-
-      if (
-        requestedType === 'json_api' ||
-        (requestedType === 'auto' && (ct.includes('json') || trimmed.startsWith('{') || trimmed.startsWith('[')))
-      ) {
-        detectedType = 'json_api';
-        discovered = parseJsonFeed(text, platformObj);
-      } else if (
-        requestedType === 'rss_feed' ||
-        (requestedType === 'auto' &&
-          (ct.includes('xml') || ct.includes('rss') || ct.includes('atom') || /^<\?xml|<rss|<feed/i.test(trimmed)))
-      ) {
-        detectedType = 'rss_feed';
-        discovered = parseRssFeed(text, platformObj);
+      httpStatus = resp.status || 0;
+      if (!resp.ok) {
+        deadLead = true;
       } else {
-        detectedType = 'html_board';
-        discovered = parseHtmlJobBoard(text, platformObj);
+        const text = resp.text || '';
+        const trimmed = text.trim();
+        const ct = (resp.contentType || '').toLowerCase();
 
-        // If direct HTML parsing found few jobs (e.g. SPA or walled portal), supplement with portal search dork
-        if (discovered.length < 2) {
-          const dorkHits = await fetchPortalDork(platformObj).catch(() => []);
-          if (dorkHits.length > 0) {
-            detectedType = discovered.length > 0 ? 'html_board+dork' : 'portal_dork';
-            discovered = [...discovered, ...dorkHits];
+        if (
+          requestedType === 'json_api' ||
+          (requestedType === 'auto' && (ct.includes('json') || trimmed.startsWith('{') || trimmed.startsWith('[')))
+        ) {
+          detectedType = 'json_api';
+          discovered = parseJsonFeed(text, platformObj);
+        } else if (
+          requestedType === 'rss_feed' ||
+          (requestedType === 'auto' &&
+            (ct.includes('xml') || ct.includes('rss') || ct.includes('atom') || /^<\?xml|<rss|<feed/i.test(trimmed)))
+        ) {
+          detectedType = 'rss_feed';
+          discovered = parseRssFeed(text, platformObj);
+        } else {
+          detectedType = 'html_board';
+          discovered = parseHtmlJobBoard(text, platformObj);
+
+          // If direct HTML parsing found few jobs (e.g. SPA or walled portal), supplement with portal search dork
+          if (discovered.length < 2) {
+            const dorkHits = await fetchPortalDork(platformObj).catch(() => []);
+            if (dorkHits.length > 0) {
+              detectedType = discovered.length > 0 ? 'html_board+dork' : 'portal_dork';
+              discovered = [...discovered, ...dorkHits];
+            }
           }
         }
 
-        // If still 0 items (e.g. user pasted a direct single job posting URL or a brand-new portal), create an entry from the page metadata
-        if (discovered.length === 0 && text.length > 0) {
-          const pageTitleMatch = text.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
-          const metaDescMatch =
-            text.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)["']/i) ||
-            text.match(/<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']+)["']/i);
-          const pageTitle = stripHtml(pageTitleMatch ? pageTitleMatch[1] : `${inferredName} — Remote Career Portal`);
-          const pageDesc = stripHtml(
-            metaDescMatch
-              ? metaDescMatch[1]
-              : `Portal de oportunidades remotas en ${inferredName} (${rawUrl}).`
-          );
-
-          discovered.push({
-            job_hash: computeJobHash(pageTitle, inferredName, rawUrl),
-            platform_id: platformId,
-            platform_name: inferredName,
-            category,
-            track,
-            contract_caveat: platformObj.contract_caveat,
-            title: pageTitle.slice(0, 140),
-            company: inferredName,
-            location: 'Remote Worldwide / Global',
-            url: rawUrl,
-            description: pageDesc.slice(0, 1200),
-            tags: 'custom-url, remote',
-            published_at: new Date().toISOString().slice(0, 10),
-            discovered_at: new Date().toISOString().slice(0, 19)
-          });
+        if (discovered.length === 0) {
+          deadLead = true;
         }
       }
     }
-  } catch (err) {
-    // Fallback to portal dork if direct fetch failed due to CORS/WAF
-    const dorkFallback = await fetchPortalDork(platformObj).catch(() => []);
-    if (dorkFallback.length > 0) {
-      detectedType = 'portal_dork';
-      discovered = dorkFallback;
-    } else {
-      // Create a portal entry so the user can still evaluate the platform
-      discovered = [
-        {
-          job_hash: computeJobHash(`${inferredName} — Remote Portal`, inferredName, rawUrl),
-          platform_id: platformId,
-          platform_name: inferredName,
-          category,
-          track,
-          contract_caveat: platformObj.contract_caveat,
-          title: `${inferredName} — Portal de Ofertas Remotas (${domain})`,
-          company: inferredName,
-          location: 'Remote Worldwide / LATAM (UTC-4)',
-          url: rawUrl,
-          description: `Plataforma registrada para monitoreo remoto desde Bolivia: ${rawUrl}. (${err.message || 'Scan completed'})`,
-          tags: 'custom-platform, remote',
-          published_at: new Date().toISOString().slice(0, 10),
-          discovered_at: new Date().toISOString().slice(0, 19)
-        }
-      ];
-    }
+  } catch {
+    deadLead = true;
+    httpStatus = 0;
   }
 
   platformObj.type = detectedType;
@@ -613,9 +572,20 @@ export async function scanCustomPlatformUrl(input, userFilters = {}) {
   // Evaluate all discovered items
   const evaluated = discovered.map(item => evaluateOpportunity(item, userFilters));
   const boliviaEligibleItems = evaluated.filter(item => item.bolivia_eligible);
+  const isDeadLead = Boolean(deadLead || evaluated.length === 0);
+  const verdictCounts = {
+    apply: evaluated.filter(r => r.bolivia_eligible && r.verdict === 'APPLY').length,
+    possible: evaluated.filter(r => r.bolivia_eligible && r.verdict === 'POSSIBLE').length,
+    skip: evaluated.filter(r => r.bolivia_eligible && r.verdict === 'SKIP').length,
+    geo: evaluated.filter(r => !r.bolivia_eligible).length,
+    dead_lead: isDeadLead ? 1 : 0
+  };
 
   return {
     platform: platformObj,
+    dead_lead: isDeadLead,
+    http_status: httpStatus,
+    verdict_counts: verdictCounts,
     discovered_count: discovered.length,
     bolivia_eligible_count: boliviaEligibleItems.length,
     opportunities: discovered,

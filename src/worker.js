@@ -521,7 +521,7 @@ export default {
         }
 
         let seedSyncInfo = null;
-        if (body.persist === true) {
+        if (body.persist === true && !scanRes.dead_lead) {
           const syncRes = await persistCustomPlatformsToDisk(state, ['.', 'z:/opt/scout-analyst']);
           seedSyncInfo = {
             persisted_to_disk: syncRes.persisted_to_disk,
@@ -533,6 +533,9 @@ export default {
         return jsonResponse({
           ok: true,
           platform: scanRes.platform,
+          dead_lead: scanRes.dead_lead,
+          http_status: scanRes.http_status,
+          verdict_counts: scanRes.verdict_counts,
           discovered_count: scanRes.discovered_count,
           bolivia_eligible_count: scanRes.bolivia_eligible_count,
           opportunities: scanRes.opportunities,
