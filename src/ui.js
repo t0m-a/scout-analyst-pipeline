@@ -139,18 +139,24 @@ export function renderAppHtml(initialState) {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 36px;
+      gap: 8px;
+      width: auto;
       height: 34px;
-      padding: 0;
+      padding: 0 12px;
       border: 1px solid #cbd5e1;
       border-radius: 7px;
       background: #ffffff;
       color: #0f172a;
+      font-size: 0.85em;
       font-weight: 700;
       line-height: 1;
       cursor: pointer;
       flex-shrink: 0;
       transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+    .hamburger-label {
+      display: inline-block;
+      line-height: 1;
     }
     .sidebar-fold-btn:hover,
     #sidebar-unfold-btn:hover {
@@ -229,12 +235,24 @@ export function renderAppHtml(initialState) {
     #navbar li.nav-collapsible-header.expanded .nav-caret {
       transform: rotate(45deg);
     }
-    #navbar li.nav-track-item.nav-track-folded {
+    #navbar li.nav-track-item.nav-track-folded,
+    #navbar li.nav-payment-item.nav-payment-folded {
       display: none !important;
     }
-    #navbar li.nav-track-item a {
+    #navbar li.nav-track-item a,
+    #navbar li.nav-payment-item a {
       padding-left: 26px;
       font-size: 0.85em;
+    }
+    #navbar li.nav-payment-desc {
+      padding: 10px 16px 12px 26px;
+      background: #f8fafc;
+    }
+    #navbar li.nav-payment-desc p {
+      margin: 0;
+      font-size: 0.78em;
+      line-height: 1.45;
+      color: #475569;
     }
     #navbar a {
       display: block;
@@ -993,6 +1011,15 @@ export function renderAppHtml(initialState) {
       color: #38bdf8;
       border-left-color: #38bdf8;
     }
+    body.dark-mode #navbar li.nav-payment-desc {
+      background: #0f172a;
+    }
+    body.dark-mode #navbar li.nav-payment-desc p {
+      color: #94a3b8;
+    }
+    body.dark-mode #navbar li.nav-payment-desc p strong {
+      color: #e2e8f0;
+    }
     body.dark-mode .top-banner {
       background: var(--bg-card);
       border-color: #1e293b;
@@ -1214,6 +1241,15 @@ export function renderAppHtml(initialState) {
       .navbar-header {
         padding: 10px 16px;
       }
+      .sidebar-fold-btn,
+      #sidebar-unfold-btn {
+        width: 36px;
+        padding: 0;
+        gap: 0;
+      }
+      .hamburger-label {
+        display: none;
+      }
       #navbar ul {
         position: static;
         width: 100%;
@@ -1341,6 +1377,7 @@ export function renderAppHtml(initialState) {
     <div class="navbar-header">
       <header class="header-title"><span id="nav-brand-title">Bolivia Remoto</span></header>
       <button type="button" id="sidebar-unfold-btn" class="sidebar-fold-btn" onclick="toggleSidebar()" title="Mostrar menú" aria-label="Mostrar menú" aria-expanded="false">
+        <span class="hamburger-label" id="lbl-unfold-nav">Menú</span>
         <span class="hamburger-icon"><span></span><span></span><span></span></span>
       </button>
     </div>
@@ -1359,6 +1396,19 @@ export function renderAppHtml(initialState) {
       <li class="nav-track-item nav-track-folded"><a onclick="switchMainView('results'); filterByTrack('TRACK D'); closeNavbarMenu();"><span id="nav-track-d">Portales Europeos &amp; Globales</span></a></li>
       <li class="nav-track-item nav-track-folded"><a onclick="switchMainView('results'); filterByTrack('TRACK E'); closeNavbarMenu();"><span id="nav-track-e">Redes de Consultoría Experta</span></a></li>
       <li class="nav-track-item nav-track-folded"><a onclick="switchMainView('results'); filterByTrack('TRACK F'); closeNavbarMenu();"><span id="nav-track-f">Bolsas de Empleo Remoto</span></a></li>
+
+      <li class="nav-group-header nav-collapsible-header" id="nav-hdr-payments-item" onclick="togglePaymentsMenu()" role="button" tabindex="0" aria-expanded="false">
+        <span id="nav-hdr-payments">Tus medios de cobrar</span>
+        <span class="nav-caret" id="nav-payments-caret" aria-hidden="true"></span>
+      </li>
+      <li class="nav-payment-item nav-payment-folded"><a href="https://www.airtm.com/" target="_blank" rel="noopener noreferrer">AirTM</a></li>
+      <li class="nav-payment-item nav-payment-folded"><a href="https://www.payoneer.com/" target="_blank" rel="noopener noreferrer">Payoneer</a></li>
+      <li class="nav-payment-item nav-payment-folded"><a href="https://wise.com/" target="_blank" rel="noopener noreferrer">Wise</a></li>
+      <li class="nav-payment-item nav-payment-folded"><a href="https://tipalti.com/" target="_blank" rel="noopener noreferrer">Tipalti</a></li>
+      <li class="nav-payment-item nav-payment-folded"><a href="https://dolarboliviahoy.com/" target="_blank" rel="noopener noreferrer">Dólar Bolivia Hoy (dolarboliviahoy.com)</a></li>
+      <li class="nav-payment-item nav-payment-folded nav-payment-desc">
+        <p id="nav-payments-desc">Las empresas suelen liquidar mediante plataformas de nómina global como <strong>AirTM. Wise, Payoneer o Tipalti</strong>. Desde estas cuentas puedes transferir vía SWIFT O transferancia ACH hacia tu cuenta bancaria boliviana en Boliviano o en USD, usar tarjetas de débito internacionales, o liquidar honorarios a través de pasarelas reguladas entre tus cuentas globales y locales.</p>
+      </li>
     </ul>
   </nav>
 
@@ -1854,6 +1904,8 @@ export function renderAppHtml(initialState) {
         navTrackD: 'Portales Europeos & Globales',
         navTrackE: 'Redes de Consultoría Experta',
         navTrackF: 'Bolsas de Empleo Remoto',
+        navPayments: 'Tus medios de cobrar',
+        navPaymentsDesc: 'Las empresas suelen liquidar mediante plataformas de nómina global como <strong>AirTM. Wise, Payoneer o Tipalti</strong>. Desde estas cuentas puedes transferir vía SWIFT O transferancia ACH hacia tu cuenta bancaria boliviana en Boliviano o en USD, usar tarjetas de débito internacionales, o liquidar honorarios a través de pasarelas reguladas entre tus cuentas globales y locales.',
         categoryLabel: 'Categoría',
         themeDarkTitle: 'Cambiar a modo oscuro',
         themeLightTitle: 'Cambiar a modo claro',
@@ -1948,6 +2000,8 @@ export function renderAppHtml(initialState) {
         navTrackD: 'European & Global Portals',
         navTrackE: 'Expert Consulting Networks',
         navTrackF: 'Remote Job Boards',
+        navPayments: 'Tus medios de cobrar',
+        navPaymentsDesc: 'Las empresas suelen liquidar mediante plataformas de nómina global como <strong>AirTM. Wise, Payoneer o Tipalti</strong>. Desde estas cuentas puedes transferir vía SWIFT O transferancia ACH hacia tu cuenta bancaria boliviana en Boliviano o en USD, usar tarjetas de débito internacionales, o liquidar honorarios a través de pasarelas reguladas entre tus cuentas globales y locales.',
         categoryLabel: 'Category',
         themeDarkTitle: 'Switch to dark mode',
         themeLightTitle: 'Switch to light mode',
@@ -2074,6 +2128,7 @@ export function renderAppHtml(initialState) {
       document.title = t.pageTitle;
       const map = {
         'nav-brand-title': t.navBrand,
+        'lbl-unfold-nav': t.unfoldNav,
         'nav-hdr-views': t.navViews,
         'nav-lbl-results': t.navResults,
         'nav-lbl-manual': t.navManual,
@@ -2086,6 +2141,8 @@ export function renderAppHtml(initialState) {
         'nav-track-d': t.navTrackD,
         'nav-track-e': t.navTrackE,
         'nav-track-f': t.navTrackF,
+        'nav-hdr-payments': t.navPayments,
+        'nav-payments-desc': t.navPaymentsDesc,
         'banner-title': t.bannerTitle,
         'banner-subtitle': t.bannerSubtitle,
         'banner-disclaimer': t.bannerDisclaimer,
@@ -2145,7 +2202,7 @@ export function renderAppHtml(initialState) {
       for (const [id, text] of Object.entries(map)) {
         const el = document.getElementById(id);
         if (el) {
-          if (id === 'banner-disclaimer' || id === 'footer-text') {
+          if (id === 'banner-disclaimer' || id === 'footer-text' || id === 'nav-payments-desc') {
             el.innerHTML = text;
           } else {
             el.textContent = text;
@@ -2550,6 +2607,21 @@ export function renderAppHtml(initialState) {
       }
     }
     window.toggleCategoriesMenu = toggleCategoriesMenu;
+
+    function togglePaymentsMenu() {
+      const hdr = document.getElementById('nav-hdr-payments-item');
+      const items = document.querySelectorAll('#navbar li.nav-payment-item');
+      let nowExpanded = false;
+      items.forEach(item => {
+        const isFolded = item.classList.toggle('nav-payment-folded');
+        if (!isFolded) nowExpanded = true;
+      });
+      if (hdr) {
+        hdr.classList.toggle('expanded', nowExpanded);
+        hdr.setAttribute('aria-expanded', nowExpanded ? 'true' : 'false');
+      }
+    }
+    window.togglePaymentsMenu = togglePaymentsMenu;
 
     async function triggerOnDemandScan() {
       const t = I18N[userFilters.ui_lang] || I18N.es;

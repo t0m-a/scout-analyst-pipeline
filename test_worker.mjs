@@ -40,9 +40,16 @@ async function runTests() {
   assert.ok(html.includes('setUiLanguage(\'en\')'), 'Must include English language switcher');
   assert.ok(html.includes('id="sidebar-unfold-btn"'), 'Must have sidebar unfold button');
   assert.ok(html.includes('<body class="sidebar-collapsed">'), 'Navbar must start folded in hamburger menu by default');
-  assert.ok(/<div class="navbar-header">[\s\S]*?id="nav-brand-title">Bolivia Remoto<\/span>[\s\S]*?id="sidebar-unfold-btn"[\s\S]*?<span class="hamburger-icon">/.test(html), 'Hamburger button must be inside navbar-header on the right at the same level as Bolivia Remoto');
+  assert.ok(/<div class="navbar-header">[\s\S]*?id="nav-brand-title">Bolivia Remoto<\/span>[\s\S]*?id="sidebar-unfold-btn"[\s\S]*?<span class="hamburger-label" id="lbl-unfold-nav">Menú<\/span>[\s\S]*?<span class="hamburger-icon">/.test(html), 'Hamburger button must be inside navbar-header on the right with Menú on the left of hamburger icon');
   assert.ok(html.includes('onclick="toggleCategoriesMenu()"'), 'Categories header inside menu must be collapsible');
   assert.ok(html.includes('class="nav-track-item nav-track-folded"'), 'Categories inside menu must start folded');
+  assert.ok(html.includes('id="nav-hdr-payments">Tus medios de cobrar</span>'), 'Must include Tus medios de cobrar section header under Categorías de Plataformas');
+  assert.ok(html.includes('href="https://www.airtm.com/"'), 'Must include AirTM link');
+  assert.ok(html.includes('href="https://www.payoneer.com/"'), 'Must include Payoneer link');
+  assert.ok(html.includes('href="https://wise.com/"'), 'Must include Wise link');
+  assert.ok(html.includes('href="https://tipalti.com/"'), 'Must include Tipalti link');
+  assert.ok(html.includes('href="https://dolarboliviahoy.com/"'), 'Must include dolarboliviahoy.com link');
+  assert.ok(html.includes('Las empresas suelen liquidar mediante plataformas de nómina global como <strong>AirTM. Wise, Payoneer o Tipalti</strong>. Desde estas cuentas puedes transferir vía SWIFT O transferancia ACH hacia tu cuenta bancaria boliviana en Boliviano o en USD, usar tarjetas de débito internacionales, o liquidar honorarios a través de pasarelas reguladas entre tus cuentas globales y locales.'), 'Must include exact payment description paragraph');
   assert.ok(html.includes('@media only screen and (max-width: 820px)'), 'Must include tablet responsive media query');
   assert.ok(html.includes('@media only screen and (max-width: 640px)'), 'Must include mobile responsive media query');
   assert.ok(html.includes('overflow-wrap: break-word'), 'Must enforce proper text wrapping');
