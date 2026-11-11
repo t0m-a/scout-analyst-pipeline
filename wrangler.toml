@@ -27,5 +27,11 @@ binding = "AI"
 # QDRANT_URL = "http://localhost:6333"
 # QDRANT_COLLECTION = "bolivia_remote_jobs"
 
+# Private MCP Server Authentication:
+# Set your private Bearer token in Cloudflare Secret Storage via:
+#   npx wrangler secret put MCP_API_KEY
+# When MCP_API_KEY is set, all requests to /mcp, /api/mcp, and /.well-known/mcp.json
+# require `Authorization: Bearer <MCP_API_KEY>` (or `X-MCP-API-Key: <MCP_API_KEY>` or `?key=<MCP_API_KEY>`).
+
 [observability]
 enabled = true

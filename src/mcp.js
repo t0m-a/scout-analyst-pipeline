@@ -475,6 +475,54 @@ async function executeMcpRpcObject(rpc, state, env, saveStateFn) {
 }
 
 /**
+ * Constant-time string comparison to prevent timing side-channel attacks on API keys.
+ */
+function timingSafeEqualStr(a, b) {
+  const strA = String(a || '');
+  const strB = String(b || '');
+  if (strA.length === 0 || strA.length !== strB.length) return false;
+  let diff = 0;
+  for (let i = 0; i < strA.length; i++) {
+    diff |= strA.charCodeAt(i) ^ strB.charCodeAt(i);
+  }
+  return diff === 0;
+}
+
+/**
+ * Verifies Bearer Token / API Key when `env.MCP_API_KEY` (or `env.MCP_REQUIRE_AUTH`) is configured.
+ * Supports:
+ *   1. `Authorization: Bearer <MCP_API_KEY>`
+ *   2. `X-MCP-API-Key: <MCP_API_KEY>`
+ *   3. `?key=<MCP_API_KEY>` or `?api_key=<MCP_API_KEY>` query parameter
+ */
+export function verifyMcpAuth(request, env, urlObj) {
+  const expectedKey = env && typeof env.MCP_API_KEY === 'string' ? env.MCP_API_KEY.trim() : '';
+  const requireAuth = Boolean(expectedKey) || Boolean(env && String(env.MCP_REQUIRE_AUTH).toLowerCase() === 'true');
+  if (!requireAuth) {
+    return { ok: true, enforced: false };
+  }
+  if (!expectedKey) {
+    return { ok: false, enforced: true };
+  }
+
+  const authHeader = request.headers.get('Authorization') || request.headers.get('authorization') || '';
+  const bearerMatch = authHeader.match(/^Bearer\s+(.+)$/i);
+  const headerKey = request.headers.get('X-MCP-API-Key') || request.headers.get('x-mcp-api-key') || '';
+  const parsedUrl = urlObj || new URL(request.url);
+  const queryKey = parsedUrl.searchParams.get('key') || parsedUrl.searchParams.get('api_key') || '';
+
+  const providedKey = (bearerMatch ? bearerMatch[1] : (headerKey || queryKey)).trim();
+  if (!providedKey) {
+    return { ok: false, enforced: true };
+  }
+
+  return {
+    ok: timingSafeEqualStr(providedKey, expectedKey),
+    enforced: true
+  };
+}
+
+/**
  * HTTP Handler for `/mcp`, `/api/mcp`, and `/.well-known/mcp.json`.
  */
 export async function handleMcpRequest(request, state, env, ctx, saveStateFn) {
@@ -483,8 +531,26 @@ export async function handleMcpRequest(request, state, env, ctx, saveStateFn) {
     'Content-Type': 'application/json; charset=utf-8',
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Accept, Mcp-Session-Id'
+    'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization, X-MCP-API-Key, Mcp-Session-Id'
   };
+
+  const auth = verifyMcpAuth(request, env, url);
+  if (!auth.ok) {
+    return new Response(
+      JSON.stringify(
+        jsonRpcError(null, -32001, 'Unauthorized: Valid Bearer token or X-MCP-API-Key required'),
+        null,
+        2
+      ),
+      {
+        status: 401,
+        headers: {
+          ...headers,
+          'WWW-Authenticate': 'Bearer realm="bolivia-remote-mcp-server"'
+        }
+      }
+    );
+  }
 
   if (request.method === 'GET') {
     const manifest = getMcpServerManifest(url.origin);

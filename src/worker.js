@@ -330,7 +330,7 @@ function jsonResponse(payload, status = 200) {
       'Content-Type': 'application/json; charset=utf-8',
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type'
+      'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization, X-MCP-API-Key, Mcp-Session-Id'
     }
   });
 }
@@ -379,6 +379,7 @@ export default {
         vectorize_enabled: Boolean(env && env.VECTORIZE),
         qdrant_enabled: Boolean(env && env.QDRANT_URL),
         mcp_endpoint: '/mcp',
+        mcp_auth_enabled: Boolean(env && env.MCP_API_KEY),
         lastScanAt: state.lastScanAt,
         platforms_count: state.platforms.length,
         opportunities_count: state.opportunities.length,

@@ -556,6 +556,54 @@ async function runTests() {
   const mcpResData = await respMcpRes.json();
   assert.ok(mcpResData.result.contents[0].text.includes('POSTULAR (Puntaje >= 78):'), 'MCP resource must return live Markdown report');
 
+  // Test Private MCP Bearer Token / API Key Protection (env.MCP_API_KEY)
+  const lockedMcpEnv = { MCP_API_KEY: 'bolivia-secret-token-2026' };
+  const respMcpUnauth = await worker.fetch(
+    new Request('https://bolivia-remote-scout.workers.dev/mcp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jsonrpc: '2.0', id: 10, method: 'ping' })
+    }),
+    lockedMcpEnv,
+    {}
+  );
+  assert.equal(respMcpUnauth.status, 401, 'MCP server must reject unauthenticated request when MCP_API_KEY is set');
+
+  const respMcpWrongKey = await worker.fetch(
+    new Request('https://bolivia-remote-scout.workers.dev/mcp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer wrong-token'
+      },
+      body: JSON.stringify({ jsonrpc: '2.0', id: 11, method: 'ping' })
+    }),
+    lockedMcpEnv,
+    {}
+  );
+  assert.equal(respMcpWrongKey.status, 401, 'MCP server must reject invalid Bearer token');
+
+  const respMcpValidBearer = await worker.fetch(
+    new Request('https://bolivia-remote-scout.workers.dev/mcp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer bolivia-secret-token-2026'
+      },
+      body: JSON.stringify({ jsonrpc: '2.0', id: 12, method: 'ping' })
+    }),
+    lockedMcpEnv,
+    {}
+  );
+  assert.equal(respMcpValidBearer.status, 200, 'MCP server must allow valid Authorization: Bearer token');
+
+  const respMcpValidQueryKey = await worker.fetch(
+    new Request('https://bolivia-remote-scout.workers.dev/.well-known/mcp.json?key=bolivia-secret-token-2026'),
+    lockedMcpEnv,
+    {}
+  );
+  assert.equal(respMcpValidQueryKey.status, 200, 'MCP server must allow valid ?key= query parameter');
+
   console.log('7. Testing GET /favicon.svg and /favicon.ico (Earth with Bolivian flag colors)...');
   const respFavSvg = await worker.fetch(new Request('https://bolivia-remote-scout.workers.dev/favicon.svg'), {}, {});
   assert.equal(respFavSvg.status, 200);
