@@ -631,9 +631,25 @@ async function runTests() {
   const respFavIco = await worker.fetch(new Request('https://bolivia-remote-scout.workers.dev/favicon.ico'), {}, {});
   assert.equal(respFavIco.status, 200);
 
+  console.log('7b. Testing GET /sitemap.xml and /robots.txt...');
+  const respSitemap = await worker.fetch(new Request('https://boliviaremote.work/sitemap.xml'), {}, {});
+  assert.equal(respSitemap.status, 200);
+  assert.ok(respSitemap.headers.get('Content-Type').includes('application/xml'), 'sitemap.xml must return application/xml');
+  const sitemapText = await respSitemap.text();
+  assert.ok(sitemapText.includes('<urlset'), 'sitemap.xml must include <urlset');
+  assert.ok(sitemapText.includes('https://boliviaremote.work/'), 'sitemap.xml must include canonical domain');
+
+  const respRobots = await worker.fetch(new Request('https://boliviaremote.work/robots.txt'), {}, {});
+  assert.equal(respRobots.status, 200);
+  const robotsText = await respRobots.text();
+  assert.ok(robotsText.includes('Sitemap: https://boliviaremote.work/sitemap.xml'), 'robots.txt must reference sitemap.xml');
+  assert.ok(robotsText.includes('Disallow: /mcp'), 'robots.txt must disallow /mcp');
+
   console.log('8. Testing zero personal references across all repository files...');
   const filesToCheck = [
     'README.md',
+    'sitemap.xml',
+    'robots.txt',
     'master_profile.json',
     'platforms_config.json',
     'scout_agent.py',

@@ -369,6 +369,62 @@ export default {
       });
     }
 
+    // 1c. SEO Sitemap XML & robots.txt Endpoints
+    if (request.method === 'GET' && path === '/sitemap.xml') {
+      const lastModDate = String(state.lastScanAt || new Date().toISOString()).slice(0, 10);
+      const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://boliviaremote.work/</loc>
+    <xhtml:link rel="alternate" hreflang="es-BO" href="https://boliviaremote.work/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://boliviaremote.work/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://boliviaremote.work/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://boliviaremote.work/" />
+    <lastmod>${lastModDate}</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://boliviaremote.work/api/results.md?lang=es</loc>
+    <lastmod>${lastModDate}</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://boliviaremote.work/api/results.md?lang=en</loc>
+    <lastmod>${lastModDate}</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>`;
+      return new Response(sitemapXml, {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/xml; charset=utf-8',
+          'Cache-Control': 'public, max-age=3600'
+        }
+      });
+    }
+
+    if (request.method === 'GET' && path === '/robots.txt') {
+      const robotsTxt = `User-agent: *
+Allow: /
+Disallow: /mcp
+Disallow: /api/mcp
+Disallow: /.well-known/mcp.json
+
+Sitemap: https://boliviaremote.work/sitemap.xml
+`;
+      return new Response(robotsTxt, {
+        status: 200,
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Cache-Control': 'public, max-age=86400'
+        }
+      });
+    }
+
     // 2. Get Current State API
     if (request.method === 'GET' && path === '/api/state') {
       return jsonResponse({

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /mcp
+Disallow: /api/mcp
+Disallow: /.well-known/mcp.json
+
+Sitemap: https://boliviaremote.work/sitemap.xml
