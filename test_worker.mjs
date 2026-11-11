@@ -479,7 +479,25 @@ async function runTests() {
   assert.equal(semVecData.embedding_model, '@cf/baai/bge-m3');
 
   console.log('6e. Testing Phase 4 Streamable HTTP MCP Server (/mcp and /.well-known/mcp.json)...');
-  const respMcpManifest = await worker.fetch(new Request('https://bolivia-remote-scout.workers.dev/.well-known/mcp.json'), {}, {});
+  // 1. Fail-closed verification: even with empty env {}, public GET /mcp and /.well-known/mcp.json must return 401
+  const respMcpPublicBlocked = await worker.fetch(new Request('https://bolivia-remote-scout.workers.dev/mcp'), {}, {});
+  assert.equal(respMcpPublicBlocked.status, 401, 'GET /mcp must be blocked (401) by default without token');
+  const respManifestPublicBlocked = await worker.fetch(new Request('https://bolivia-remote-scout.workers.dev/.well-known/mcp.json'), {}, {});
+  assert.equal(respManifestPublicBlocked.status, 401, 'GET /.well-known/mcp.json must be blocked (401) by default without token');
+
+  const lockedMcpEnv = { MCP_API_KEY: 'bolivia-secret-token-2026' };
+  const mcpAuthHeaders = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer bolivia-secret-token-2026'
+  };
+
+  const respMcpManifest = await worker.fetch(
+    new Request('https://bolivia-remote-scout.workers.dev/.well-known/mcp.json', {
+      headers: mcpAuthHeaders
+    }),
+    lockedMcpEnv,
+    {}
+  );
   assert.equal(respMcpManifest.status, 200);
   const mcpManifest = await respMcpManifest.json();
   assert.equal(mcpManifest.ok, true);
@@ -490,10 +508,10 @@ async function runTests() {
   const respMcpInit = await worker.fetch(
     new Request('https://bolivia-remote-scout.workers.dev/mcp', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: mcpAuthHeaders,
       body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'initialize', params: { protocolVersion: '2025-03-26' } })
     }),
-    {},
+    lockedMcpEnv,
     {}
   );
   assert.equal(respMcpInit.status, 200);
@@ -506,10 +524,10 @@ async function runTests() {
   const respMcpTools = await worker.fetch(
     new Request('https://bolivia-remote-scout.workers.dev/mcp', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: mcpAuthHeaders,
       body: JSON.stringify({ jsonrpc: '2.0', id: 2, method: 'tools/list' })
     }),
-    {},
+    lockedMcpEnv,
     {}
   );
   const mcpToolsData = await respMcpTools.json();
@@ -519,7 +537,7 @@ async function runTests() {
   const respMcpCallSearch = await worker.fetch(
     new Request('https://bolivia-remote-scout.workers.dev/mcp', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: mcpAuthHeaders,
       body: JSON.stringify({
         jsonrpc: '2.0',
         id: 3,
@@ -530,7 +548,7 @@ async function runTests() {
         }
       })
     }),
-    {},
+    lockedMcpEnv,
     {}
   );
   const mcpCallSearchData = await respMcpCallSearch.json();
@@ -542,7 +560,7 @@ async function runTests() {
   const respMcpRes = await worker.fetch(
     new Request('https://bolivia-remote-scout.workers.dev/mcp', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: mcpAuthHeaders,
       body: JSON.stringify({
         jsonrpc: '2.0',
         id: 4,
@@ -550,14 +568,13 @@ async function runTests() {
         params: { uri: 'bolivia://results/markdown' }
       })
     }),
-    {},
+    lockedMcpEnv,
     {}
   );
   const mcpResData = await respMcpRes.json();
   assert.ok(mcpResData.result.contents[0].text.includes('POSTULAR (Puntaje >= 78):'), 'MCP resource must return live Markdown report');
 
   // Test Private MCP Bearer Token / API Key Protection (env.MCP_API_KEY)
-  const lockedMcpEnv = { MCP_API_KEY: 'bolivia-secret-token-2026' };
   const respMcpUnauth = await worker.fetch(
     new Request('https://bolivia-remote-scout.workers.dev/mcp', {
       method: 'POST',
@@ -586,10 +603,7 @@ async function runTests() {
   const respMcpValidBearer = await worker.fetch(
     new Request('https://bolivia-remote-scout.workers.dev/mcp', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer bolivia-secret-token-2026'
-      },
+      headers: mcpAuthHeaders,
       body: JSON.stringify({ jsonrpc: '2.0', id: 12, method: 'ping' })
     }),
     lockedMcpEnv,

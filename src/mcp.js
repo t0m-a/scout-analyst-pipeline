@@ -489,20 +489,23 @@ function timingSafeEqualStr(a, b) {
 }
 
 /**
- * Verifies Bearer Token / API Key when `env.MCP_API_KEY` (or `env.MCP_REQUIRE_AUTH`) is configured.
- * Supports:
- *   1. `Authorization: Bearer <MCP_API_KEY>`
- *   2. `X-MCP-API-Key: <MCP_API_KEY>`
- *   3. `?key=<MCP_API_KEY>` or `?api_key=<MCP_API_KEY>` query parameter
+ * Verifies Bearer Token / API Key for private `/mcp` access (Fail-Closed by default).
+ * Unless `env.MCP_PUBLIC_ACCESS === 'true'`, authentication is strictly required:
+ *   - If `env.MCP_API_KEY` is not set in Cloudflare Worker secrets, all requests are rejected (401).
+ *   - When `env.MCP_API_KEY` is set, requests must supply a matching key via:
+ *       1. `Authorization: Bearer <MCP_API_KEY>`
+ *       2. `X-MCP-API-Key: <MCP_API_KEY>`
+ *       3. `?key=<MCP_API_KEY>` or `?api_key=<MCP_API_KEY>` query parameter
  */
 export function verifyMcpAuth(request, env, urlObj) {
-  const expectedKey = env && typeof env.MCP_API_KEY === 'string' ? env.MCP_API_KEY.trim() : '';
-  const requireAuth = Boolean(expectedKey) || Boolean(env && String(env.MCP_REQUIRE_AUTH).toLowerCase() === 'true');
-  if (!requireAuth) {
+  const allowPublic = Boolean(env && String(env.MCP_PUBLIC_ACCESS).toLowerCase() === 'true');
+  if (allowPublic) {
     return { ok: true, enforced: false };
   }
+
+  const expectedKey = env && typeof env.MCP_API_KEY === 'string' ? env.MCP_API_KEY.trim() : '';
   if (!expectedKey) {
-    return { ok: false, enforced: true };
+    return { ok: false, enforced: true, reason: 'MCP_API_KEY secret is not configured on the Worker' };
   }
 
   const authHeader = request.headers.get('Authorization') || request.headers.get('authorization') || '';
@@ -513,12 +516,13 @@ export function verifyMcpAuth(request, env, urlObj) {
 
   const providedKey = (bearerMatch ? bearerMatch[1] : (headerKey || queryKey)).trim();
   if (!providedKey) {
-    return { ok: false, enforced: true };
+    return { ok: false, enforced: true, reason: 'Missing Bearer token or X-MCP-API-Key' };
   }
 
   return {
     ok: timingSafeEqualStr(providedKey, expectedKey),
-    enforced: true
+    enforced: true,
+    reason: 'Invalid Bearer token or X-MCP-API-Key'
   };
 }
 

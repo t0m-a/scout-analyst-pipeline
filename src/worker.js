@@ -379,7 +379,7 @@ export default {
         vectorize_enabled: Boolean(env && env.VECTORIZE),
         qdrant_enabled: Boolean(env && env.QDRANT_URL),
         mcp_endpoint: '/mcp',
-        mcp_auth_enabled: Boolean(env && env.MCP_API_KEY),
+        mcp_auth_enabled: !(env && String(env.MCP_PUBLIC_ACCESS).toLowerCase() === 'true'),
         lastScanAt: state.lastScanAt,
         platforms_count: state.platforms.length,
         opportunities_count: state.opportunities.length,
